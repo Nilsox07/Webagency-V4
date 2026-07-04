@@ -1,0 +1,237 @@
+# Sartu · Website-Plan & Preise — Referenz
+
+Stand: Juni 2026 · Geprüft & konsistent (Syntax ✓, 18 Preis-Tests ✓, Feld-/ID-Check ✓)
+
+Dieses Dokument beschreibt **wo welche Werte gepflegt werden**, **welche Felder es gibt**
+und **welche Punkte noch bestätigt/gefüllt werden müssen**. Es ersetzt keinen Blick in den Code,
+fasst aber die „Single Sources of Truth" zusammen.
+
+---
+
+## 1. Dateien & Zuständigkeiten
+
+| Datei | Zweck | Hier ändern, wenn … |
+|---|---|---|
+| **`pricing.js`** | **Zentrale Preisdaten**: Pakete, Wartung, Add-ons, Extraseite, Enterprise-Optionen | …ein Preis, ein Add-on oder ein Paket-Detail sich ändert |
+| **`payment-terms.js`** | **Zahlungs-Staffelung** je Paket + Garantie-Text (nur Anzeige) | …sich die Meilenstein-Prozente/Bezeichnungen ändern |
+| **`pricing-calc.js`** | **Live-Summen-Berechnung** (einmalig/monatlich). Wird von Browser **und** Tests genutzt | …sich die Rechenlogik ändert (selten) |
+| **`briefing-schema.js`** | **Website-Anfrage-Fragen** (Stufe 1): Optionslisten + Slot-Definitionen. **Keine Preise!** | …eine Frage/Option im Website-Assistent-Flow sich ändert |
+| **`briefing.js`** | Flow-Engine: zwei Pfade, Website-Plan, Vorbefüllung, Enterprise-Abzweig, Versand | …sich Ablauf/Logik ändert |
+| **`color-mockup.js`** | Optionales Farb-Vorschau-Mockup (Schritt 5) — leicht entfernbar | …Mockup-Optik/Stil-Layouts |
+| **`pricing.test.js`** | Tests der Summen-Logik (`node pricing.test.js`) | …neue Preis-Fälle abzusichern sind |
+
+**Wichtig:** Preise stehen **nur** in `pricing.js`. `briefing-schema.js` enthält bewusst
+keine Preise mehr (frühere `pakete`/`wartungHinweis` wurden entfernt, da sie der heutigen
+Pflicht-Wartung widersprachen).
+
+---
+
+## 2. Pakete (einmalig) — `pricing.js → packages`
+
+| ID | Name | Preis | Inkl. Seiten | „Beliebt" | Wartungs-Floor |
+|---|---|---|---|---|---|
+| `basis` | Basis | **1.290 €** | 1 (One-Pager) | – | Care S |
+| `pro` | Pro | **2.990 €** | 8 | – | Care M |
+| `platin` | Platin | **5.990 €** | 20 | **✓** | Care L |
+| `enterprise` | Enterprise | **kein Fixpreis** (`price: null`) | – | – | Care L |
+
+- Quelle: Leistungsbeschreibung **v2.0** (Stand Juni 2026); stimmt mit `preise.php` und den Leistungsseiten überein.
+- **Enterprise** ist ein **Abzweig**: kein Live-Fixpreis, sondern „Individuelles Angebot"
+  + strukturierte Anforderungs-Abfrage (siehe Abschnitt 6).
+- **„Beliebt"** sitzt auf **Platin** (Start­seite, Preise-Seite und Website-Plan lesen das
+  aus dem `popular`-Flag).
+
+---
+
+## 3. Sartu Care — Hosting, Sicherheit & Wartung (monatlich, **PFLICHT**) — `pricing.js → maintenance`
+
+| ID | Name | € / Monat (Jahreszahlung) | Empfohlen |
+|---|---|---|---|
+| `care-s` | Care S | **49 €** | – |
+| `care-m` | Care M | **99 €** | **✓** |
+| `care-l` | Care L | **249 €** | – |
+
+- Care ist bei jeder Website **Pflicht** (keine „Keine-Wartung"-Option). Preise gelten bei
+  jährlicher Vorauszahlung.
+- Jedes Paket startet auf seinem `maintenanceFloor` (Basis→Care S, Pro→Care M, Platin→Care L,
+  Enterprise→Care L). Der Kunde kann **nur nach oben** wechseln (niedrigere Stufen gesperrt).
+- Reihenfolge: `maintenanceOrder = [care-s, care-m, care-l]`.
+- Enterprise nutzt **Care XL** (individuell) — im Website-Plan nicht relevant (Abzweig).
+
+---
+
+## 4. Extraseiten (Variante A) — `pricing.js → extraPage`
+
+- **199 €** pro zusätzlicher Seite über dem Inklusiv-Kontingent (ab 3 Seiten Bundle-Rabatt).
+- Eigener Stepper im Website-Plan; fließt live in die Einmalsumme ein.
+- So kann z. B. **Pro + 5 Extraseiten** gewählt werden, ohne zu Enterprise gezwungen zu sein.
+
+---
+
+## 5. Add-ons — `pricing.js → addons`
+
+**Einmalig**
+
+| ID | Name | Preis | Menge |
+|---|---|---|---|
+| `texte` | Texterstellung pro Seite · Gruppe `texte` | 120 € | 1–10 (pro Seite) |
+| `texte-paket` | Texte-Paket (5 Seiten) · Gruppe `texte` | 490 € | – |
+| `texte-paket10` | Texte-Paket (10 Seiten) · Gruppe `texte` | 890 € | – |
+| `texte-seo` | SEO-Option für Texte | 30 € | 1–10 (pro Seite) |
+| `logo-lite` | Logo Lite · Gruppe `branding` | 490 € | – |
+| `branding-pro` | Branding Pro · Gruppe `branding` | 990 € | – |
+| `corporate` | Corporate Design · Gruppe `branding` | 1.890 € | – |
+| `terminbuchung` | Online-Terminbuchung | ab 290 € | – |
+| `google-profil` | Google-Profil-Setup | 290 € | – |
+| `chatbot` | KI-Chatbot (Kombi: Einrichtung + Betrieb) | 490 € + 49 €/Mon. | – |
+| `newsletter` | Newsletter-Anbindung | 290 € | – |
+| `analytics` | Analytics-/Tracking-Setup | 190 € | – |
+| `social-feed` | Bewertungs-/Social-Feed | ab 90 € | – |
+| `migration` | Domain-Umzug / Migration | ab 190 € | – |
+| `korrektur` | Zusätzliche Korrekturrunde | 140 € | 1–5 (pro Runde) |
+| `mehrsprachig` | Mehrsprachigkeit | **+40 % je Sprache** | 1–5 (pro Sprache) |
+| `express` | Express-Lieferung | **+50 %, mind. 390 €** | – |
+
+**Monatlich**
+
+| ID | Name | Preis / Monat |
+|---|---|---|
+| `seo-lite` | SEO-Betreuung Lite · Gruppe `seo-betreuung` | 149 € |
+| `seo-pro` | SEO-Betreuung Pro · Gruppe `seo-betreuung` | 390 € |
+| `seo-premium` | SEO-Betreuung Premium · Gruppe `seo-betreuung` | 790 € |
+| `profil-basic` | Google-Profil-Pflege Basic · Gruppe `profil-pflege` | 79 € |
+| `profil-pro` | Google-Profil-Pflege Pro · Gruppe `profil-pflege` | 149 € |
+
+- Alle Werte 1:1 aus der Aufpreisliste in `preise.php` bzw. den Stufen der Leistungsseiten.
+- `type`: `once` (einmalig) · `month` (monatlich) · `percent` (Prozent vom Paketpreis, z. B. Express).
+- `from: true` = „ab"-Preis; gerechnet wird mit der Untergrenze.
+- `group`: Varianten-Add-ons derselben Gruppe (Texte, Branding, SEO-Betreuung, Profil-Pflege)
+  werden im Website-Plan als Karten NEBENEINANDER gerendert (wie Pakete & Wartung) und schließen
+  sich gegenseitig aus — erneutes Klicken wählt ab (`briefing.js → buildTierGroup`).
+- `monthly`: Kombi-Add-on — Einmalpreis + feste monatliche Kosten in EINER Option
+  (KI-Chatbot: 490 € einmalig + 49 €/Monat; `pricing-calc.js` bucht beides).
+- Enterprise-Karte zeigt `priceFrom` („ab 9.990 €") als reine Anzeige; die Live-Berechnung bleibt
+  beim Enterprise-Abzweig („Individuelles Festpreis-Angebot").
+- „Weitere Arbeitszeit 99 €/Std." (`preise.php`, 5-Min-Takt) ist bewusst KEIN Add-on — Stundensatz, kein Paket.
+- UX: nur die `common`-Add-ons sind direkt sichtbar, der Rest hinter „Alle Add-ons anzeigen".
+
+
+---
+
+## 6. Enterprise-Abzweig — `pricing.js → enterpriseOptions`
+
+Wird Enterprise gewählt (oder von Website-Assistent empfohlen), schaltet der Website-Plan von Live-Preis
+auf **„Individuelles Festpreis-Angebot"** und fragt strukturiert ab:
+
+- **Sonderfunktionen** (Multi): Shop/Bezahlung, Login/Mitgliederbereich, Buchungssystem,
+  Schnittstelle/CRM/API, Mehrsprachigkeit, Portal/Community
+- **Seitenzahl** (Single): bis 20 · 20–50 · 50+ · unklar
+- **Shop-Größe** (Single, nur wenn „Shop"): bis 50 · 50–500 · 500+ · unklar
+- **Sprachen** (Freitext, nur wenn „Mehrsprachigkeit")
+- **Schnittstellen** (Freitext, nur wenn „Schnittstelle/CRM")
+- **Zeithorizont** (Single): asap · 1–3 Monate · 3–6 Monate · flexibel
+- **Notiz** (Freitext, optional)
+
+Das Paket bleibt jederzeit zu einem kleineren wechselbar (keine Sackgasse).
+
+> Hinweis: `enterpriseTriggerFeatures` ist als Konstante vorhanden, aber aktuell **nicht aktiv
+> verdrahtet** — der Abzweig wird über die Paketwahl (`configurable: false`) bzw. die
+> Website-Assistent-Empfehlung ausgelöst. Kann später als zusätzlicher Auslöser genutzt werden.
+
+---
+
+## 7. Zahlungs-Staffelung (nur Anzeige) — `payment-terms.js`
+
+| Paket | Meilensteine |
+|---|---|
+| Basis | 50 % bei Auftrag · 50 % bei Go-live |
+| Pro & Platin | 40 % bei Auftrag · 30 % bei Designfreigabe · 30 % bei Go-live |
+| Enterprise | 30 % bei Auftrag · 30 % bei Designfreigabe · 20 % bei Fertigstellung · 20 % bei Go-live |
+
+- Summe je Paket = **100 %** (getestet).
+- **`preise.php` und `payment-terms.js` sind jetzt wortgleich** (zuvor stand bei Enterprise
+  „Zwischen-Meilenstein" statt „Fertigstellung" — korrigiert).
+- Garantie-Text: „Geld zurück, wenn die erste Design-Vorschau nicht überzeugt." (gilt nur für
+  die erste Design-Vorschau, nicht für freigegebene/live-Leistung).
+
+---
+
+## 8. Website-Anfrage-Felder (Stufe 1) — `briefing-schema.js → slots`
+
+Pro Schritt erfasste Slots (landen 1:1 im gespeicherten Website-Anfrage):
+
+| Slot | Typ | Schritt |
+|---|---|---|
+| `branche` (+ `branche_sonstiges`) | single / text | 1 |
+| `ziele` | multi | 2 |
+| `umfang` (+ `seiten`, bedingt) | single / multi | 3 |
+| `features` | multi | 4 |
+| `stil`, `hauptfarbe`, `nebenfarbe`, `markenfarben_hex` | multi / single / single / text | 5 |
+| `material` (+ `uploads`) | multi / files | 6 |
+| `zeitrahmen` | single | 7 |
+| `paket_empfohlen`, `paket_gewaehlt`, `kontakt` | derived / single / group | 8 |
+
+- **Farbe:** nur **Hauptfarbe + Nebenfarbe** (je Single-Select aus `options.farben`), kein
+  HEX-Zwang; optionales Markenfarben-Feld. (Das alte `farbwelt` wurde entfernt.)
+- **Uploads** sind optional und nie blockierend (verpflichtende Uploads → Stufe 2).
+
+---
+
+## 9. Zwei Pfade & Vorbefüllung — `briefing.js`
+
+- **Einstieg:** „Wissen Sie schon, welches Paket?" → **Pfad A** (direkt Website-Plan) oder
+  **Pfad B** (8-Schritte-Website-Assistent → mündet in denselben Website-Plan).
+- **Direktstart von der Preise-Seite:** `anfrage?paket=basis|pro|platin|enterprise`
+  öffnet den Website-Plan mit vorausgewähltem Paket (Pfad A).
+- **Pfad-B-Vorbefüllung** (aus den Website-Anfrage-Antworten):
+  - Funktion „Terminbuchung" / Ziel „Termine" → Add-on `terminbuchung`
+  - „Newsletter" → `newsletter`, „Mehrsprachig" → `mehrsprachig`
+  - **kein** Logo im Material → `logo-lite` vorgeschlagen
+  - **keine** Texte im Material → `texte-paket` (bzw. `texte` beim One-Pager)
+  - „Bestehende Website" → `migration`
+  - Zeitrahmen „asap" → `express`
+  - Bei Enterprise-Empfehlung: Sonderfunktionen/Seitenzahl/Zeithorizont vorbelegt.
+
+### Paket-Empfehlung (Pfad B) — `recommend()`
+- Shop / Mehrsprachig / Login → **Enterprise**
+- Großes Projekt → Platin (bzw. Enterprise bei Shop)
+- One-Pager → Basis
+- Umfangreich + Galerie/Buchung → Platin
+- Kompakt / Umfangreich → Pro
+
+---
+
+## 10. Live-Preis & Berechnung — `pricing-calc.js`
+
+- Zwei strikt getrennte Summen: **Einmalig** (Paket + Extraseiten + einmalige Add-ons)
+  und **Monatlich** (Pflicht-Wartung + monatliche Add-ons).
+- `percent`-Add-ons (Express) = `round(Paketpreis × pct / 100)`.
+- Mengen werden auf `min/max` begrenzt (Clamp).
+- Enterprise-Paket (`price: null`) zählt **nicht** in die Einmalsumme → es wird ohnehin
+  „Individuelles Angebot" angezeigt.
+
+**Tests:** `node pricing.test.js` (18 Zusicherungen, u. a. Extraseiten, Express-Prozent,
+Mengen-Clamp, Pflicht-Wartung, Staffelung = 100 %).
+
+---
+
+## 11. Offene Punkte (noch zu füllen / bestätigen)
+
+| Punkt | Wo |
+|---|---|
+| Optionaler LLM-Endpoint für die Anfrage-Zusammenfassung | `briefing.js → CONFIG` |
+| Optionaler LLM-Call aktivieren (nur Pfad B) | `briefing.js → CONFIG.useLLM` |
+| Range-Preise (SEO Lite/Profil/Terminbuchung „ab") — Fixwert gewünscht? | `pricing.js` |
+| Platzhalter `[DOMAIN]`, `[OG-IMAGE]`, `[NACHNAME]` etc. | diverse HTML-Dateien |
+
+---
+
+## 12. Wartung des Systems — Kurzanleitung
+
+- **Preis ändern:** nur in `pricing.js`. Karten **und** Live-Preis ziehen automatisch nach.
+- **Add-on hinzufügen:** Objekt in `pricing.js → addons` ergänzen (`id`, `name`, `type`,
+  `price`, optional `qty`, `from`, `common`, `desc`). Fertig.
+- **Zahlungs-Staffelung ändern:** nur in `payment-terms.js` (Summe je Paket muss 100 % sein).
+- **Website-Anfrage-Frage ändern:** Optionsliste in `briefing-schema.js → options`.
+- **Nach Änderungen:** `node pricing.test.js` laufen lassen und ggf. Cache-Buster in den
+  betroffenen HTML-Dateien erhöhen (`?v=…`).

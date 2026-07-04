@@ -1,0 +1,906 @@
+<?php
+declare(strict_types=1);
+
+$commonServiceLinks = [
+    [
+        'title' => 'Webdesign zum Festpreis',
+        'text' => 'Wenn aus Strategie, Texten und Design eine fertige Website werden soll.',
+        'href' => 'leistung-webdesign.php',
+        'linkText' => 'Webdesign ansehen',
+    ],
+    [
+        'title' => 'SEO und Sichtbarkeit',
+        'text' => 'Wenn Ihre Website nicht nur gut aussehen, sondern bei passenden Suchanfragen gefunden werden soll.',
+        'href' => 'leistung-seo.php',
+        'linkText' => 'SEO ansehen',
+    ],
+    [
+        'title' => 'Ablauf und Qualität',
+        'text' => 'Wenn Sie wissen möchten, wie ein Website-Projekt sauber vorbereitet, geprüft und freigegeben wird.',
+        'href' => 'qualitaet.php',
+        'linkText' => 'Qualität ansehen',
+    ],
+];
+
+return [
+    'branchen' => [
+        'title' => 'Webdesign für Branchen: Handwerker, Praxen, Kanzleien und Dienstleister | Sartu',
+        'description' => 'Webdesign für verschiedene Branchen: Handwerker, Praxen, Kanzleien, Dienstleister und lokale Unternehmen. Seitenstruktur, SEO und Inhalte je Branche verständlich erklärt.',
+        'breadcrumb' => 'Branchen',
+        'eyebrow' => 'Branchen-Webdesign',
+        'h1' => 'Webdesign für Branchen,',
+        'accent' => 'die Vertrauen und Anfragen brauchen.',
+        'lead' => 'Eine gute Website spricht nicht alle gleich an. Handwerker, Praxen, Kanzleien und Dienstleister brauchen andere Inhalte, andere Vertrauenselemente und andere Wege zur Anfrage.',
+        'answer' => 'Branchen-Webdesign bedeutet: Seitenstruktur, Texte, SEO, Kontaktwege und Vertrauenselemente werden so aufgebaut, dass sie zur realen Kaufentscheidung Ihrer Kunden passen.',
+        // GO-LIVE: Platzhalterfoto durch echte Sartu-Arbeits-/Planungsfotos ersetzen. Keine Fake-Proofs, Bewertungen oder Kundenlogos ergänzen.
+        'image' => 'photo-placeholder-site-structure',
+        'imageAlt' => 'Strukturplanung für Branchen-Websites mit abstrakten Website-Karten',
+        'schemaAbout' => 'Webdesign für Branchen und kleine Unternehmen',
+        'heroLinks' => [
+            ['href' => 'anfrage.php', 'label' => 'Projekt anfragen', 'class' => 'btn btn-primary btn-lg'],
+            ['href' => 'preise.php', 'label' => 'Preise ansehen', 'class' => 'btn btn-outline btn-lg'],
+        ],
+        'highlights' => [
+            ['label' => 'Relevanz', 'title' => 'Jede Branche hat andere Einwände', 'text' => 'Ein Praxisbesucher sucht Sicherheit, ein Handwerkerkunde schnelle Erreichbarkeit, ein Kanzleimandant Vertrauen und Spezialisierung.'],
+            ['label' => 'SEO', 'title' => 'Suchbegriffe folgen echten Situationen', 'text' => 'Starke Seiten greifen typische Suchmuster auf: Leistung, Problem, Kosten, Ablauf, Dringlichkeit, Branche und spätere Region.'],
+            ['label' => 'Ausbau', 'title' => 'Später regional erweiterbar', 'text' => 'Die Branchenstruktur lässt sich später sauber mit Standortseiten ergänzen, ohne jetzt schon regionale Seiten vorzuziehen.'],
+        ],
+        'sections' => [
+            [
+                'eyebrow' => 'Branchen im Überblick',
+                'title' => 'Für wen die Website anders denken muss.',
+                'intro' => 'Diese Seiten sind als Einstieg gedacht. Sie erklären typische Kundenschmerzen, wichtige Inhalte und sinnvolle SEO-Strukturen je Branche.',
+                'layout' => 'service-cards',
+                'cards' => [
+                    ['title' => 'Webdesign für Handwerker', 'text' => 'Für Betriebe, die schnell erreichbar sein, Vertrauen aufbauen und konkrete Leistungen sichtbar machen müssen.', 'href' => 'branche-handwerker.php', 'linkText' => 'Handwerker-Seite ansehen'],
+                    ['title' => 'Webdesign für Praxen', 'text' => 'Für Praxen und Gesundheitsanbieter, bei denen Orientierung, Seriosität, Barrierearmut und Terminwege zählen.', 'href' => 'branche-praxen.php', 'linkText' => 'Praxis-Seite ansehen'],
+                    ['title' => 'Webdesign für Kanzleien', 'text' => 'Für Kanzleien, Steuerberater und beratende Berufe mit Spezialisierung, Diskretion und hoher Vertrauenshürde.', 'href' => 'branche-kanzleien.php', 'linkText' => 'Kanzlei-Seite ansehen'],
+                    ['title' => 'Webdesign für Dienstleister', 'text' => 'Für Beratung, Coaching, B2B, Agenturen und Services, bei denen Positionierung und Anfragequalität wichtig sind.', 'href' => 'branche-dienstleister.php', 'linkText' => 'Dienstleister-Seite ansehen'],
+                    ['title' => 'Webdesign für lokale Unternehmen', 'text' => 'Für Betriebe mit Laufkundschaft, Einzugsgebiet, Google-Profil, Öffnungszeiten und mobiler Suche.', 'href' => 'branche-lokale-unternehmen.php', 'linkText' => 'Lokale Unternehmen ansehen'],
+                    ['title' => 'Leistungsseiten als Basis', 'text' => 'Wenn einzelne Leistungen bei Google gefunden werden sollen, braucht jede wichtige Leistung eine eigene starke Seite.', 'href' => 'leistung-seo.php', 'linkText' => 'SEO-Struktur ansehen', 'variant' => 'blue'],
+                ],
+            ],
+            [
+                'eyebrow' => 'Verkaufslogik',
+                'title' => 'Was eine Branchen-Website leisten muss.',
+                'intro' => 'Der Besucher kommt nicht zum Stöbern. Er will wissen, ob Sie sein Problem verstehen, ob Sie vertrauenswürdig sind und wie leicht der nächste Schritt ist.',
+                'cards' => [
+                    ['label' => 'Problem', 'title' => 'Schmerz sofort benennen', 'text' => 'Die Seite muss zeigen: Wir verstehen, warum Sie gerade suchen. Das schafft mehr Nähe als allgemeine Werbesätze.'],
+                    ['label' => 'Beweis ohne Druck', 'title' => 'Sicherheit durch klare Details', 'text' => 'Ablauf, Leistungen, Preise, Garantien, Fotos, Team und Qualitätschecks ersetzen leere Versprechen.'],
+                    ['label' => 'Anfrage', 'title' => 'Nächster Schritt muss leicht sein', 'text' => 'Telefon, Formular, Rückruf, Termin oder Projektanfrage sollten zur Branche passen und keine Hürde aufbauen.'],
+                ],
+            ],
+            [
+                'eyebrow' => 'SEO-Struktur',
+                'title' => 'Welche Inhalte je Branche besonders wichtig sind.',
+                'intro' => 'Die Tabelle zeigt, warum eine einzige allgemeine Website oft zu wenig ist.',
+                'table' => [
+                    'headers' => ['Branche', 'Typischer Kundenschmerz', 'Starke Website-Inhalte'],
+                    'rows' => [
+                        ['Handwerk', 'Kunden brauchen schnell Hilfe und wollen wissen, ob der Betrieb seriös ist.', 'Leistungsseiten, Notfallhinweise, Einzugsgebiet, Referenzfotos sobald vorhanden, Anruf-CTA'],
+                        ['Praxis', 'Patienten suchen Vertrauen, Orientierung und einfache Terminwege.', 'Behandlungsbereiche, Team, Ablauf, Barrierearmut, Datenschutz, Kontakt und Öffnungszeiten'],
+                        ['Kanzlei', 'Mandanten suchen Spezialisierung und Diskretion.', 'Rechtsgebiete, Erstkontakt, klare Sprache, Vertrauenssignale, Ratgeberfragen'],
+                        ['Dienstleistung', 'Interessenten wollen verstehen, ob das Angebot zu ihrer Situation passt.', 'Positionierung, Zielgruppen, Prozess, Pakete, Qualifizierung der Anfrage'],
+                        ['Lokaler Betrieb', 'Besucher vergleichen Öffnungszeiten, Nähe, Bewertungen und Erreichbarkeit.', 'Google-Profil, Kontakt, Standortdaten, Leistungen, mobile Nutzerführung'],
+                    ],
+                ],
+            ],
+        ],
+        'related' => $commonServiceLinks,
+        'faqTitle' => 'Branchen-Webdesign kurz erklärt.',
+        'faqs' => [
+            ['q' => 'Warum braucht jede Branche eine andere Website-Struktur?', 'a' => 'Weil Kunden je Branche andere Fragen und Bedenken haben. Eine Handwerkerseite muss schnelle Hilfe zeigen, eine Kanzlei Spezialisierung, eine Praxis Vertrauen und Orientierung.'],
+            ['q' => 'Sind Branchen-Seiten besser als allgemeine Leistungsseiten?', 'a' => 'Beides ergänzt sich. Leistungsseiten zeigen, was angeboten wird. Branchen-Seiten erklären, für wen die Lösung besonders passt und welche Situation dahintersteht.'],
+            ['q' => 'Kann man Branchen-Seiten später mit regionalen Seiten kombinieren?', 'a' => 'Ja. Eine saubere Branchenstruktur ist eine gute Grundlage, um später Stadt- oder Einzugsgebietsseiten zu ergänzen, ohne Inhalte doppelt aufzubauen.'],
+            ['q' => 'Welche Branche sollte zuerst eine eigene Seite bekommen?', 'a' => 'Zuerst lohnt sich die Branche, aus der die besten Kunden kommen oder die strategisch wachsen soll. Danach folgen weitere Zielgruppen und später regionale Erweiterungen.'],
+        ],
+        'cta' => [
+            'title' => 'Welche Branchenstruktur passt zu Ihrem Angebot?',
+            'text' => 'Starten Sie die kurze Anfrage. Daraus lässt sich ableiten, welche Seiten für Ihre Zielgruppe wirklich sinnvoll sind.',
+            'label' => 'Website-Anfrage starten',
+            'href' => 'anfrage.php',
+        ],
+    ],
+
+    'branche-handwerker' => [
+        'title' => 'Webdesign für Handwerker: Website für mehr Anfragen und Vertrauen | Sartu',
+        'description' => 'Webdesign für Handwerker: professionelle Handwerker-Website mit Leistungsseiten, lokaler Sichtbarkeit, Kontaktwegen, SEO und klarer Anfrageführung.',
+        'parent' => ['label' => 'Branchen', 'slug' => 'branchen'],
+        'breadcrumb' => 'Handwerker',
+        'eyebrow' => 'Branche Handwerk',
+        'h1' => 'Webdesign für Handwerker:',
+        'accent' => 'aus Besuchern werden Anfragen.',
+        'lead' => 'Handwerkskunden suchen selten nach Design. Sie suchen jemanden, der zuverlässig ist, erreichbar bleibt und ihr konkretes Problem lösen kann.',
+        'answer' => 'Eine starke Handwerker-Website zeigt Leistungen, Einzugsgebiet, Erreichbarkeit, Vertrauen und klare nächste Schritte. Sie muss mobil schnell funktionieren, weil viele Anfragen direkt vom Smartphone kommen.',
+        'image' => 'hero-maintenance',
+        'imageAlt' => 'Professionelle Website und digitale Anfrage für einen Handwerksbetrieb',
+        'schemaAbout' => 'Webdesign für Handwerker und Handwerksbetriebe',
+        'heroLinks' => [
+            ['href' => 'anfrage.php', 'label' => 'Handwerker-Website anfragen', 'class' => 'btn btn-primary btn-lg'],
+            ['href' => 'leistung-lokales-seo.php', 'label' => 'Lokales SEO ansehen', 'class' => 'btn btn-outline btn-lg'],
+        ],
+        'highlights' => [
+            ['label' => 'Schmerz', 'title' => 'Viele Besucher vergleichen nur kurz', 'text' => 'Wenn Leistungen, Kontakt und Vertrauen nicht sofort klar sind, geht die Anfrage zum nächsten Betrieb.'],
+            ['label' => 'Lösung', 'title' => 'Leistungsseiten statt Sammelseite', 'text' => 'Badsanierung, Elektroarbeiten oder Wartung brauchen eigene Inhalte, wenn sie einzeln gefunden werden sollen.'],
+            ['label' => 'Kontakt', 'title' => 'Telefon und Formular prominent', 'text' => 'Im Handwerk zählt oft Tempo. Anruf, Rückruf und kurze Anfrage müssen auf jeder Seite sichtbar sein.'],
+        ],
+        'sections' => [
+            [
+                'eyebrow' => 'Seitenstruktur',
+                'title' => 'Welche Seiten eine Handwerker-Website braucht.',
+                'intro' => 'Die Struktur hängt vom Angebot ab. Wichtig ist, dass jede Hauptleistung für Kunden und Google einzeln verständlich wird.',
+                'cards' => [
+                    ['label' => 'Startseite', 'title' => 'Sofort sagen, was Sie machen', 'text' => 'Leistung, Einzugsgebiet, Vorteil, Kontakt und wichtigste Vertrauenselemente gehören in den ersten Blick.'],
+                    ['label' => 'Leistungen', 'title' => 'Jede wichtige Leistung einzeln', 'text' => 'Eigene Seiten für Kernleistungen verbessern Verständlichkeit, SEO und Anfragequalität.'],
+                    ['label' => 'Kontakt', 'title' => 'Kurzer Weg zur Anfrage', 'text' => 'Telefonnummer, Formular, Rückrufwunsch und Notfallhinweise müssen mobil leicht erreichbar sein.', 'variant' => 'blue'],
+                ],
+            ],
+            [
+                'eyebrow' => 'Inhalte',
+                'title' => 'Was Kunden vor der Anfrage wissen wollen.',
+                'intro' => 'Handwerkskunden fragen nicht nur nach Preis. Sie wollen wissen, ob der Betrieb zur Aufgabe passt.',
+                'table' => [
+                    'headers' => ['Frage des Kunden', 'Warum sie wichtig ist', 'Website-Antwort'],
+                    'rows' => [
+                        ['Machen Sie genau diese Leistung?', 'Niemand will lange suchen.', 'Klare Leistungsseiten mit Beispielen, Ablauf und Anfragebutton'],
+                        ['Kommen Sie in mein Gebiet?', 'Nähe und Verfügbarkeit entscheiden oft.', 'Einzugsgebiet klar nennen, regionale Seiten später ergänzen'],
+                        ['Sind Sie zuverlässig?', 'Handwerk ist Vertrauenssache.', 'Ablauf, Garantien, Team, Fotos und echte Bewertungen sobald vorhanden'],
+                        ['Was passiert nach meiner Anfrage?', 'Unsicherheit senkt die Kontaktquote.', 'Kurzer Prozess: Anfrage, Rückmeldung, Angebot, Umsetzung'],
+                    ],
+                ],
+            ],
+            [
+                'eyebrow' => 'SEO',
+                'title' => 'Suchbegriffe für Handwerker-Websites.',
+                'intro' => 'Starke Handwerker-Seiten beantworten konkrete Suchanfragen. Dazu gehören Leistung, Problem, Kosten, Ablauf und später regionale Begriffe.',
+                'cards' => [
+                    ['label' => 'Leistung', 'title' => 'Konkrete Gewerke und Arbeiten', 'text' => 'Zum Beispiel Wartung, Reparatur, Modernisierung, Installation, Sanierung oder Notdienst.'],
+                    ['label' => 'Problem', 'title' => 'Suchfragen aus dem Alltag', 'text' => 'Viele Kunden suchen nach ihrem Problem, nicht nach dem Fachbegriff. Diese Formulierungen gehören in den Text.'],
+                    ['label' => 'Vertrauen', 'title' => 'Belege ohne Übertreibung', 'text' => 'Bis echte Referenzen da sind, helfen Ablauf, Qualitätschecks, Fotos, Zertifikate und transparente Kommunikation.'],
+                ],
+            ],
+        ],
+        'related' => [
+            ['title' => 'Lokales SEO für Handwerker', 'text' => 'Google-Profil, Bewertungen, Leistungen und mobile Suche sinnvoll verbinden.', 'href' => 'leistung-lokales-seo.php', 'linkText' => 'Lokales SEO ansehen'],
+            ['title' => 'Website-Texte für Leistungen', 'text' => 'Klare Texte, die Kunden verstehen und Google einordnen kann.', 'href' => 'leistung-texte.php', 'linkText' => 'Texte ansehen'],
+            ['title' => 'Website-Kosten 2026', 'text' => 'Was eine Handwerker-Website je Umfang realistisch kostet.', 'href' => 'ratgeber-website-kosten.php', 'linkText' => 'Kosten lesen'],
+        ],
+        'faqTitle' => 'Fragen zur Handwerker-Website.',
+        'faqs' => [
+            ['q' => 'Was muss auf eine Website für Handwerker?', 'a' => 'Wichtig sind klare Leistungen, Einzugsgebiet, Telefonnummer, Anfrageformular, Ablauf, Vertrauenselemente, mobile Optimierung und lokale SEO-Grundlagen.'],
+            ['q' => 'Braucht ein Handwerker für jede Leistung eine eigene Unterseite?', 'a' => 'Für wichtige Leistungen ja. Eigene Leistungsseiten helfen Kunden beim Verständnis und verbessern die Chance, für konkrete Suchanfragen gefunden zu werden.'],
+            ['q' => 'Wie bekommt ein Handwerksbetrieb mehr Anfragen über Google?', 'a' => 'Durch saubere Leistungsseiten, schnelle mobile Ladezeit, lokale Signale, ein gepflegtes Google-Unternehmensprofil und verständliche Antworten auf Kundenfragen.'],
+            ['q' => 'Kann eine Handwerker-Website ohne Referenzen starten?', 'a' => 'Ja. Statt erfundener Referenzen sollten Ablauf, Qualitätsprüfung, Fotos aus dem Betrieb, klare Kommunikation und echte Bewertungen sobald vorhanden genutzt werden.'],
+        ],
+        'cta' => [
+            'title' => 'Ihre Handwerker-Website soll besser anfragen?',
+            'text' => 'Starten Sie mit wenigen Angaben. Wir leiten daraus Seitenstruktur, Texte, SEO und Kontaktwege ab.',
+            'label' => 'Handwerker-Website anfragen',
+            'href' => 'anfrage.php',
+        ],
+    ],
+
+    'branche-praxen' => [
+        'title' => 'Webdesign für Praxen: moderne Praxis-Website mit Vertrauen und SEO | Sartu',
+        'description' => 'Webdesign für Praxen, Therapie, Gesundheit und Beratung: Praxis-Website mit Vertrauen, Terminwegen, Datenschutz, Barrierearmut und SEO-Grundlagen.',
+        'parent' => ['label' => 'Branchen', 'slug' => 'branchen'],
+        'breadcrumb' => 'Praxen',
+        'eyebrow' => 'Branche Praxis',
+        'h1' => 'Webdesign für Praxen:',
+        'accent' => 'ruhig, klar und vertrauenswürdig.',
+        'lead' => 'Eine Praxis-Website muss Menschen Orientierung geben, ohne sie mit Fachsprache zu überladen. Vertrauen, Terminwege und verständliche Leistungsbereiche stehen im Mittelpunkt.',
+        'answer' => 'Eine gute Praxis-Website erklärt Behandlungen oder Leistungen verständlich, zeigt Team und Kontaktwege, berücksichtigt Datenschutz und sorgt dafür, dass Patienten schnell den nächsten Schritt finden.',
+        'image' => 'hero-team-contact',
+        'imageAlt' => 'Helle professionelle Website-Szene für Praxis und Beratung',
+        'schemaAbout' => 'Webdesign für Praxen und Gesundheitsanbieter',
+        'heroLinks' => [
+            ['href' => 'anfrage.php', 'label' => 'Praxis-Website anfragen', 'class' => 'btn btn-primary btn-lg'],
+            ['href' => 'ratgeber-bfsg.php', 'label' => 'Barrierefreiheit prüfen', 'class' => 'btn btn-outline btn-lg'],
+        ],
+        'highlights' => [
+            ['label' => 'Vertrauen', 'title' => 'Menschen suchen Sicherheit', 'text' => 'Praxisseiten müssen fachlich seriös wirken und trotzdem leicht verständlich bleiben.'],
+            ['label' => 'Kontakt', 'title' => 'Terminwege klar anzeigen', 'text' => 'Telefon, Formular, Online-Termin oder Rückruf sollten ohne langes Suchen erreichbar sein.'],
+            ['label' => 'Zugang', 'title' => 'Barrierearm und mobil', 'text' => 'Gute Lesbarkeit, klare Struktur und mobile Bedienung sind für Praxis-Websites besonders wichtig.'],
+        ],
+        'sections' => [
+            [
+                'eyebrow' => 'Inhalte',
+                'title' => 'Welche Inhalte eine Praxis-Website braucht.',
+                'intro' => 'Patienten suchen nicht nur Adresse und Telefonnummer. Sie möchten verstehen, ob die Praxis zu ihrem Anliegen passt.',
+                'cards' => [
+                    ['label' => 'Leistung', 'title' => 'Behandlungsbereiche verständlich erklären', 'text' => 'Fachbegriffe dürfen vorkommen, sollten aber immer in einfacher Sprache übersetzt werden.'],
+                    ['label' => 'Team', 'title' => 'Gesichter und Haltung zeigen', 'text' => 'Team, Qualifikation und Arbeitsweise bauen Vertrauen auf, besonders vor dem ersten Kontakt.'],
+                    ['label' => 'Orientierung', 'title' => 'Anfahrt, Öffnungszeiten, Terminweg', 'text' => 'Diese Basisinformationen müssen schnell sichtbar sein und auf dem Smartphone funktionieren.', 'variant' => 'blue'],
+                ],
+            ],
+            [
+                'eyebrow' => 'Sensibilität',
+                'title' => 'Was Praxis-Websites vermeiden sollten.',
+                'intro' => 'Gesundheitsnahe Websites brauchen eine besonders ruhige, seriöse Tonalität.',
+                'table' => [
+                    'headers' => ['Risiko', 'Warum es schadet', 'Bessere Lösung'],
+                    'rows' => [
+                        ['Zu viele Fachbegriffe', 'Besucher fühlen sich ausgeschlossen.', 'Fachwort nennen und direkt einfach erklären'],
+                        ['Überladene Hero-Sektion', 'Wichtige Terminwege gehen unter.', 'Kurze Botschaft, klare Kontaktoption, ruhiges Bild'],
+                        ['Unklare Leistungen', 'Patienten wissen nicht, ob ihr Anliegen passt.', 'Behandlungsbereiche einzeln und strukturiert erklären'],
+                        ['Fehlende Datenschutz-Hinweise', 'Formulare und sensible Daten brauchen Vertrauen.', 'Sichere Formulare, SSL, klare Datenschutzhinweise'],
+                    ],
+                ],
+            ],
+            [
+                'eyebrow' => 'SEO',
+                'title' => 'Suchfragen, die Praxis-Websites beantworten sollten.',
+                'intro' => 'SEO für Praxen bedeutet nicht laute Werbung. Es bedeutet, echte Fragen sachlich und hilfreich zu beantworten.',
+                'cards' => [
+                    ['label' => 'Leistung', 'title' => 'Was wird behandelt oder angeboten?', 'text' => 'Jeder wichtige Behandlungsbereich sollte eine klare Seite oder einen klaren Abschnitt bekommen.'],
+                    ['label' => 'Ablauf', 'title' => 'Was passiert beim ersten Termin?', 'text' => 'Ein einfacher Ablauf senkt Hemmungen und erleichtert die Kontaktaufnahme.'],
+                    ['label' => 'Vertrauen', 'title' => 'Welche Qualifikation ist relevant?', 'text' => 'Zertifikate, Schwerpunkte und Erfahrung sollten verständlich eingebunden werden.'],
+                ],
+            ],
+        ],
+        'related' => [
+            ['title' => 'BFSG und Barrierefreiheit', 'text' => 'Was seit Juni 2025 wichtig ist und welche Websites betroffen sein können.', 'href' => 'ratgeber-bfsg.php', 'linkText' => 'BFSG lesen'],
+            ['title' => 'Website-Texte ohne Fachchinesisch', 'text' => 'Fachlich bleiben und trotzdem verständlich schreiben.', 'href' => 'leistung-texte.php', 'linkText' => 'Texte ansehen'],
+            ['title' => 'Qualitätsprüfung vor Livegang', 'text' => 'Welche Checks Vertrauen schaffen, auch wenn noch keine Referenzen vorhanden sind.', 'href' => 'qualitaet.php', 'linkText' => 'Qualität ansehen'],
+        ],
+        'faqTitle' => 'Fragen zur Praxis-Website.',
+        'faqs' => [
+            ['q' => 'Was gehört auf eine moderne Praxis-Website?', 'a' => 'Wichtig sind Leistungen, Team, Öffnungszeiten, Anfahrt, Terminwege, verständliche Erklärungen, Datenschutz, mobile Optimierung und gute Lesbarkeit.'],
+            ['q' => 'Ist SEO für Praxen sinnvoll?', 'a' => 'Ja, wenn Patienten oder Klienten online nach Leistungen, Symptomen, Beratung oder Terminmöglichkeiten suchen. SEO sollte sachlich und seriös umgesetzt werden.'],
+            ['q' => 'Wie ausführlich sollten Behandlungsseiten sein?', 'a' => 'So ausführlich, dass Besucher verstehen, für wen die Leistung geeignet ist, wie der Ablauf aussieht und wie sie Kontakt aufnehmen können.'],
+            ['q' => 'Muss eine Praxis-Website barrierefrei sein?', 'a' => 'Das hängt vom Angebot und rechtlichen Einzelfall ab. Unabhängig davon sind gute Kontraste, klare Struktur, große Klickflächen und verständliche Sprache immer sinnvoll.'],
+        ],
+        'cta' => [
+            'title' => 'Ihre Praxis soll online klarer wirken?',
+            'text' => 'Beschreiben Sie kurz Ihre Leistungen und Ziele. Daraus entsteht eine ruhige, verständliche Struktur für Ihre Website.',
+            'label' => 'Praxis-Website anfragen',
+            'href' => 'anfrage.php',
+        ],
+    ],
+
+    'branche-kanzleien' => [
+        'title' => 'Webdesign für Kanzleien und Steuerberater: seriös, klar, SEO-stark | Sartu',
+        'description' => 'Webdesign für Kanzleien, Steuerberater und beratende Berufe: Website-Struktur, Spezialisierung, Vertrauen, Mandantenanfragen und SEO verständlich erklärt.',
+        'parent' => ['label' => 'Branchen', 'slug' => 'branchen'],
+        'breadcrumb' => 'Kanzleien',
+        'eyebrow' => 'Branche Kanzlei',
+        'h1' => 'Webdesign für Kanzleien:',
+        'accent' => 'Spezialisierung verständlich zeigen.',
+        'lead' => 'Mandanten suchen keine schöne Website allein. Sie suchen jemanden, der ihr Thema versteht, professionell wirkt und den ersten Schritt einfach macht.',
+        'answer' => 'Eine Kanzlei-Website muss Spezialisierung, Vertrauen, Diskretion und klare Kontaktwege verbinden. Gute SEO-Struktur hilft, für konkrete Rechtsgebiete, Steuerfragen oder Beratungsanliegen gefunden zu werden.',
+        'image' => 'hero-brand-content',
+        'imageAlt' => 'Seriöse Website-Planung für Kanzlei und Beratung',
+        'schemaAbout' => 'Webdesign für Kanzleien und Steuerberater',
+        'heroLinks' => [
+            ['href' => 'anfrage.php', 'label' => 'Kanzlei-Website anfragen', 'class' => 'btn btn-primary btn-lg'],
+            ['href' => 'leistung-texte.php', 'label' => 'Texte ansehen', 'class' => 'btn btn-outline btn-lg'],
+        ],
+        'highlights' => [
+            ['label' => 'Mandant', 'title' => 'Suchende brauchen Orientierung', 'text' => 'Rechts- und Steuerthemen sind komplex. Die Website muss schnell zeigen, ob der Fall passt.'],
+            ['label' => 'Autorität', 'title' => 'Spezialisierung statt Allgemeinplatz', 'text' => 'Klare Fachbereiche, verständliche Erklärungen und ein professioneller Ablauf bauen Vertrauen auf.'],
+            ['label' => 'Anfrage', 'title' => 'Kontakt muss diskret wirken', 'text' => 'Der erste Schritt sollte einfach, seriös und datenschutzbewusst formuliert sein.'],
+        ],
+        'sections' => [
+            [
+                'eyebrow' => 'Struktur',
+                'title' => 'Welche Seiten für Kanzleien sinnvoll sind.',
+                'intro' => 'Kanzlei-Websites profitieren von klar getrennten Fachbereichen und verständlichen Einstiegsseiten.',
+                'cards' => [
+                    ['label' => 'Fachbereiche', 'title' => 'Rechtsgebiete oder Leistungen einzeln', 'text' => 'Eigene Seiten für Schwerpunkte verbessern Verständlichkeit und Suchmaschinenrelevanz.'],
+                    ['label' => 'Erstkontakt', 'title' => 'Was Mandanten wissen müssen', 'text' => 'Ablauf, Unterlagen, Rückmeldung und Kontaktweg sollten klar erklärt werden.'],
+                    ['label' => 'Profil', 'title' => 'Personen und Kompetenz zeigen', 'text' => 'Ansprechpartner, Qualifikation, Haltung und Arbeitsweise schaffen Vertrauen.', 'variant' => 'blue'],
+                ],
+            ],
+            [
+                'eyebrow' => 'SEO und Sprache',
+                'title' => 'Fachlich korrekt, aber nicht unverständlich.',
+                'intro' => 'SEO für Kanzleien funktioniert besser, wenn Fachbegriffe mit normalen Kundenfragen verbunden werden.',
+                'table' => [
+                    'headers' => ['Thema', 'Suchintention', 'Gute Umsetzung'],
+                    'rows' => [
+                        ['Rechtsgebiet oder Leistung', 'Mandant sucht direkte Hilfe zu einem Thema.', 'Eigene Seite mit Problem, Ablauf, Unterlagen und Kontaktweg'],
+                        ['Kosten und Erstberatung', 'Mandant möchte Aufwand und Risiko einschätzen.', 'Transparent erklären, was vorab geklärt werden kann'],
+                        ['Fristen und Dringlichkeit', 'Mandant hat Zeitdruck.', 'Schnelle Kontaktoption und klare Hinweise ohne Rechtsberatung im Text'],
+                        ['Vertrauen', 'Mandant prüft Seriosität.', 'Team, Qualifikation, Datenschutz, klare Sprache und professionelle Gestaltung'],
+                    ],
+                ],
+            ],
+            [
+                'eyebrow' => 'Positionierung',
+                'title' => 'Warum weniger Breite oft besser verkauft.',
+                'intro' => 'Eine Kanzlei-Website sollte nicht alles gleich laut bewerben. Je klarer die Schwerpunkte, desto leichter wird die Entscheidung.',
+                'cards' => [
+                    ['label' => 'Fokus', 'title' => 'Beste Mandate sichtbar machen', 'text' => 'Die wichtigsten Beratungsfelder gehören prominent auf die Startseite und in eigene Unterseiten.'],
+                    ['label' => 'Einwände', 'title' => 'Unsicherheit senken', 'text' => 'Antworten zu Ablauf, Erstkontakt, Vertraulichkeit und Unterlagen reduzieren Hemmungen.'],
+                    ['label' => 'GEO', 'title' => 'KI-Suche braucht klare Fakten', 'text' => 'Klare Entitäten, Fachbereiche, Ansprechpartner und strukturierte Antworten helfen auch in KI-Antwortsystemen.'],
+                ],
+            ],
+        ],
+        'related' => [
+            ['title' => 'Website-Texte für Fachthemen', 'text' => 'Komplexe Leistungen verständlich und suchmaschinenfähig erklären.', 'href' => 'leistung-texte.php', 'linkText' => 'Texte ansehen'],
+            ['title' => 'SEO für Kanzlei-Themen', 'text' => 'Leistungsseiten, interne Links und Suchintention strategisch aufbauen.', 'href' => 'leistung-seo.php', 'linkText' => 'SEO ansehen'],
+            ['title' => 'Agentur oder Freelancer?', 'text' => 'Welche Umsetzung zu sensiblen, beratungsstarken Websites passt.', 'href' => 'vergleich-freelancer-agentur.php', 'linkText' => 'Vergleich lesen'],
+        ],
+        'faqTitle' => 'Fragen zur Kanzlei-Website.',
+        'faqs' => [
+            ['q' => 'Was macht eine gute Kanzlei-Website aus?', 'a' => 'Sie zeigt Spezialisierung, Ansprechpartner, Fachbereiche, Ablauf des Erstkontakts, Datenschutz, Seriosität und klare Wege zur Anfrage.'],
+            ['q' => 'Sollten Rechtsgebiete eigene Unterseiten haben?', 'a' => 'Ja, wenn sie wichtig für Mandantenanfragen oder Google-Sichtbarkeit sind. Eine eigene Seite kann Suchintention, Ablauf und Vertrauen gezielter abdecken.'],
+            ['q' => 'Wie werblich darf eine Kanzlei-Website sein?', 'a' => 'Sie sollte überzeugend, aber sachlich bleiben. Klare Nutzenargumente, verständliche Sprache und professionelle Gestaltung wirken besser als laute Verkaufstexte.'],
+            ['q' => 'Hilft ein Ratgeber einer Kanzlei bei SEO?', 'a' => 'Ja, wenn er echte Fragen beantwortet und fachlich sauber bleibt. Ratgeberinhalte können Vertrauen aufbauen und Leistungsseiten intern stärken.'],
+        ],
+        'cta' => [
+            'title' => 'Ihre Kanzlei soll klarer gefunden werden?',
+            'text' => 'Starten Sie mit Fachbereichen, Zielmandaten und gewünschtem Kontaktweg. Daraus bauen wir eine seriöse Website-Struktur.',
+            'label' => 'Kanzlei-Website anfragen',
+            'href' => 'anfrage.php',
+        ],
+    ],
+
+    'branche-dienstleister' => [
+        'title' => 'Webdesign für Dienstleister: Website mit Positionierung und Anfragen | Sartu',
+        'description' => 'Webdesign für Dienstleister, Beratung, Coaching und B2B: klare Positionierung, Angebotsstruktur, SEO, Anfragequalität und Vertrauen.',
+        'parent' => ['label' => 'Branchen', 'slug' => 'branchen'],
+        'breadcrumb' => 'Dienstleister',
+        'eyebrow' => 'Branche Dienstleistung',
+        'h1' => 'Webdesign für Dienstleister:',
+        'accent' => 'klar positioniert statt austauschbar.',
+        'lead' => 'Dienstleister verkaufen oft keine greifbaren Produkte. Die Website muss deshalb besonders klar erklären, für wen das Angebot ist, welches Problem gelöst wird und warum die Zusammenarbeit sinnvoll ist.',
+        'answer' => 'Eine Dienstleister-Website braucht klare Positionierung, verständliche Angebote, starke Leistungsseiten, glaubwürdige Vertrauenselemente und eine Anfrage, die passende Interessenten qualifiziert.',
+        'image' => 'hero-process-pricing',
+        'imageAlt' => 'Digitale Website-Strategie für Dienstleister und Beratung',
+        'schemaAbout' => 'Webdesign für Dienstleister, Beratung und B2B',
+        'heroLinks' => [
+            ['href' => 'anfrage.php', 'label' => 'Dienstleister-Website anfragen', 'class' => 'btn btn-primary btn-lg'],
+            ['href' => 'leistung-texte.php', 'label' => 'Positionierungstexte ansehen', 'class' => 'btn btn-outline btn-lg'],
+        ],
+        'highlights' => [
+            ['label' => 'Position', 'title' => 'Austauschbarkeit kostet Anfragen', 'text' => 'Wenn Besucher nicht verstehen, warum gerade Sie passen, bleiben sie unverbindlich oder springen ab.'],
+            ['label' => 'Qualität', 'title' => 'Nicht jede Anfrage ist gut', 'text' => 'Gute Websites filtern über klare Angebote, Erwartungen, Budgetsignale und passende Kontaktwege.'],
+            ['label' => 'Sichtbarkeit', 'title' => 'Suchfragen sind oft beratungsnah', 'text' => 'Dienstleister gewinnen über Problem-, Vergleichs-, Kosten- und Entscheidungsseiten besonders viel Relevanz.'],
+        ],
+        'sections' => [
+            [
+                'eyebrow' => 'Positionierung',
+                'title' => 'Was Dienstleister auf der Website klären müssen.',
+                'intro' => 'Die Website sollte wie ein guter Erstkontakt funktionieren: verständlich, fokussiert und ohne unnötige Hürden.',
+                'cards' => [
+                    ['label' => 'Zielgruppe', 'title' => 'Für wen ist das Angebot?', 'text' => 'Je klarer die Zielgruppe benannt wird, desto leichter fühlen sich passende Kunden angesprochen.'],
+                    ['label' => 'Problem', 'title' => 'Welcher Schmerz wird gelöst?', 'text' => 'Besucher reagieren auf konkrete Situationen stärker als auf abstrakte Leistungslisten.'],
+                    ['label' => 'Ergebnis', 'title' => 'Was verändert sich danach?', 'text' => 'Gute Texte erklären den Nutzen, nicht nur den Prozess oder die Methode.', 'variant' => 'blue'],
+                ],
+            ],
+            [
+                'eyebrow' => 'Anfragequalität',
+                'title' => 'Mehr passende Anfragen statt nur mehr Klicks.',
+                'intro' => 'Bei Dienstleistungen ist Qualität oft wichtiger als Menge. Die Website sollte Erwartungen klar setzen.',
+                'table' => [
+                    'headers' => ['Element', 'Nutzen', 'Beispiel'],
+                    'rows' => [
+                        ['Angebotsstruktur', 'Besucher verstehen schnell, was buchbar ist.', 'Pakete, Leistungen oder klare Projektarten'],
+                        ['Qualifizierende Fragen', 'Unpassende Anfragen werden reduziert.', 'Budgetrahmen, Ziel, Umfang, Zeitplan'],
+                        ['Ablauf', 'Zusammenarbeit wirkt sicherer.', 'Erstprüfung, Angebot, Umsetzung, Freigabe'],
+                        ['Ratgeber und Vergleiche', 'Einwände werden vor dem Kontakt beantwortet.', 'Kosten, Dauer, Agenturvergleich, Checklisten'],
+                    ],
+                ],
+            ],
+            [
+                'eyebrow' => 'Content',
+                'title' => 'SEO-Themen für beratungsintensive Leistungen.',
+                'intro' => 'Dienstleister profitieren von Inhalten, die Suchende vor einer Entscheidung lesen.',
+                'cards' => [
+                    ['label' => 'Kosten', 'title' => 'Preise oder Preislogik erklären', 'text' => 'Transparenz muss nicht jedes Detail verraten, aber sie schafft Vertrauen.'],
+                    ['label' => 'Vergleich', 'title' => 'Alternativen ehrlich einordnen', 'text' => 'Vergleichsseiten holen Suchende ab, bevor sie sich festgelegt haben.'],
+                    ['label' => 'Ablauf', 'title' => 'Zusammenarbeit greifbar machen', 'text' => 'Ein klarer Prozess verkauft leise, weil er Risiko aus der Entscheidung nimmt.'],
+                ],
+            ],
+        ],
+        'related' => [
+            ['title' => 'Website-Texte für Dienstleister', 'text' => 'Positionierung, Angebotslogik und SEO in verständliche Sprache übersetzen.', 'href' => 'leistung-texte.php', 'linkText' => 'Texte ansehen'],
+            ['title' => 'Vergleichsseiten', 'text' => 'Entscheidungssuchende mit fairen Vergleichen abholen.', 'href' => 'vergleiche.php', 'linkText' => 'Vergleiche ansehen'],
+            ['title' => 'Ablauf digitaler Website-Projekte', 'text' => 'Wie Sartu aus wenigen Angaben eine Website-Struktur entwickelt.', 'href' => 'ablauf.php', 'linkText' => 'Ablauf ansehen'],
+        ],
+        'faqTitle' => 'Fragen zur Dienstleister-Website.',
+        'faqs' => [
+            ['q' => 'Was braucht eine Website für Dienstleister?', 'a' => 'Sie braucht klare Positionierung, Zielgruppe, Leistungen, Nutzen, Ablauf, Vertrauenselemente und einen Anfrageweg, der passende Interessenten qualifiziert.'],
+            ['q' => 'Sollte ein Dienstleister Preise auf der Website zeigen?', 'a' => 'Mindestens eine Preislogik oder ein Startpreis ist oft sinnvoll. Das schafft Orientierung und reduziert unpassende Anfragen.'],
+            ['q' => 'Wie wird eine Dienstleister-Website SEO-stark?', 'a' => 'Durch Leistungsseiten, Problemseiten, Vergleichsinhalte, Kostenfragen, interne Verlinkung, klare Überschriften und konkrete Antworten auf Suchintentionen.'],
+            ['q' => 'Wie baut ein Dienstleister am Anfang Vertrauen auf?', 'a' => 'Am Anfang helfen klare Leistungen, nachvollziehbarer Ablauf, transparente Kommunikation, verständliche Preise oder Preislogik und eine saubere Qualitätsprüfung vor dem Onlinegang.'],
+        ],
+        'cta' => [
+            'title' => 'Ihre Dienstleistung soll verständlicher werden?',
+            'text' => 'Starten Sie die Anfrage mit Zielgruppe, Angebot und Wunschkunden. Daraus entsteht eine Website, die besser vorqualifiziert.',
+            'label' => 'Dienstleister-Website anfragen',
+            'href' => 'anfrage.php',
+        ],
+    ],
+
+    'branche-lokale-unternehmen' => [
+        'title' => 'Webdesign für lokale Unternehmen: Website, Google-Profil und Anfragen | Sartu',
+        'description' => 'Webdesign für lokale Unternehmen ohne Stadtseiten: mobile Website, Google-Unternehmensprofil, Öffnungszeiten, Kontakt, Leistungen und lokale SEO-Grundlagen.',
+        'parent' => ['label' => 'Branchen', 'slug' => 'branchen'],
+        'breadcrumb' => 'Lokale Unternehmen',
+        'eyebrow' => 'Branche lokal',
+        'h1' => 'Webdesign für lokale Unternehmen:',
+        'accent' => 'online gefunden, vor Ort gewählt.',
+        'lead' => 'Lokale Kunden entscheiden oft schnell: Wer ist in der Nähe, wirkt seriös, hat offen und ist einfach erreichbar? Genau das muss die Website beantworten.',
+        'answer' => 'Eine Website für lokale Unternehmen verbindet klare Leistungen, mobile Nutzerführung, Google-Profil, Öffnungszeiten, Kontaktdaten und Vertrauenselemente. Regionale Stadtseiten kommen später, die Basis muss vorher stimmen.',
+        'image' => 'hero-seo',
+        'imageAlt' => 'Lokale Online-Sichtbarkeit mit Website und Google-Profil',
+        'schemaAbout' => 'Webdesign und lokales SEO für lokale Unternehmen',
+        'heroLinks' => [
+            ['href' => 'anfrage.php', 'label' => 'Lokale Website anfragen', 'class' => 'btn btn-primary btn-lg'],
+            ['href' => 'leistung-lokales-seo.php', 'label' => 'Google-Profil ansehen', 'class' => 'btn btn-outline btn-lg'],
+        ],
+        'highlights' => [
+            ['label' => 'Mobil', 'title' => 'Viele lokale Suchen kommen vom Smartphone', 'text' => 'Telefon, Route, Öffnungszeiten und Anfrage müssen sofort bedienbar sein.'],
+            ['label' => 'Google', 'title' => 'Website und Profil müssen zusammenpassen', 'text' => 'Name, Leistungen, Kontaktdaten, Kategorien und Inhalte sollten konsistent sein.'],
+            ['label' => 'Start', 'title' => 'Erst Basis, dann regionale Seiten', 'text' => 'Ohne klare Leistungs- und Vertrauensstruktur bringen zusätzliche Stadtseiten später weniger.'],
+        ],
+        'sections' => [
+            [
+                'eyebrow' => 'Lokale Basis',
+                'title' => 'Was lokale Kunden sofort sehen müssen.',
+                'intro' => 'Lokale Websites müssen schneller Orientierung geben als viele andere Seiten.',
+                'cards' => [
+                    ['label' => 'Kontakt', 'title' => 'Telefon, Route und Öffnungszeiten', 'text' => 'Diese Informationen gehören sichtbar in Header, Footer, Kontaktbereich und Google-Profil.'],
+                    ['label' => 'Leistung', 'title' => 'Was bieten Sie konkret an?', 'text' => 'Klare Leistungsseiten helfen Besuchern und stärken die spätere lokale SEO-Struktur.'],
+                    ['label' => 'Vertrauen', 'title' => 'Warum sollten Kunden Sie wählen?', 'text' => 'Team, Ablauf, Qualität, Bewertungen und ehrliche Informationen ersetzen allgemeine Werbesätze.', 'variant' => 'blue'],
+                ],
+            ],
+            [
+                'eyebrow' => 'Google-Profil',
+                'title' => 'Website und Google-Unternehmensprofil als Duo.',
+                'intro' => 'Viele lokale Entscheidungen starten direkt in Maps. Die Website muss die Profilinformationen bestätigen und vertiefen.',
+                'table' => [
+                    'headers' => ['Bereich', 'Google-Profil', 'Website'],
+                    'rows' => [
+                        ['Leistungen', 'Kategorien und Dienstleistungen nennen.', 'Leistungsseiten ausführlich erklären.'],
+                        ['Vertrauen', 'Bewertungen, Fotos und Antworten pflegen.', 'Ablauf, Qualität, Team und Kontakt klar darstellen.'],
+                        ['Kontakt', 'Telefon, Route, Öffnungszeiten aktuell halten.', 'Formular, Rückruf, Kontaktseite und Impressum konsistent halten.'],
+                        ['Sichtbarkeit', 'Lokale Signale und Profilaktivität aufbauen.', 'SEO-Struktur, schnelle Ladezeit und interne Links liefern.'],
+                    ],
+                ],
+            ],
+            [
+                'eyebrow' => 'Ausbau',
+                'title' => 'Was jetzt sinnvoll ist und was später kommt.',
+                'intro' => 'Weil regionale Seiten später geplant werden, konzentriert sich diese Basis auf die Dinge, die jede lokale Website braucht.',
+                'cards' => [
+                    ['label' => 'Jetzt', 'title' => 'Leistungen und Kontakt sauber machen', 'text' => 'Die Website muss erklären, was Sie anbieten und wie Kunden Sie erreichen.'],
+                    ['label' => 'Bald', 'title' => 'Google-Profil und Bewertungen pflegen', 'text' => 'Ein aktives Profil unterstützt Vertrauen und lokale Sichtbarkeit.'],
+                    ['label' => 'Später', 'title' => 'Regionale Seiten gezielt ergänzen', 'text' => 'Wenn echte Daten, Leistungen und Prioritäten klar sind, entstehen Stadtseiten ohne Duplicate Content.'],
+                ],
+            ],
+        ],
+        'related' => [
+            ['title' => 'Lokales SEO und Google-Profil', 'text' => 'Die Grundlage für lokale Sichtbarkeit ohne voreilige Stadtseiten.', 'href' => 'leistung-lokales-seo.php', 'linkText' => 'Lokales SEO ansehen'],
+            ['title' => 'Ratgeber lokales SEO', 'text' => 'Wie Maps, Bewertungen und Website-Signale zusammenspielen.', 'href' => 'ratgeber-lokales-seo.php', 'linkText' => 'Ratgeber lesen'],
+            ['title' => 'Website-Qualität', 'text' => 'Welche Checks vor dem Onlinegang Vertrauen schaffen.', 'href' => 'qualitaet.php', 'linkText' => 'Qualität ansehen'],
+        ],
+        'faqTitle' => 'Fragen zu lokalen Unternehmenswebsites.',
+        'faqs' => [
+            ['q' => 'Was braucht eine Website für ein lokales Unternehmen?', 'a' => 'Wichtig sind Leistungen, Öffnungszeiten, Kontaktdaten, Route, Google-Profil, mobile Bedienbarkeit, klare Kontaktwege und lokale SEO-Grundlagen.'],
+            ['q' => 'Braucht ein lokales Unternehmen sofort Stadtseiten?', 'a' => 'Nicht zwingend. Zuerst sollten Leistungen, Kontakt, Google-Profil und Website-Struktur stimmen. Stadtseiten lohnen sich später gezielt.'],
+            ['q' => 'Wie wichtig ist das Google-Unternehmensprofil?', 'a' => 'Sehr wichtig. Viele lokale Suchanfragen laufen über Google Maps. Profil, Website und Bewertungen sollten konsistent gepflegt werden.'],
+            ['q' => 'Was ist wichtiger: Website oder Google-Profil?', 'a' => 'Beides zusammen. Das Google-Profil bringt lokale Sichtbarkeit, die Website erklärt Leistungen, Vertrauen, Ablauf und Anfrage genauer.'],
+        ],
+        'cta' => [
+            'title' => 'Ihre lokale Sichtbarkeit braucht eine saubere Basis?',
+            'text' => 'Starten Sie mit Website, Leistungen und Google-Profil. Regionale Seiten bauen wir später gezielt darauf auf.',
+            'label' => 'Lokale Website anfragen',
+            'href' => 'anfrage.php',
+        ],
+    ],
+
+    'vergleiche' => [
+        'title' => 'Website-Vergleiche: Baukasten, Agentur, Freelancer, WordPress | Sartu',
+        'description' => 'Faire Website-Vergleiche für Unternehmen: Baukasten oder Agentur, Freelancer oder Agentur, WordPress oder individuelle Website, Onepager oder mehrseitig.',
+        'breadcrumb' => 'Vergleiche',
+        'eyebrow' => 'Website-Vergleiche',
+        'h1' => 'Website-Vergleiche,',
+        'accent' => 'die Entscheidungen leichter machen.',
+        'lead' => 'Vor einer neuen Website gibt es selten nur eine Option. Diese Vergleiche ordnen ein, wann Baukasten, Freelancer, WordPress, Agentur oder individuelle Umsetzung sinnvoll sind.',
+        'answer' => 'Vergleichsseiten holen Suchende ab, bevor sie anfragen. Sie beantworten echte Entscheidungsfragen ehrlich und führen danach zu einer passenden Lösung.',
+        // GO-LIVE: Platzhalterfoto durch echtes Sartu-Prozessfoto ersetzen. Keine Fake-Proofs, Bewertungen oder Kundenlogos ergänzen.
+        'image' => 'photo-placeholder-process-workflow',
+        'imageAlt' => 'Website-Vergleich und Planungsworkflow mit abstrakten Wireframes',
+        'schemaAbout' => 'Website-Vergleiche und Webdesign-Entscheidungen',
+        'heroLinks' => [
+            ['href' => 'anfrage.php', 'label' => 'Empfehlung anfragen', 'class' => 'btn btn-primary btn-lg'],
+            ['href' => 'preise.php', 'label' => 'Preise ansehen', 'class' => 'btn btn-outline btn-lg'],
+        ],
+        'highlights' => [
+            ['label' => 'SEO', 'title' => 'Vergleiche treffen starke Suchintention', 'text' => 'Wer Alternativen vergleicht, ist oft kurz vor der Entscheidung. Genau dort helfen faire Inhalte.'],
+            ['label' => 'Vertrauen', 'title' => 'Ehrlichkeit verkauft besser', 'text' => 'Nicht jede Option ist falsch. Gute Beratung erklärt, wann welche Lösung sinnvoll ist.'],
+            ['label' => 'GEO', 'title' => 'Klare Antworten für KI-Suche', 'text' => 'Strukturierte Vergleiche liefern eindeutige Aussagen, die Menschen und Antwortmaschinen leichter einordnen.'],
+        ],
+        'sections' => [
+            [
+                'eyebrow' => 'Vergleichsseiten',
+                'title' => 'Welche Entscheidung steht gerade an?',
+                'intro' => 'Diese Seiten sind bewusst nicht auf Sartu allein bezogen. Sie beantworten typische Suchanfragen vor einem Website-Projekt.',
+                'layout' => 'service-cards',
+                'cards' => [
+                    ['title' => 'Website-Baukasten oder Agentur?', 'text' => 'Wann ein Baukasten reicht und wann professionelle Umsetzung, SEO und Texte sinnvoller sind.', 'href' => 'vergleich-website-baukasten-agentur.php', 'linkText' => 'Vergleich lesen'],
+                    ['title' => 'Freelancer oder Agentur?', 'text' => 'Direkter Kontakt, Kosten, Verfügbarkeit, Qualitätssicherung und langfristige Betreuung im Vergleich.', 'href' => 'vergleich-freelancer-agentur.php', 'linkText' => 'Vergleich lesen'],
+                    ['title' => 'WordPress oder individuelle Website?', 'text' => 'CMS-Flexibilität, Wartung, Sicherheit, Geschwindigkeit und Redaktionsbedarf einfach eingeordnet.', 'href' => 'vergleich-wordpress-individuell.php', 'linkText' => 'Vergleich lesen'],
+                    ['title' => 'Onepager oder mehrseitige Website?', 'text' => 'Wann eine Seite reicht und wann mehrere Leistungsseiten für Google und Kunden besser sind.', 'href' => 'ratgeber-onepager.php', 'linkText' => 'Ratgeber lesen'],
+                    ['title' => 'Was kostet eine Website?', 'text' => 'Zahlen, Preisbestandteile und laufende Kosten als Grundlage für jeden Vergleich.', 'href' => 'ratgeber-website-kosten.php', 'linkText' => 'Kosten lesen'],
+                    ['title' => 'Qualität vor dem Onlinegang', 'text' => 'Wie man Website-Angebote nicht nur über Preis, sondern über Prüfprozess und Ergebnis bewertet.', 'href' => 'qualitaet.php', 'linkText' => 'Qualität ansehen', 'variant' => 'blue'],
+                ],
+            ],
+            [
+                'eyebrow' => 'Entscheidungslogik',
+                'title' => 'Worauf Vergleiche wirklich hinauslaufen.',
+                'intro' => 'Am Ende geht es nicht um Tools, sondern um Risiko, Zeit, Qualität und Wachstum.',
+                'cards' => [
+                    ['label' => 'Budget', 'title' => 'Wie viel Eigenarbeit ist realistisch?', 'text' => 'Eine günstige Lösung kann teuer werden, wenn Strategie, Texte, SEO und Technik selbst hängen bleiben.'],
+                    ['label' => 'Ziel', 'title' => 'Soll die Seite nur existieren oder verkaufen?', 'text' => 'Für Visitenkarten-Websites reichen andere Lösungen als für Sichtbarkeit und planbare Anfragen.'],
+                    ['label' => 'Betrieb', 'title' => 'Wer kümmert sich nach dem Start?', 'text' => 'Hosting, Updates, Backups, Datenschutz und Änderungen gehören in die Entscheidung.'],
+                ],
+            ],
+            [
+                'eyebrow' => 'Schnellvergleich',
+                'title' => 'Welche Option passt eher zu welcher Situation?',
+                'intro' => 'Diese Übersicht ersetzt keine Beratung, gibt aber eine klare erste Richtung.',
+                'table' => [
+                    'headers' => ['Option', 'Passt eher wenn', 'Wird kritisch wenn'],
+                    'rows' => [
+                        ['Website-Baukasten', 'Budget knapp ist und viel Eigenarbeit möglich ist.', 'SEO, Texte, Designqualität und Zeit wichtig werden.'],
+                        ['Freelancer', 'Ein klar abgegrenztes Projekt und gute Empfehlung vorhanden sind.', 'Langfristige Betreuung, Vertretung oder mehrere Disziplinen nötig sind.'],
+                        ['Agentur', 'Strategie, Design, Texte, SEO und Betrieb zusammen gedacht werden sollen.', 'Das Angebot unklar bleibt oder keine echten Leistungen benannt werden.'],
+                        ['WordPress', 'Inhalte oft selbst gepflegt werden müssen.', 'Zu viele Plugins, Wartung und Sicherheit nicht betreut werden.'],
+                        ['Individuelle Website', 'Speed, Sicherheit und klare Struktur wichtiger sind als ständige Selbstpflege.', 'Jede kleine Änderung ohne Betreuung unmöglich wird.'],
+                    ],
+                ],
+            ],
+        ],
+        'related' => $commonServiceLinks,
+        'faqTitle' => 'Fragen zu Website-Vergleichen.',
+        'faqs' => [
+            ['q' => 'Warum sind Vergleichsseiten für Website-Projekte wichtig?', 'a' => 'Weil viele Unternehmen vor der Anfrage zwischen Baukasten, Freelancer, Agentur, WordPress oder individueller Umsetzung abwägen. Gute Vergleiche sparen Fehlentscheidungen.'],
+            ['q' => 'Welche Website-Lösung ist für kleine Unternehmen am besten?', 'a' => 'Das hängt von Ziel, Budget, Eigenzeit, SEO-Bedarf und laufender Pflege ab. Für professionelle Wirkung und weniger Eigenaufwand ist eine betreute Agenturlösung oft sinnvoll.'],
+            ['q' => 'Sind Vergleichsseiten gut für SEO?', 'a' => 'Ja, wenn sie echte Entscheidungsfragen beantworten, fair bleiben und nicht nur Werbung für eine Option machen. Suchende mit Vergleichsfragen sind oft sehr kaufnah.'],
+            ['q' => 'Sollte man vor dem Angebot mehrere Website-Optionen vergleichen?', 'a' => 'Ja. Vergleichen Sie nicht nur Preise, sondern auch Texte, SEO, Technik, Datenschutz, Wartung, Rechte, Korrekturrunden und Betreuung nach dem Start.'],
+        ],
+        'cta' => [
+            'title' => 'Unsicher, welche Lösung passt?',
+            'text' => 'Starten Sie die Anfrage. Wir ordnen ein, ob Onepager, mehrseitige Website, Redesign oder Betreuung sinnvoll ist.',
+            'label' => 'Empfehlung anfragen',
+            'href' => 'anfrage.php',
+        ],
+    ],
+
+    'vergleich-website-baukasten-agentur' => [
+        'title' => 'Website-Baukasten oder Agentur? Der faire Vergleich für Unternehmen | Sartu',
+        'description' => 'Website-Baukasten oder Webdesign-Agentur: Kosten, Zeit, SEO, Design, Datenschutz, Wartung und Qualität fair verglichen.',
+        'parent' => ['label' => 'Vergleiche', 'slug' => 'vergleiche'],
+        'breadcrumb' => 'Baukasten oder Agentur',
+        'eyebrow' => 'Vergleich',
+        'h1' => 'Website-Baukasten oder Agentur?',
+        'accent' => 'Was passt zu Ihrem Ziel?',
+        'lead' => 'Ein Website-Baukasten ist nicht automatisch schlecht und eine Agentur nicht automatisch nötig. Entscheidend ist, was die Website leisten soll und wie viel Eigenarbeit realistisch ist.',
+        'answer' => 'Ein Website-Baukasten passt, wenn Budget knapp ist, die Website einfach bleibt und Sie Zeit für Struktur, Texte und Pflege haben. Eine Agentur lohnt sich, wenn Wirkung, SEO, professionelle Texte, Technik und Betreuung wichtig sind.',
+        'image' => 'hero-mockup',
+        'imageAlt' => 'Website-Baukasten und Agentur-Website im Vergleich',
+        'schemaAbout' => 'Website-Baukasten versus Webdesign-Agentur',
+        'heroLinks' => [
+            ['href' => 'anfrage.php', 'label' => 'Agentur-Einschätzung anfragen', 'class' => 'btn btn-primary btn-lg'],
+            ['href' => 'preise.php', 'label' => 'Festpreise ansehen', 'class' => 'btn btn-outline btn-lg'],
+        ],
+        'highlights' => [
+            ['label' => 'Baukasten', 'title' => 'Gut für einfache Starts', 'text' => 'Wenn die Seite klein bleibt und Sie selbst schreiben, gestalten und pflegen wollen, kann ein Baukasten reichen.'],
+                    ['label' => 'Agentur', 'title' => 'Besser bei Wirkung und SEO', 'text' => 'Wenn die Website professionell verkaufen und gefunden werden soll, zählt mehr als nur ein Layout.', 'variant' => 'blue'],
+            ['label' => 'Kosten', 'title' => 'Eigenzeit ist auch ein Preis', 'text' => 'Baukasten wirkt günstiger, kostet aber oft viele Stunden für Texte, Struktur, Design und Datenschutz.'],
+        ],
+        'sections' => [
+            [
+                'eyebrow' => 'Direktvergleich',
+                'title' => 'Baukasten und Agentur im Überblick.',
+                'intro' => 'Der Vergleich zeigt, wo die Unterschiede im Alltag liegen.',
+                'table' => [
+                    'headers' => ['Kriterium', 'Website-Baukasten', 'Webdesign-Agentur'],
+                    'rows' => [
+                        ['Startkosten', 'Meist niedriger, dafür viel Eigenarbeit.', 'Höher, dafür Planung, Umsetzung und Ergebnis aus einer Hand.'],
+                        ['Texte', 'Sie schreiben selbst oder nutzen Vorlagen.', 'Texte können auf Zielgruppe, SEO und Anfrage ausgerichtet werden.'],
+                        ['Design', 'Vorlage mit begrenzter Individualität.', 'Individuelles Design passend zu Marke, Branche und Ziel.'],
+                        ['SEO', 'Grundlagen möglich, Strategie meist Eigenaufgabe.', 'Struktur, Keywords, Technik und Inhalte werden zusammen geplant.'],
+                        ['Wartung', 'Sie bleiben verantwortlich.', 'Hosting, Updates, Backups und Support können betreut werden.'],
+                    ],
+                ],
+            ],
+            [
+                'eyebrow' => 'Entscheidung',
+                'title' => 'Wann ein Baukasten sinnvoll ist.',
+                'intro' => 'Nicht jedes Unternehmen braucht sofort eine große Website.',
+                'cards' => [
+                    ['label' => 'Budget', 'title' => 'Sehr kleines Startbudget', 'text' => 'Wenn Sie vor allem eine einfache Online-Visitenkarte brauchen, kann ein Baukasten ein Einstieg sein.'],
+                    ['label' => 'Zeit', 'title' => 'Sie können selbst umsetzen', 'text' => 'Baukasten lohnt sich eher, wenn Sie Texte, Bilder, Struktur und Änderungen wirklich selbst übernehmen möchten.'],
+                    ['label' => 'Anspruch', 'title' => 'Kein starker SEO-Wettbewerb', 'text' => 'Wenn Sichtbarkeit keine große Rolle spielt, ist die Lösung weniger kritisch.'],
+                ],
+            ],
+            [
+                'eyebrow' => 'Agentur',
+                'title' => 'Wann eine Agentur die bessere Wahl ist.',
+                'intro' => 'Eine Agentur lohnt sich besonders, wenn die Website aktiv Vertrauen und Anfragen erzeugen soll.',
+                'cards' => [
+                    ['label' => 'Verkauf', 'title' => 'Die Website soll Kunden gewinnen', 'text' => 'Dann müssen Texte, Design, Nutzerführung und Kontaktwege bewusst aufgebaut werden.'],
+                    ['label' => 'SEO', 'title' => 'Google soll die Leistungen verstehen', 'text' => 'Leistungsseiten, interne Links und technische Basis sollten von Anfang an stimmen.'],
+                    ['label' => 'Ruhe', 'title' => 'Sie möchten Betrieb und Pflege abgeben', 'text' => 'Wartung, Hosting, Backups und Support reduzieren Aufwand nach dem Onlinegang.'],
+                ],
+                'note' => [
+                    'title' => 'Faire Empfehlung',
+                    'text' => 'Wenn ein Baukasten für Ihr Ziel reicht, sollte man das ehrlich sagen. Wenn Sichtbarkeit und Anfragen wichtig sind, wird professionelle Umsetzung meist günstiger als dauerhaftes Herumprobieren.',
+                ],
+            ],
+        ],
+        'related' => [
+            ['title' => 'Webdesign zum Festpreis', 'text' => 'Professionelle Website mit Texten, SEO-Grundlagen und Rundum-Schutz.', 'href' => 'leistung-webdesign.php', 'linkText' => 'Webdesign ansehen'],
+            ['title' => 'Website-Kosten 2026', 'text' => 'Was Agentur-Websites kosten und welche Leistungen enthalten sein sollten.', 'href' => 'ratgeber-website-kosten.php', 'linkText' => 'Kosten lesen'],
+            ['title' => 'WordPress oder individuell?', 'text' => 'Der nächste Vergleich, wenn Sie die technische Basis klären möchten.', 'href' => 'vergleich-wordpress-individuell.php', 'linkText' => 'Vergleich lesen'],
+        ],
+        'faqTitle' => 'Fragen zu Baukasten und Agentur.',
+        'faqs' => [
+            ['q' => 'Ist ein Website-Baukasten schlecht für SEO?', 'a' => 'Nicht automatisch. Problematisch wird es, wenn Struktur, Texte, Ladezeit, interne Links und Suchintention nicht sauber geplant werden.'],
+            ['q' => 'Warum ist eine Agentur-Website teurer als ein Baukasten?', 'a' => 'Weil Strategie, Texte, Design, Technik, Datenschutz, SEO, Korrekturen und Betreuung Zeit kosten und nicht nur ein Tool bezahlt wird.'],
+            ['q' => 'Kann man mit einem Baukasten starten und später wechseln?', 'a' => 'Ja. Wichtig ist, Inhalte, Domain, Bilder und Struktur so aufzubauen, dass ein späterer Umzug nicht unnötig schwer wird.'],
+            ['q' => 'Wann lohnt sich eine Webdesign-Agentur wirklich?', 'a' => 'Wenn die Website professionell wirken, gefunden werden, Anfragen bringen und technisch zuverlässig betreut werden soll.'],
+        ],
+        'cta' => [
+            'title' => 'Baukasten oder Agentur: was passt bei Ihnen?',
+            'text' => 'Beschreiben Sie Ziel, Umfang und Eigenzeit. Wir geben eine klare Einschätzung statt Verkaufsdruck.',
+            'label' => 'Einschätzung anfragen',
+            'href' => 'anfrage.php',
+        ],
+    ],
+
+    'vergleich-freelancer-agentur' => [
+        'title' => 'Freelancer oder Webdesign-Agentur? Vergleich für Website-Projekte | Sartu',
+        'description' => 'Freelancer oder Webdesign-Agentur für eine Website: Kosten, Qualität, Verfügbarkeit, SEO, Prozess, Betreuung und Risiko im Vergleich.',
+        'parent' => ['label' => 'Vergleiche', 'slug' => 'vergleiche'],
+        'breadcrumb' => 'Freelancer oder Agentur',
+        'eyebrow' => 'Vergleich',
+        'h1' => 'Freelancer oder Agentur?',
+        'accent' => 'So vergleichen Sie fair.',
+        'lead' => 'Freelancer und Agenturen können beide gute Websites bauen. Der Unterschied liegt oft in Prozess, Verfügbarkeit, Qualitätssicherung und langfristiger Betreuung.',
+        'answer' => 'Ein Freelancer passt gut bei klar abgegrenzten Aufgaben, direktem Kontakt und begrenztem Budget. Eine Agentur ist sinnvoll, wenn Strategie, Texte, Design, SEO, Technik und Betreuung verlässlich zusammenlaufen sollen.',
+        'image' => 'hero-team-contact',
+        'imageAlt' => 'Webdesign-Freelancer und Agenturprozess im Vergleich',
+        'schemaAbout' => 'Freelancer versus Webdesign-Agentur',
+        'heroLinks' => [
+            ['href' => 'anfrage.php', 'label' => 'Website-Projekt einschätzen lassen', 'class' => 'btn btn-primary btn-lg'],
+            ['href' => 'ablauf.php', 'label' => 'Ablauf ansehen', 'class' => 'btn btn-outline btn-lg'],
+        ],
+        'highlights' => [
+            ['label' => 'Freelancer', 'title' => 'Direkt, flexibel, persönlich', 'text' => 'Gut, wenn Aufgabe und Erwartung klar sind und Sie eine verlässliche Empfehlung haben.'],
+                    ['label' => 'Agentur', 'title' => 'Strukturierter und breiter', 'text' => 'Gut, wenn mehrere Disziplinen, klare Abnahme und langfristige Betreuung wichtig sind.', 'variant' => 'blue'],
+            ['label' => 'Sartu', 'title' => 'Direkt, aber mit Prozess', 'text' => 'Sartu ist bewusst schlank, arbeitet aber mit festen Paketen, Qualitätschecks und klarer Dokumentation.'],
+        ],
+        'sections' => [
+            [
+                'eyebrow' => 'Vergleich',
+                'title' => 'Freelancer und Agentur im Alltag.',
+                'intro' => 'Nicht der Name entscheidet, sondern die Leistung dahinter.',
+                'table' => [
+                    'headers' => ['Kriterium', 'Freelancer', 'Agentur'],
+                    'rows' => [
+                        ['Kontakt', 'Sehr direkt, oft eine Person.', 'Je nach Größe mehrere Rollen oder fester Ansprechpartner.'],
+                        ['Kosten', 'Kann günstiger sein, je nach Erfahrung stark unterschiedlich.', 'Meist klarere Pakete, aber höhere Grundkosten.'],
+                        ['Breite', 'Stark abhängig von Einzelperson.', 'Design, Text, SEO, Technik und Betrieb eher kombiniert.'],
+                        ['Verfügbarkeit', 'Kann bei Krankheit oder Auslastung kritisch werden.', 'Mehr Ausfallsicherheit, wenn Prozesse vorhanden sind.'],
+                        ['Qualitätssicherung', 'Muss aktiv erfragt werden.', 'Sollte mit Checklisten, Freigaben und Tests geregelt sein.'],
+                    ],
+                ],
+            ],
+            [
+                'eyebrow' => 'Freelancer',
+                'title' => 'Wann ein Freelancer sinnvoll ist.',
+                'intro' => 'Freelancer sind nicht die kleine Version einer Agentur. Sie sind besonders stark, wenn die Aufgabe klar ist.',
+                'cards' => [
+                    ['label' => 'Aufgabe', 'title' => 'Klar abgegrenztes Projekt', 'text' => 'Zum Beispiel ein Redesign, ein Template, ein Logo oder technische Hilfe.'],
+                    ['label' => 'Empfehlung', 'title' => 'Vertrauenswürdige Referenz', 'text' => 'Wenn Sie jemanden empfohlen bekommen, sinkt das Risiko deutlich.'],
+                    ['label' => 'Budget', 'title' => 'Flexible Umsetzung', 'text' => 'Bei kleineren Budgets kann ein guter Freelancer eine starke Lösung sein.'],
+                ],
+            ],
+            [
+                'eyebrow' => 'Agentur',
+                'title' => 'Wann eine Agentur sinnvoller ist.',
+                'intro' => 'Agentur heißt nicht automatisch besser. Sinnvoll wird sie, wenn das Projekt mehrere Themen sauber verbinden muss.',
+                'cards' => [
+                    ['label' => 'Strategie', 'title' => 'Website soll verkaufen', 'text' => 'Dann müssen Positionierung, Texte, Design und Anfrageführung zusammen gedacht werden.'],
+                    ['label' => 'SEO', 'title' => 'Sichtbarkeit ist wichtig', 'text' => 'Keyword-Struktur, Leistungsseiten, Technik und interne Links sollten kein Nachgedanke sein.'],
+                    ['label' => 'Betrieb', 'title' => 'Nach dem Start soll jemand zuständig sein', 'text' => 'Hosting, Wartung, Backups und Änderungen brauchen klare Verantwortung.'],
+                ],
+                'note' => [
+                    'title' => 'Keine Fake-Größe',
+                    'text' => 'Gerade zum Start ist Ehrlichkeit wichtig: Entscheidend ist nicht, groß zu wirken, sondern klar zu zeigen, wie Qualität, Kommunikation und Abnahme gesichert werden.',
+                ],
+            ],
+        ],
+        'related' => [
+            ['title' => 'Qualitätsprozess ansehen', 'text' => 'Wie Sartu ohne erfundene Referenzen Vertrauen über Prozess und Checks aufbaut.', 'href' => 'qualitaet.php', 'linkText' => 'Qualität ansehen'],
+            ['title' => 'Ablauf digitaler Zusammenarbeit', 'text' => 'Vom Anfrageformular bis zur Freigabe in klaren Schritten.', 'href' => 'ablauf.php', 'linkText' => 'Ablauf ansehen'],
+            ['title' => 'Website-Baukasten oder Agentur?', 'text' => 'Der Vergleich, wenn auch Do-it-yourself im Raum steht.', 'href' => 'vergleich-website-baukasten-agentur.php', 'linkText' => 'Vergleich lesen'],
+        ],
+        'faqTitle' => 'Fragen zu Freelancer und Agentur.',
+        'faqs' => [
+            ['q' => 'Ist ein Freelancer günstiger als eine Agentur?', 'a' => 'Oft ja, aber nicht immer. Entscheidend ist, welche Leistungen enthalten sind: Texte, SEO, Technik, Korrekturen, Rechte, Wartung und Support.'],
+            ['q' => 'Wann ist eine Agentur besser als ein Freelancer?', 'a' => 'Wenn mehrere Disziplinen gebraucht werden, die Website strategisch Anfragen bringen soll oder langfristige Betreuung wichtig ist.'],
+            ['q' => 'Worauf sollte man bei einem Freelancer achten?', 'a' => 'Achten Sie auf klare Leistungen, Verfügbarkeit, Nutzungsrechte, Referenzen oder Arbeitsproben, Wartungsregelung und transparente Kommunikation.'],
+            ['q' => 'Kann eine kleine Agentur seriös sein?', 'a' => 'Ja. Wichtig sind ein klarer Prozess, transparente Preise, saubere Qualitätschecks und ehrliche Kommunikation über Umfang und Zuständigkeiten.'],
+        ],
+        'cta' => [
+            'title' => 'Sie wollen fair vergleichen?',
+            'text' => 'Schicken Sie Ziel, Umfang und Budgetrahmen. Wir sagen ehrlich, welche Umsetzung zu Ihrem Projekt passt.',
+            'label' => 'Projekt einschätzen lassen',
+            'href' => 'anfrage.php',
+        ],
+    ],
+
+    'vergleich-wordpress-individuell' => [
+        'title' => 'WordPress oder individuelle Website? Vergleich für Unternehmen | Sartu',
+        'description' => 'WordPress oder individuelle Website: CMS, Pflege, Geschwindigkeit, Sicherheit, SEO, Wartung und Kosten einfach verglichen.',
+        'parent' => ['label' => 'Vergleiche', 'slug' => 'vergleiche'],
+        'breadcrumb' => 'WordPress oder individuell',
+        'eyebrow' => 'Vergleich',
+        'h1' => 'WordPress oder individuelle Website?',
+        'accent' => 'Die richtige Technik für Ihr Ziel.',
+        'lead' => 'WordPress ist weit verbreitet und kann sehr sinnvoll sein. Eine individuelle, schlanke Website kann aber schneller, wartungsärmer und klarer sein, wenn Inhalte selten selbst gepflegt werden.',
+        'answer' => 'WordPress lohnt sich, wenn Inhalte regelmäßig selbst bearbeitet werden sollen. Eine individuelle Website passt, wenn Geschwindigkeit, Sicherheit, klare Struktur und geringe Plugin-Abhängigkeit wichtiger sind.',
+        'image' => 'hero-webdesign',
+        'imageAlt' => 'Technischer Vergleich von WordPress und individueller Website',
+        'schemaAbout' => 'WordPress versus individuelle Website',
+        'heroLinks' => [
+            ['href' => 'anfrage.php', 'label' => 'Technik einschätzen lassen', 'class' => 'btn btn-primary btn-lg'],
+            ['href' => 'leistung-wartung.php', 'label' => 'Wartung ansehen', 'class' => 'btn btn-outline btn-lg'],
+        ],
+        'highlights' => [
+            ['label' => 'WordPress', 'title' => 'Stark bei eigener Pflege', 'text' => 'Wenn Sie regelmäßig Inhalte ändern möchten, ist ein CMS oft sinnvoll.'],
+                    ['label' => 'Individuell', 'title' => 'Stark bei Speed und Klarheit', 'text' => 'Wenn die Seite vor allem schnell, sicher und schlank laufen soll, kann weniger Technik besser sein.', 'variant' => 'blue'],
+            ['label' => 'Wartung', 'title' => 'Plugins sind kein Selbstläufer', 'text' => 'Je mehr Erweiterungen genutzt werden, desto wichtiger werden Updates, Backups und Sicherheitsprüfung.'],
+        ],
+        'sections' => [
+            [
+                'eyebrow' => 'Technikvergleich',
+                'title' => 'WordPress und individuelle Website im Vergleich.',
+                'intro' => 'Die beste Lösung hängt davon ab, wie Inhalte gepflegt werden und wie viel Wartung gewünscht ist.',
+                'table' => [
+                    'headers' => ['Kriterium', 'WordPress', 'Individuelle Website'],
+                    'rows' => [
+                        ['Inhalte pflegen', 'Sehr gut, wenn Redakteure regelmäßig Inhalte ändern.', 'Gut mit Betreuung, weniger ideal für ständige Selbstpflege.'],
+                        ['Geschwindigkeit', 'Gut möglich, aber abhängig von Theme, Plugins und Hosting.', 'Sehr schlank möglich, wenn Funktionen gezielt gebaut werden.'],
+                        ['Sicherheit', 'Updates und Pluginpflege sind wichtig.', 'Weniger Angriffsfläche, wenn keine unnötigen Systeme laufen.'],
+                        ['Flexibilität', 'Viele Plugins und Erweiterungen verfügbar.', 'Funktionen werden gezielt passend umgesetzt.'],
+                        ['Wartung', 'Regelmäßig notwendig.', 'Meist überschaubarer, aber nicht wartungsfrei.'],
+                    ],
+                ],
+            ],
+            [
+                'eyebrow' => 'WordPress',
+                'title' => 'Wann WordPress sinnvoll ist.',
+                'intro' => 'WordPress ist besonders stark, wenn die Website aktiv redaktionell gepflegt wird.',
+                'cards' => [
+                    ['label' => 'Redaktion', 'title' => 'Sie ändern Inhalte selbst', 'text' => 'Blog, Jobs, News, Team oder Leistungen sollen regelmäßig intern gepflegt werden.'],
+                    ['label' => 'Erweiterung', 'title' => 'Viele Standardfunktionen nötig', 'text' => 'Terminbuchung, Mehrsprachigkeit oder Mitgliederbereiche können über Plugins schneller starten.'],
+                    ['label' => 'Team', 'title' => 'Mehrere Personen arbeiten an Inhalten', 'text' => 'Rollen, Login und Redaktionsabläufe sind mit einem CMS einfacher.'],
+                ],
+            ],
+            [
+                'eyebrow' => 'Individuell',
+                'title' => 'Wann eine individuelle Website passt.',
+                'intro' => 'Eine schlanke Website ist sinnvoll, wenn die Inhalte stabil bleiben und Performance wichtig ist.',
+                'cards' => [
+                    ['label' => 'Speed', 'title' => 'Schnelle Ladezeit zählt', 'text' => 'Weniger Ballast hilft besonders bei mobilen Besuchern und SEO.'],
+                    ['label' => 'Sicherheit', 'title' => 'Weniger Plugins, weniger Risiko', 'text' => 'Ohne unnötige Erweiterungen sinkt die laufende Angriffsfläche.'],
+                    ['label' => 'Fokus', 'title' => 'Die Website soll klar verkaufen', 'text' => 'Für viele Firmenwebsites sind gute Struktur, Texte und Kontaktwege wichtiger als ein großes CMS.'],
+                ],
+                'note' => [
+                    'title' => 'Wichtig',
+                    'text' => 'Individuell heißt nicht unflexibel. Änderungen sollten nur klar über Wartung, Support oder ein passendes Pflegekonzept geregelt sein.',
+                ],
+            ],
+        ],
+        'related' => [
+            ['title' => 'Wartung und Hosting', 'text' => 'Welche laufende Betreuung je Technik sinnvoll ist.', 'href' => 'leistung-wartung.php', 'linkText' => 'Wartung ansehen'],
+            ['title' => 'Website-Wartung Ratgeber', 'text' => 'Backups, Updates, SSL und Sicherheit verständlich erklärt.', 'href' => 'ratgeber-website-wartung.php', 'linkText' => 'Ratgeber lesen'],
+            ['title' => 'Baukasten oder Agentur?', 'text' => 'Der Vergleich, wenn auch eine Do-it-yourself-Lösung im Raum steht.', 'href' => 'vergleich-website-baukasten-agentur.php', 'linkText' => 'Vergleich lesen'],
+        ],
+        'faqTitle' => 'Fragen zu WordPress und individueller Website.',
+        'faqs' => [
+            ['q' => 'Ist WordPress gut für Unternehmenswebsites?', 'a' => 'Ja, wenn Inhalte regelmäßig selbst gepflegt werden sollen und Wartung sauber geregelt ist. Ohne Pflege können Plugins und Updates zum Risiko werden.'],
+            ['q' => 'Ist eine individuelle Website besser für SEO?', 'a' => 'Nicht automatisch. SEO hängt von Struktur, Texten, Technik und Ladezeit ab. Individuelle Websites können sehr schnell und schlank sein, wenn sie sauber gebaut werden.'],
+            ['q' => 'Kann man eine individuelle Website später erweitern?', 'a' => 'Ja, wenn sie sauber geplant ist. Für häufige redaktionelle Änderungen sollte aber früh geklärt werden, ob ein CMS sinnvoller ist.'],
+            ['q' => 'Was ist günstiger: WordPress oder individuelle Website?', 'a' => 'Das hängt von Umfang und Pflege ab. WordPress kann beim Start flexibel sein, verursacht aber oft laufende Wartung durch Updates, Plugins und Sicherheit.'],
+        ],
+        'cta' => [
+            'title' => 'Welche Technik passt zu Ihrer Website?',
+            'text' => 'Sagen Sie, wie oft Inhalte geändert werden und welche Funktionen geplant sind. Daraus lässt sich die passende technische Basis ableiten.',
+            'label' => 'Technik einschätzen lassen',
+            'href' => 'anfrage.php',
+        ],
+    ],
+
+    'qualitaet' => [
+        'title' => 'Website-Qualität und Abnahme: Vertrauen ohne Fake-Referenzen | Sartu',
+        'description' => 'Website-Qualität statt erfundener Referenzen: Sartu zeigt transparent, welche Checks vor dem Onlinegang erfolgen und wie Kunden Ergebnisse prüfen können.',
+        'breadcrumb' => 'Qualität',
+        'eyebrow' => 'Qualität und Transparenz',
+        'h1' => 'Website-Qualität,',
+        'accent' => 'die man vor dem Start prüfen kann.',
+        'lead' => 'Sartu startet ehrlich. Deshalb gibt es keine erfundenen Referenzen, keine geschönten Versprechen und keine Fantasie-Erfolge. Vertrauen entsteht über klare Leistungen, saubere Checks und transparente Abnahme.',
+        'answer' => 'Wenn noch keine echten Referenzen vorhanden sind, ist die beste Alternative ein nachvollziehbarer Qualitätsprozess: Was wird geplant, gebaut, geprüft, dokumentiert und vor dem Onlinegang freigegeben?',
+        // GO-LIVE: Platzhalterfoto durch echtes Qualitäts-/Abnahmefoto ersetzen. Keine Fake-Proofs, Bewertungen oder Kundenlogos ergänzen.
+        'image' => 'photo-placeholder-quality-check',
+        'imageAlt' => 'Qualitätsprüfung einer Website vor dem Onlinegang mit abstrakter Checkliste',
+        'schemaAbout' => 'Website-Qualität, Abnahme und Transparenz',
+        'heroLinks' => [
+            ['href' => 'anfrage.php', 'label' => 'Projekt transparent starten', 'class' => 'btn btn-primary btn-lg'],
+            ['href' => 'ablauf.php', 'label' => 'Ablauf ansehen', 'class' => 'btn btn-outline btn-lg'],
+        ],
+        'highlights' => [
+            ['label' => 'Ehrlichkeit', 'title' => 'Keine erfundenen Beweise', 'text' => 'Echte Referenzen kommen später. Bis dahin zählt, was im Prozess überprüfbar ist.'],
+            ['label' => 'Abnahme', 'title' => 'Klar prüfen statt hoffen', 'text' => 'Design, Texte, Technik, Formulare, SEO und Datenschutz werden vor dem Livegang systematisch kontrolliert.'],
+            ['label' => 'Vertrauen', 'title' => 'Transparenz ist ein Beweisersatz', 'text' => 'Wer offen zeigt, wie Qualität entsteht, wirkt glaubwürdiger als mit künstlichen Erfolgsgeschichten.'],
+        ],
+        'sections' => [
+            [
+                'eyebrow' => 'Alternative zu Referenzen',
+                'title' => 'Was statt Fake-Beweisen Vertrauen schafft.',
+                'intro' => 'Gerade am Anfang muss Vertrauen anders aufgebaut werden. Nicht durch Behauptungen, sondern durch prüfbare Schritte.',
+                'cards' => [
+                    ['label' => 'Leistung', 'title' => 'Klarer Umfang vor Projektstart', 'text' => 'Seitenanzahl, Texte, SEO, Technik, Wartung, Korrekturen und laufende Kosten werden vorab benannt.'],
+                    ['label' => 'Prozess', 'title' => 'Freigaben an echten Zwischenergebnissen', 'text' => 'Sie prüfen Struktur, Inhalte und Design, bevor die Website online geht.'],
+                    ['label' => 'Dokumentation', 'title' => 'Checkliste statt Bauchgefühl', 'text' => 'Wichtige Punkte werden vor Livegang kontrolliert und nachvollziehbar gemacht.', 'variant' => 'blue'],
+                ],
+            ],
+            [
+                'eyebrow' => 'Abnahme',
+                'title' => 'Was vor dem Onlinegang geprüft wird.',
+                'intro' => 'Die konkrete Prüfung hängt vom Paket ab. Diese Punkte bilden die sinnvolle Basis.',
+                'table' => [
+                    'headers' => ['Bereich', 'Prüfung', 'Warum das wichtig ist'],
+                    'rows' => [
+                        ['Design und Mobil', 'Darstellung auf Smartphone, Tablet und Desktop prüfen.', 'Viele Besucher kommen mobil, Fehler kosten Vertrauen.'],
+                        ['Texte und Struktur', 'Überschriften, Verständlichkeit, Leistungsseiten und Anfragewege prüfen.', 'Kunden und Google müssen das Angebot schnell verstehen.'],
+                        ['SEO-Basis', 'Title, Description, interne Links, Sitemap, strukturierte Daten und Indexierung vorbereiten.', 'Die Website soll technisch auffindbar sein.'],
+                        ['Formulare und Kontakt', 'Formularversand, Pflichtfelder, Bestätigung und Kontaktwege testen.', 'Eine kaputte Anfrage ist der teuerste Website-Fehler.'],
+                        ['Sicherheit und Datenschutz', 'SSL, Datenschutzseiten, Cookie-Regeln und Hosting-Basis prüfen.', 'Geschäftliche Websites brauchen Vertrauen und rechtliche Grundlagen.'],
+                        ['Performance', 'Bilder, Ladezeit und unnötiger Ballast kontrollieren.', 'Schnelle Seiten wirken besser und helfen bei SEO.'],
+                    ],
+                ],
+            ],
+            [
+                'eyebrow' => 'Kundenperspektive',
+                'title' => 'Was Sie als Kunde vor Freigabe sehen sollten.',
+                'intro' => 'Eine Website sollte nicht blind veröffentlicht werden. Vor dem Livegang geht es um klare Entscheidungspunkte.',
+                'cards' => [
+                    ['label' => 'Entwurf', 'title' => 'Erster Eindruck und Botschaft', 'text' => 'Sie prüfen, ob die Seite richtig wirkt und Ihr Angebot verständlich erklärt.'],
+                    ['label' => 'Inhalte', 'title' => 'Leistungen, Preise und Aussagen', 'text' => 'Sie kontrollieren fachliche Richtigkeit, Kontaktangaben, Bilder und wichtige Details.'],
+                    ['label' => 'Funktion', 'title' => 'Kontaktweg aus Besuchersicht', 'text' => 'Sie testen Anfrage, Telefonlink, Navigation und mobile Bedienung vor Veröffentlichung.'],
+                ],
+                'note' => [
+                    'title' => 'Ruhig starten, sauber prüfen',
+                    'text' => 'Die Seite bleibt bewusst bei Ablauf, Abnahme und technischen Checks. So wissen Besucher, worauf vor dem Onlinegang geachtet wird, ohne dass künstliche Beweise nötig sind.',
+                ],
+            ],
+        ],
+        'related' => [
+            ['title' => 'Ablauf in 7 Schritten', 'text' => 'Wie aus Anfrage, Struktur, Texten und Freigaben eine fertige Website wird.', 'href' => 'ablauf.php', 'linkText' => 'Ablauf ansehen'],
+            ['title' => 'Freelancer oder Agentur?', 'text' => 'Warum Qualitätssicherung beim Vergleich von Anbietern wichtig ist.', 'href' => 'vergleich-freelancer-agentur.php', 'linkText' => 'Vergleich lesen'],
+            ['title' => 'Website-Wartung', 'text' => 'Was nach dem Onlinegang wichtig bleibt: Hosting, Backups, Sicherheit und Support.', 'href' => 'leistung-wartung.php', 'linkText' => 'Wartung ansehen'],
+        ],
+        'faqTitle' => 'Fragen zu Qualität und Abnahme.',
+        'faqs' => [
+            ['q' => 'Wie kann eine neue Agentur Vertrauen aufbauen, wenn es noch keine Referenzen gibt?', 'a' => 'Durch Transparenz: klare Leistungen, nachvollziehbarer Ablauf, Qualitätschecks, ehrliche Kommunikation und echte Ergebnisse sobald sie vorhanden sind.'],
+            ['q' => 'Warum sollte man keine künstlichen Vertrauenselemente verwenden?', 'a' => 'Weil sie langfristig Vertrauen zerstören. Ehrlicher sind klare Leistungen, nachvollziehbare Abläufe, transparente Preise und überprüfbare Qualitätschecks.'],
+            ['q' => 'Was sollte vor dem Website-Launch getestet werden?', 'a' => 'Getestet werden sollten mobile Darstellung, Formulare, Links, Ladezeit, SEO-Grundlagen, Datenschutzseiten, SSL, Bilder, Texte und Kontaktwege.'],
+            ['q' => 'Bekomme ich vor dem Onlinegang etwas zur Freigabe?', 'a' => 'Ja, eine professionelle Website sollte vor Veröffentlichung geprüft und freigegeben werden. Dabei geht es um Design, Inhalte, Funktionen und wichtige technische Punkte.'],
+        ],
+        'cta' => [
+            'title' => 'Lieber sauber starten als künstlich groß wirken?',
+            'text' => 'Starten Sie Ihr Website-Projekt mit einem klaren Prozess, festen Leistungen und ehrlicher Qualitätsprüfung.',
+            'label' => 'Transparent anfragen',
+            'href' => 'anfrage.php',
+        ],
+    ],
+];

@@ -1,0 +1,56 @@
+# Sartu
+
+> Sartu ist eine Webdesign-Agentur aus Deutschland. Wir erstellen moderne, schnelle und suchmaschinenoptimierte Websites für Selbstständige, Handwerker sowie kleine und mittlere Unternehmen: kontaktlos, transparent, persönlich und DSGVO-konform.
+
+## Leistungen
+
+- [Webdesign & Website-Erstellung](https://[DOMAIN]/leistung-webdesign): Moderne, responsive Websites ab 1.290 €, in der Regel in 7 Werktagen online.
+- [Suchmaschinenoptimierung (SEO)](https://[DOMAIN]/leistung-seo): SEO-Grundlagen, klare Seitenstruktur, technische Basis, strukturierte Daten und SEO-Betreuung.
+- [Lokales SEO & Google-Profil](https://[DOMAIN]/leistung-lokales-seo): Lokale Sichtbarkeit, Google-Unternehmensprofil, Standortsignale und Bewertungs-Monitoring.
+- [Wartung, Hosting & Betrieb](https://[DOMAIN]/leistung-wartung): Hosting in Deutschland, SSL, Backups, Updates und Support ab 49 €/Monat.
+- [Website-Texte](https://[DOMAIN]/leistung-texte): Verständliche, verkaufsstarke und SEO-optimierte Website-Texte.
+- [Logo & Branding](https://[DOMAIN]/leistung-logo): Logo, Farben, Schriften und ein einheitlicher visueller Auftritt.
+
+## Branchen
+
+- [Webdesign nach Branche](https://[DOMAIN]/branchen): Branchen-Hub für Handwerker, Praxen, Kanzleien, Dienstleister und lokale Unternehmen.
+- [Webdesign für Handwerker](https://[DOMAIN]/branche-handwerker): Website-Struktur, lokale Sichtbarkeit, Kontaktwege und Leistungsseiten für Handwerksbetriebe.
+- [Webdesign für Praxen](https://[DOMAIN]/branche-praxen): Praxis-Websites mit Vertrauen, Terminwegen, Datenschutz, Barrierearmut und SEO-Grundlagen.
+- [Webdesign für Kanzleien](https://[DOMAIN]/branche-kanzleien): Kanzlei-Websites mit Spezialisierung, Diskretion, Mandantenanfragen und verständlicher Fachsprache.
+- [Webdesign für Dienstleister](https://[DOMAIN]/branche-dienstleister): Websites für Beratung, Coaching, B2B und Services mit Positionierung und Anfragequalifizierung.
+- [Webdesign für lokale Unternehmen](https://[DOMAIN]/branche-lokale-unternehmen): Lokale Website-Basis mit Google-Profil, Kontakt, Öffnungszeiten und mobiler Nutzerführung.
+
+## Vergleiche
+
+- [Website-Vergleiche](https://[DOMAIN]/vergleiche): Entscheidungshilfen rund um Baukasten, Agentur, Freelancer, WordPress, individuelle Website und Onepager.
+- [Website-Baukasten oder Agentur](https://[DOMAIN]/vergleich-website-baukasten-agentur): Fairer Vergleich von Eigenbau, Agenturleistung, SEO, Design, Datenschutz und Wartung.
+- [Freelancer oder Webdesign-Agentur](https://[DOMAIN]/vergleich-freelancer-agentur): Vergleich zu Kosten, Prozess, Qualitätssicherung, Verfügbarkeit und Betreuung.
+- [WordPress oder individuelle Website](https://[DOMAIN]/vergleich-wordpress-individuell): Vergleich zu CMS, Pflege, Geschwindigkeit, Sicherheit, SEO und Wartung.
+
+## Qualität und Vertrauen
+
+- [Website-Qualität und Abnahme](https://[DOMAIN]/qualitaet): Transparenter Qualitätsprozess statt erfundener Referenzen; Checks vor dem Onlinegang.
+
+## Preise
+
+- [Preise & Pakete](https://[DOMAIN]/preise): Festpreis-Pakete ab 1.290 €, transparente Zusatzleistungen und Rundum-Schutz.
+
+## Ratgeber
+
+- [Website erstellen lassen](https://[DOMAIN]/ratgeber-website-erstellen): Ablauf, Seitenumfang, Kosten, Inhalte, SEO und Checkliste.
+- [Website-Angebot prüfen](https://[DOMAIN]/ratgeber-website-angebot): Leistungen, Zusatzkosten, Rechte und faire Angebotsvergleiche.
+- [Website-Bilder für Firmenwebsites](https://[DOMAIN]/ratgeber-website-bilder): Fotos, Bildrechte, Alt-Texte, Ladezeit und realistische Website-Wirkung.
+- [SEO Kosten & Dauer](https://[DOMAIN]/ratgeber-seo-kosten): Realistische SEO-Kosten, Zeiträume, Maßnahmen und Erwartungen.
+
+## Weitere Seiten
+
+- [Ablauf](https://[DOMAIN]/ablauf): In 7 Schritten zur fertigen Website.
+- [Ratgeber](https://[DOMAIN]/ratgeber): Verständliche Antworten rund um Webdesign, SEO, Technik, Recht und Marketing.
+- [Website-Anfrage](https://[DOMAIN]/anfrage): Kurze Anfrage für Website-Vorschlag und Festpreis.
+- [Kontakt](https://[DOMAIN]/kontakt): Kontaktaufnahme für Website-Projekte.
+
+## Hinweise
+
+- Reine Onlineshops und komplexe E-Commerce-Systeme gehören nicht zum Standardangebot.
+- Es wird keine Rechtsberatung erbracht; Pflichttexte werden nur eingebunden.
+- Kontakt: hallo@sartu.de

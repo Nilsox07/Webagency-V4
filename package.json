@@ -1,0 +1,13 @@
+{
+  "name": "php-version",
+  "version": "1.0.0",
+  "description": "Eigenständige PHP-Version der Sartu-Webseite für einen eigenen Server mit MySQL. Die Seite benötigt kein Vercel, kein Supabase, keinen Composer-Build und keinen externen App-Host.",
+  "main": "admin-local.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}

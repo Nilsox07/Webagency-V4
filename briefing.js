@@ -1,0 +1,1383 @@
+/* ============================================================
+   Sartu · Website-Assistent — EIN Tool, ZWEI Pfade, mit Preisberechnung
+   ------------------------------------------------------------
+   Einstieg: "Wissen Sie schon, welches Paket Sie möchten?"
+     • Pfad A (Website-Plan direkt): Paket → Wartung → Add-ons → Preis
+     • Pfad B (Website-Assistent-Flow, 8 Schritte): geführte Beratung → mündet in
+       DENSELBEN Website-Plan-/Ergebnis-Screen (Paket vorausgewählt,
+       aber jederzeit änderbar).
+
+   Beide Pfade enden im Website-Plan mit immer sichtbarer Preisleiste
+   (zwei getrennte Summen: einmalig / monatlich), Zahlungsstaffelung als
+   reine ANZEIGE und einer UNVERBINDLICHEN Angebotsanfrage am Ende.
+
+   • Live-Berechnung rein im Frontend (pricing.js + pricing-calc.js).
+   • KEINE Bezahlung. Abschluss = Angebotsanfrage, kein Vertrag.
+   • Optionale LLM-Zusammenfassung nur in Pfad B.
+   • Detailfragen nach Buchung bleiben in einem getrennten Prozess.
+   ============================================================ */
+(function () {
+  'use strict';
+
+  var SCHEMA = window.SARTU_BRIEFING_SCHEMA;
+  var PRICING = window.SARTU_PRICING;
+  var PAY = window.SARTU_PAYMENT_TERMS;
+  var CALC = window.SARTU_PRICING_CALC;
+  var stage = document.getElementById('lumiStage');
+  if (!SCHEMA || !PRICING || !PAY || !CALC || !stage) return;
+
+  var OPT = SCHEMA.options;
+  var REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ============================================================
+     KONFIGURATION
+     ============================================================ */
+  var CONFIG = {
+    useLLM: false,                                   // optionale LLM-Zusammenfassung nur in Pfad B
+    llmEndpoint: '[LLM_BRIEFING_ENDPOINT]',
+    briefingEndpoint: 'api/briefings.php',
+    datenschutzUrl: 'datenschutz',
+    // GO-LIVE: anonymes Anfrageweg-Tracking (nur Schrittname, KEINE PII). Erst aktiv, wenn
+    // hier ein echter Beacon-Endpoint steht UND die Statistik-Einwilligung vorliegt.
+    trackingEndpoint: '[ANALYTICS_BEACON_ENDPOINT]',
+  };
+  var isPlaceholder = function (v) { return !v || /^\[.*\]$/.test(v); };
+
+  /* ============================================================
+     DATENSCHUTZ-KONFORMES SCHRITT-TRACKING (Opt-in, ohne PII)
+     ------------------------------------------------------------
+     Sendet NUR den anonymen Schrittnamen — keine Antworten, keine
+     Kontaktdaten. Feuert ausschließlich nach Statistik-Einwilligung
+     (Cookie-Consent) UND wenn ein echter Endpoint konfiguriert ist.
+     Beides ist bis GO-LIVE bewusst aus → derzeit ein No-op.
+     ============================================================ */
+  function trackStep(name) {
+    try {
+      if (isPlaceholder(CONFIG.trackingEndpoint)) return;                 // GO-LIVE: Endpoint fehlt
+      if (!window.SartuConsent || !window.SartuConsent.has('analytics')) return; // Opt-in fehlt
+      var body = JSON.stringify({ e: 'lumi_step', step: name, ts: Date.now() });
+      if (navigator.sendBeacon) navigator.sendBeacon(CONFIG.trackingEndpoint, body);
+    } catch (e) { /* still: Tracking darf den Flow nie stören */ }
+  }
+
+  /* ============================================================
+     ZUSTAND — eine Quelle, bleibt über beide Pfade & Zurück erhalten
+     ============================================================ */
+  var A = {
+    pfad: null,                       // 'A' | 'B'
+    // Website-Assistent-Flow (Pfad B)
+    branche: null, branche_sonstiges: '',
+    ziele: [], umfang: null, seiten: [], seiten_sonstige: '',
+    features: [], stil: null, hauptfarbe: null, nebenfarbe: null, markenfarben_hex: '',
+    seo_stufe: null,                  // E2: gewählte SEO-Betreuung-Stufe (additiv) | null|'lite'|'pro'|'premium'
+    material: [], uploads: { logo: [], fotos: [], texte: [], texte_notiz: '', website_link: '' },
+    zeitrahmen: null,
+    // Was suchen Sie? 'website' = komplette Website (Standard), 'design' = nur Design
+    produkt_typ: 'website',
+    design_umfang: null,              // Design-Pfad: 'onepager' | 'mehrseiten'
+    // Website-Plan
+    paket_gewaehlt: null,
+    paket_empfohlen: null,
+    wartung: null,                    // fixer Rundum-Schutz = Paket-Floor (keine Auswahl mehr)
+    extraPages: 0,                    // Seiten über dem Inklusiv-Kontingent (Variante A)
+    addons: {},                       // { addonId: {selected:bool, qty:int} }
+    addonEmpfohlen: [],                // Pfad B: empfohlene Add-on-IDs (NUR Markierung, keine Vorauswahl)
+    addonGrund: {},                   // { addonId: 'Begründungs-Halbsatz' }
+    wuensche: [],                     // Topf 3: Wünsche ohne Festpreis-Liste (onRequest-ids)
+    _prefilled: false,                // Pfad-B-Vorbefüllung nur einmal anwenden
+    _recShown: false,                 // Tipp-Indikator vor der Empfehlung nur einmal zeigen
+    // Enterprise-Abzweig (strukturierte Anfrage statt Fixpreis)
+    enterprise: { sonderfunktionen: [], seitenzahl: null, shopGroesse: null, sprachen: '', schnittstellen: '', zeithorizont: null, notiz: '' },
+    // Abschluss
+    kontakt: { name: '', email: '', telefon: '', dsgvo: false },
+  };
+  var ui = { askedClarification: false };
+
+  /* ============================================================
+     DOM-HELFER
+     ============================================================ */
+  function el(tag, cls, html) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (html != null) n.innerHTML = html;
+    return n;
+  }
+  function clearStage() { stage.textContent = ''; }
+  function fmtEUR(n) { return (Math.round(n) || 0).toLocaleString('de-DE') + ' €'; }
+
+  function lumiSays(question, hint) {
+    var row = el('div', 'lb-say');
+    row.appendChild(el('span', 'lb-avatar', 'L'));
+    var bubble = el('div', 'lb-bubble');
+    var h = el('h2', 'lb-q');
+    h.setAttribute('tabindex', '-1');
+    h.textContent = question;
+    bubble.appendChild(h);
+    if (hint) bubble.appendChild(el('p', 'lb-hint', hint));
+    row.appendChild(bubble);
+    stage.appendChild(row);
+    return h;
+  }
+  function subQuestion(text) { var p = el('p', 'lb-subq', text); stage.appendChild(p); return p; }
+
+  function actions(opts) {
+    opts = opts || {};
+    var row = el('div', 'lb-actions');
+    if (opts.onBack) {
+      var b = el('button', 'lb-back', '‹ Zurück'); b.type = 'button';
+      b.addEventListener('click', opts.onBack); row.appendChild(b);
+    }
+    var right = el('div', 'lb-actions-right');
+    if (opts.skip) {
+      var s = el('button', 'lb-skip', opts.skipLabel || 'Überspringen'); s.type = 'button';
+      s.addEventListener('click', opts.skip); right.appendChild(s);
+    }
+    if (opts.onNext) {
+      var n = el('button', 'btn btn-primary lb-next'); n.type = 'button';
+      n.textContent = opts.nextLabel || 'Weiter';
+      n.addEventListener('click', opts.onNext); right.appendChild(n);
+    }
+    row.appendChild(right);
+    stage.appendChild(row);
+    return row;
+  }
+
+  /* ---- Multi-Select Chips (mit Exklusiv-Logik) ---- */
+  function buildChips(slot, options, conf) {
+    conf = conf || {};
+    var exclusive = conf.exclusive || [];
+    if (!Array.isArray(A[slot])) A[slot] = [];
+    var wrap = el('div', 'lb-chips');
+    var btns = {};
+    options.forEach(function (opt) {
+      var b = el('button', 'lb-chip'); b.type = 'button'; b.textContent = opt.label;
+      var on = A[slot].indexOf(opt.value) > -1;
+      if (on) b.classList.add('is-on');
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      b.addEventListener('click', function () {
+        var arr = A[slot].slice();
+        if (arr.indexOf(opt.value) > -1) {
+          arr = arr.filter(function (v) { return v !== opt.value; });
+        } else if (exclusive.indexOf(opt.value) > -1) {
+          arr = [opt.value];
+        } else {
+          arr = arr.filter(function (v) { return exclusive.indexOf(v) === -1; });
+          arr.push(opt.value);
+        }
+        A[slot] = arr;
+        options.forEach(function (o) {
+          var bb = btns[o.value], sel = arr.indexOf(o.value) > -1;
+          bb.classList.toggle('is-on', sel);
+          bb.setAttribute('aria-pressed', sel ? 'true' : 'false');
+        });
+        if (conf.onChange) conf.onChange(arr);
+      });
+      btns[opt.value] = b; wrap.appendChild(b);
+    });
+    stage.appendChild(wrap);
+    return wrap;
+  }
+  function buildChipsInto(container, slot, options, conf) {
+    var wrap = buildChips(slot, options, conf);
+    stage.removeChild(wrap); container.appendChild(wrap);
+    return wrap;
+  }
+
+  /* ---- Single-Choice Karten (Website-Assistent-Flow) ---- */
+  function buildCards(slot, options, conf) {
+    conf = conf || {};
+    var wrap = el('div', conf.cls || 'lb-cards');
+    var btns = {};
+    options.forEach(function (opt) {
+      var b = el('button', 'lb-card'); b.type = 'button';
+      var inner = '';
+      if (opt.icon) inner += '<span class="lb-card-icon" aria-hidden="true">' + opt.icon + '</span>';
+      inner += '<span class="lb-card-label">' + opt.label + '</span>';
+      if (opt.sub) inner += '<span class="lb-card-sub">' + opt.sub + '</span>';
+      b.innerHTML = inner;
+      if (A[slot] === opt.value) b.classList.add('is-on');
+      b.addEventListener('click', function () {
+        A[slot] = opt.value;
+        Object.keys(btns).forEach(function (k) { btns[k].classList.toggle('is-on', k === opt.value); });
+        if (conf.onPick) conf.onPick(opt.value);
+      });
+      btns[opt.value] = b; wrap.appendChild(b);
+    });
+    stage.appendChild(wrap);
+    return wrap;
+  }
+
+  function fileField(labelText, key, conf) {
+    conf = conf || {};
+    var lbl = el('label', 'lb-field lb-upload');
+    var head = '<span class="lb-field-label">' + labelText + ' <em>(optional)</em></span>';
+    if (conf.hint) head += '<span class="lb-upload-hint">' + conf.hint + '</span>';
+    lbl.innerHTML = head;
+    var inp = el('input'); inp.type = 'file'; if (conf.multiple) inp.multiple = true;
+    var chosen = el('span', 'lb-upload-files');
+    var existing = A.uploads[key] || [];
+    if (existing.length) chosen.textContent = existing.map(function (f) { return f.name; }).join(', ');
+    inp.addEventListener('change', function (e) {
+      A.uploads[key] = Array.prototype.map.call(e.target.files, function (f) { return { name: f.name, size: f.size, type: f.type }; });
+      chosen.textContent = A.uploads[key].map(function (f) { return f.name; }).join(', ');
+    });
+    lbl.appendChild(inp); lbl.appendChild(chosen);
+    return lbl;
+  }
+
+  /* ============================================================
+     NAVIGATION (namensbasiert + History-Stack für Verzweigung)
+     ============================================================ */
+  var progressWrap = document.getElementById('lumiProgress');
+  var progressLabel = document.getElementById('lumiProgressLabel');
+  var progressFill = document.getElementById('lumiProgressFill');
+  var fixHint = document.getElementById('lumiFixHint');
+
+  function updateProgress(step) {
+    // Fortschritt + Preis-Versprechen nur in den geführten Fragen (ab Schritt 2)
+    if (A.pfad === 'B' && step && step >= 2) {
+      progressWrap.hidden = false;
+      progressLabel.textContent = 'Schritt ' + step + ' von ' + SCHEMA.totalSteps;
+      progressFill.style.width = Math.round((step / SCHEMA.totalSteps) * 100) + '%';
+      if (fixHint) fixHint.hidden = false;
+    } else {
+      progressWrap.hidden = true;
+      if (fixHint) fixHint.hidden = true;
+    }
+  }
+
+  // Reihenfolge des geführten Flows → endet direkt im Kontakt-Screen (mit kompakter Übersicht)
+  var FLOW_B = ['branche', 'ziele', 'umfang', 'funktion_aktion', 'funktion_inhalt', 'design', 'material', 'seo', 'contact'];
+  function flowNext(name) { var i = FLOW_B.indexOf(name); return i > -1 ? FLOW_B[i + 1] : null; }
+
+  var current = null;
+  var history = [];
+  // „ändern"-Rücksprung: von der Kontakt-Übersicht in einen Frage-Schritt springen —
+  // das nächste „Weiter" (advance) führt direkt zurück zum Kontakt, nicht zum Folgeschritt.
+  var editReturn = null;
+
+  function renderScreen(name) {
+    var sc = screens[name];
+    if (!sc) return;
+    current = name;
+    trackStep(name);              // anonymer Anfrageweg-Schritt (Opt-in, No-op bis GO-LIVE)
+    updateProgress(sc.step);
+    showPriceBar(false);          // Standard aus; Website-Plan schaltet selbst ein
+    clearStage();
+    // Breitere Karte nur für den Design-Schritt (zweispaltige Live-Vorschau am Desktop)
+    var lumiCard = document.querySelector('.lumi-card');
+    if (lumiCard) lumiCard.classList.toggle('lumi-card--wide', name === 'design');
+    var focusTarget = sc.render();
+    if (!REDUCE) {
+      // sanftes Einblenden des neuen Schritt-Inhalts (Opacity + leichter Versatz)
+      stage.classList.remove('lb-anim-in');
+      void stage.offsetWidth;            // Reflow erzwingen → Animation neu starten
+      stage.classList.add('lb-anim-in');
+    }
+    if (name !== 'welcome') {
+      var card = document.querySelector('.lumi-card');
+      if (card) card.scrollIntoView({ block: 'start', behavior: REDUCE ? 'auto' : 'smooth' });
+    }
+    if (focusTarget && focusTarget.focus) {
+      try { focusTarget.focus({ preventScroll: true }); } catch (e) { focusTarget.focus(); }
+    }
+  }
+  function goTo(name, opts) {
+    opts = opts || {};
+    if (!opts.replace && current) history.push(current);
+    renderScreen(name);
+  }
+  function back() { editReturn = null; if (history.length) renderScreen(history.pop()); }
+  function advance() {
+    if (editReturn) { var t = editReturn; editReturn = null; goTo(t); return; }
+    var nx = flowNext(current); if (nx) goTo(nx);
+  }
+
+  // Auto-Weiter bei eindeutigen Einfach-Auswahlen: kurze Pause, damit die
+  // Auswahl sichtbar ist, dann weiter. Bei reduzierter Bewegung sofort.
+  function autoAdvance(fn) {
+    var run = fn || advance;
+    if (REDUCE) { run(); return; }
+    setTimeout(run, 280);
+  }
+
+  // Chat-Tipp-Indikator ("Website-Assistent schreibt …") — NUR an erzählerischen Momenten
+  // (Willkommen, Pfad-B-Empfehlung), nicht vor jeder Frage. Bei reduzierter
+  // Bewegung übersprungen: Inhalt erscheint sofort.
+  function showTyping(done) {
+    if (REDUCE) { done(); return; }
+    var row = el('div', 'lb-say lb-typing-row');
+    row.appendChild(el('span', 'lb-avatar', 'L'));
+    var bubble = el('div', 'lb-bubble lb-typing');
+    bubble.setAttribute('aria-label', 'Website-Assistent schreibt …');
+    bubble.innerHTML = '<span class="lb-typing-dots" aria-hidden="true"><span class="lb-dot"></span><span class="lb-dot"></span><span class="lb-dot"></span></span>';
+    row.appendChild(bubble);
+    stage.appendChild(row);
+    setTimeout(function () {
+      if (row.parentNode) row.parentNode.removeChild(row);
+      done();
+    }, 520);
+  }
+
+  /* ============================================================
+     LIVE-PREISLEISTE (fix unten, immer sichtbar im Website-Plan)
+     ============================================================ */
+  var priceBar = null, priceDetailOpen = false;
+  function ensurePriceBar() {
+    if (priceBar) return priceBar;
+    priceBar = el('div', 'lb-pricebar');
+    priceBar.id = 'lumiPriceBar';
+    priceBar.hidden = true;
+    priceBar.setAttribute('role', 'region');
+    priceBar.setAttribute('aria-label', 'Preisübersichtübersicht');
+    priceBar.innerHTML =
+      '<div class="lb-pricebar-detail" id="lbPriceDetail" hidden></div>' +
+      '<div class="lb-pricebar-inner">' +
+        '<button type="button" class="lb-pricebar-toggle" aria-expanded="false">Details</button>' +
+        '<div class="lb-pricebar-sums">' +
+          '<div class="lb-sum"><span>Einmalig</span><strong id="lbSumOnce">0 €</strong></div>' +
+          '<div class="lb-sum lb-sum-mo"><span>Monatlich</span><strong id="lbSumMonthly">0 €</strong></div>' +
+        '</div>' +
+        '<button type="button" class="btn btn-primary lb-pricebar-cta">Weiter</button>' +
+      '</div>' +
+      '<p class="lb-pricebar-note">Alle Preise netto zzgl. MwSt. · Festpreis – unverbindliche Übersicht</p>';
+    document.body.appendChild(priceBar);
+
+    var detail = priceBar.querySelector('#lbPriceDetail');
+    var toggle = priceBar.querySelector('.lb-pricebar-toggle');
+    toggle.addEventListener('click', function () {
+      priceDetailOpen = !priceDetailOpen;
+      toggle.setAttribute('aria-expanded', priceDetailOpen ? 'true' : 'false');
+      detail.hidden = !priceDetailOpen;
+      if (priceDetailOpen) renderPriceDetail();
+    });
+    priceBar.querySelector('.lb-pricebar-cta').addEventListener('click', function () { goTo('contact'); });
+    return priceBar;
+  }
+  function showPriceBar(on) {
+    ensurePriceBar();
+    priceBar.hidden = !on;
+    document.body.classList.toggle('lb-has-pricebar', on);
+    if (!on) {
+      priceDetailOpen = false;
+      var d = priceBar.querySelector('#lbPriceDetail'); if (d) d.hidden = true;
+      var t = priceBar.querySelector('.lb-pricebar-toggle'); if (t) t.setAttribute('aria-expanded', 'false');
+    }
+  }
+  function totals() {
+    return CALC.computeTotals({ paket: A.paket_gewaehlt, wartung: A.wartung, addons: A.addons, extraPages: A.extraPages }, PRICING);
+  }
+  function seoProductFor(stufe) { return (PRICING.addons || []).filter(function (a) { return a.id === 'seo-' + stufe; })[0] || null; }
+  function renderPriceBar() {
+    ensurePriceBar();
+    var sums = priceBar.querySelector('.lb-pricebar-sums');
+    var toggle = priceBar.querySelector('.lb-pricebar-toggle');
+    // Enterprise-Abzweig: KEIN Fixpreis, sondern Hinweis auf individuelles Angebot
+    if (isEnterprise()) {
+      priceBar.classList.add('is-enterprise');
+      sums.innerHTML = '<div class="lb-sum-individual">Individuelles Festpreis-Angebot</div>';
+      if (toggle) toggle.style.visibility = 'hidden';
+      return;
+    }
+    priceBar.classList.remove('is-enterprise');
+    if (toggle) toggle.style.visibility = '';
+    var t = totals();
+    var wishLine = (A.wuensche && A.wuensche.length)
+      ? '<div class="lb-sum lb-sum-wish"><span>+ Sonderwünsche</span><strong>Festpreis im Angebot</strong></div>'
+      : '';
+    var seoLine = '';
+    if (A.seo_stufe) {
+      var sp = seoProductFor(A.seo_stufe);
+      if (sp) seoLine = '<div class="lb-sum lb-sum-mo"><span>SEO-Betreuung (mtl. nach 3 Mon. kündbar)</span><strong>+' + sp.price.toLocaleString('de-DE') + ' €/Mon.</strong></div>';
+    }
+    sums.innerHTML =
+      '<div class="lb-sum"><span>Einmalig</span><strong></strong></div>' +
+      '<div class="lb-sum lb-sum-mo"><span>Monatlich · Pflicht</span><strong></strong></div>' +
+      seoLine + wishLine;
+    sums.children[0].querySelector('strong').textContent = fmtEUR(t.once);
+    sums.children[1].querySelector('strong').textContent = fmtEUR(t.monthly) + '/Mon.';
+    if (priceDetailOpen) renderPriceDetail();
+  }
+  function renderPriceDetail() {
+    var detail = priceBar.querySelector('#lbPriceDetail');
+    var t = totals();
+    var onceLines = t.lines.filter(function (l) { return l.group === 'once'; });
+    var moLines = t.lines.filter(function (l) { return l.group === 'monthly'; });
+    var html = '';
+    html += '<div class="lb-detail-col"><h5>Einmalig</h5>';
+    html += onceLines.length ? onceLines.map(detailRow).join('') : '<p class="lb-detail-empty">—</p>';
+    html += '<div class="lb-detail-sum"><span>Summe einmalig</span><strong>' + fmtEUR(t.once) + '</strong></div></div>';
+    html += '<div class="lb-detail-col"><h5>Monatlich</h5>';
+    html += moLines.length ? moLines.map(detailRow).join('') : '<p class="lb-detail-empty">—</p>';
+    html += '<div class="lb-detail-sum"><span>Summe monatlich</span><strong>' + fmtEUR(t.monthly) + '</strong></div></div>';
+    detail.innerHTML = html;
+  }
+  function detailRow(l) {
+    return '<div class="lb-detail-row"><span>' + l.label + '</span><span>' + fmtEUR(l.amount) + '</span></div>';
+  }
+
+  /* ============================================================
+     KONFIGURATOR-HELFER
+     ============================================================ */
+  function pkgById(id) { return PRICING.packages.filter(function (p) { return p.id === id; })[0]; }
+  function wartById(id) { return PRICING.maintenance.filter(function (m) { return m.id === id; })[0]; }
+  function priceLabel(value, opts) {
+    opts = opts || {};
+    if (value == null) return 'auf Anfrage';
+    return (opts.from ? 'ab ' : '') + value.toLocaleString('de-DE') + ' €' + (opts.period ? '/Monat' : '');
+  }
+  function pkgFloor(id) { var p = pkgById(id); return (p && p.maintenanceFloor) || PRICING.maintenanceOrder[0]; }
+  function maintIndex(id) { return PRICING.maintenanceOrder.indexOf(id); }
+  function isEnterprise() {
+    var p = pkgById(A.paket_gewaehlt);
+    return !!(p && p.configurable === false); // Enterprise = nicht konfigurierbar → Abzweig
+  }
+  // Hosting/Wartung ist PFLICHT: immer mind. der Paket-Floor, nur Upgrade nach oben.
+  function ensureWartungDefault() {
+    var floor = pkgFloor(A.paket_gewaehlt);
+    if (A.wartung == null || maintIndex(A.wartung) < maintIndex(floor)) A.wartung = floor;
+  }
+  function ensureAddonState() {
+    PRICING.addons.forEach(function (a) {
+      if (!A.addons[a.id]) A.addons[a.id] = { selected: false, qty: a.qty ? a.qty.default : 1 };
+    });
+  }
+  // Betrag eines Add-ons (berücksichtigt Menge, Prozent-Typ und Mindestbetrag)
+  function addonAmount(a, st) {
+    if (a.type === 'percent') {
+      var p = pkgById(A.paket_gewaehlt);
+      var base = p && p.price ? p.price : 0;
+      var per = Math.round(base * (a.pct || 0) / 100);
+      var pq = a.qty ? (st.qty || a.qty.default) : 1;
+      var amt = per * pq;
+      if (typeof a.min === 'number') amt = Math.max(a.min, amt);
+      return amt;
+    }
+    if (typeof a.price !== 'number') return null;
+    return a.price * (a.qty ? st.qty : 1);
+  }
+  // Pfad B: Empfehlungs-Markierungen aus den Website-Assistent-Antworten ableiten (nur einmal)
+  function prefillFromBriefing() {
+    if (A._prefilled || A.pfad !== 'B') return;
+    A._prefilled = true;
+    A.addonEmpfohlen = []; A.addonGrund = {};
+    var f = A.features || [], m = A.material || [], z = A.ziele || [];
+    var hasF = function (v) { return f.indexOf(v) > -1; };
+    var hasM = function (v) { return m.indexOf(v) > -1; };
+    // Empfehlung NUR markieren (nicht vorauswählen): ID + Begründungs-Halbsatz merken.
+    // Die Kontakt-Übersicht zeigt daraus die Logo-Empfehlungszeile; nichts wird vorausgewählt.
+    var on = function (id, grund) {
+      if (A.addons[id] && A.addonEmpfohlen.indexOf(id) < 0) { A.addonEmpfohlen.push(id); if (grund) A.addonGrund[id] = grund; }
+    };
+    if (hasF('terminbuchung') || z.indexOf('termine') > -1) on('terminbuchung', 'Ihr Ziel: Termine');
+    if (!hasM('logo')) on('logo-lite', 'Sie haben angegeben: kein Logo');
+
+    // Enterprise-Abzweig vorbefüllen (falls Empfehlung/Funktionen darauf hindeuten)
+    var E = A.enterprise;
+    ['shop', 'login', 'mehrsprachig'].forEach(function (v) {
+      if (hasF(v) && E.sonderfunktionen.indexOf(v) < 0) E.sonderfunktionen.push(v);
+    });
+    if (!E.seitenzahl) E.seitenzahl = A.umfang === 'gross' ? '20-50' : (A.umfang === 'umfangreich' ? 'bis20' : null);
+    if (!E.zeithorizont && A.zeitrahmen) {
+      var zmap = { asap: 'asap', '4-6w': '1-3m', '2-3m': '3-6m', offen: 'flex' };
+      E.zeithorizont = zmap[A.zeitrahmen] || null;
+    }
+  }
+
+  // E2: Design-Richtung (Stil-Chips + Farben + HEX) — EINE Render-Funktion für
+  // den Pfad-B-Schritt 'design' UND die Website-Plan-Sektion (kein Duplikat).
+  function buildDesignDirection(host, withMock) {
+    var mock = (withMock && window.SARTU_COLOR_MOCKUP) ? window.SARTU_COLOR_MOCKUP.build() : null;
+    // hexOf akzeptiert Token (aus OPT.farben) ODER direkt einen HEX-Wert (Eigene Farbe)
+    function hexOf(v) {
+      if (typeof v === 'string' && /^#/.test(v)) return v;
+      var o = (OPT.farben || []).filter(function (x) { return x.value === v; })[0];
+      return o ? o.hex : null;
+    }
+    function stilFlavor() { return A.stil || 'default'; }
+    function refreshMock() { if (mock) mock.update(hexOf(A.hauptfarbe), hexOf(A.nebenfarbe), stilFlavor()); }
+    var dgrid = el('div', 'lb-design-grid');
+    if (mock) dgrid.classList.add('has-preview');
+    var moods = el('div', 'lb-moods');
+    var moodBtns = {};
+    OPT.stil.forEach(function (opt) {
+      var b = el('button', 'lb-mood'); b.type = 'button';
+      b.innerHTML = '<span class="lb-mood-art ' + opt.flavor + '" aria-hidden="true">' +
+        '<span class="m1"></span><span class="m2"></span><span class="m3"></span></span>' +
+        '<span class="lb-mood-label">' + opt.label + '</span>';
+      var on = A.stil === opt.value;
+      if (on) b.classList.add('is-on');
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      b.addEventListener('click', function () {
+        A.stil = opt.value;
+        Object.keys(moodBtns).forEach(function (k) {
+          var sel = k === opt.value;
+          moodBtns[k].classList.toggle('is-on', sel);
+          moodBtns[k].setAttribute('aria-pressed', sel ? 'true' : 'false');
+        });
+        refreshMock();
+      });
+      moodBtns[opt.value] = b;
+      moods.appendChild(b);
+    });
+    dgrid.appendChild(moods);
+    var sq = el('p', 'lb-subq');
+    sq.innerHTML = 'Welche Farben passen zu Ihrer Marke? Wählen Sie eine <strong>Hauptfarbe</strong> und eine <strong>Nebenfarbe</strong>.';
+    dgrid.appendChild(sq);
+
+    function isHex(v) { return typeof v === 'string' && /^#[0-9a-fA-F]{3,8}$/.test(v); }
+    // „Eigene Farbe"-Popover: nativer Farbwähler + HEX-Eingabe + RGB-Anzeige → setzt A[slot] auf HEX
+    function openColorPopover(wrap, slot, onApply) {
+      var ex = wrap.querySelector('.lb-colorpop'); if (ex) { wrap.removeChild(ex); return; }
+      var cur = isHex(A[slot]) ? A[slot] : '#2a5bd7';
+      var pop = el('div', 'lb-colorpop');
+      var color = el('input'); color.type = 'color'; color.className = 'lb-colorpop-native'; color.value = cur;
+      var hex = el('input'); hex.type = 'text'; hex.className = 'lb-colorpop-hex'; hex.value = cur;
+      hex.setAttribute('aria-label', 'HEX-Code'); hex.placeholder = '#RRGGBB';
+      var rgb = el('span', 'lb-colorpop-rgb');
+      function toRgb(h) { var m = /^#?([0-9a-fA-F]{6})$/.exec(h); if (!m) return ''; var n = parseInt(m[1], 16); return 'RGB ' + ((n >> 16) & 255) + ', ' + ((n >> 8) & 255) + ', ' + (n & 255); }
+      function apply(h) {
+        if (!/^#?[0-9a-fA-F]{6}$/.test(h)) return;
+        if (h[0] !== '#') h = '#' + h;
+        A[slot] = h; rgb.textContent = toRgb(h); onApply(); refreshMock();
+      }
+      rgb.textContent = toRgb(cur);
+      color.addEventListener('input', function (e) { hex.value = e.target.value; apply(e.target.value); });
+      hex.addEventListener('input', function (e) { apply(e.target.value); });
+      var done = el('button', 'lb-colorpop-done'); done.type = 'button'; done.textContent = 'Übernehmen';
+      done.addEventListener('click', function () { apply(hex.value); if (pop.parentNode) pop.parentNode.removeChild(pop); });
+      pop.appendChild(color); pop.appendChild(hex); pop.appendChild(rgb); pop.appendChild(done);
+      wrap.appendChild(pop);
+    }
+
+    function colorRow(label, slot) {
+      var wrap = el('div', 'lb-colorrow');
+      wrap.appendChild(el('span', 'lb-colorrow-label', label));
+      var tiles = el('div', 'lb-colortiles');
+      function renderTiles() {
+        tiles.textContent = '';
+        OPT.farben.forEach(function (opt) {
+          var b = el('button', 'lb-colortile'); b.type = 'button';
+          var sel = A[slot] === opt.value;
+          b.setAttribute('aria-label', label + ': ' + opt.label + ' — ' + (opt.mood || ''));
+          b.setAttribute('aria-pressed', sel ? 'true' : 'false');
+          if (sel) b.classList.add('is-on');
+          b.innerHTML = '<span class="lb-colordot" style="background:' + opt.hex + '"></span>' +
+            '<small class="lb-colorname">' + opt.label + '</small>' +
+            '<small class="lb-colormood">' + (opt.mood || '') + '</small>';
+          b.addEventListener('click', function () { A[slot] = (A[slot] === opt.value) ? null : opt.value; renderTiles(); refreshMock(); });
+          tiles.appendChild(b);
+        });
+        // Eigene Farbe (HEX) als ausgewählter Kreis, falls gesetzt
+        if (isHex(A[slot])) {
+          var cb = el('button', 'lb-colortile lb-colortile-custom is-on'); cb.type = 'button';
+          cb.setAttribute('aria-pressed', 'true'); cb.setAttribute('aria-label', label + ': eigene Farbe ' + A[slot]);
+          cb.innerHTML = '<span class="lb-colordot" style="background:' + A[slot] + '"></span>' +
+            '<small class="lb-colorname">Eigene</small><small class="lb-colormood">' + A[slot] + '</small>';
+          cb.addEventListener('click', function () { A[slot] = null; renderTiles(); refreshMock(); });
+          tiles.appendChild(cb);
+        }
+        // Runder „Eigene Farbe +"-Button → Popover
+        var add = el('button', 'lb-colortile lb-colortile-add'); add.type = 'button';
+        add.setAttribute('aria-label', label + ': eigene Farbe wählen');
+        add.innerHTML = '<span class="lb-coloradd" aria-hidden="true">+</span><small class="lb-colorname">Eigene Farbe</small>';
+        add.addEventListener('click', function () { openColorPopover(wrap, slot, renderTiles); });
+        tiles.appendChild(add);
+      }
+      renderTiles();
+      wrap.appendChild(tiles);
+      return wrap;
+    }
+    dgrid.appendChild(colorRow('Hauptfarbe', 'hauptfarbe'));
+    dgrid.appendChild(colorRow('Nebenfarbe', 'nebenfarbe'));
+    if (mock) { dgrid.appendChild(mock); refreshMock(); }
+    dgrid.appendChild(el('p', 'lb-design-note',
+      'Zeigt nur, wie Ihre Farben wirken — Ihr Design entwerfen wir individuell, das Layout hier ist nicht Ihr Layout. Alles handgemacht, kein Baukasten.'));
+    host.appendChild(dgrid);
+  }
+
+  /* ============================================================
+     PREIS-TRANSPARENZ IN DEN FRAGEN (ab-Preise/Aufpreise aus pricing.js)
+     — keine harten Werte, alles aus PRICING abgeleitet.
+     ============================================================ */
+  function addonById_(id) { return (PRICING.addons || []).filter(function (a) { return a.id === id; })[0]; }
+  function eur_(n) { return (n || 0).toLocaleString('de-DE') + ' €'; }
+  // Umfang: Einstiegs-Festpreis je Größe (Paket-Floor) als „ab X €" anhängen.
+  // Floors: One-Pager→Start, Mehrere→Wachstum, Groß→Platzhirsch, Über 20→Sonderprojekte (kein Fixpreis).
+  function umfangOptionsPriced() {
+    var floor = { onepager: 'basis', kompakt: 'pro', umfangreich: 'platin', gross: 'enterprise' };
+    return (OPT.umfang || []).map(function (o) {
+      var p = pkgById(floor[o.value]);
+      var sub = o.sub;
+      if (p && typeof p.price === 'number') sub = o.sub + ' · ab ' + p.price.toLocaleString('de-DE') + ' €';
+      return { value: o.value, label: o.label, sub: sub, icon: o.icon };
+    });
+  }
+
+  /* ============================================================
+     FUNKTIONS-AUSWAHL (zwei Schritte) — Zeilen-Karten mit Preis-Tags
+     Preise/Aufpreise ausschließlich aus pricing.js. Auswahl landet in
+     A.features; preisrelevante Funktionen werden auf A.addons gespiegelt
+     (syncAddonsFromFeatures) — keine Vorauswahl, nur explizite Klicks.
+     ============================================================ */
+  var FUNK_AKTION = [
+    { value: 'kontaktformular', label: 'Kontaktformular', desc: 'Besucher schreiben Ihnen direkt über ein Formular.', kind: 'inklusive' },
+    { value: 'terminbuchung', label: 'Online-Terminbuchung', desc: 'Kunden buchen selbst Termine — mit Bestätigungs- und Erinnerungsmail.', kind: 'price', addon: 'terminbuchung' },
+    { value: 'ki-assistent', label: 'KI-Chat-Assistent', desc: 'Beantwortet Besucherfragen rund um die Uhr — trainiert auf Ihre Inhalte. Bis 500 Unterhaltungen/Monat.', kind: 'combo', addon: 'ki-assistent' },
+    { value: 'shop', label: 'Shop / Bezahlung', desc: 'Produkte online verkaufen — mit Warenkorb und sicherer Bezahlung.', kind: 'onrequest' },
+    { value: 'login', label: 'Geschützter Kundenbereich', desc: 'Passwortgeschützter Bereich für Kunden, Mitglieder oder Dokumente.', kind: 'onrequest' },
+    { value: 'whatsapp', label: 'WhatsApp-Kontakt', desc: 'Ein Klick öffnet den Chat mit Ihnen auf WhatsApp.', kind: 'inklusive' },
+    { value: 'bewertungen', label: 'Google-Bewertungen einbinden', desc: 'Zeigt Ihre echten Google-Rezensionen direkt auf der Seite.', kind: 'inklusive' },
+  ];
+  var FUNK_INHALT = [
+    { value: 'blog', label: 'Bereich für Neuigkeiten / Blog', desc: 'Eigene Beiträge, News oder ein Blog.', kind: 'platin' },
+    { value: 'galerie', label: 'Bildergalerie', desc: 'Zeigen Sie Ihre Arbeiten, Produkte oder Räume in Bildern.', kind: 'inklusive' },
+    { value: 'newsletter', label: 'Newsletter-Anmeldung', desc: 'Sammle E-Mail-Adressen mit Double-Opt-In, DSGVO-konform.', kind: 'price_platin', addon: 'newsletter' },
+    { value: 'mehrsprachig', label: 'Mehrsprachig', desc: 'Ihre Website in mehreren Sprachen — technisch sauber eingerichtet.', kind: 'percent', addon: 'mehrsprachig' },
+    { value: 'anfahrt', label: 'Anfahrt & Karte', desc: 'Karte mit Ihrem Standort und Anfahrtsbeschreibung.', kind: 'inklusive' },
+    { value: 'social', label: 'Social-Media-Einbindung', desc: 'Verlinkt oder zeigt Ihre Social-Media-Profile.', kind: 'inklusive' },
+    { value: 'download', label: 'Download-Bereich', desc: 'Stelle PDFs, Preislisten oder Formulare zum Download bereit.', kind: 'inklusive' },
+    { value: 'beraten', label: 'Weiß nicht — beratet mich', desc: 'Wir empfehlen Ihnen, was zu Ihrem Ziel passt.', kind: 'beraten', exclusive: true },
+  ];
+  function funcTag(it) {
+    var a;
+    switch (it.kind) {
+      case 'inklusive': return { cls: 'lb-func-tag-incl', text: 'inklusive' };
+      case 'price': a = addonById_(it.addon); return { cls: 'lb-func-tag-price', text: '+' + eur_(a.price) };
+      case 'combo': a = addonById_(it.addon); return { cls: 'lb-func-tag-price', text: '+' + eur_(a.price) + ' · +' + a.monthly + ' €/Mon.' };
+      case 'percent': a = addonById_(it.addon); return { cls: 'lb-func-tag-price', text: '+' + a.pct + ' % je Sprache' };
+      case 'price_platin': a = addonById_(it.addon); return { cls: 'lb-func-tag-price', text: '+' + eur_(a.price) + ' · im Platzhirsch inkl.' };
+      case 'onrequest': return { cls: 'lb-func-tag-req', text: 'Festpreis im Angebot' };
+      case 'platin': return { cls: 'lb-func-tag-platin', text: 'im Platzhirsch inklusive' };
+      default: return null;
+    }
+  }
+  // Preisrelevante Funktionen → A.addons spiegeln (Newsletter im Platzhirsch inklusive → kein Aufpreis)
+  function syncAddonsFromFeatures() {
+    ensureAddonState();
+    var map = { terminbuchung: 'terminbuchung', 'ki-assistent': 'ki-assistent', newsletter: 'newsletter', mehrsprachig: 'mehrsprachig' };
+    Object.keys(map).forEach(function (feat) {
+      var st = A.addons[map[feat]]; if (!st) return;
+      var on = A.features.indexOf(feat) > -1;
+      if (feat === 'newsletter' && A.paket_gewaehlt === 'platin') on = false;
+      st.selected = on;
+    });
+  }
+  function buildFuncCards(host, items) {
+    var grid = el('div', 'lb-funcs');
+    function refresh() {
+      Array.prototype.forEach.call(grid.querySelectorAll('.lb-func'), function (card) {
+        var v = card.getAttribute('data-val'), on = A.features.indexOf(v) > -1;
+        card.querySelector('input').checked = on; card.classList.toggle('is-on', on);
+      });
+    }
+    items.forEach(function (it) {
+      var card = el('label', 'lb-func'); card.setAttribute('data-val', it.value);
+      var on = A.features.indexOf(it.value) > -1;
+      if (on) card.classList.add('is-on');
+      var tag = funcTag(it);
+      card.innerHTML =
+        '<input type="checkbox" class="lb-func-check"' + (on ? ' checked' : '') + ' />' +
+        '<span class="lb-func-body">' +
+          '<span class="lb-func-top"><span class="lb-func-name">' + it.label + '</span>' +
+            (tag ? '<span class="lb-func-tag ' + tag.cls + '">' + tag.text + '</span>' : '') + '</span>' +
+          '<span class="lb-func-desc">' + it.desc + '</span>' +
+        '</span>';
+      card.querySelector('input').addEventListener('change', function (e) {
+        var v = it.value;
+        if (e.target.checked) {
+          if (it.exclusive) { A.features = [v]; }
+          else { A.features = A.features.filter(function (x) { return x !== 'beraten' && x !== v; }); A.features.push(v); }
+        } else {
+          A.features = A.features.filter(function (x) { return x !== v; });
+        }
+        syncAddonsFromFeatures();
+        refresh();
+      });
+      grid.appendChild(card);
+    });
+    host.appendChild(grid);
+    return grid;
+  }
+
+  // SEO-Schritt: 4 Zeilen-Karten (Erstmal ohne = Default, dann Lite/Pro/Premium aus pricing.js).
+  // KEINE Vorauswahl (A.seo_stufe bleibt null). Empfehlungs-Badge auf Lite bei lokaler Branche + Ziel Neukunden.
+  var SEO_DESC = {
+    lite: 'Google-Profil-Pflege, Title & Meta aller Seiten, Keyword-Tracking, Klartext-Monatsreport.',
+    pro: 'Alles aus Lite + KI-Suche-Optimierung, je Monat eine neue Seite inkl. Text, Quartals-Strategie.',
+    premium: 'Alles aus Pro + Sichtbarkeits-Monitoring, bis 2 neue Seiten pro Monat, monatlicher Maßnahmenplan.',
+  };
+  function buildSeoCards(host) {
+    var SEO_LOCAL = ['gastro', 'handwerk', 'gesundheit', 'dienstleistung', 'immobilien', 'kreativ'];
+    var empfohlen = SEO_LOCAL.indexOf(A.branche) > -1 && (A.ziele || []).indexOf('neukunden') > -1;
+    var grid = el('div', 'lb-funcs lb-seo');
+    function refresh() {
+      Array.prototype.forEach.call(grid.querySelectorAll('.lb-func'), function (c) {
+        var v = c.getAttribute('data-val'), on = (v === 'none') ? !A.seo_stufe : (A.seo_stufe === v);
+        c.querySelector('input').checked = on; c.classList.toggle('is-on', on);
+      });
+    }
+    function card(v, name, price, desc, rec) {
+      var c = el('label', 'lb-func lb-func-radio'); c.setAttribute('data-val', v);
+      var on = (v === 'none') ? !A.seo_stufe : (A.seo_stufe === v);
+      if (on) c.classList.add('is-on');
+      var tag = price == null
+        ? '<span class="lb-func-tag lb-func-tag-incl">0 €</span>'
+        : '<span class="lb-func-tag lb-func-tag-price">' + price.toLocaleString('de-DE') + ' €/Mon.</span>';
+      c.innerHTML =
+        '<input type="radio" name="lbseo" class="lb-func-check"' + (on ? ' checked' : '') + ' />' +
+        '<span class="lb-func-body"><span class="lb-func-top"><span class="lb-func-name">' + name +
+          (rec ? ' <span class="lb-pkg-badge lb-pkg-badge-rec" style="position:static;display:inline-block;margin-left:6px;">Empfohlen</span>' : '') +
+          '</span>' + tag + '</span><span class="lb-func-desc">' + desc + '</span></span>';
+      c.querySelector('input').addEventListener('change', function () {
+        A.seo_stufe = (v === 'none') ? null : v; refresh();
+      });
+      grid.appendChild(c);
+    }
+    card('none', 'Erstmal ohne', null, 'Kein laufender Beitrag — Sie können die SEO-Betreuung jederzeit später starten.', false);
+    (PRICING.addons || []).filter(function (a) { return a.group === 'seo-betreuung'; }).forEach(function (a) {
+      var stufe = a.id.replace('seo-', '');
+      card(stufe, 'SEO ' + (a.short || a.name), a.price, SEO_DESC[stufe] || a.desc, empfohlen && stufe === 'lite');
+    });
+    host.appendChild(grid);
+    return grid;
+  }
+
+  /* ============================================================
+     SCREENS
+     ============================================================ */
+  var screens = {
+
+    /* ---------- Willkommen ---------- */
+    welcome: { step: null, render: function () {
+      // erzählerischer Moment: kurzer Tipp-Indikator beim Einstieg, dann Begrüßung
+      function buildWelcome() {
+        var h = lumiSays('Hi, ich bin Website-Assistent 👋',
+          'In ~2 Minuten stellen Sie sich – fast nur mit Klicken – Ihre Website-Paket zusammen. Der Preis rechnet live mit.');
+        var wrap = el('div', 'lb-welcome');
+        var btn = el('button', 'btn btn-primary btn-lg lb-start');
+        btn.type = 'button';
+        btn.innerHTML = 'Los geht’s <span class="arrow" aria-hidden="true">→</span>';
+        btn.addEventListener('click', function () { goTo('intent'); });
+        wrap.appendChild(btn);
+        stage.appendChild(wrap);
+        if (h && h.focus) { try { h.focus({ preventScroll: true }); } catch (e) { h.focus(); } }
+        return h;
+      }
+      showTyping(buildWelcome);
+      return null;
+    }},
+
+    /* ---------- Weichen-Frage: Komplette Website oder Redesign? ---------- */
+    intent: { step: null, render: function () {
+      var h = lumiSays('Was suchen Sie?',
+        'Beides ist möglich — Sie können es Ihnen später noch anders überlegen.');
+      var wrap = el('div', 'lb-paths');
+      var a = el('button', 'lb-path-card'); a.type = 'button';
+      a.innerHTML = '<span class="lb-path-icon" aria-hidden="true">🌐</span>' +
+        '<span class="lb-path-title">Komplette Website — ihr kümmert euch um alles</span>' +
+        '<span class="lb-path-sub">Design, Texte, Technik, online bringen und betreuen.</span>';
+      a.addEventListener('click', function () { A.produkt_typ = 'website'; A.pfad = 'B'; goTo('branche'); });
+      var b = el('button', 'lb-path-card'); b.type = 'button';
+      b.innerHTML = '<span class="lb-path-icon" aria-hidden="true">🔄</span>' +
+        '<span class="lb-path-title">Website-Redesign — meine bestehende Seite neu machen</span>' +
+        '<span class="lb-path-sub">Wir übernehmen Ihre Inhalte — Sie müssen fast nichts liefern.</span>';
+      b.addEventListener('click', function () { A.produkt_typ = 'redesign'; A.pfad = 'B'; if (A.material.indexOf('website') < 0) A.material.push('website'); goTo('branche'); });
+      wrap.appendChild(a); wrap.appendChild(b);
+      stage.appendChild(wrap);
+      actions({ onBack: back });
+      return h;
+    }},
+
+
+    /* ---------- Pfad B · 1 · Branche ---------- */
+    branche: { step: 1, render: function () {
+      var h = lumiSays('In welcher Branche sind Sie tätig?');
+      var sonst = el('div', 'lb-inline');
+      function renderSonst() {
+        sonst.textContent = '';
+        if (A.branche === 'sonstiges') {
+          var lbl = el('label', 'lb-field');
+          lbl.innerHTML = '<span class="lb-field-label">Was bieten Sie an? <em>(optional)</em></span>';
+          var inp = el('input'); inp.type = 'text';
+          inp.placeholder = 'z. B. „mobiler Friseur für Senioren“';
+          inp.value = A.branche_sonstiges || '';
+          inp.addEventListener('input', function (e) { A.branche_sonstiges = e.target.value; });
+          lbl.appendChild(inp); sonst.appendChild(lbl);
+        }
+      }
+      buildCards('branche', OPT.branche, { cls: 'lb-tiles', onPick: function (v) {
+        renderSonst();
+        // Auto-Weiter bei jeder Branche AUSSER „Sonstiges" (dort erscheint ein Textfeld → bleiben)
+        if (v !== 'sonstiges') autoAdvance(leaveBranche);
+      }});
+      stage.appendChild(sonst); renderSonst();
+      actions({ onBack: back, onNext: leaveBranche, skip: advance });
+      return h;
+    }},
+
+    /* ---------- Pfad B · 2 · Ziele ---------- */
+    ziele: { step: 2, render: function () {
+      var h = lumiSays('Was soll Ihre Website vor allem erreichen?', 'Mehrfachauswahl möglich.');
+      buildChips('ziele', OPT.ziele);
+      actions({ onBack: back, onNext: advance, skip: advance });
+      return h;
+    }},
+
+    /* ---------- Pfad B · 3 · Umfang (+ bedingte Seiten) ---------- */
+    umfang: { step: 3, render: function () {
+      var h = lumiSays('Wie groß soll Ihre Website werden?');
+      var sub = el('div', 'lb-inline');
+      function renderSub() {
+        sub.textContent = '';
+        if (A.umfang && A.umfang !== 'onepager') {
+          sub.appendChild(el('p', 'lb-subq', 'Welche Seiten brauchen Sie? <span class="lb-opt">(optional)</span>'));
+          buildChipsInto(sub, 'seiten', OPT.seiten, { exclusive: ['unsure'] });
+          // „Sonstige …" — Toggle öffnet ein einzeiliges Textfeld (Payload: seiten_sonstige)
+          var sonstWrap = el('div', 'lb-inline');
+          var tgl = el('button', 'lb-chip lb-chip-sonst'); tgl.type = 'button'; tgl.textContent = 'Sonstige …';
+          var open = !!A.seiten_sonstige;
+          function renderSonstField() {
+            var ex = sonstWrap.querySelector('.lb-field'); if (ex) sonstWrap.removeChild(ex);
+            tgl.classList.toggle('is-on', open); tgl.setAttribute('aria-pressed', open ? 'true' : 'false');
+            if (open) {
+              var lbl = el('label', 'lb-field');
+              lbl.innerHTML = '<span class="lb-field-label">Weitere Seiten <em>(optional)</em></span>';
+              var inp = el('input'); inp.type = 'text'; inp.placeholder = 'z. B. „Speisekarte, Anfahrt, Partner“';
+              inp.value = A.seiten_sonstige || '';
+              inp.addEventListener('input', function (e) { A.seiten_sonstige = e.target.value; });
+              lbl.appendChild(inp); sonstWrap.appendChild(lbl);
+            }
+          }
+          tgl.addEventListener('click', function () { open = !open; if (!open) A.seiten_sonstige = ''; renderSonstField(); });
+          sonstWrap.appendChild(tgl); sub.appendChild(sonstWrap); renderSonstField();
+        }
+      }
+      buildCards('umfang', umfangOptionsPriced(), { onPick: function (v) {
+        renderSub();
+        // Auto-Weiter NUR bei „One-Pager" (sonst erscheint die Seiten-Folgefrage → bleiben)
+        if (v === 'onepager') autoAdvance();
+      }});
+      stage.appendChild(sub); renderSub();
+      actions({ onBack: back, onNext: advance, skip: advance });
+      return h;
+    }},
+
+    /* ---------- Pfad B · 4 · Funktionen · Aktionen ---------- */
+    funktion_aktion: { step: 4, render: function () {
+      var h = lumiSays('Welche Funktionen brauchen Ihre Besucher?', 'Mehrfachauswahl — den Preis sehen Sie direkt an jeder Funktion.');
+      buildFuncCards(stage, FUNK_AKTION);
+      actions({ onBack: back, onNext: advance, skip: advance });
+      return h;
+    }},
+
+    /* ---------- Pfad B · 5 · Funktionen · Inhalte ---------- */
+    funktion_inhalt: { step: 5, render: function () {
+      var h = lumiSays('Was soll Ihre Website zeigen?', 'Mehrfachauswahl möglich.');
+      buildFuncCards(stage, FUNK_INHALT);
+      actions({ onBack: back, onNext: advance, skip: advance });
+      return h;
+    }},
+
+    /* ---------- Pfad B · 6 · Design (Stil + Farben) ---------- */
+    design: { step: 6, render: function () {
+      var h = lumiSays('Welcher Look gefällt Ihnen?', 'Wählen Sie einen Stil — er bestimmt die Live-Vorschau.');
+      buildDesignDirection(stage, true);
+      actions({ onBack: back, onNext: advance, skip: advance });
+      return h;
+    }},
+
+    /* ---------- Pfad B · 7 · Material + Termin (verschmolzen) ---------- */
+    material: { step: 7, render: function () {
+      var h = lumiSays('Fast geschafft — was haben Sie schon, und bis wann brauchen Sie die Website?', 'Uploads sind optional — Sie können alles auch später nachreichen.');
+      var uploads = el('div', 'lb-inline');
+      function renderUploads() {
+        uploads.textContent = '';
+        var m = A.material;
+        if (m.indexOf('logo') > -1) uploads.appendChild(fileField('Logo hochladen', 'logo', { hint: 'Kann ich auch später nachreichen.' }));
+        if (m.indexOf('fotos') > -1) uploads.appendChild(fileField('Bilder hochladen', 'fotos', { multiple: true }));
+        if (m.indexOf('texte') > -1) {
+          uploads.appendChild(fileField('Texte hochladen', 'texte', {}));
+          var note = el('label', 'lb-field');
+          note.innerHTML = '<span class="lb-field-label">Notizen zu den Texten <em>(optional)</em></span>';
+          var ta = el('textarea'); ta.rows = 2; ta.placeholder = 'z. B. „Texte sind grob, bitte überarbeiten“';
+          ta.value = A.uploads.texte_notiz || '';
+          ta.addEventListener('input', function (e) { A.uploads.texte_notiz = e.target.value; });
+          note.appendChild(ta); uploads.appendChild(note);
+        }
+        if (m.indexOf('website') > -1) {
+          var wl = el('label', 'lb-field');
+          wl.innerHTML = '<span class="lb-field-label">Link zur aktuellen Website</span>';
+          var inp = el('input'); inp.type = 'url'; inp.placeholder = 'https://…';
+          inp.value = A.uploads.website_link || '';
+          inp.addEventListener('input', function (e) { A.uploads.website_link = e.target.value; });
+          wl.appendChild(inp); uploads.appendChild(wl);
+        }
+      }
+      buildChips('material', OPT.material, { exclusive: ['nichts'], onChange: renderUploads });
+      // Nachtrag: Texte & Umzug sind im Paket inklusive — entsprechend beruhigen
+      stage.appendChild(el('p', 'lb-hint', 'Keine Texte? Kein Problem — die schreiben wir sowieso für Sie. Bestehende Website? Ihr Umzug ist im Paket drin.'));
+      if (A.produkt_typ === 'redesign') stage.appendChild(el('p', 'lb-hint', 'Ihre Texte und Bilder übernehmen wir von Ihrer alten Seite — Umzug inklusive.'));
+      stage.appendChild(uploads); renderUploads();
+      // Termin-Reihe (verschmolzen aus dem früheren Zeitrahmen-Schritt)
+      stage.appendChild(el('p', 'lb-subq', 'Und bis wann brauchen Sie sie?'));
+      buildCards('zeitrahmen', OPT.zeitrahmen, { cls: 'lb-cards lb-cards-wide' });
+      actions({ onBack: back, onNext: advance, skip: advance });
+      return h;
+    }},
+
+    /* ---------- Pfad B · 8 · Sichtbarkeit nach dem Start (SEO) ---------- */
+    seo: { step: 8, render: function () {
+      var h = lumiSays('Möchten Sie nach dem Onlinegang bei Google weiter wachsen?',
+        'Optional — Sie können die SEO-Betreuung auch später starten. Monatlich, nach 3 Monaten kündbar.');
+      buildSeoCards(stage);
+      actions({ onBack: back, onNext: advance, skip: advance });
+      return h;
+    }},
+
+    /* ---------- Kontakt: kompakte Übersicht + Empfehlung + Formular (Abschluss) ---------- */
+    contact: { step: null,
+      // Pfad B: erzählerischer Moment vor der Empfehlung (nur einmal)
+      render: function () {
+        var self = this;
+        if (A.pfad === 'B' && !A._recShown) {
+          A._recShown = true;
+          showTyping(function () {
+            var bh = self.build();
+            if (bh && bh.focus) { try { bh.focus({ preventScroll: true }); } catch (e) { bh.focus(); } }
+          });
+          return null;
+        }
+        return self.build();
+      },
+      build: function () {
+      // Empfehlung aus den Antworten ableiten. Pfad B folgt IMMER der Empfehlung
+      // (es gibt keinen Paket-Wähler mehr — ändern = Antworten ändern); Pfad A
+      // (Deep-Link von /preise) behält das vorgewählte Paket.
+      if (A.pfad !== 'A') {
+        A.paket_empfohlen = recommend();
+        A.paket_gewaehlt = A.paket_empfohlen;
+      } else if (!A.paket_gewaehlt) {
+        A.paket_gewaehlt = 'pro';
+      }
+      ensureWartungDefault();
+      ensureAddonState();
+      prefillFromBriefing();
+      syncAddonsFromFeatures();
+
+      var ent = isEnterprise();
+      var p = pkgById(A.paket_gewaehlt);
+      var intro = ent
+        ? { q: 'Für Ihr Vorhaben empfehle ich ein individuelles Festpreis-Angebot.',
+            hint: 'Sagen Sie uns, wohin Sartu Ihr unverbindliches Angebot schicken darf — den genauen Festpreis erhalten Sie schriftlich, bevor Sie zusagen.' }
+        : (A.pfad === 'A'
+          ? { q: 'Sie haben „' + p.name + '“ gewählt — hier ist Ihr Festpreis.',
+              hint: 'Prüf kurz Ihre Übersicht — dann sag mir, wohin Sartu Ihr unverbindliches Angebot schicken darf. Es entsteht KEIN Vertrag.' }
+          : { q: 'Auf Basis Ihrer Angaben empfehle ich „' + p.name + '“.',
+              hint: 'Prüf kurz Ihre Übersicht — dann sag mir, wohin Sartu Ihr unverbindliches Angebot schicken darf. Es entsteht KEIN Vertrag.' });
+      var h = lumiSays(intro.q, intro.hint);
+
+      /* -- Grüne Empfehlungs-Karte (schlank): Paket + Situation + beide Beträge IN der Karte -- */
+      var card = el('div', 'lb-reccard lb-reccard-slim');
+      function renderCard() {
+        if (ent) {
+          card.innerHTML =
+            '<div class="lb-reccard-head"><span class="lb-reccard-name">' + p.name + '</span>' +
+              '<span class="lb-reccard-price">individuell</span></div>' +
+            '<p class="lb-reccard-situation">Ihr Vorhaben ist größer als ein Standard-Paket — Sie erhalten ein eigenes Festpreis-Angebot.</p>';
+          return;
+        }
+        var t = totals();
+        var care = wartById(A.wartung);
+        var ki = A.addons['ki-assistent'] && A.addons['ki-assistent'].selected ? addonById_('ki-assistent') : null;
+        var lines =
+          '<div class="lb-reccard-sums">Einmalig <strong>' + fmtEUR(t.once) + '</strong> · Monatlich <strong>' + fmtEUR(care.price) + '/Mon.</strong> <span class="lb-reccard-note">(Rundum-Schutz ' + care.name + ', gehört dazu)</span></div>';
+        if (ki) lines += '<div class="lb-reccard-sums lb-reccard-extra">Website-Assistent <strong>+' + ki.monthly + ' €/Mon.</strong> <span class="lb-reccard-note">(Betrieb, Mindestlaufzeit 12 Mon.)</span></div>';
+        if (A.seo_stufe) { var sp = seoProductFor(A.seo_stufe); if (sp) lines += '<div class="lb-reccard-sums lb-reccard-extra">SEO-Betreuung <strong>+' + sp.price.toLocaleString('de-DE') + ' €/Mon.</strong> <span class="lb-reccard-note">(mtl. nach 3 Mon. kündbar)</span></div>'; }
+        card.innerHTML =
+          '<div class="lb-reccard-head"><span class="lb-reccard-name">' + p.name + '</span>' +
+            '<span class="lb-reccard-price">' + priceLabel(p.price, { from: p.from }) + '</span></div>' +
+          (p.situation ? '<p class="lb-reccard-situation">Für Sie, wenn ' + p.situation + '</p>' : '') +
+          lines;
+      }
+      renderCard();
+      stage.appendChild(card);
+
+      // Begründungs-Halbsatz, falls die Empfehlung durch Funktionen angehoben wurde
+      if (!ent && A.pfad !== 'A') {
+        var ubase = A.umfang === 'onepager' ? 'basis' : (A.umfang === 'umfangreich' ? 'platin' : 'pro');
+        var grund = recommendReason();
+        if (grund && A.paket_gewaehlt === 'platin' && ubase !== 'platin') {
+          stage.appendChild(el('p', 'lb-rec-why', '„' + p.name + '“ empfohlen, weil: ' + grund + ' — das ist dort inklusive.'));
+        }
+      }
+
+      /* -- Übersichts-Liste: eine Zeile je Thema + „ändern"-Rücksprung -- */
+      function featLabel(v) {
+        var it = FUNK_AKTION.concat(FUNK_INHALT).filter(function (x) { return x.value === v; })[0];
+        if (it) {
+          var tag = funcTag(it);
+          var pricey = it.kind === 'price' || it.kind === 'combo' || it.kind === 'percent' || it.kind === 'price_platin';
+          return it.label + (pricey && tag ? ' ' + tag.text.split(' · ')[0] : '');
+        }
+        var o = (OPT.features || []).filter(function (x) { return x.value === v; })[0];
+        return o ? o.label : v;
+      }
+      function optLabel(list, v) { var o = (OPT[list] || []).filter(function (x) { return x.value === v; })[0]; return o ? o.label : (v || ''); }
+      function colorTxt(v) { if (!v) return ''; if (/^#/.test(v)) return v; return optLabel('farben', v); }
+      var offen = 'noch offen';
+      function rowVal(v) { return v || (A.pfad === 'A' ? offen : '—'); }
+
+      var rows = [];
+      // Seiten
+      var seitenV = '';
+      if (A.umfang) {
+        var teile = (A.seiten || []).map(function (s) { return optLabel('seiten', s); });
+        if (A.seiten_sonstige) teile.push(A.seiten_sonstige);
+        seitenV = ent ? optLabel('umfang', A.umfang) : String((p.includedPages || 0) + (A.extraPages || 0));
+        if (teile.length) seitenV += ' (' + teile.join(', ') + ')';
+      }
+      rows.push({ k: 'Seiten', v: rowVal(seitenV), screen: 'umfang' });
+      // Funktionen (Website-Assistent als eigene Zeile)
+      var feats = (A.features || []).filter(function (v) { return v !== 'ki-assistent'; }).map(featLabel);
+      rows.push({ k: 'Funktionen', v: rowVal(feats.join(', ')), screen: 'funktion_aktion' });
+      if ((A.features || []).indexOf('ki-assistent') > -1) {
+        var kia = addonById_('ki-assistent');
+        rows.push({ k: 'Website-Assistent', v: kia.price.toLocaleString('de-DE') + ' € + ' + kia.monthly + ' €/Mon.', screen: 'funktion_aktion' });
+      }
+      // Design
+      var designV = optLabel('stil', A.stil);
+      var farben = [colorTxt(A.hauptfarbe), colorTxt(A.nebenfarbe)].filter(Boolean).join('/');
+      if (farben) designV += (designV ? ', ' : '') + farben;
+      rows.push({ k: 'Design', v: rowVal(designV), screen: 'design' });
+      // Material + Termin (ein Schritt, zwei Zeilen)
+      rows.push({ k: 'Material', v: rowVal((A.material || []).map(function (m) { return optLabel('material', m); }).join(', ')), screen: 'material' });
+      rows.push({ k: 'Termin', v: rowVal(optLabel('zeitrahmen', A.zeitrahmen)), screen: 'material' });
+      // Sichtbarkeit (SEO) — null = bewusster Default „Erstmal ohne" (Pfad B); Deep-Link: noch offen
+      var seoV;
+      if (A.seo_stufe) { var sps = seoProductFor(A.seo_stufe); seoV = sps ? sps.name + ' · ' + sps.price.toLocaleString('de-DE') + ' €/Mon.' : ''; }
+      else { seoV = A.pfad === 'A' ? '' : 'Erstmal ohne'; }
+      rows.push({ k: 'Sichtbarkeit', v: rowVal(seoV), screen: 'seo' });
+
+      var list = el('div', 'lb-overview');
+      rows.forEach(function (r) {
+        var row = el('div', 'lb-overview-row');
+        row.innerHTML = '<span class="k">' + r.k + '</span><span class="v"></span>';
+        row.querySelector('.v').textContent = r.v;
+        if (r.v === offen) row.classList.add('is-open');
+        var edit = el('button', 'lb-edit', 'ändern'); edit.type = 'button';
+        edit.setAttribute('aria-label', r.k + ' ändern');
+        edit.addEventListener('click', function () { editReturn = 'contact'; goTo(r.screen); });
+        row.appendChild(edit);
+        list.appendChild(row);
+      });
+      stage.appendChild(list);
+
+      /* -- Einzige interaktive Ausnahme: Logo-Empfehlungszeile (NUR ohne Logo-Material, unangehakt) -- */
+      if (!ent && A.pfad === 'B' && (A.material || []).indexOf('logo') < 0) {
+        var ll = addonById_('logo-lite');
+        var st = A.addons['logo-lite'];
+        var logoRow = el('label', 'lb-logo-offer');
+        logoRow.innerHTML =
+          '<input type="checkbox" class="lb-func-check"' + (st && st.selected ? ' checked' : '') + ' />' +
+          '<span><strong>Logo Lite hinzufügen</strong> · +' + ll.price.toLocaleString('de-DE') + ' € — Sie haben angegeben: kein Logo</span>';
+        logoRow.querySelector('input').addEventListener('change', function (e) {
+          if (st) st.selected = e.target.checked;
+          renderCard();                          // Karten-Summe sofort aktualisieren
+        });
+        stage.appendChild(logoRow);
+      }
+
+      var form = el('form', 'lb-form');
+      form.setAttribute('novalidate', 'novalidate');
+      form.innerHTML =
+        '<label class="lb-field"><span class="lb-field-label">Name <em>*</em></span><input type="text" name="name" autocomplete="name" required /></label>' +
+        '<label class="lb-field"><span class="lb-field-label">E-Mail <em>*</em></span><input type="email" name="email" autocomplete="email" required /></label>' +
+        '<label class="lb-field"><span class="lb-field-label">Telefon <em>(optional)</em></span><input type="tel" name="telefon" autocomplete="tel" /></label>' +
+        '<label class="lb-check"><input type="checkbox" name="dsgvo" required />' +
+          '<span>Ich habe die <a href="' + CONFIG.datenschutzUrl + '" target="_blank" rel="noopener">Datenschutzerklärung</a> ' +
+          'gelesen und bin mit der Verarbeitung meiner Angaben einverstanden. <em>*</em></span></label>' +
+        '<p class="lb-form-error" id="lbFormError" role="alert" hidden></p>';
+
+      form.elements.namedItem('name').value = A.kontakt.name || '';
+      form.elements.namedItem('email').value = A.kontakt.email || '';
+      form.elements.namedItem('telefon').value = A.kontakt.telefon || '';
+      form.elements.namedItem('dsgvo').checked = !!A.kontakt.dsgvo;
+
+      function sync() {
+        A.kontakt.name = form.elements.namedItem('name').value.trim();
+        A.kontakt.email = form.elements.namedItem('email').value.trim();
+        A.kontakt.telefon = form.elements.namedItem('telefon').value.trim();
+        A.kontakt.dsgvo = form.elements.namedItem('dsgvo').checked;
+      }
+      ['input', 'change'].forEach(function (ev) { form.addEventListener(ev, sync); });
+
+      var err = form.querySelector('#lbFormError');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault(); sync();
+        var problems = [];
+        if (!A.kontakt.name) problems.push('Bitte geben Sie Ihren Namen an.');
+        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(A.kontakt.email)) problems.push('Bitte geben Sie eine gültige E-Mail an.');
+        if (!A.kontakt.dsgvo) problems.push('Bitte bestätige die Datenschutzerklärung.');
+        if (problems.length) { err.hidden = false; err.textContent = problems[0]; return; }
+        err.hidden = true; submitBriefing();
+      });
+      stage.appendChild(form);
+
+      actions({
+        onBack: back,
+        onNext: function () { if (form.requestSubmit) form.requestSubmit(); else form.dispatchEvent(new Event('submit', { cancelable: true })); },
+        nextLabel: 'Angebot anfordern',
+      });
+      return h;
+    }},
+
+    /* ---------- Abschluss (schlank: Bestätigung + 3 nächste Schritte) ---------- */
+    done: { step: null, render: function () {
+      var h = lumiSays('Danke, ' + (A.kontakt.name.split(' ')[0] || '') + '! Ihre Anfrage ist raus.');
+
+      var box = el('div', 'lb-done');
+      box.innerHTML = '<p class="lb-done-status">' + (lastSendState.msg || '') + '</p>';
+      stage.appendChild(box);
+
+      var steps = el('ul', 'lb-done-steps');
+      steps.innerHTML =
+        '<li><strong>Wir prüfen Ihre Angaben</strong> und stellen Ihr persönliches Festpreis-Angebot zusammen.</li>' +
+        '<li><strong>Sie erhalten es i.&nbsp;d.&nbsp;R. innerhalb von 1 Werktag</strong> per E-Mail — schriftlich und unverbindlich.</li>' +
+        '<li><strong>Erst mit Ihrer Zusage</strong> geht es los. Vorher entsteht kein Vertrag.</li>';
+      stage.appendChild(steps);
+
+      var restart = el('button', 'lb-restart', 'Neue Anfrage starten'); restart.type = 'button';
+      restart.addEventListener('click', resetAll);
+      stage.appendChild(restart);
+      return h;
+    }},
+  };
+
+  /* ============================================================
+     EINZIGE ERLAUBTE RÜCKFRAGE (max. 1) — nur bei Branche „Sonstiges“
+     ============================================================ */
+  function leaveBranche() {
+    var txt = (A.branche_sonstiges || '').trim();
+    var unklar = A.branche === 'sonstiges' && txt.length < 3;
+    if (unklar && !ui.askedClarification) {
+      ui.askedClarification = true;
+      clearStage();
+      var h = lumiSays('Möchten Sie kurz sagen, was Sie anbieten?',
+        'Zwei, drei Worte reichen — das hilft mir bei der Empfehlung. (Kannst Sie auch überspringen.)');
+      var lbl = el('label', 'lb-field');
+      lbl.innerHTML = '<span class="lb-field-label">Ihre Tätigkeit</span>';
+      var inp = el('input'); inp.type = 'text'; inp.placeholder = 'z. B. „mobiler Friseur“';
+      inp.value = A.branche_sonstiges || '';
+      inp.addEventListener('input', function (e) { A.branche_sonstiges = e.target.value; });
+      lbl.appendChild(inp); stage.appendChild(lbl);
+      actions({ onBack: back, onNext: advance, skip: advance, nextLabel: 'Weiter' });
+      if (h && h.focus) h.focus();
+      return;
+    }
+    advance();
+  }
+
+  /* ============================================================
+     PAKET-EMPFEHLUNG (Pfad B) — aus Umfang + Features
+     ============================================================ */
+  function recommend() {
+    var u = A.umfang, f = A.features || [], s = A.seiten || [];
+    var has = function (v) { return f.indexOf(v) > -1; };
+    // Sonderprojekte-Treiber: sehr großer Umfang ODER Shop/Login (kein öffentlicher Festpreis)
+    if (u === 'gross' || has('shop') || has('login')) return 'enterprise';
+    // Basis-Empfehlung nach Umfang: One-Pager→Start, Groß→Platzhirsch, sonst Wachstum
+    var base = u === 'onepager' ? 'basis' : (u === 'umfangreich' ? 'platin' : 'pro');
+    // Paketgebundene Funktionen heben auf Platzhirsch an (Neuigkeiten/Blog, Newsletter, Karriere-Seite)
+    var order = ['basis', 'pro', 'platin'];
+    var bump = (has('blog') || has('newsletter') || s.indexOf('karriere') > -1) ? 'platin' : base;
+    return order.indexOf(bump) > order.indexOf(base) ? bump : base;
+  }
+  // Begründungs-Halbsatz, falls die Empfehlung durch Funktionen angehoben wurde (für die Kontakt-Übersicht, E2)
+  function recommendReason() {
+    var f = A.features || [], s = A.seiten || [];
+    var why = [];
+    if (f.indexOf('blog') > -1) why.push('Neuigkeiten-Bereich');
+    if (f.indexOf('newsletter') > -1) why.push('Newsletter');
+    if (s.indexOf('karriere') > -1) why.push('Karriere-Seite');
+    return why.length ? why.join(' + ') : '';
+  }
+
+
+  /* ============================================================
+     STRUKTURIERTE AUSGABE (Speicherung + optionale LLM-Zusammenfassung)
+     ============================================================ */
+  function collect() {
+    var t = totals();
+    var selectedWuensche = (A.wuensche || []).map(function (id) {
+      var w = (PRICING.onRequest || []).filter(function (x) { return x.id === id; })[0];
+      return w ? { id: w.id, name: w.name } : { id: id };
+    });
+    var selectedAddons = [];
+    PRICING.addons.forEach(function (a) {
+      var st = A.addons[a.id];
+      if (st && st.selected) {
+        selectedAddons.push({
+          id: a.id, name: a.name, type: a.type,
+          qty: a.qty ? st.qty : 1,
+          unitPrice: a.price, pct: a.pct || null,
+          lineTotal: addonAmount(a, st),
+          monthly: typeof a.monthly === 'number' ? a.monthly : null, // Kombi-Add-on (z. B. KI-Chatbot)
+        });
+      }
+    });
+    return {
+      schemaVersion: SCHEMA.version,
+      pfad: A.pfad,
+      produkt_typ: A.produkt_typ, // 'website' | 'redesign' (additiv, bestehende Keys unverändert)
+      seo_stufe: A.seo_stufe, // E2: null|'lite'|'pro'|'premium' (additiv)
+      createdAt: new Date().toISOString(),
+      anfrage: A.pfad === 'B' ? {
+        branche: A.branche, branche_sonstiges: A.branche_sonstiges,
+        ziele: A.ziele, umfang: A.umfang, seiten: A.seiten, seiten_sonstige: A.seiten_sonstige,
+        features: A.features, stil: A.stil,
+        hauptfarbe: A.hauptfarbe, nebenfarbe: A.nebenfarbe,
+        markenfarben_hex: A.markenfarben_hex, material: A.material,
+        uploads: A.uploads, zeitrahmen: A.zeitrahmen,
+        paket_empfohlen: A.paket_empfohlen,
+      } : null,
+      konfiguration: isEnterprise() ? {
+        modus: 'enterprise',
+        paket: 'enterprise',
+        anforderungen: A.enterprise,
+        wuensche: selectedWuensche,
+        zahlungsstaffelung: PAY.forPackage('enterprise'),
+      } : {
+        modus: 'fixpreis',
+        paket: A.paket_gewaehlt,
+        paket_name: pkgById(A.paket_gewaehlt).name,
+        paket_preis: pkgById(A.paket_gewaehlt).price,
+        inklusiv_seiten: pkgById(A.paket_gewaehlt).includedPages,
+        extra_seiten: A.extraPages,
+        extra_seiten_preis: PRICING.extraPage.price * (A.extraPages || 0),
+        wartung: A.wartung,
+        wartung_name: wartById(A.wartung).name,
+        wartung_preis: wartById(A.wartung).price,
+        addons: selectedAddons,
+        wuensche: selectedWuensche,
+        summe_einmalig: t.once,
+        summe_monatlich: t.monthly,
+        seo_stufe: A.seo_stufe,
+        seo_monatlich: A.seo_stufe ? seoProductFor(A.seo_stufe).price : 0,
+        stil: A.stil, hauptfarbe: A.hauptfarbe, nebenfarbe: A.nebenfarbe, markenfarben_hex: A.markenfarben_hex,
+        zahlungsstaffelung: PAY.forPackage(A.paket_gewaehlt),
+      },
+      kontakt: A.kontakt,
+    };
+  }
+
+  /* ============================================================
+     OPTIONAL: LLM-Zusammenfassung (nur Pfad B) — später aktivieren
+     Serverlose Function ruft Claude (z. B. claude-sonnet-4-6) mit
+     Structured Output auf und erzwingt:
+       { anfrage_markdown, paket_empfehlung:{paket,begruendung}, zusammenfassung }
+     API-Key NUR serverseitig.
+     ============================================================ */
+  async function requestBriefingFromLLM(payload) {
+    if (!CONFIG.useLLM || A.pfad !== 'B' || isPlaceholder(CONFIG.llmEndpoint)) return null;
+    try {
+      var r = await fetch(CONFIG.llmEndpoint, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ anfrage: payload.anfrage, konfiguration: payload.konfiguration }),
+      });
+      if (!r.ok) throw new Error('LLM ' + r.status);
+      return await r.json();
+    } catch (e) { console.warn('[Website-Assistent] LLM-Zusammenfassung übersprungen:', e.message); return null; }
+  }
+
+  /* ============================================================
+     SPEICHERUNG / VERSAND: PHP/MySQL
+     ============================================================ */
+  async function persist(payload) {
+    if (!isPlaceholder(CONFIG.briefingEndpoint)) {
+      var r = await fetch(CONFIG.briefingEndpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ payload: payload }),
+      });
+      if (!r.ok) throw new Error('API ' + r.status);
+      return 'mysql';
+    }
+    try { localStorage.setItem('sartu_briefing_' + Date.now(), JSON.stringify(payload)); } catch (e) { /* ignore */ }
+    console.info('[Website-Anfrage] Anfrage (Demo - kein Versand konfiguriert):', payload);
+    return 'demo';
+  }
+
+  var lastSendState = { msg: '' };
+
+  async function submitBriefing() {
+    clearStage();
+    showPriceBar(false);
+    var h = lumiSays('Einen Moment — ich stelle Ihre Anfrage zusammen …');
+    var spinner = el('div', 'lb-sending');
+    spinner.innerHTML = '<span class="lb-dot"></span><span class="lb-dot"></span><span class="lb-dot"></span>';
+    stage.appendChild(spinner);
+    if (h && h.focus) h.focus();
+
+    var payload = collect();
+    try {
+      var ai = await requestBriefingFromLLM(payload);
+      if (ai) payload.ai = ai;
+      var via = await persist(payload);
+      lastSendState.msg = via === 'demo'
+        ? '✓ Anfrage erstellt. (Demo-Modus: Versand noch nicht konfiguriert.)'
+        : '✓ Ihre Anfrage ist bei Sartu angekommen.';
+    } catch (e) {
+      console.warn('[Website-Assistent] Versand fehlgeschlagen:', e.message);
+      lastSendState.msg = 'Hinweis: Der automatische Versand hat nicht geklappt — Sartu kümmert sich trotzdem.';
+    }
+    goTo('done');
+  }
+
+  /* ============================================================
+     RESET
+     ============================================================ */
+  function resetAll() {
+    A.pfad = null;
+    A.branche = null; A.branche_sonstiges = '';
+    A.ziele = []; A.umfang = null; A.seiten = []; A.seiten_sonstige = '';
+    A.features = []; A.stil = null; A.hauptfarbe = null; A.nebenfarbe = null; A.markenfarben_hex = '';
+    A.material = []; A.uploads = { logo: [], fotos: [], texte: [], texte_notiz: '', website_link: '' };
+    A.zeitrahmen = null;
+    A.paket_gewaehlt = null; A.paket_empfohlen = null;
+    A.wartung = null; A.extraPages = 0; A.addons = {}; A.addonEmpfohlen = []; A.addonGrund = {}; A.seo_stufe = null; A._prefilled = false; A._recShown = false;
+    A.enterprise = { sonderfunktionen: [], seitenzahl: null, shopGroesse: null, sprachen: '', schnittstellen: '', zeithorizont: null, notiz: '' };
+    A.kontakt = { name: '', email: '', telefon: '', dsgvo: false };
+    ui.askedClarification = false; lastSendState.msg = '';
+    history = []; showPriceBar(false);
+    renderScreen('welcome');
+  }
+
+  /* ============================================================
+     START
+     ============================================================ */
+  // Direkteinstieg aus der Preise-Seite: „Ich weiß, was ich will" → direkt zum
+  // Kontakt-Screen mit vorgewähltem Paket; unbeantwortete Themen zeigen in der
+  // Übersicht „noch offen — ändern". Akzeptiert technische IDs
+  // (basis|pro|platin|enterprise) UND die sichtbaren Namen
+  // (start|wachstum|platzhirsch|sonderprojekte).
+  function startFromUrl() {
+    try {
+      var params = new URLSearchParams(window.location.search);
+      var raw = (params.get('paket') || '').toLowerCase().trim();
+      if (!raw) return false;
+      var alias = { start: 'basis', wachstum: 'pro', platzhirsch: 'platin', sonderprojekte: 'enterprise', sonderprojekt: 'enterprise' };
+      var p = alias[raw] || raw;
+      var valid = PRICING.packages.some(function (x) { return x.id === p; });
+      if (!valid) return false;
+      A.pfad = 'A';
+      A.paket_gewaehlt = p;
+      A._recShown = true;          // kein Tipp-Indikator beim Direkteinstieg
+      history = ['intent'];        // „Zurück" führt zur Einstiegs-Weiche, nicht ins Nichts
+      renderScreen('contact');
+      return true;
+    } catch (e) { return false; }
+  }
+
+  if (!startFromUrl()) renderScreen('welcome');
+})();

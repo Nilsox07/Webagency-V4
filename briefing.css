@@ -1,0 +1,1009 @@
+/* ============================================================
+   Sartu · Website-Assistent — Anfrage-Flow · dedizierte Styles
+   Lädt NACH styles.css → nutzt die :root-Variablen (--green etc.)
+   Look: dunkle Karte, grüne Akzente, große Tap-Targets, WCAG-Kontrast.
+   ============================================================ */
+
+/* ---- Bühne (dynamischer Bereich in der Assistenten-Karte) ---- */
+.lb-stage {
+  padding: clamp(18px, 3vw, 30px);
+  /* Stabile Höhe: das Auswahl-Feld bleibt über alle Fragen gleich hoch
+     (fester Anteil der Viewport-Höhe) statt pro Frage zu springen.
+     Lange Screens wachsen darüber hinaus. */
+  min-height: clamp(340px, 50vh, 480px);
+}
+
+/* Infokasten: dunkel statt weiß, passend zum Assistenten-Bereich.
+   (briefing.css lädt nur hier — die Rechtsseiten mit .legal-content bleiben weiß.) */
+.lumi-section .legal-content {
+  background: #0e1626;
+  border-color: var(--border-dark);
+}
+.lumi-section .legal-content h2,
+.lumi-section .legal-content strong { color: var(--white); }
+.lumi-section .legal-content p { color: var(--text-light); }
+.lumi-section .legal-content a { color: var(--green); }
+
+/* ---- Assistenten-Sprechblase + Frage ---- */
+.lb-say { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 22px; }
+.lb-avatar {
+  flex-shrink: 0;
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  font-weight: 800; font-size: 16px;
+  color: #0a1200;
+  background: var(--green);
+}
+.lb-bubble {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-dark);
+  border-radius: 4px 16px 16px 16px;
+  padding: 14px 18px;
+  max-width: 640px;
+}
+.lb-q {
+  font-size: clamp(18px, 2.4vw, 22px);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--white);
+  outline: none;
+}
+.lb-hint { margin-top: 6px; font-size: 14px; color: var(--text-light-muted); }
+
+.lb-subq {
+  margin: 26px 0 12px;
+  font-size: 15.5px;
+  font-weight: 700;
+  color: var(--text-light);
+}
+.lb-subq .lb-opt, .lb-opt { font-weight: 500; color: var(--text-light-muted); font-size: 13px; }
+.lb-inline:empty { display: none; }
+
+/* ---- Aktionsleiste ---- */
+.lb-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 26px;
+  flex-wrap: wrap;
+}
+.lb-actions-right { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+.lb-back, .lb-skip {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  font-size: 14.5px;
+  font-weight: 600;
+  padding: 12px 8px;
+  border-radius: 8px;
+  min-height: 44px;
+}
+.lb-back { color: var(--text-light); }
+.lb-skip { color: var(--text-light-muted); text-decoration: underline; text-underline-offset: 3px; }
+.lb-back:hover, .lb-skip:hover { color: var(--green); }
+.lb-next { min-height: 48px; }
+
+/* ---- Multi-Select Chips ---- */
+.lb-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.lb-chip {
+  font: inherit;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--text-light);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1.5px solid var(--border-dark);
+  border-radius: 999px;
+  padding: 12px 18px;
+  min-height: 46px;
+  cursor: pointer;
+  transition: border-color .15s ease, background .15s ease, color .15s ease, transform .12s ease;
+}
+.lb-chip:hover { border-color: rgba(255, 255, 255, 0.3); }
+.lb-chip.is-on {
+  background: rgba(18, 165, 148, 0.12);
+  border-color: var(--green);
+  color: var(--white);
+}
+.lb-chip.is-on::before { content: "✓ "; color: var(--green); font-weight: 800; }
+
+/* ---- Single-Choice Karten ---- */
+.lb-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
+.lb-cards-wide { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.lb-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1.5px solid var(--border-dark);
+  border-radius: 14px;
+  padding: 16px 18px;
+  min-height: 64px;
+  transition: border-color .15s ease, background .15s ease, transform .12s ease;
+}
+.lb-card:hover { border-color: rgba(255, 255, 255, 0.3); transform: translateY(-1px); }
+.lb-card.is-on { border-color: var(--green); background: rgba(18, 165, 148, 0.10); }
+.lb-card-label { font-weight: 700; font-size: 15.5px; color: var(--white); }
+.lb-card-sub { font-size: 13px; color: var(--text-light-muted); }
+
+/* ---- Branchen-Kacheln (mit Icon) ---- */
+.lb-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.lb-tiles .lb-card { align-items: flex-start; }
+.lb-card-icon { font-size: 24px; line-height: 1; margin-bottom: 4px; }
+
+/* ---- Willkommen ---- */
+.lb-welcome { margin-top: 8px; }
+.lb-start { min-height: 52px; }
+
+/* ---- Eingabefelder ---- */
+.lb-field { display: block; margin-top: 16px; }
+.lb-field-label { display: block; font-size: 14px; font-weight: 600; color: var(--text-light); margin-bottom: 7px; }
+.lb-field-label em { font-style: normal; color: var(--text-light-muted); font-weight: 500; }
+.lb-field input,
+.lb-field textarea {
+  width: 100%;
+  font: inherit;
+  font-size: 15px;
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1.5px solid var(--border-dark);
+  border-radius: 10px;
+  padding: 13px 15px;
+}
+.lb-field input::placeholder, .lb-field textarea::placeholder { color: var(--text-light-muted); }
+.lb-field input:focus, .lb-field textarea:focus { outline: none; border-color: var(--green); }
+.lb-field-optional { margin-top: 22px; }
+
+/* ---- Design: Stil-Moodboards (reine CSS-Grafik, lizenzfrei) ---- */
+.lb-moods { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
+.lb-mood {
+  font: inherit; cursor: pointer; padding: 0; overflow: hidden;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1.5px solid var(--border-dark);
+  border-radius: 14px;
+  transition: border-color .15s ease, transform .12s ease;
+}
+.lb-mood:hover { transform: translateY(-1px); border-color: rgba(255, 255, 255, 0.3); }
+.lb-mood.is-on { border-color: var(--green); }
+.lb-mood-art {
+  display: block; position: relative; height: 84px;
+  padding: 14px; overflow: hidden;
+}
+.lb-mood-art .m1, .lb-mood-art .m2, .lb-mood-art .m3 { display: block; border-radius: 4px; position: absolute; }
+.lb-mood-label { display: block; padding: 11px 14px; font-size: 13.5px; font-weight: 700; color: var(--white); text-align: left; }
+.lb-mood.is-on .lb-mood-label::after { content: " ✓"; color: var(--green); }
+
+/* Stil-Varianten */
+.mood-minimal   { background: #f6f7f8; }
+.mood-minimal .m1 { left: 14px; top: 16px; width: 46%; height: 9px; background: #1a1f29; }
+.mood-minimal .m2 { left: 14px; top: 33px; width: 70%; height: 6px; background: #c5cad1; }
+.mood-minimal .m3 { left: 14px; bottom: 14px; width: 30%; height: 18px; background: #1a1f29; border-radius: 6px; }
+
+.mood-elegant   { background: linear-gradient(135deg, #14110f, #2a2018); }
+.mood-elegant .m1 { left: 14px; top: 16px; width: 50%; height: 8px; background: #d8b46a; }
+.mood-elegant .m2 { left: 14px; top: 32px; width: 66%; height: 5px; background: #6b5e44; }
+.mood-elegant .m3 { left: 14px; bottom: 14px; width: 34%; height: 16px; border: 1px solid #d8b46a; }
+
+.mood-verspielt { background: linear-gradient(135deg, #ff6ea9, #ffd36e); }
+.mood-verspielt .m1 { left: 14px; top: 16px; width: 40px; height: 40px; border-radius: 50%; background: #5ad1ff; }
+.mood-verspielt .m2 { right: 16px; top: 20px; width: 26px; height: 26px; background: #fff; transform: rotate(12deg); }
+.mood-verspielt .m3 { left: 14px; bottom: 14px; width: 50%; height: 10px; background: #fff; border-radius: 999px; }
+
+.mood-bold      { background: #0a0f1c; }
+.mood-bold .m1 { left: 14px; top: 15px; width: 60%; height: 14px; background: var(--green); }
+.mood-bold .m2 { left: 14px; top: 36px; width: 40%; height: 8px; background: #fff; }
+.mood-bold .m3 { left: 14px; bottom: 14px; width: 28%; height: 16px; background: var(--green); border-radius: 6px; }
+
+.mood-warm      { background: linear-gradient(135deg, #e9d9c3, #c89b6c); }
+.mood-warm .m1 { left: 14px; top: 16px; width: 48%; height: 9px; background: #5a3d28; }
+.mood-warm .m2 { left: 14px; top: 33px; width: 66%; height: 6px; background: #8a6b4d; }
+.mood-warm .m3 { left: 14px; bottom: 14px; width: 32%; height: 16px; background: #5a3d28; border-radius: 6px; }
+
+.mood-corporate { background: linear-gradient(135deg, #0e2a4f, #123a6b); }
+.mood-corporate .m1 { left: 14px; top: 16px; width: 52%; height: 9px; background: #fff; }
+.mood-corporate .m2 { left: 14px; top: 33px; width: 70%; height: 6px; background: #6f93c4; }
+.mood-corporate .m3 { left: 14px; bottom: 14px; width: 30%; height: 16px; background: #4f9cff; border-radius: 6px; }
+
+/* ---- Design: Farbkacheln ---- */
+.lb-swatch.is-on { border-color: var(--green); background: rgba(18, 165, 148, 0.10); }
+
+/* ---- Uploads ---- */
+.lb-upload input[type="file"] {
+  width: 100%; font: inherit; font-size: 13.5px; color: var(--text-light);
+  padding: 11px 12px; background: rgba(255,255,255,0.04);
+  border: 1.5px dashed var(--border-dark); border-radius: 10px; cursor: pointer;
+}
+.lb-upload input[type="file"]::file-selector-button {
+  font: inherit; font-weight: 700; font-size: 13px;
+  margin-right: 12px; padding: 8px 14px; border-radius: 8px; cursor: pointer;
+  border: 0; background: var(--green); color: #0a1200;
+}
+.lb-upload-hint { display: block; font-size: 12.5px; color: var(--text-light-muted); margin-bottom: 7px; }
+.lb-upload-files { display: block; margin-top: 7px; font-size: 12.5px; color: var(--green-strong); }
+
+/* ---- Paketempfehlung ---- */
+.lb-paket.is-on { border-color: var(--green); background: rgba(18, 165, 148, 0.10); }
+.lb-unsure.is-on { border-style: solid; border-color: var(--green); color: var(--white); background: rgba(18, 165, 148, 0.08); }
+
+/* ---- Kontaktformular ---- */
+.lb-form { display: grid; gap: 4px; }
+.lb-field-label em { color: var(--text-light-muted); }
+.lb-check {
+  display: flex; gap: 11px; align-items: flex-start;
+  margin-top: 16px; font-size: 13.5px; color: var(--text-light); line-height: 1.5;
+}
+.lb-check input { margin-top: 3px; width: 18px; height: 18px; flex-shrink: 0; accent-color: var(--green); }
+.lb-check a { color: var(--green-strong); text-decoration: underline; }
+.lb-form-error { margin-top: 12px; color: #ff8a8a; font-size: 14px; font-weight: 600; }
+
+/* ---- Zusammenfassung / Read-back ---- */
+.lb-summary { margin-top: 4px; border-top: 1px solid var(--border-dark); }
+.lb-summary-row {
+  display: flex; align-items: baseline; gap: 12px;
+  padding: 11px 0; border-bottom: 1px solid var(--border-dark); font-size: 14.5px;
+}
+.lb-summary-row .k { color: var(--text-light-muted); width: 110px; flex-shrink: 0; }
+.lb-summary-row .v { color: var(--white); font-weight: 600; flex: 1; }
+.lb-edit {
+  font: inherit; font-size: 13px; font-weight: 600; color: var(--green-strong);
+  background: transparent; border: 0; cursor: pointer; padding: 6px 8px;
+  text-decoration: underline; text-underline-offset: 3px; flex-shrink: 0;
+}
+.lb-edit:hover { color: var(--green); }
+
+/* ---- Abschluss ---- */
+.lb-done { margin-top: 20px; padding: 18px; border-radius: 14px; background: rgba(18, 165, 148, 0.08); border: 1px solid rgba(18, 165, 148, 0.22); }
+.lb-done-status { font-weight: 700; color: var(--green-strong); font-size: 15px; }
+.lb-done-msg { margin-top: 8px; font-size: 14.5px; color: var(--text-light); }
+.lb-restart {
+  margin-top: 18px; font: inherit; font-size: 14px; font-weight: 600;
+  color: var(--text-light); background: transparent;
+  border: 1.5px solid var(--border-dark); border-radius: 10px;
+  padding: 12px 18px; cursor: pointer; min-height: 46px;
+}
+.lb-restart:hover { border-color: var(--green); color: var(--green); }
+
+/* ---- Sende-Zustand ---- */
+.lb-sending { display: flex; gap: 7px; margin-top: 18px; }
+.lb-sending .lb-dot {
+  width: 9px; height: 9px; border-radius: 50%; background: var(--green);
+  animation: lbPulse 1s infinite ease-in-out;
+}
+.lb-sending .lb-dot:nth-child(2) { animation-delay: .15s; }
+.lb-sending .lb-dot:nth-child(3) { animation-delay: .3s; }
+@keyframes lbPulse { 0%, 100% { opacity: .3; transform: scale(.8); } 50% { opacity: 1; transform: scale(1); } }
+
+/* ---- Tipp-Indikator — dosiert, nur an erzählerischen Momenten ---- */
+.lb-typing { display: inline-flex; align-items: center; min-height: 22px; padding-top: 4px; padding-bottom: 4px; }
+.lb-typing-dots { display: inline-flex; gap: 6px; }
+.lb-typing-dots .lb-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--green);
+  animation: lbPulse 1s infinite ease-in-out;
+}
+.lb-typing-dots .lb-dot:nth-child(2) { animation-delay: .15s; }
+.lb-typing-dots .lb-dot:nth-child(3) { animation-delay: .3s; }
+
+/* ---- Sanftes Einblenden des neuen Inhalts bei Schrittwechsel ---- */
+.lb-anim-in { animation: lbStageIn .2s ease both; }
+@keyframes lbStageIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* ---- Fokus sichtbar (Tastatur-Bedienung / WCAG) ---- */
+.lb-stage button:focus-visible,
+.lb-stage a:focus-visible,
+.lb-stage input:focus-visible,
+.lb-stage textarea:focus-visible {
+  outline: 3px solid var(--green);
+  outline-offset: 2px;
+}
+
+/* ---- Bewegung reduzieren ---- */
+@media (prefers-reduced-motion: reduce) {
+  .lb-card, .lb-chip, .lb-mood, .lb-swatch, .lb-paket { transition: none; }
+  .lb-card:hover, .lb-mood:hover, .lb-swatch:hover, .lb-paket:hover { transform: none; }
+  .lb-sending .lb-dot, .lb-typing-dots .lb-dot { animation: none; }
+  .lb-anim-in { animation: none; }
+}
+
+/* ---- Mobil ---- */
+@media (max-width: 560px) {
+  .lb-actions { flex-direction: column-reverse; align-items: stretch; }
+  .lb-actions-right { width: 100%; justify-content: space-between; }
+  .lb-next { flex: 1; }
+  .lb-back { text-align: left; }
+  .lb-tiles, .lb-cards, .lb-moods, .lb-pakete { grid-template-columns: 1fr 1fr; }
+  .lb-summary-row { flex-wrap: wrap; }
+  .lb-summary-row .k { width: 100%; }
+}
+@media (max-width: 380px) {
+  .lb-tiles, .lb-cards, .lb-moods, .lb-pakete { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   ZWEI PFADE · KONFIGURATOR · LIVE-PREISLEISTE
+   ============================================================ */
+
+/* ---- Einstieg: Pfad-Auswahl ---- */
+.lb-paths { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.lb-path-card {
+  display: flex; flex-direction: column; gap: 6px; text-align: left;
+  font: inherit; cursor: pointer;
+  background: rgba(255,255,255,0.04); border: 1.5px solid var(--border-dark);
+  border-radius: 16px; padding: 22px 20px; min-height: 120px;
+  transition: border-color .15s ease, transform .12s ease;
+}
+.lb-path-card:hover { border-color: var(--green); transform: translateY(-2px); }
+.lb-path-icon { font-size: 26px; }
+.lb-path-title { font-size: 16px; font-weight: 800; color: var(--white); }
+.lb-path-sub { font-size: 13.5px; color: var(--text-light-muted); }
+
+/* ---- Website-Plan-Gerüst ---- */
+.lb-cfg-top { margin-bottom: 6px; }
+.lb-cfg-section { margin-top: 26px; }
+.lb-cfg-h { font-size: 15px; font-weight: 800; color: var(--white); margin-bottom: 14px; letter-spacing: -0.01em; }
+.lb-cfg-opt { font-weight: 500; font-size: 12.5px; color: var(--text-light-muted); }
+.lb-cfg-cta { margin-top: 30px; text-align: center; }
+
+/* ---- Paketauswahl ---- */
+.lb-pkgs { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.lb-pkg {
+  position: relative; display: flex; flex-direction: column; gap: 4px; text-align: left;
+  font: inherit; cursor: pointer;
+  background: rgba(255,255,255,0.04); border: 1.5px solid var(--border-dark);
+  border-radius: 14px; padding: 18px 16px 16px;
+  transition: border-color .15s ease, transform .12s ease, background .15s ease;
+}
+.lb-pkg:hover { border-color: rgba(255,255,255,0.3); transform: translateY(-1px); }
+.lb-pkg.is-on { border-color: var(--green); background: rgba(18,165,148,0.10); }
+.lb-pkg-badge {
+  position: absolute; top: -10px; left: 14px;
+  background: var(--green); color: #0a1200;
+  font-size: 10.5px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase;
+  padding: 4px 9px; border-radius: 999px;
+}
+.lb-pkg-badge-rec { left: auto; right: 14px; background: var(--white); color: #0d1320; }
+.lb-pkg-name { font-size: 16px; font-weight: 800; color: var(--white); }
+.lb-pkg-price { font-size: 17px; font-weight: 800; color: var(--green); }
+.lb-pkg-scope { font-size: 12.5px; color: var(--text-light-muted); }
+
+/* ---- Wartung ---- */
+.lb-wart.is-on { border-color: var(--green); background: rgba(18,165,148,0.10); }
+
+/* ---- Kurz-Vorteile (Perks) in Paket-/Wartungskarten ---- */
+.lb-perks { list-style: none; margin-top: 10px; display: flex; flex-direction: column; gap: 5px; }
+.lb-perks li {
+  position: relative; padding-left: 18px;
+  font-size: 12px; line-height: 1.35; color: var(--text-light);
+}
+.lb-perks li::before {
+  content: ""; position: absolute; left: 2px; top: 5px;
+  width: 9px; height: 5px; border-left: 2px solid var(--green); border-bottom: 2px solid var(--green);
+  transform: rotate(-45deg);
+}
+
+/* ---- Add-ons ---- */
+.lb-addons { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.lb-addon-more {
+  display: block; width: 100%; margin-top: 10px;
+  font: inherit; font-size: 13.5px; font-weight: 700; color: var(--green-strong);
+  background: transparent; border: 1.5px dashed var(--border-dark); border-radius: 12px;
+  padding: 12px 16px; cursor: pointer; min-height: 46px;
+}
+.lb-addon-more:hover { border-color: var(--green); color: var(--green); }
+.lb-addon {
+  border: 1.5px solid var(--border-dark); border-radius: 14px;
+  background: rgba(255,255,255,0.04); overflow: hidden;
+  transition: border-color .15s ease;
+}
+.lb-addon.is-on { border-color: var(--green); background: rgba(18,165,148,0.08); }
+.lb-addon-toggle {
+  display: flex; align-items: center; gap: 14px; width: 100%; text-align: left;
+  font: inherit; cursor: pointer; background: transparent; border: 0;
+  padding: 14px 16px;
+}
+.lb-addon-check {
+  flex-shrink: 0; width: 22px; height: 22px; border-radius: 6px;
+  border: 2px solid var(--text-light-muted); position: relative; transition: .15s;
+}
+.lb-addon.is-on .lb-addon-check { border-color: var(--green); background: var(--green); }
+.lb-addon.is-on .lb-addon-check::after {
+  content: ""; position: absolute; left: 6px; top: 2px; width: 6px; height: 11px;
+  border: solid #0a1200; border-width: 0 2.5px 2.5px 0; transform: rotate(45deg);
+}
+.lb-addon-main { flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.lb-addon-name { font-size: 15px; font-weight: 700; color: var(--white); }
+.lb-addon-desc { font-size: 12.5px; color: var(--text-light-muted); }
+.lb-addon-price { flex-shrink: 0; font-size: 14px; font-weight: 800; color: var(--green); text-align: right; }
+.lb-addon-unit { display: block; font-size: 11px; font-weight: 500; color: var(--text-light-muted); }
+.lb-qty { display: flex; align-items: center; gap: 10px; padding: 0 16px 14px 52px; }
+.lb-qty-label { font-size: 13px; color: var(--text-light); }
+.lb-qty-btn {
+  width: 34px; height: 34px; border-radius: 8px; font: inherit; font-size: 20px; line-height: 1;
+  cursor: pointer; background: rgba(255,255,255,0.06); border: 1.5px solid var(--border-dark); color: var(--white);
+}
+.lb-qty-btn:hover { border-color: var(--green); }
+.lb-qty-num { min-width: 24px; text-align: center; font-weight: 800; color: var(--white); }
+.lb-qty-total { font-size: 13px; font-weight: 700; color: var(--green); margin-left: 4px; }
+
+/* ---- Add-on-Varianten-Gruppen: Karten nebeneinander (wie Paket & Wartung) ---- */
+.lb-tier.is-on { border-color: var(--green); background: rgba(18,165,148,0.10); }
+.lb-tier.is-on .lb-tier-name::before { content: "✓ "; color: var(--green); font-weight: 800; }
+.lb-tiergroup .lb-qty { padding: 12px 2px 0; }
+
+/* ---- Zahlungsstaffelung (Anzeige) ---- */
+.lb-cfg-pay { background: rgba(255,255,255,0.03); border: 1px solid var(--border-dark); border-radius: 14px; padding: 18px; }
+.lb-pay-steps { list-style: none; display: flex; flex-wrap: wrap; gap: 10px; }
+.lb-pay-steps li {
+  display: flex; align-items: baseline; gap: 8px;
+  background: rgba(18,165,148,0.08); border: 1px solid rgba(18,165,148,0.30);
+  border-radius: 999px; padding: 8px 14px;
+}
+.lb-pay-pct { font-size: 16px; font-weight: 800; color: var(--green-strong); }
+.lb-pay-when { font-size: 13px; color: var(--text-light); }
+.lb-pay-guarantee { margin-top: 12px; font-size: 13.5px; font-weight: 600; color: var(--text-light); }
+
+/* ---- Recap auf dem Kontakt-Screen ---- */
+.lb-recap {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px;
+  background: rgba(255,255,255,0.04); border: 1px solid var(--border-dark);
+  border-radius: 12px; padding: 12px 16px; margin-bottom: 18px; font-size: 14px; color: var(--text-light);
+}
+.lb-recap strong { color: var(--white); }
+.lb-recap-sums strong { color: var(--green); }
+
+/* ---- Zahlungs-Block im Abschluss ---- */
+.lb-done-pay { margin-top: 18px; }
+.lb-done-pay h4 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--green-strong); margin-bottom: 10px; }
+
+/* ============================================================
+   STICKY LIVE-PREISLEISTE
+   ============================================================ */
+.lb-pricebar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 300;
+  background: #0b1426; border-top: 2px solid var(--green);
+  box-shadow: 0 -12px 34px rgba(0,0,0,0.4);
+}
+.lb-pricebar-inner {
+  max-width: 760px; margin: 0 auto; display: flex; align-items: center; gap: 14px;
+  padding: 12px 20px;
+}
+.lb-pricebar-toggle {
+  font: inherit; font-size: 12.5px; font-weight: 700; cursor: pointer;
+  background: transparent; border: 1.5px solid var(--border-dark); color: var(--text-light);
+  border-radius: 8px; padding: 9px 12px; min-height: 40px; white-space: nowrap;
+}
+.lb-pricebar-toggle:hover { border-color: var(--green); color: var(--green); }
+.lb-pricebar-sums { display: flex; gap: 22px; margin-right: auto; }
+.lb-sum { display: flex; flex-direction: column; line-height: 1.15; }
+.lb-sum span { font-size: 10.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--text-light-muted); }
+.lb-sum strong { font-size: 18px; font-weight: 800; color: var(--white); }
+.lb-sum-mo strong { color: var(--green); }
+.lb-pricebar-cta { min-height: 46px; white-space: nowrap; }
+.lb-pricebar-note {
+  max-width: 760px; margin: 0 auto; padding: 0 20px 8px;
+  font-size: 11px; color: var(--text-light-muted); text-align: center;
+}
+.lb-pricebar-detail {
+  max-width: 760px; margin: 0 auto; padding: 16px 20px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  border-bottom: 1px solid var(--border-dark); background: #0e1626;
+  max-height: 44vh; overflow: auto;
+}
+.lb-detail-col h5 { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--green-strong); margin-bottom: 8px; }
+.lb-detail-row { display: flex; justify-content: space-between; gap: 12px; font-size: 13.5px; color: var(--text-light); padding: 4px 0; }
+.lb-detail-empty { font-size: 13.5px; color: var(--text-light-muted); }
+.lb-detail-sum { display: flex; justify-content: space-between; gap: 12px; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border-dark); font-weight: 800; color: var(--white); }
+
+body.lb-has-pricebar { padding-bottom: 156px; }
+
+/* ---- Mobil ---- */
+@media (max-width: 560px) {
+  .lb-paths { grid-template-columns: 1fr; }
+  .lb-pkgs, .lb-warts, .lb-tiers { grid-template-columns: 1fr 1fr; }
+  .lb-pricebar-inner { flex-wrap: wrap; gap: 10px; padding: 10px 16px; }
+  .lb-pricebar-toggle { order: 3; }
+  .lb-pricebar-sums { width: 100%; order: 1; justify-content: space-between; gap: 12px; }
+  .lb-pricebar-cta { order: 2; flex: 1; }
+  .lb-pricebar-detail { grid-template-columns: 1fr; gap: 14px; }
+  body.lb-has-pricebar { padding-bottom: 200px; }
+  .lb-addon-toggle { flex-wrap: wrap; }
+  .lb-addon-price { width: 100%; text-align: left; padding-left: 36px; }
+}
+@media (max-width: 380px) {
+  .lb-pkgs, .lb-warts, .lb-tiers { grid-template-columns: 1fr; }
+}
+
+/* ---- Reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  .lb-path-card, .lb-pkg, .lb-wart, .lb-tier { transition: none; }
+  .lb-path-card:hover, .lb-pkg:hover, .lb-wart:hover, .lb-tier:hover { transform: none; }
+}
+
+/* ============================================================
+   v3-Erweiterung: Pflicht-Wartung · Extraseiten · Farbauswahl · Enterprise
+   ============================================================ */
+
+/* ---- Inklusiv-Seiten-Zeile in Paketkarte ---- */
+.lb-pkg-pages { font-size: 11.5px; color: var(--green-strong); font-weight: 600; }
+
+/* ---- Wartung: gesperrte (unter Paket-Floor) Stufen ---- */
+.lb-cfg-foot { margin-top: 10px; font-size: 12px; color: var(--text-light-muted); }
+
+/* ---- Seiten-Sektion (Inklusiv + Extraseiten) ---- */
+.lb-pages {
+  border: 1px solid var(--border-dark); border-radius: 14px;
+  background: rgba(255,255,255,0.03); padding: 16px;
+}
+.lb-pages-info { font-size: 14.5px; color: var(--text-light); margin-bottom: 12px; }
+.lb-pages-info strong { color: var(--white); }
+.lb-pages-extra { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+.lb-pages-extra > span { font-size: 13.5px; color: var(--text-light); }
+.lb-pages .lb-qty { padding: 0; }
+
+/* ---- Farbauswahl: Haupt- + Nebenfarbe ---- */
+.lb-colorrow { margin-top: 16px; }
+.lb-colorrow-label { display: block; font-size: 14px; font-weight: 700; color: var(--text-light); margin-bottom: 8px; }
+.lb-colortiles { display: flex; flex-wrap: wrap; gap: 8px; }
+.lb-colortile {
+  display: flex; flex-direction: column; align-items: center; gap: 5px;
+  font: inherit; cursor: pointer; width: 64px; padding: 8px 4px;
+  background: transparent; border: 1.5px solid transparent; border-radius: 12px;
+  transition: border-color .15s ease, background .15s ease;
+}
+.lb-colortile:hover { background: rgba(255,255,255,0.04); }
+.lb-colortile.is-on { border-color: var(--green); background: rgba(18,165,148,0.14); }
+.lb-colordot {
+  position: relative;
+  width: 34px; height: 34px; border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.18); box-shadow: 0 2px 8px rgba(0,0,0,.3);
+}
+/* Aktive Farbe: kräftiger grüner Ring + Häkchen-Badge (hoher Kontrast unabhängig von der Farbe) */
+.lb-colortile.is-on .lb-colordot {
+  border-color: #fff;
+  box-shadow: 0 0 0 3px var(--green), 0 2px 8px rgba(0,0,0,.35);
+}
+.lb-colortile.is-on .lb-colordot::after {
+  content: "✓";
+  position: absolute; right: -6px; bottom: -6px;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--green); color: #0a1200;
+  font-size: 11px; font-weight: 900; line-height: 18px; text-align: center;
+  box-shadow: 0 0 0 2px #0e1626;
+}
+.lb-colortile small { font-size: 11px; color: var(--text-light-muted); }
+.lb-colortile.is-on small { color: var(--white); font-weight: 700; }
+.lb-design-note { margin-top: 18px; font-size: 12.5px; line-height: 1.5; color: var(--text-light-muted); font-style: italic; }
+
+/* ---- Enterprise-Abzweig ---- */
+.lb-ent .lb-cfg-h { margin-top: 22px; }
+.lb-ent .lb-cfg-h:first-child { margin-top: 0; }
+
+/* ---- Preisleiste: Enterprise = Individuelles Angebot ---- */
+.lb-pricebar.is-enterprise .lb-pricebar-sums { margin-right: auto; }
+.lb-sum-individual { font-size: 16px; font-weight: 800; color: var(--green); }
+
+/* ---- Mobil ---- */
+@media (max-width: 560px) {
+  .lb-colortile { width: 56px; }
+  .lb-pages-extra { flex-direction: column; align-items: stretch; }
+}
+
+/* ============================================================
+   FARB-VORSCHAU-MOCKUP  (optional, entfernbar – siehe color-mockup.js)
+   Entfernt man color-mockup.js, sind diese Regeln einfach ungenutzt.
+   Live-Einfärbung über --haupt / --neben (von color-mockup.js gesetzt).
+   ============================================================ */
+.cmock {
+  --haupt: #94A3B8; /* Fallback: neutralgrau, bis eine Farbe gewählt ist */
+  --neben: #94A3B8;
+  --cmock-neutral: #E2E8F0;
+  margin: 16px 0 6px;
+}
+.cmock-cap { font-size: 12.5px; font-weight: 600; color: var(--text-light); margin-bottom: 8px; }
+.cmock-cap span { font-weight: 400; color: var(--text-light-muted); }
+
+/* Brauser-Rahmen mit heller Beispielseite */
+.cmock-browser {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.6);
+  max-width: 460px;
+}
+.cmock-bar {
+  display: flex; align-items: center; gap: 6px;
+  padding: 9px 12px; background: #eef2f6; border-bottom: 1px solid #e2e8f0;
+}
+.cmock-dot { width: 8px; height: 8px; border-radius: 50%; background: #cbd5e1; }
+.cmock-url { flex: 1; height: 8px; border-radius: 5px; background: #e2e8f0; margin-left: 6px; }
+
+.cmock-page { padding: 14px; background: #ffffff; }
+
+/* Kopfzeile */
+.cmock-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.cmock-logo { width: 46px; height: 14px; border-radius: 4px; background: var(--haupt); }
+.cmock-navlinks { display: flex; gap: 7px; }
+.cmock-navlinks i { width: 18px; height: 6px; border-radius: 3px; background: var(--cmock-neutral); display: block; }
+
+/* Hero */
+.cmock-hero { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 14px; align-items: center; margin-bottom: 14px; }
+.cmock-copy { display: flex; flex-direction: column; gap: 8px; }
+.cmock-title { height: 14px; width: 72%; border-radius: 5px; background: var(--haupt); }
+.cmock-line { height: 8px; width: 100%; border-radius: 4px; background: var(--cmock-neutral); }
+.cmock-line.cmock-short { width: 58%; }
+.cmock-btn { margin-top: 4px; width: 88px; height: 26px; border-radius: 8px; background: var(--neben); }
+.cmock-media { min-height: 84px; border-radius: 10px; background: linear-gradient(135deg, var(--haupt), var(--neben)); }
+
+/* Karten */
+.cmock-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.cmock-card { display: flex; flex-direction: column; gap: 6px; padding: 10px; border: 1px solid var(--cmock-neutral); border-radius: 10px; }
+.cmock-ico { width: 18px; height: 18px; border-radius: 6px; background: var(--haupt); }
+.cmock-cl { height: 6px; width: 100%; border-radius: 3px; background: var(--cmock-neutral); }
+.cmock-cl.cmock-short { width: 60%; }
+
+/* Sanfte Farbüberblendung */
+.cmock-logo, .cmock-title, .cmock-ico, .cmock-btn, .cmock-media { transition: background .25s ease; }
+
+/* Sehr helle Farben → dezenter 1px-Rahmen, damit sie nicht verschwinden */
+.cmock.is-haupt-light .cmock-logo,
+.cmock.is-haupt-light .cmock-title,
+.cmock.is-haupt-light .cmock-ico { box-shadow: inset 0 0 0 1px #cbd5e1; }
+.cmock.is-neben-light .cmock-btn { box-shadow: inset 0 0 0 1px #cbd5e1; }
+.cmock.is-haupt-light .cmock-media,
+.cmock.is-neben-light .cmock-media { box-shadow: inset 0 0 0 1px #cbd5e1; }
+
+/* ---- Stil-Layout-Anpassung: auf den ersten Blick klar unterscheidbar ----
+   Bleibt bewusst abstrakt: nur wenige farbige Elemente
+   (Logo/Titel/Icon = Hauptfarbe, Button = Nebenfarbe, Media = Verlauf),
+   Rest neutralgrau. Verändert werden Weißraum, Proportionen, Rundungen. */
+
+/* Minimalistisch & clean: viel Weißraum, dünne Linien, KEIN Verlauf, kleiner schmaler Button */
+.cmock[data-stil="minimal"] .cmock-page { padding: 26px; }
+.cmock[data-stil="minimal"] .cmock-hero { gap: 24px; }
+.cmock[data-stil="minimal"] .cmock-title { height: 9px; width: 50%; }
+.cmock[data-stil="minimal"] .cmock-line { height: 5px; }
+.cmock[data-stil="minimal"] .cmock-btn { width: 52px; height: 18px; border-radius: 4px; }
+.cmock[data-stil="minimal"] .cmock-media { background: #eef2f6; min-height: 66px; } /* flach, kein Verlauf */
+.cmock[data-stil="minimal"] .cmock-navlinks i { height: 4px; }
+.cmock[data-stil="minimal"] .cmock-cards { gap: 18px; }
+.cmock[data-stil="minimal"] .cmock-card { border-color: #eef2f6; padding: 12px; }
+.cmock[data-stil="minimal"] .cmock-ico { width: 14px; height: 14px; }
+
+/* Bold & modern: große fette Titel-Linie, dicke Elemente, großer Button, starker Verlauf */
+.cmock[data-stil="bold"] .cmock-page { padding: 12px; }
+.cmock[data-stil="bold"] .cmock-title { height: 28px; width: 90%; border-radius: 6px; }
+.cmock[data-stil="bold"] .cmock-line { height: 11px; }
+.cmock[data-stil="bold"] .cmock-btn { width: 124px; height: 36px; border-radius: 8px; }
+.cmock[data-stil="bold"] .cmock-media { min-height: 108px; }
+.cmock[data-stil="bold"] .cmock-logo { width: 58px; height: 18px; }
+.cmock[data-stil="bold"] .cmock-navlinks i { height: 8px; width: 22px; }
+.cmock[data-stil="bold"] .cmock-ico { width: 26px; height: 26px; }
+
+/* Elegant & edel: zentriert, schmale Spalten, feine Linien, kleinere/gedämpfte Media */
+.cmock[data-stil="elegant"] .cmock-page { padding: 24px 32px; }
+.cmock[data-stil="elegant"] .cmock-hero { grid-template-columns: 1fr; }
+.cmock[data-stil="elegant"] .cmock-copy { align-items: center; gap: 11px; }
+.cmock[data-stil="elegant"] .cmock-copy > * { margin-left: auto; margin-right: auto; }
+.cmock[data-stil="elegant"] .cmock-title { width: 44%; height: 8px; }
+.cmock[data-stil="elegant"] .cmock-line { height: 4px; }
+.cmock[data-stil="elegant"] .cmock-btn { width: 78px; height: 22px; border-radius: 2px; }
+.cmock[data-stil="elegant"] .cmock-media { min-height: 44px; opacity: .8; max-width: 60%; margin: 0 auto; }
+.cmock[data-stil="elegant"] .cmock-cards { gap: 16px; }
+
+/* Verspielt & bunt: sehr runde Ecken, großer bunter Verlaufsblock, runder großer Button */
+.cmock[data-stil="verspielt"] .cmock-browser,
+.cmock[data-stil="verspielt"] .cmock-media,
+.cmock[data-stil="verspielt"] .cmock-card { border-radius: 18px; }
+.cmock[data-stil="verspielt"] .cmock-media { min-height: 116px; }
+.cmock[data-stil="verspielt"] .cmock-btn { width: 66px; height: 34px; border-radius: 999px; } /* runder Pillen-Button */
+.cmock[data-stil="verspielt"] .cmock-logo { width: 30px; border-radius: 999px; }
+.cmock[data-stil="verspielt"] .cmock-ico { border-radius: 50%; }
+.cmock[data-stil="verspielt"] .cmock-title { border-radius: 999px; }
+
+/* Warm & natürlich: weiche/runde Formen, größere Abstände */
+.cmock[data-stil="warm"] .cmock-browser,
+.cmock[data-stil="warm"] .cmock-media,
+.cmock[data-stil="warm"] .cmock-card,
+.cmock[data-stil="warm"] .cmock-btn { border-radius: 14px; }
+.cmock[data-stil="warm"] .cmock-page { padding: 20px; }
+.cmock[data-stil="warm"] .cmock-hero { gap: 18px; }
+.cmock[data-stil="warm"] .cmock-copy { gap: 12px; }
+.cmock[data-stil="warm"] .cmock-cards { gap: 14px; }
+.cmock[data-stil="warm"] .cmock-ico { border-radius: 50%; }
+.cmock[data-stil="warm"] .cmock-media { min-height: 90px; }
+
+/* Corporate & seriös: strenges Raster, gerade Kanten, gleichmäßige Karten */
+.cmock[data-stil="corporate"] .cmock-browser { border-radius: 4px; }
+.cmock[data-stil="corporate"] .cmock-media,
+.cmock[data-stil="corporate"] .cmock-card,
+.cmock[data-stil="corporate"] .cmock-btn,
+.cmock[data-stil="corporate"] .cmock-logo,
+.cmock[data-stil="corporate"] .cmock-title,
+.cmock[data-stil="corporate"] .cmock-ico { border-radius: 2px; }
+.cmock[data-stil="corporate"] .cmock-page { padding: 14px; }
+.cmock[data-stil="corporate"] .cmock-hero { gap: 12px; align-items: stretch; }
+.cmock[data-stil="corporate"] .cmock-btn { width: 96px; height: 24px; }
+.cmock[data-stil="corporate"] .cmock-cards { gap: 8px; }
+.cmock[data-stil="corporate"] .cmock-card { border-color: #cbd5e1; padding: 10px; }
+.cmock[data-stil="corporate"] .cmock-media { min-height: 80px; }
+
+/* Reduced motion */
+.cmock-reduce .cmock-logo, .cmock-reduce .cmock-title, .cmock-reduce .cmock-ico,
+.cmock-reduce .cmock-btn, .cmock-reduce .cmock-media { transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  .cmock-logo, .cmock-title, .cmock-ico, .cmock-btn, .cmock-media { transition: none; }
+}
+
+/* Responsive: Mockup schmaler, Hero stapelt, kein Überlauf */
+@media (max-width: 560px) {
+  .cmock-browser { max-width: 100%; }
+  .cmock-hero { grid-template-columns: 1fr; }
+  .cmock[data-stil="elegant"] .cmock-copy > * { margin-left: 0; margin-right: 0; }
+  .cmock-cards { gap: 8px; }
+  .cmock-card { padding: 8px; }
+}
+
+/* ============================================================
+   DESKTOP-STICKY LIVE-VORSCHAU (Schritt 5 · Design)
+   ------------------------------------------------------------
+   Mobil/Tablet (< 900px): .lb-design-grid ist ein normaler Block,
+   die Vorschau steht inline unter den Farben (Bestand, unverändert).
+   Desktop (>= 900px): zweispaltig — Bedienelemente links, die
+   Live-Vorschau rechts und „klebend" (position: sticky), damit sie
+   beim Scrollen durch Stile/Farben sichtbar bleibt.
+   Greift nur mit .has-preview (gesetzt, wenn das optionale
+   color-mockup.js geladen ist) — sonst bleibt alles einspaltig.
+   ============================================================ */
+@media (min-width: 900px) {
+  /* etwas breitere Karte nur für diesen Schritt, damit zwei Spalten Luft haben */
+  .lumi-card--wide { max-width: 1000px; }
+
+  .lb-design-grid.has-preview {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) clamp(300px, 36%, 420px);
+    column-gap: 32px;
+    align-items: start;
+  }
+  /* alle Bedienelemente in die linke Spalte (Quellreihenfolge bleibt) */
+  .lb-design-grid.has-preview > * { grid-column: 1; min-width: 0; }
+  /* Vorschau: rechte Spalte, über die volle Höhe, sichtbar mitklebend */
+  .lb-design-grid.has-preview > .cmock {
+    grid-column: 2;
+    grid-row: 1 / -1;
+    align-self: start;
+    position: sticky;
+    top: 90px;           /* unter dem sticky Header (74px) + etwas Luft */
+    margin: 0;
+  }
+  .lb-design-grid.has-preview > .cmock .cmock-browser { max-width: 100%; }
+}
+
+/* ============================================================
+   BLOCK 5 — Website-Plan: fester Rundum-Schutz, Situationszeile,
+   Wünsche-Chips (Topf 3)
+   ============================================================ */
+/* Situationszeile auf den Paketkarten */
+.lb-pkg-situation {
+  display: block; font-size: 12.5px; line-height: 1.45;
+  color: var(--text-light-muted); margin-top: 8px;
+}
+
+/* Rundum-Schutz Info-Zeile (statt Care-Auswahl) */
+.lb-protect-line {
+  background: rgba(18, 165, 148, 0.06);
+  border: 1.5px solid rgba(18, 165, 148, 0.28);
+  border-radius: 14px; padding: 16px 18px;
+}
+.lb-protect-main { font-size: 15px; color: var(--white); margin: 0 0 6px; }
+.lb-protect-main strong { color: var(--green); }
+.lb-protect-sub { font-size: 12.5px; color: var(--text-light-muted); margin: 2px 0 0; }
+
+/* Wünsche-Chips ohne Preis (Topf 3) */
+.lb-wish-chips { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.lb-wish-chip {
+  text-align: left; font: inherit; cursor: pointer;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1.5px solid var(--border-dark); border-radius: 12px;
+  padding: 12px 14px; transition: border-color .15s ease, background .15s ease;
+}
+.lb-wish-chip:hover { border-color: rgba(18, 165, 148, 0.42); }
+.lb-wish-chip.is-on { border-color: var(--green); background: rgba(18, 165, 148, 0.10); }
+.lb-wish-name { display: block; font-size: 14px; font-weight: 700; color: var(--white); }
+.lb-wish-desc { display: block; font-size: 12px; color: var(--text-light-muted); margin-top: 3px; line-height: 1.4; }
+
+/* Sonderwünsche-Zeile in der Preisleiste */
+.lb-sum-wish strong { color: var(--green); font-weight: 700; }
+
+@media (max-width: 560px) { .lb-wish-chips { grid-template-columns: 1fr; } }
+
+/* Nachtrag: Design-Pfad — Upsell-Zeile auf dem Kontakt-Screen */
+.lb-design-upsell {
+  margin: 12px 0 0; padding: 12px 16px;
+  background: rgba(18, 165, 148, 0.08);
+  border: 1.5px solid rgba(18, 165, 148, 0.28);
+  border-radius: 12px; font-size: 14px; color: var(--text-light);
+}
+.lb-design-upsell strong { color: var(--green); }
+
+/* ============================================================
+   LUMI-FLOW-UMBAU · Zusammenfassung (Empfehlung + Festpreis)
+   ============================================================ */
+/* Persistenter Preis-Hinweis unter dem Schrittzähler */
+.lumi-fixhint {
+  margin: 0 0 4px; padding: 0 4px;
+  font-size: 12.5px; color: var(--text-light-muted);
+  text-align: center; letter-spacing: .01em;
+}
+
+/* EINE Empfehlungs-Karte */
+.lb-reccard {
+  background: rgba(18, 165, 148, 0.06);
+  border: 1.5px solid rgba(18, 165, 148, 0.28);
+  border-radius: 16px; padding: 18px 20px; margin: 4px 0 0;
+}
+.lb-reccard-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.lb-reccard-name { font-size: 19px; font-weight: 800; color: var(--white); }
+.lb-reccard-price { font-size: 18px; font-weight: 800; color: var(--green); white-space: nowrap; }
+.lb-reccard-situation { margin: 8px 0 0; font-size: 14px; color: var(--text-light); line-height: 1.5; }
+.lb-reccard-perks { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 7px; }
+.lb-reccard-perks li { position: relative; padding-left: 22px; font-size: 14px; color: var(--text-light); line-height: 1.45; }
+.lb-reccard-perks li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--green); font-weight: 800; }
+.lb-reccard-care { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid var(--border-dark); font-size: 13.5px; color: var(--text-light-muted); }
+.lb-reccard-care strong { color: var(--white); }
+
+/* Festpreis-Block (inline, Standard sichtbar) */
+.lb-fixblock {
+  margin: 14px 0 0; padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1.5px solid var(--border-dark); border-radius: 16px;
+}
+.lb-fix-head { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--text-light-muted); margin-bottom: 8px; }
+.lb-fix-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 4px 0; }
+.lb-fix-row span { font-size: 14px; color: var(--text-light); }
+.lb-fix-row strong { font-size: 17px; font-weight: 800; color: var(--white); }
+.lb-fix-mo strong { color: var(--green); }
+.lb-fix-wish strong, .lb-fix-individual { color: var(--green); font-weight: 700; }
+.lb-fix-individual { font-size: 16px; }
+.lb-fix-payhint { margin: 8px 2px 0; font-size: 12px; color: var(--text-light-muted); line-height: 1.5; }
+
+/* Accordions (FAQ-Optik, Standard ZU) */
+.lb-accordions { margin: 16px 0 0; display: grid; gap: 8px; }
+.lb-acc { border: 1.5px solid var(--border-dark); border-radius: 12px; background: rgba(255, 255, 255, 0.03); overflow: hidden; }
+.lb-acc[open] { border-color: rgba(18, 165, 148, 0.28); }
+.lb-acc-sum {
+  list-style: none; cursor: pointer; user-select: none;
+  padding: 13px 16px; font-size: 14.5px; font-weight: 700; color: var(--white);
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+}
+.lb-acc-sum::-webkit-details-marker { display: none; }
+.lb-acc-sum::after { content: "+"; font-size: 20px; font-weight: 400; color: var(--text-light-muted); transition: transform .15s ease; }
+.lb-acc[open] .lb-acc-sum::after { content: "−"; }
+.lb-acc-sum:hover { color: var(--green); }
+.lb-acc-sum-link { font-weight: 600; color: var(--text-light); text-decoration: underline; text-underline-offset: 3px; }
+.lb-acc-body { padding: 4px 16px 16px; }
+
+/* „Anderes Paket wählen" — kompakte Liste (kein Karten-Raster) */
+.lb-pkgswitch { display: grid; gap: 8px; }
+.lb-pkgswitch-row {
+  text-align: left; font: inherit; cursor: pointer; width: 100%;
+  display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; align-items: baseline;
+  background: rgba(255, 255, 255, 0.03); border: 1.5px solid var(--border-dark);
+  border-radius: 10px; padding: 11px 14px; transition: border-color .15s ease, background .15s ease;
+}
+.lb-pkgswitch-row:hover { border-color: rgba(18, 165, 148, 0.36); }
+.lb-pkgswitch-row.is-on { border-color: var(--green); background: rgba(18, 165, 148, 0.08); }
+.lb-pkgswitch-name { font-size: 14.5px; font-weight: 700; color: var(--white); }
+.lb-pkgswitch-price { font-size: 14px; font-weight: 700; color: var(--green); white-space: nowrap; }
+.lb-pkgswitch-line { grid-column: 1 / -1; font-size: 12.5px; color: var(--text-light-muted); margin-top: 2px; }
+
+/* Schlanker Danke-Screen */
+.lb-done-steps { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 10px; counter-reset: dstep; }
+.lb-done-steps li { position: relative; padding-left: 34px; font-size: 14px; color: var(--text-light); line-height: 1.5; counter-increment: dstep; }
+.lb-done-steps li::before {
+  content: counter(dstep);
+  position: absolute; left: 0; top: -1px; width: 24px; height: 24px; border-radius: 50%;
+  background: rgba(18, 165, 148, 0.12); color: var(--green); font-weight: 800; font-size: 13px;
+  display: flex; align-items: center; justify-content: center;
+}
+.lb-done-steps li strong { color: var(--white); }
+
+/* ============================================================
+   LUMI FLOW V2 · Etappe 1 — Zeilen-Karten (Funktionen/SEO),
+   Farb-Wirkung + Eigene-Farbe-Popover, „Sonstige"-Chip
+   ============================================================ */
+/* Funktions-/SEO-Zeilenkarten: Checkbox/Radio · Name + Preis-Tag · Erklärzeile */
+.lb-funcs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 4px; }
+@media (max-width: 560px) { .lb-funcs { grid-template-columns: 1fr; } }
+.lb-func {
+  display: grid; grid-template-columns: auto 1fr; gap: 11px; align-items: start;
+  background: rgba(255, 255, 255, 0.03); border: 1.5px solid var(--border-dark);
+  border-radius: 12px; padding: 12px 14px; cursor: pointer;
+  transition: border-color .15s ease, background .15s ease;
+}
+.lb-func:hover { border-color: rgba(18, 165, 148, 0.36); }
+.lb-func.is-on { border-color: var(--green); background: rgba(18, 165, 148, 0.08); }
+.lb-func-check { margin: 2px 0 0; width: 18px; height: 18px; accent-color: #12A594; cursor: pointer; flex: none; }
+.lb-func-body { display: block; min-width: 0; }
+.lb-func-top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.lb-func-name { font-size: 14.5px; font-weight: 700; color: var(--white); }
+.lb-func-desc { display: block; margin-top: 3px; font-size: 12.5px; color: var(--text-light-muted); line-height: 1.45; }
+.lb-func-tag { font-size: 12px; font-weight: 700; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.lb-func-tag-price { color: var(--green); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+.lb-func-tag-req { color: var(--text-light-muted); font-weight: 600; }
+.lb-func-tag-incl { color: var(--text-light-muted); font-weight: 600; }
+.lb-func-tag-platin { color: var(--text-light); font-style: italic; font-weight: 600; }
+.lb-func-radio .lb-func-check { border-radius: 50%; }
+
+/* Farb-Wirkung: zweite Zeile am Farbkreis */
+.lb-colorname { display: block; font-size: 11px; font-weight: 700; color: var(--text-light); line-height: 1.2; }
+.lb-colormood { display: block; font-size: 10px; color: var(--text-light-muted); line-height: 1.15; }
+.lb-colortile.is-on .lb-colorname { color: var(--white); }
+
+/* „Eigene Farbe +"-Button + ausgewählter Eigenfarben-Kreis */
+.lb-colortile-add { border: 1.5px dashed var(--border-dark); background: transparent; justify-content: center; }
+.lb-colortile-add:hover { border-color: var(--green); }
+.lb-coloradd {
+  display: flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: 50%;
+  border: 1.5px solid var(--green); color: var(--green); font-size: 20px; font-weight: 700; line-height: 1;
+}
+.lb-colortile-custom .lb-colordot { box-shadow: 0 0 0 2px var(--green); }
+
+/* Eigene-Farbe-Popover (nativer Picker + HEX + RGB) */
+.lb-colorpop {
+  margin-top: 10px; padding: 12px; width: 100%;
+  background: #0e1626; border: 1.5px solid var(--border-dark); border-radius: 12px;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+}
+.lb-colorpop-native { width: 46px; height: 34px; border: none; background: none; padding: 0; cursor: pointer; }
+.lb-colorpop-hex {
+  width: 120px; padding: 7px 9px; border: 1.5px solid var(--border-dark); border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04); color: var(--white);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px;
+}
+.lb-colorpop-rgb { font-size: 12px; color: var(--text-light-muted); font-variant-numeric: tabular-nums; }
+.lb-colorpop-done {
+  margin-left: auto; padding: 7px 14px; border: none; border-radius: 8px;
+  background: var(--green); color: #0d1320; font-weight: 700; font-size: 13px; cursor: pointer;
+}
+
+/* „Sonstige …"-Chip (gestrichelt, öffnet Textfeld) */
+.lb-chip-sonst { border-style: dashed; }
+
+/* ============================================================
+   LUMI FLOW V2 · Etappe 2 — Kontakt-Übersicht (Empfehlung + Liste)
+   ============================================================ */
+/* Schlanke Empfehlungs-Karte (Beträge IN der Karte) */
+.lb-reccard-slim { margin: 4px 0 0; }
+.lb-reccard-sums { margin-top: 10px; font-size: 14px; color: var(--text-light); }
+.lb-reccard-sums strong { color: var(--white); font-weight: 800; }
+.lb-reccard-extra { margin-top: 4px; }
+.lb-reccard-extra strong { color: var(--green); }
+.lb-reccard-note { font-size: 12px; color: var(--text-light-muted); }
+.lb-rec-why { margin: 8px 2px 0; font-size: 13px; color: var(--green-strong); }
+
+/* Übersichts-Liste: eine Zeile je Thema + „ändern"-Rücksprung (keine Accordions) */
+.lb-overview { margin: 16px 0 0; border-top: 1px solid var(--border-dark); }
+.lb-overview-row {
+  display: flex; align-items: baseline; gap: 12px;
+  padding: 10px 0; border-bottom: 1px solid var(--border-dark); font-size: 14px;
+}
+.lb-overview-row .k { color: var(--text-light-muted); width: 104px; flex-shrink: 0; }
+.lb-overview-row .v { color: var(--white); font-weight: 600; flex: 1; }
+.lb-overview-row.is-open .v { color: var(--text-light-muted); font-weight: 500; font-style: italic; }
+@media (max-width: 560px) { .lb-overview-row { flex-wrap: wrap; } .lb-overview-row .k { width: 100%; } }
+
+/* Logo-Empfehlungszeile (einzige interaktive Ausnahme) */
+.lb-logo-offer {
+  display: grid; grid-template-columns: auto 1fr; gap: 11px; align-items: start;
+  margin: 14px 0 0; padding: 12px 14px; cursor: pointer;
+  background: rgba(18, 165, 148, 0.06); border: 1.5px solid rgba(18, 165, 148, 0.28); border-radius: 12px;
+  font-size: 14px; color: var(--text-light);
+}
+.lb-logo-offer strong { color: var(--white); }
