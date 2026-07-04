@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=38" />
+  <link rel="stylesheet" href="styles.css?v=39" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -322,12 +322,12 @@
       </div>
     </section>
 
-    <!-- Einzel-Statistik (KI-Suche / KI-Suche) — Quelle + Jahr -->
+    <!-- Einzel-Statistik KI-Suche — Quelle + Jahr -->
     <section class="svc-statband">
       <div class="container">
         <div class="stat-inline">
           <span class="stat-inline-num">50&nbsp;%</span>
-          <p class="stat-inline-body"><strong>der Internetnutzer in Deutschland nutzen zumindest manchmal einen KI-Chat wie ChatGPT statt der klassischen Suche.</strong> Deshalb optimieren wir nicht nur für Google, sondern auch für die KI-/Answer-Suche (KI-Suche) — damit Sie auch dort gefunden werden.
+          <p class="stat-inline-body"><strong>der Internetnutzer in Deutschland nutzen zumindest manchmal einen KI-Chat wie ChatGPT statt der klassischen Suche.</strong> Deshalb optimieren wir nicht nur für Google, sondern auch für die KI-Suche (z.&nbsp;B. ChatGPT &amp; Co.) — damit Sie auch dort gefunden werden.
             <span class="stat-inline-src">Quelle: Bitkom, November 2025</span></p>
         </div>
       </div>
@@ -340,7 +340,7 @@
         <div class="pricing-head">
           <p class="eyebrow eyebrow-green center">Stufen &amp; Preise</p>
           <h2 class="section-title">Die SEO-Betreuung — ab 149 €/Monat</h2>
-          <p>SEO ist keine Paket-Leistung, sondern die laufende Arbeit obendrauf — ab 149 €/Monat. Wir setzen Maßnahmen um und berichten transparent. Nur für Websites, die von Sartu gebaut wurden. Eine bestimmte Google-Position kann seriös nicht garantiert werden.</p>
+          <p>Die laufende SEO-Betreuung ist keine Paket-Leistung, sondern die Arbeit obendrauf — ab 149 €/Monat. Basis-SEO steckt bereits in jedem Paket. Wir setzen Maßnahmen um und berichten transparent. Nur für Websites, die von Sartu gebaut wurden. Eine bestimmte Google-Position kann seriös nicht garantiert werden.</p>
         </div>
         <div class="price-grid price-grid-3">
           <article class="price-card"><h3 class="price-name">Lite</h3><p class="price-scope">149 €/Monat</p><div class="price-amount">149&nbsp;<span class="price-unit">€/Monat</span></div><p class="price-ideal">Sichtbar bleiben mit gepflegtem Profil.</p><ul class="price-features"><li>Google-Profil-Pflege komplett (1 Beitrag/Mon., Antwort ≤ 2 Werktage)</li><li>Google-Textzeilen aller Seiten</li><li>Keyword-Tracking bis 20</li><li>1 Seiten-Refresh / Quartal</li><li>Klartext-Monatsreport</li></ul><a href="kontakt.php" class="btn btn-dark">Lite anfragen</a></article>
@@ -371,7 +371,7 @@
           <div class="scope-col scope-no"><h4>Nicht enthalten</h4><ul><li>Texte über das Kontingent hinaus (120 €/Seite)</li><li>Aktiver Linkaufbau / Linkkauf (verstößt gegen Google-Richtlinien — die Erwähnungen, die zählen, zeigen wir Ihnen in der Sichtbarkeits-Beratung)</li><li>Bezahlte Werbung (Google Ads) als eigenes Mandat</li></ul></div>
           <div class="scope-col scope-pre"><h4>Voraussetzungen</h4><ul><li>Ihre Website wurde von Sartu gebaut — fremde Websites optimieren wir nicht.</li><li>Zugang zu Google-Profil &amp; Search Console</li><li>Zeitnahe inhaltliche Freigaben</li></ul></div>
         </div>
-        <p class="scope-note">Mindestlaufzeit 3 Monate, danach monatlich kündbar. Keine Ranking-Garantie. Nur für Sartu-Websites. Mehraufwand über die Kontingente: 150 €/Std — minutengenau im 5-Minuten-Takt abgerechnet. Ab 30 Minuten geschätztem Umfang erhalten Sie vorher eine Kostenschätzung.</p>
+        <p class="scope-note">Mindestlaufzeit 3 Monate, danach monatlich kündbar. Keine Ranking-Garantie. Nur für Sartu-Websites. Mehraufwand über die Kontingente: 150 €/Std — abgerechnet im 5-Minuten-Takt. Ab 30 Minuten geschätztem Umfang erhalten Sie vorher eine Kostenschätzung.</p>
       </div>
     </section>
 

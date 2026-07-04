@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=38" />
+  <link rel="stylesheet" href="styles.css?v=39" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -277,7 +277,7 @@
         <div class="pricing-head">
           <p class="eyebrow eyebrow-green center">Stufen &amp; Preise</p>
           <h2 class="section-title">Branding &amp; Design — Stufen &amp; Preise</h2>
-          <p>Von der Logo Lite bis zum kompletten Erscheinungsbild. Feste Rundenanzahl je Stufe.</p>
+          <p>Vom Logo-Paket Lite bis zum kompletten Erscheinungsbild. Feste Rundenanzahl je Stufe.</p>
         </div>
         <div class="price-grid"><article class="price-card"><h3 class="price-name">Logo Lite</h3><p class="price-scope">einmalig</p><div class="price-amount">490&nbsp;<span class="price-unit">€</span></div><p class="price-ideal">Professionelles Logo zum Start.</p><ul class="price-features"><li>3 Logo-Entwürfe</li><li>2 Korrekturrunden</li><li>Standardformate (Vektor/PNG/SW)</li><li>Mini-Styleguide (Farben + Typografie)</li></ul><a href="kontakt.php" class="btn btn-dark">Logo Lite anfragen</a></article><article class="price-card featured"><span class="price-badge">Beliebt</span><h3 class="price-name">Branding Pro</h3><p class="price-scope">einmalig</p><div class="price-amount">990&nbsp;<span class="price-unit">€</span></div><p class="price-ideal">Stimmiger Auftritt über alle Kanäle.</p><ul class="price-features"><li>Individuelles Logo</li><li>Visitenkarten-Template</li><li>Digitales Briefpapier + E-Mail-Signatur</li><li>Styleguide</li></ul><a href="kontakt.php" class="btn btn-primary">Branding Pro anfragen <span class="arrow">→</span></a></article><article class="price-card"><h3 class="price-name">Corporate Design</h3><p class="price-scope">einmalig</p><div class="price-amount">1.890&nbsp;<span class="price-unit">€</span></div><p class="price-ideal">Komplettes Designsystem.</p><ul class="price-features"><li>Umfassendes Designsystem</li><li>Komplette Geschäftsausstattung</li><li>Social-Media-Templates</li></ul><a href="kontakt.php" class="btn btn-dark">Corporate anfragen</a></article></div>
         <div class="svc-compare">

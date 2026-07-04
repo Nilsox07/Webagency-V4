@@ -11,17 +11,17 @@
   <meta property="og:locale" content="de_DE" />
   <meta property="og:url" content="https://[DOMAIN]/leistung-lokales-seo" />
   <meta property="og:title" content="Lokales SEO & Google-Profil | Sartu" />
-  <meta property="og:description" content="Werde in Ihrer Region und in Google Maps gefunden — lokales SEO und Google-Unternehmensprofil." />
+  <meta property="og:description" content="Werden Sie in Ihrer Region und in Google Maps gefunden — lokales SEO und Google-Unternehmensprofil." />
   <meta property="og:image" content="https://[DOMAIN]/[OG-IMAGE]" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Lokales SEO & Google-Profil | Sartu" />
-  <meta name="twitter:description" content="Werde in Ihrer Region und in Google Maps gefunden — lokales SEO und Google-Unternehmensprofil." />
+  <meta name="twitter:description" content="Werden Sie in Ihrer Region und in Google Maps gefunden — lokales SEO und Google-Unternehmensprofil." />
   <meta name="twitter:image" content="https://[DOMAIN]/[OG-IMAGE]" />
   <title>Lokales SEO &amp; Google-Profil — im Programm ab 149 €/Mon. | Sartu</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=38" />
+  <link rel="stylesheet" href="styles.css?v=39" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -313,7 +313,7 @@
           <span class="callout-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-11a7 7 0 0 1 14 0c0 5.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
           <div>
             <h4>Google-Profil-Pflege steckt im Programm</h4>
-            <p>Statt einzeln gebucht gehört die komplette Google-Profil-Pflege zum <a href="leistung-seo.php">SEO-Betreuung</a>: jede Bewertung in ≤ 2 Werktagen beantwortet, Infos und Öffnungszeiten aktuell, regelmäßige Beiträge und Monitoring. Im <a href="preise.php">Platzhirsch-Paket</a> ist die Einrichtung bereits enthalten.</p>
+            <p>Die komplette Google-Profil-Pflege wird nicht einzeln gebucht, sondern ist Teil der <a href="leistung-seo.php">SEO-Betreuung</a>: jede Bewertung in ≤ 2 Werktagen beantwortet, Infos und Öffnungszeiten aktuell, regelmäßige Beiträge und Monitoring. Im <a href="preise.php">Platzhirsch-Paket</a> ist die Einrichtung bereits enthalten.</p>
             <p style="margin-top:12px;"><a href="leistung-seo.php" class="btn btn-dark">Zur SEO-Betreuung →</a></p>
           </div>
         </div>

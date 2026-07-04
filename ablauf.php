@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="In 7 Schritten zur fertigen Website: Website-Anfrage, Sofort-Vorschau, Feedback per Klick, Onlinegang in 7 Werktagen — digital, ohne Termine. Sehen Sie sich den Ablauf an." />
+  <meta name="description" content="In 7 Schritten zur fertigen Website: Website-Anfrage, Sofort-Vorschau, Feedback per Klick, Onlinegang in 7–14 Werktagen — digital, ohne Termine. Sehen Sie sich den Ablauf an." />
   <link rel="canonical" href="https://[DOMAIN]/ablauf" />
   <meta name="robots" content="noindex,nofollow" />
   <meta property="og:type" content="website" />
@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=38" />
+  <link rel="stylesheet" href="styles.css?v=39" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -41,13 +41,13 @@
         "@type": "HowTo",
         "name": "So läuft Ihr Webdesign-Projekt bei Sartu",
         "description": "In 7 digitalen Schritten von der ersten Idee zur fertigen, live geschalteten Website — ohne Termine und ohne Verkaufsdruck.",
-        "totalTime": "P7D",
+        "totalTime": "P14D",
         "step": [
           {
             "@type": "HowToStep",
             "position": 1,
             "name": "Website-Anfrage in 2 Minuten",
-            "text": "unser Website-Assistent führt Sie durch ein kurzes Gespräch und fragt gezielt nach, wenn etwas unklar ist."
+            "text": "Unser Website-Assistent führt Sie durch ein kurzes Gespräch und fragt gezielt nach, wenn etwas unklar ist."
           },
           {
             "@type": "HowToStep",
@@ -82,7 +82,7 @@
           {
             "@type": "HowToStep",
             "position": 7,
-            "name": "Freigabe & Onlinegang in 7 Werktagen",
+            "name": "Freigabe & Onlinegang in 7–14 Werktagen",
             "text": "Ein Klick zur Abnahme, dann geht Ihre Website online, sicher gehostet in Deutschland."
           }
         ]
@@ -203,7 +203,7 @@
 
     <section class="hero-answer-strip">
       <div class="container">
-        <p class="answer-first on-light">Bei Sartu entsteht Ihre Website in <strong>7 digitalen Schritten</strong> — von Website-Anfrage und Sofort-Vorschau bis Onlinegang — in der Regel in 7 Werktagen, ganz ohne Termine.</p>
+        <p class="answer-first on-light">Bei Sartu entsteht Ihre Website in <strong>7 digitalen Schritten</strong> — von Website-Anfrage und Sofort-Vorschau bis Onlinegang — in 7–14 Werktagen (Start: 7), ganz ohne Termine.</p>
         <div class="decision-grid">
           <article class="decision-card">
             <span class="label">Wenig Aufwand</span>
@@ -274,8 +274,8 @@
           <div class="timeline-step">
             <span class="timeline-num">7</span>
             <div class="timeline-body">
-              <h3>Freigabe &amp; Onlinegang in 7 Werktagen</h3>
-              <p>Ein Klick zur Abnahme, dann geht Ihre Website online — sicher gehostet in Deutschland, DSGVO-konform. Danach läuft sie in Rundum-Schutz weiter: Hosting, Updates und Backups inklusive (ab 49 €/Monat).</p>
+              <h3>Freigabe &amp; Onlinegang in 7–14 Werktagen</h3>
+              <p>Ein Klick zur Abnahme, dann geht Ihre Website online — sicher gehostet in Deutschland, DSGVO-konform. Danach läuft sie im Rundum-Schutz weiter: Hosting, Updates und Backups inklusive (ab 49 €/Monat).</p>
             </div>
           </div>
         </div>

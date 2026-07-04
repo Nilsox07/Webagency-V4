@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=38" />
+  <link rel="stylesheet" href="styles.css?v=39" />
   <link rel="icon" href="assets/logo-teal.png" type="image/png" />
   <link rel="canonical" href="https://[DOMAIN]/" />
   <meta name="robots" content="noindex,nofollow" />
@@ -62,7 +62,7 @@
           },
           {
             "@type": "Question",
-            "name": "Wie lange dauert es, eine Website erstellen zu lassen?",
+            "name": "Wie schnell kann eine kleine Firmenwebsite online gehen?",
             "acceptedAnswer": {
               "@type": "Answer",
               "text": "Ein kleiner Onepager kann nach vollständigen Inhalten oft innerhalb von 7 bis 14 Werktagen online sein. Größere Firmenwebsites dauern länger, weil Struktur, Texte, Bilder, SEO und Feedback sauber abgestimmt werden müssen."
@@ -190,7 +190,7 @@
         <div class="story-copy">
           <p class="eyebrow eyebrow-green">Das eigentliche Problem</p>
           <h2 class="section-title">Viele Websites sehen ordentlich aus, erklären aber nicht schnell genug, warum man anfragen sollte.</h2>
-          <p>Genau dort setzen wir an: erst sortieren wir Angebot, Zielgruppe, Einwände und Suchbegriffe. Danach entstehen Seiten, die für Menschen verständlich sind und für Google sowie KI-Suche klar einordenbar bleiben.</p>
+          <p>Genau dort setzen wir an: Erst sortieren wir Angebot, Zielgruppe, Einwände und Suchbegriffe. Danach entstehen Seiten, die für Menschen verständlich sind und für Google sowie KI-Suche klar einordenbar bleiben.</p>
           <a href="ablauf.php" class="text-link">So läuft ein Projekt ab <span aria-hidden="true">→</span></a>
         </div>
         <figure class="story-media">
@@ -258,7 +258,7 @@
               <li>Umzug &amp; Besucher-Statistik inklusive</li>
               <li>In 7 Werktagen online</li>
             </ul>
-            <a href="anfrage.php?paket=basis" class="btn btn-dark">Start anfragen</a>
+            <a href="anfrage.php?paket=start" class="btn btn-dark">Start anfragen</a>
           </article>
 
           <!-- Wachstum (featured) -->
@@ -274,7 +274,7 @@
               <li>Umzug &amp; Besucher-Statistik inklusive</li>
               <li>In 7–14 Werktagen online</li>
             </ul>
-            <a href="anfrage.php?paket=pro" class="btn btn-primary">Wachstum anfragen <span class="arrow">→</span></a>
+            <a href="anfrage.php?paket=wachstum" class="btn btn-primary">Wachstum anfragen <span class="arrow">→</span></a>
           </article>
 
           <!-- Platzhirsch -->
@@ -288,8 +288,9 @@
               <li>Alle Texte inklusive — Sie liefern nur Stichpunkte</li>
               <li>Umzug, Besucher-Statistik &amp; Newsletter inklusive</li>
               <li>90 Minuten Änderungen pro Monat inklusive</li>
+              <li>In 7–14 Werktagen online</li>
             </ul>
-            <a href="anfrage.php?paket=platin" class="btn btn-dark">Platzhirsch anfragen</a>
+            <a href="anfrage.php?paket=platzhirsch" class="btn btn-dark">Platzhirsch anfragen</a>
           </article>
         </div>
 

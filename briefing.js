@@ -107,7 +107,7 @@
 
   function lumiSays(question, hint) {
     var row = el('div', 'lb-say');
-    row.appendChild(el('span', 'lb-avatar', 'L'));
+    row.appendChild(el('span', 'lb-avatar', 'S'));
     var bubble = el('div', 'lb-bubble');
     var h = el('h2', 'lb-q');
     h.setAttribute('tabindex', '-1');
@@ -307,7 +307,7 @@
   function showTyping(done) {
     if (REDUCE) { done(); return; }
     var row = el('div', 'lb-say lb-typing-row');
-    row.appendChild(el('span', 'lb-avatar', 'L'));
+    row.appendChild(el('span', 'lb-avatar', 'S'));
     var bubble = el('div', 'lb-bubble lb-typing');
     bubble.setAttribute('aria-label', 'Website-Assistent schreibt …');
     bubble.innerHTML = '<span class="lb-typing-dots" aria-hidden="true"><span class="lb-dot"></span><span class="lb-dot"></span><span class="lb-dot"></span></span>';

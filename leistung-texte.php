@@ -3,25 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Website-Texte schreiben lassen ab 120 €/Seite: 300–500 Wörter, 2 Korrekturschleifen, Meta-Daten. 10er-Paket ca. 89 €/Seite, SEO-Option +30 €. Jetzt anfragen." />
+  <meta name="description" content="Website-Texte schreiben lassen ab 120 €/Seite: 300–500 Wörter, 2 Korrekturrunden, Meta-Daten. 10er-Paket ca. 89 €/Seite, SEO-Option +30 €. Jetzt anfragen." />
   <link rel="canonical" href="https://[DOMAIN]/leistung-texte" />
   <meta name="robots" content="noindex,nofollow" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Sartu" />
   <meta property="og:locale" content="de_DE" />
   <meta property="og:url" content="https://[DOMAIN]/leistung-texte" />
-  <meta property="og:title" content="Texterstellung & Texte und Inhalte | Sartu" />
+  <meta property="og:title" content="Texterstellung & Inhalte | Sartu" />
   <meta property="og:description" content="Website-Texte, die verkaufen und ranken — ab 120 € pro Seite." />
   <meta property="og:image" content="https://[DOMAIN]/[OG-IMAGE]" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Texterstellung & Texte und Inhalte | Sartu" />
+  <meta name="twitter:title" content="Texterstellung & Inhalte | Sartu" />
   <meta name="twitter:description" content="Website-Texte, die verkaufen und ranken — ab 120 € pro Seite." />
   <meta name="twitter:image" content="https://[DOMAIN]/[OG-IMAGE]" />
   <title>Website-Texte schreiben lassen ab 120 €/Seite | Sartu</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=38" />
+  <link rel="stylesheet" href="styles.css?v=39" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -39,8 +39,8 @@
       },
       {
         "@type": "Service",
-        "name": "Texterstellung & Texte und Inhalte",
-        "serviceType": "Webtexte und Texte und Inhalte-Erstellung",
+        "name": "Texterstellung & Inhalte",
+        "serviceType": "Erstellung von Website-Texten und Inhalten",
         "provider": {
           "@id": "https://[DOMAIN]/#organization"
         },
@@ -63,7 +63,7 @@
               "itemOffered": {
                 "@type": "Service",
                 "name": "Einzelseite",
-                "description": "300–500 Wörter, 2 Korrekturschleifen, Meta-Title + -Description."
+                "description": "300–500 Wörter, 2 Korrekturrunden, Meta-Title + -Description."
               }
             },
             {
@@ -215,12 +215,12 @@
         <div class="svc-hero-grid">
           <div class="svc-hero-copy">
             <p class="svc-bc"><a href="./">Start</a> › <a href="leistungen.php">Leistungen</a> › Texte</p>
-            <p class="eyebrow eyebrow-green">Texterstellung &amp; Texte und Inhalte</p>
+            <p class="eyebrow eyebrow-green">Texterstellung &amp; Inhalte</p>
             <h1>Website-Texte schreiben lassen — <span class="accent">verkaufsstark und SEO-optimiert.</span></h1>
             <p class="svc-hero-sub">Wenn Sie wissen, was Sie anbieten, es aber schwer auf den Punkt bringen, machen wir daraus klare Texte für Kunden und Google.</p>
             <ul class="fact-chips">
               <li class="fact-chip">120 € je Seite</li>
-              <li class="fact-chip">2 Korrekturschleifen</li>
+              <li class="fact-chip">2 Korrekturrunden</li>
               <li class="fact-chip">Sie liefern nur Stichpunkte</li>
             </ul>
             <div class="svc-hero-actions">
@@ -321,19 +321,19 @@
           <h2 class="section-title">Texterstellung — Pakete &amp; Preise</h2>
           <p>Verkaufsstarke Website-Texte, abgestimmt auf Ihre Zielgruppe. Bundles senken den Preis je Seite.</p>
         </div>
-        <div class="price-grid"><article class="price-card"><h3 class="price-name">Einzelseite</h3><p class="price-scope">pro Seite</p><div class="price-amount">120&nbsp;<span class="price-unit">€</span></div><p class="price-ideal">Ein professioneller Text je Seite.</p><ul class="price-features"><li>Professioneller Text je Seite</li><li>Abstimmung auf Tonalität/Zielgruppe</li><li>Eine Korrekturrunde je Text</li></ul><a href="kontakt.php" class="btn btn-dark">Text anfragen</a></article><article class="price-card featured"><span class="price-badge">Beliebt</span><h3 class="price-name">Texte-Paket</h3><p class="price-scope">5 Seiten</p><div class="price-amount">490&nbsp;<span class="price-unit">€</span></div><p class="price-ideal">Günstiger im Bundle (ca. 98 € / Seite).</p><ul class="price-features"><li>5 Seiten professioneller Text</li><li>Abstimmung auf Tonalität/Zielgruppe</li><li>Eine Korrekturrunde je Text</li></ul><a href="kontakt.php" class="btn btn-primary">5er-Paket anfragen <span class="arrow">→</span></a></article><article class="price-card"><h3 class="price-name">Texte-Paket</h3><p class="price-scope">10 Seiten</p><div class="price-amount">890&nbsp;<span class="price-unit">€</span></div><p class="price-ideal">Bestes Verhältnis (ca. 89 € / Seite).</p><ul class="price-features"><li>10 Seiten professioneller Text</li><li>Abstimmung auf Tonalität/Zielgruppe</li><li>Eine Korrekturrunde je Text</li></ul><a href="kontakt.php" class="btn btn-dark">10er-Paket anfragen</a></article></div>
+        <div class="price-grid"><article class="price-card"><h3 class="price-name">Einzelseite</h3><p class="price-scope">pro Seite</p><div class="price-amount">120&nbsp;<span class="price-unit">€</span></div><p class="price-ideal">Ein professioneller Text je Seite.</p><ul class="price-features"><li>Professioneller Text je Seite</li><li>Abstimmung auf Tonalität/Zielgruppe</li><li>2 Korrekturrunden je Text</li></ul><a href="kontakt.php" class="btn btn-dark">Text anfragen</a></article><article class="price-card featured"><span class="price-badge">Beliebt</span><h3 class="price-name">Texte-Paket</h3><p class="price-scope">5 Seiten</p><div class="price-amount">490&nbsp;<span class="price-unit">€</span></div><p class="price-ideal">Günstiger im Bundle (ca. 98 € / Seite).</p><ul class="price-features"><li>5 Seiten professioneller Text</li><li>Abstimmung auf Tonalität/Zielgruppe</li><li>2 Korrekturrunden je Text</li></ul><a href="kontakt.php" class="btn btn-primary">5er-Paket anfragen <span class="arrow">→</span></a></article><article class="price-card"><h3 class="price-name">Texte-Paket</h3><p class="price-scope">10 Seiten</p><div class="price-amount">890&nbsp;<span class="price-unit">€</span></div><p class="price-ideal">Bestes Verhältnis (ca. 89 € / Seite).</p><ul class="price-features"><li>10 Seiten professioneller Text</li><li>Abstimmung auf Tonalität/Zielgruppe</li><li>2 Korrekturrunden je Text</li></ul><a href="kontakt.php" class="btn btn-dark">10er-Paket anfragen</a></article></div>
         <div class="svc-compare">
           <h3>Einzelseite, 5er- und 10er-Paket im Vergleich</h3>
-          <p>Jede Seite umfasst 300–500 Wörter mit 2 Korrekturschleifen sowie Meta-Title und -Description. Im Paket sinkt der Preis pro Seite. Optional: SEO-Texte mit Keyword-Recherche für +30 € pro Seite.</p>
+          <p>Jede Seite umfasst 300–500 Wörter mit 2 Korrekturrunden sowie Meta-Title und -Description. Im Paket sinkt der Preis pro Seite. Optional: SEO-Texte mit Keyword-Recherche für +30 € pro Seite.</p>
           <div class="price-table-wrap">
             <table class="price-table">
               <thead><tr><th>Leistung</th><th>Einzelseite · 120 €</th><th class="highlight">5er-Paket · 490 €</th><th>10er-Paket · 890 €</th></tr></thead>
-              <tbody><tr><td class="feature">Seiten</td><td>1</td><td>5</td><td>10</td></tr><tr><td class="feature">Preis pro Seite</td><td>120 €</td><td>ca. 98 €</td><td>ca. 89 €</td></tr><tr><td class="feature">Wörter pro Seite</td><td>300–500</td><td>300–500</td><td>300–500</td></tr><tr><td class="feature">Korrekturschleifen je Text</td><td>2</td><td>2</td><td>2</td></tr><tr><td class="feature">Meta-Title + -Description</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr><tr><td class="feature">SEO-Option (Keyword-Recherche)</td><td>+30 €/Seite</td><td>+30 €/Seite</td><td>+30 €/Seite</td></tr></tbody>
+              <tbody><tr><td class="feature">Seiten</td><td>1</td><td>5</td><td>10</td></tr><tr><td class="feature">Preis pro Seite</td><td>120 €</td><td>ca. 98 €</td><td>ca. 89 €</td></tr><tr><td class="feature">Wörter pro Seite</td><td>300–500</td><td>300–500</td><td>300–500</td></tr><tr><td class="feature">Korrekturrunden je Text</td><td>2</td><td>2</td><td>2</td></tr><tr><td class="feature">Meta-Title + -Description</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr><tr><td class="feature">SEO-Option (Keyword-Recherche)</td><td>+30 €/Seite</td><td>+30 €/Seite</td><td>+30 €/Seite</td></tr></tbody>
             </table>
           </div>
         </div>
         <div class="scope-grid">
-          <div class="scope-col scope-yes"><h4>Enthalten</h4><ul><li>Professioneller Text je Seite</li><li>Abstimmung auf Tonalität/Zielgruppe</li><li>Eine Korrekturrunde je Text</li></ul></div>
+          <div class="scope-col scope-yes"><h4>Enthalten</h4><ul><li>Professioneller Text je Seite</li><li>Abstimmung auf Tonalität/Zielgruppe</li><li>2 Korrekturrunden je Text</li></ul></div>
           <div class="scope-col scope-no"><h4>Nicht enthalten <span>(= kostenpflichtiges Add-on)</span></h4><ul><li>SEO-Optimierung der Texte (+30 € / Seite)</li><li>Übersetzungen (Mehrsprachigkeit-Add-on)</li><li>Rechercheintensive Fachtexte (Aufpreis)</li><li>Spätere Pflege / Aktualisierung</li></ul></div>
           <div class="scope-col scope-pre"><h4>Voraussetzungen / Mitwirkung</h4><ul><li>Sie liefern Fakten und Eckdaten je Seite</li><li>Zeitnahe Freigabe</li></ul></div>
         </div>
@@ -345,7 +345,7 @@
       <div class="container">
         <div class="faq-head">
           <p class="eyebrow eyebrow-green center">Häufige Fragen</p>
-          <h2 class="section-title">Texte &amp; Texte und Inhalte — kurz erklärt.</h2>
+          <h2 class="section-title">Texte &amp; Inhalte — kurz erklärt.</h2>
         </div>
         <div class="faq-list">
           <details class="faq-item"><summary>Was kosten Website-Texte?</summary><div class="faq-a">Website-Texte kosten je nach Umfang, Recherche, SEO-Anspruch und Abstimmung sehr unterschiedlich. Einfache Seiten starten oft im niedrigen dreistelligen Bereich pro Seite; umfangreiche Leistungsseiten oder Ratgeber kosten mehr. Ausführlich: <a href="ratgeber-website-texte.php">Website-Texte schreiben</a>.</div></details>

@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=38" />
+  <link rel="stylesheet" href="styles.css?v=39" />
   <link rel="canonical" href="https://[DOMAIN]/ratgeber-onepager" />
   <meta name="robots" content="noindex,nofollow" />
   <meta property="og:type" content="article" />
@@ -245,7 +245,7 @@
           <p>Dazu kommt bei jeder Variante die laufende Wartung (Rundum-Schutz) ab 49&nbsp;€/Monat. Den kompletten Überblick gibt es unter <a href="preise.php">alle Festpreis-Pakete im Detail</a>; was Websites generell kosten, schlüsselt der Ratgeber <a href="ratgeber-website-kosten.php">Was kostet eine Website 2026?</a> auf.</p>
 
           <h2 id="erweitern">Kann ich später erweitern?</h2>
-          <p><strong>Ja — und das ist der beruhigende Teil der Entscheidung.</strong> Ein sauber gebauter One-Pager ist kein Sackgassen-Kauf: Design, Inhalte und Technik bleiben erhalten, wenn später Unterseiten dazukommen. Bei Sartu erweitern Sie entweder seitenweise (199&nbsp;€ pro zusätzlicher Seite) oder steigst aufs größere Paket um, wenn ohnehin ein Ausbau ansteht.</p>
+          <p><strong>Ja — und das ist der beruhigende Teil der Entscheidung.</strong> Ein sauber gebauter One-Pager ist kein Sackgassen-Kauf: Design, Inhalte und Technik bleiben erhalten, wenn später Unterseiten dazukommen. Bei Sartu erweitern Sie entweder seitenweise (199&nbsp;€ pro zusätzlicher Seite) oder steigen aufs größere Paket um, wenn ohnehin ein Ausbau ansteht.</p>
           <p>Sinnvolle Reihenfolge für viele Gründer: <strong>jetzt mit dem One-Pager professionell online gehen</strong>, erste Kunden gewinnen — und ausbauen, sobald klar ist, welche Leistungen die meisten Anfragen bringen.</p>
 
           <h2 id="entscheidung">Entscheidungshilfe in 5 Fragen</h2>

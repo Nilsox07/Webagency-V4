@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=38" />
+  <link rel="stylesheet" href="styles.css?v=39" />
   <link rel="canonical" href="https://[DOMAIN]/ueber-uns" />
   <meta name="robots" content="noindex,nofollow" />
   <meta property="og:type" content="website" />
@@ -145,7 +145,7 @@
           <div class="page-hero-copy">
             <p class="eyebrow eyebrow-green">Über uns</p>
                     <h1>Menschen statt Hotline —<br /><span class="accent">kontaktlos, aber persönlich.</span></h1>
-        <p class="page-lead">„Kontaktlos" heißt bei uns: keine Pflichttermine, keine Warteschleife, kein Hin und Her. Persönlich bleiben wir trotzdem — mit echten Antworten und kurzen Video-Updates, wenn es darauf ankommt.</p>
+        <p class="page-lead">„Kontaktlos“ heißt bei uns: keine Pflichttermine, keine Warteschleife, kein Hin und Her. Persönlich bleiben wir trotzdem — mit echten Antworten und kurzen Video-Updates, wenn es darauf ankommt.</p>
           </div>
           <figure class="hero-photo page-hero-media">
               <picture><source srcset="assets/hero-team-contact-petrol.webp" type="image/webp" /><img src="assets/hero-team-contact-petrol.png" alt="Realistische Szene passend zum Seitenthema im Sartu-Stil" loading="eager" width="1792" height="1024" /></picture>
@@ -220,7 +220,7 @@
           <article class="service-card">
             <span class="svc-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg></span>
             <h3>Tempo mit Substanz</h3>
-            <p>In der Regel in 7 Werktagen online — ohne Abstriche bei Technik, Ladezeit und Suchmaschinen-Grundlagen.</p>
+            <p>In 7–14 Werktagen online — ohne Abstriche bei Technik, Ladezeit und Suchmaschinen-Grundlagen.</p>
           </article>
           <article class="service-card">
             <span class="svc-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.4 8.5-8 10-4.6-1.5-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg></span>
@@ -278,7 +278,7 @@
         </span>
         <div class="guarantee-text">
           <h3>Lust, Ihr Projekt zu starten?</h3>
-          <p>Sagen Sie uns in 2 Minuten, was Sie brauchen — Website-Assistent führt Sie durch eine kurze Website-Anfrage und zeigt Ihnen direkt eine Preis-Übersicht. Unverbindlich.</p>
+          <p>Sagen Sie uns in 2 Minuten, was Sie brauchen — unser Website-Assistent führt Sie durch eine kurze Website-Anfrage und zeigt Ihnen direkt eine Preis-Übersicht. Unverbindlich.</p>
         </div>
         <a href="anfrage.php" class="btn btn-primary btn-lg">Angebot in 2 Min. starten <span class="arrow">→</span></a>
       </div>

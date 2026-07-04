@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Kontakt zu Sartu — fordere Ihren kostenlosen Website-Check an. Digital, ohne Verkaufsdruck. Wir melden uns innerhalb von 24 Stunden zurück." />
+  <meta name="description" content="Kontakt zu Sartu — fordern Sie Ihren kostenlosen Website-Check an. Digital, ohne Verkaufsdruck. Wir melden uns innerhalb von 24 Stunden zurück." />
   <title>Kontakt — Kostenlosen Check anfordern | Sartu</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=38" />
+  <link rel="stylesheet" href="styles.css?v=39" />
   <link rel="canonical" href="https://[DOMAIN]/kontakt" />
   <meta name="robots" content="noindex,nofollow" />
   <meta property="og:type" content="website" />
@@ -156,7 +156,7 @@
         <!-- Formular -->
         <div class="contact-form">
           <h2>Kostenlosen Check anfordern</h2>
-          <p>Erzählen Sie uns kurz von Ihrem Vorhaben. Mit „Senden" öffnet sich Ihre E-Mail-App mit allen Angaben — Sie müssen nur noch abschicken. Wer hinter Sartu steckt, erfahren Sie auf <a href="ueber-uns.php">Über uns</a>.</p>
+          <p>Erzählen Sie uns kurz von Ihrem Vorhaben. Mit „Senden“ öffnet sich Ihre E-Mail-App mit allen Angaben — Sie müssen nur noch abschicken. Wer hinter Sartu steckt, erfahren Sie auf <a href="ueber-uns.php">Über uns</a>.</p>
           <div class="decision-grid two" style="margin:18px 0 24px;">
             <article class="decision-card">
               <span class="label">Noch unklar?</span>
@@ -182,7 +182,7 @@
             </div>
             <div class="field">
               <label for="cf-website">Bestehende Website (optional)</label>
-              <input type="text" id="cf-website" name="website" placeholder="www.Ihre-seite.de" />
+              <input type="text" id="cf-website" name="website" placeholder="www.ihre-website.de" />
             </div>
             <div class="field">
               <label for="cf-paket">Interesse an</label>
@@ -232,7 +232,7 @@
             <span class="c-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.4 8.5-8 10-4.6-1.5-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg></span>
             <div>
               <h3>Ohne Risiko</h3>
-              <p>Der Check ist kostenlos und unverbindlich. Überzeugt Sie die erste Vorschau nicht, erhalten Sie Ihr Geld zurück.</p>
+              <p>Der Check ist kostenlos und unverbindlich. Überzeugt Sie der erste Design-Entwurf nicht, erhalten Sie Ihre Anzahlung zurück.</p>
             </div>
           </div>
         </div>

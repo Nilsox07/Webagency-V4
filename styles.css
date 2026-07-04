@@ -3483,6 +3483,24 @@ main > .svc-hero + .svc-section .service-card.is-blue .svc-price {
   color: rgba(255, 255, 255, 0.72);
 }
 
+/* Helle Karten erben in dunklen Sektionen sonst das Sektions-Weiß —
+   Überschriften wären weiß auf weißem Kartengrund */
+.decision-card:not(.is-blue) h3,
+.service-card:not(.is-blue) h3,
+.service-card:not(.is-blue) h4,
+.extra-card:not(.is-blue) h4,
+.sales-card h3 {
+  color: var(--text-dark);
+}
+
+main > .svc-hero + .svc-section .svc-prose .sales-card h3 {
+  color: var(--text-dark);
+}
+
+main > .svc-hero + .svc-section .svc-prose .sales-card p {
+  color: var(--text-muted);
+}
+
 main > .page-hero + .glossary .glossary-search input,
 main > .page-hero + .glossary .gcat {
   background: var(--white);

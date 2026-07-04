@@ -14,7 +14,7 @@ $decisionCards = sartu_contextual_seo_hub_cards();
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=38" />
+  <link rel="stylesheet" href="styles.css?v=39" />
   <link rel="canonical" href="https://[DOMAIN]/ratgeber" />
   <meta name="robots" content="noindex,nofollow" />
   <meta property="og:type" content="article" />
@@ -276,9 +276,9 @@ $decisionCards = sartu_contextual_seo_hub_cards();
           <article class="term-card" data-cat="design"><span class="term-cat">Design &amp; UX</span><h3>Wireframe</h3><p>Ein schlichtes Gerüst einer Seite ohne Farben und Bilder, das nur Struktur und Anordnung der Inhalte zeigt.</p></article>
           <article class="term-card" data-cat="design"><span class="term-cat">Design &amp; UX</span><h3>Mockup</h3><p>Ein visueller Entwurf, der schon nah am späteren Design ist — inklusive Farben, Schriften und Bildern.</p></article>
           <article class="term-card" data-cat="design"><span class="term-cat">Design &amp; UX</span><h3>Above the Fold</h3><p>Der Bereich, der ohne Scrollen sofort sichtbar ist. Hier entscheidet sich oft, ob Besucher bleiben oder abspringen.</p></article>
-          <article class="term-card" data-cat="design"><span class="term-cat">Design &amp; UX</span><h3>Handlungsaufforderung</h3><p>Ein klarer nächster Schritt wie „Jetzt anfragen" oder „Termin buchen", der Besucher zur gewünschten Aktion führt.</p></article>
+          <article class="term-card" data-cat="design"><span class="term-cat">Design &amp; UX</span><h3>Handlungsaufforderung</h3><p>Ein klarer nächster Schritt wie „Jetzt anfragen“ oder „Termin buchen“, der Besucher zur gewünschten Aktion führt.</p></article>
           <article class="term-card" data-cat="design"><span class="term-cat">Design &amp; UX</span><h3>Hero-Bereich</h3><p>Der große, aufmerksamkeitsstarke Kopfbereich ganz oben — meist mit Überschrift, Kernbotschaft und Handlungsaufforderung.</p></article>
-          <article class="term-card" data-cat="design"><span class="term-cat">Design &amp; UX</span><h3>White Space</h3><p>Bewusst eingesetzte Leerflächen („Negativraum"), die ein Design ruhig, hochwertig und gut lesbar machen.</p></article>
+          <article class="term-card" data-cat="design"><span class="term-cat">Design &amp; UX</span><h3>White Space</h3><p>Bewusst eingesetzte Leerflächen („Negativraum“), die ein Design ruhig, hochwertig und gut lesbar machen.</p></article>
           <article class="term-card" data-cat="design"><span class="term-cat">Design &amp; UX</span><h3>Favicon</h3><p>Das kleine Symbol, das im Browser-Tab und in Lesezeichen neben dem Seitentitel erscheint.</p></article>
 
           <!-- SEO & Sichtbarkeit -->
@@ -296,12 +296,12 @@ $decisionCards = sartu_contextual_seo_hub_cards();
           <!-- Technik & Hosting -->
           <article class="term-card" data-cat="technik"><span class="term-cat">Technik &amp; Hosting</span><h3>Domain</h3><p>Die Internetadresse Ihrer Website, z. B. Ihre-firma.de — Ihre digitale Hausnummer.</p></article>
           <article class="term-card" data-cat="technik"><span class="term-cat">Technik &amp; Hosting</span><h3>Hosting</h3><p>Der Speicherplatz auf einem Server, auf dem Ihre Website liegt und rund um die Uhr abrufbar gehalten wird.</p></article>
-          <article class="term-card" data-cat="technik"><span class="term-cat">Technik &amp; Hosting</span><h3>SSL / HTTPS</h3><p>Eine Verschlüsselung, die Daten zwischen Besucher und Website schützt. Erkennbar am Schloss-Symbol und „https://".</p></article>
+          <article class="term-card" data-cat="technik"><span class="term-cat">Technik &amp; Hosting</span><h3>SSL / HTTPS</h3><p>Eine Verschlüsselung, die Daten zwischen Besucher und Website schützt. Erkennbar am Schloss-Symbol und „https://“.</p></article>
           <article class="term-card" data-cat="technik"><span class="term-cat">Technik &amp; Hosting</span><h3>CMS</h3><p>Ein System, mit dem Texte, Bilder und Inhalte einer Website auch ohne Programmierkenntnisse gepflegt werden können.</p></article>
           <article class="term-card" data-cat="technik"><span class="term-cat">Technik &amp; Hosting</span><h3>Cache</h3><p>Ein Zwischenspeicher, der Inhalte vorhält, damit Seiten beim erneuten Aufruf deutlich schneller laden.</p></article>
           <article class="term-card" data-cat="technik"><span class="term-cat">Technik &amp; Hosting</span><h3>CDN</h3><p>Ein weltweites Servernetz, das Website-Dateien vom nächstgelegenen Standort ausliefert und so die Ladezeit verkürzt.</p></article>
           <article class="term-card" data-cat="technik"><span class="term-cat">Technik &amp; Hosting</span><h3>Google-Ladezeitwerte</h3><p>Googles Kennzahlen für Ladezeit, Reaktionsfähigkeit und visuelle Stabilität — wichtig für Ranking und Nutzererlebnis.</p></article>
-          <article class="term-card" data-cat="technik"><span class="term-cat">Technik &amp; Hosting</span><h3>DNS</h3><p>Domain Name System: das „Telefonbuch" des Internets, das Domainnamen in die zugehörigen Server-Adressen übersetzt.</p></article>
+          <article class="term-card" data-cat="technik"><span class="term-cat">Technik &amp; Hosting</span><h3>DNS</h3><p>Domain Name System: das „Telefonbuch“ des Internets, das Domainnamen in die zugehörigen Server-Adressen übersetzt.</p></article>
           <article class="term-card" data-cat="technik"><span class="term-cat">Technik &amp; Hosting</span><h3>Backup</h3><p>Eine Sicherheitskopie Ihrer Website, mit der sich der letzte Stand im Notfall schnell wiederherstellen lässt.</p></article>
           <article class="term-card" data-cat="technik"><span class="term-cat">Technik &amp; Hosting</span><h3>Ladezeit (Page Speed)</h3><p>Die Zeit, bis eine Seite vollständig geladen ist. Kurze Ladezeiten verbessern Nutzererlebnis und Ranking.</p></article>
 
@@ -320,7 +320,7 @@ $decisionCards = sartu_contextual_seo_hub_cards();
           <!-- Marketing & Anfragen -->
           <article class="term-card" data-cat="marketing"><span class="term-cat">Marketing &amp; Anfragen</span><h3>Conversion-Rate</h3><p>Der Anteil der Besucher, die eine gewünschte Aktion ausführen (z. B. eine Anfrage) — eine zentrale Erfolgskennzahl.</p></article>
           <article class="term-card" data-cat="marketing"><span class="term-cat">Marketing &amp; Anfragen</span><h3>Lead</h3><p>Ein qualifizierter Interessent, der z. B. über ein Formular Kontaktdaten hinterlässt und zum Kunden werden kann.</p></article>
-          <article class="term-card" data-cat="marketing"><span class="term-cat">Marketing &amp; Anfragen</span><h3>Anfrageweg</h3><p>Der „Verkaufstrichter": der Weg vom ersten Besuch bis zur Anfrage, in mehreren aufeinander folgenden Stufen gedacht.</p></article>
+          <article class="term-card" data-cat="marketing"><span class="term-cat">Marketing &amp; Anfragen</span><h3>Anfrageweg</h3><p>Der „Verkaufstrichter“: der Weg vom ersten Besuch bis zur Anfrage, in mehreren aufeinander folgenden Stufen gedacht.</p></article>
           <article class="term-card" data-cat="marketing"><span class="term-cat">Marketing &amp; Anfragen</span><h3>Landingpage</h3><p>Eine fokussierte Einzelseite mit genau einem Ziel — etwa eine Kampagnenseite, die gezielt zur Anfrage führt.</p></article>
           <article class="term-card" data-cat="marketing"><span class="term-cat">Marketing &amp; Anfragen</span><h3>A/B-Test</h3><p>Vergleich zweier Varianten einer Seite, um datenbasiert herauszufinden, welche besser funktioniert.</p></article>
           <article class="term-card" data-cat="marketing"><span class="term-cat">Marketing &amp; Anfragen</span><h3>Google Business Profile</h3><p>Der kostenlose Google-Unternehmenseintrag, der bei lokaler Suche und in Maps erscheint — wichtig für lokale Sichtbarkeit.</p></article>
@@ -330,7 +330,7 @@ $decisionCards = sartu_contextual_seo_hub_cards();
           <article class="term-card" data-cat="marketing"><span class="term-cat">Marketing &amp; Anfragen</span><h3>Bounce-Rate</h3><p>Absprungrate: der Anteil der Besucher, die die Website nach nur einer Seite wieder verlassen.</p></article>
         </div>
 
-        <div class="glossary-empty" id="glossaryEmpty">Kein Begriff gefunden. Versuch es mit einem anderen Suchwort oder einer anderen Kategorie.</div>
+        <div class="glossary-empty" id="glossaryEmpty">Kein Begriff gefunden. Versuchen Sie es mit einem anderen Suchwort oder einer anderen Kategorie.</div>
       </div>
     </section>
 
@@ -339,7 +339,7 @@ $decisionCards = sartu_contextual_seo_hub_cards();
       <div class="container">
         <div class="faq-head">
           <p class="eyebrow eyebrow-green center">Häufige Fragen</p>
-          <h2 class="section-title">20 Fragen aus der Praxis.</h2>
+          <h2 class="section-title">14 Fragen aus der Praxis.</h2>
           <p>Sie müssen kein Profi sein, um eine gute Website zu bekommen. Hier beantworten wir die Fragen, die uns am häufigsten begegnen.</p>
         </div>
 

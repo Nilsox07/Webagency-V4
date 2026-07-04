@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=38" />
+  <link rel="stylesheet" href="styles.css?v=39" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -334,10 +334,10 @@
           <p>Hosting auf deutschen Servern. Preise gelten bei Jahreszahlung. Der Rundum-Schutz gehört zu jeder Website, die wir betreiben.</p>
           <p>Der Rundum-Schutz gehört zu jedem Paket dazu: Start→Schutz S, Wachstum→Schutz M, Platzhirsch→Schutz L.</p>
         </div>
-        <div class="price-grid"><article class="price-card"><h3 class="price-name">Schutz S</h3><p class="price-scope">zu Start</p><div class="price-amount">49&nbsp;<span class="price-unit">€/Monat</span></div><p class="price-ideal">Sicherer Betrieb für Ihren Onepager.</p><ul class="price-features"><li>Hosting in Deutschland + SSL</li><li>Automatische Backups</li><li>Software- &amp; Sicherheitsupdates</li><li>Echtzeit-Sicherheitsmonitoring</li></ul><a href="anfrage.php?paket=basis" class="btn btn-dark">Mit Start starten</a></article><article class="price-card featured"><span class="price-badge">Empfohlen</span><h3 class="price-name">Schutz M</h3><p class="price-scope">zu Wachstum</p><div class="price-amount">99&nbsp;<span class="price-unit">€/Monat</span></div><p class="price-ideal">Inkl. monatlicher Änderungen.</p><ul class="price-features"><li>Alles aus Schutz S</li><li>Auto-Update Rechtstexte (eRecht24)</li><li>30 Min. Änderungen / Monat</li><li>Schnellere Reaktionszeit</li></ul><a href="anfrage.php?paket=pro" class="btn btn-primary">Mit Wachstum starten <span class="arrow">→</span></a></article><article class="price-card"><h3 class="price-name">Schutz L</h3><p class="price-scope">zu Platzhirsch</p><div class="price-amount">249&nbsp;<span class="price-unit">€/Monat</span></div><p class="price-ideal">Rundum betreut, inkl. Staging.</p><ul class="price-features"><li>Alles aus Schutz M</li><li>90 Min. Änderungen / Monat</li><li>Staging-Tests vor Live-Updates</li><li>Reaktion innerhalb 1 Werktag</li></ul><a href="anfrage.php?paket=platin" class="btn btn-dark">Mit Platzhirsch starten</a></article></div>
+        <div class="price-grid"><article class="price-card"><h3 class="price-name">Schutz S</h3><p class="price-scope">zu Start</p><div class="price-amount">49&nbsp;<span class="price-unit">€/Monat</span></div><p class="price-ideal">Sicherer Betrieb für Ihren Onepager.</p><ul class="price-features"><li>Hosting in Deutschland + SSL</li><li>Automatische Backups</li><li>Software- &amp; Sicherheitsupdates</li><li>Uptime-Monitoring im 5-Minuten-Takt</li></ul><a href="anfrage.php?paket=start" class="btn btn-dark">Mit Start starten</a></article><article class="price-card featured"><span class="price-badge">Empfohlen</span><h3 class="price-name">Schutz M</h3><p class="price-scope">zu Wachstum</p><div class="price-amount">99&nbsp;<span class="price-unit">€/Monat</span></div><p class="price-ideal">Inkl. monatlicher Änderungen.</p><ul class="price-features"><li>Alles aus Schutz S</li><li>Auto-Update Rechtstexte (eRecht24)</li><li>30 Min. Änderungen / Monat</li><li>Schnellere Reaktionszeit</li></ul><a href="anfrage.php?paket=wachstum" class="btn btn-primary">Mit Wachstum starten <span class="arrow">→</span></a></article><article class="price-card"><h3 class="price-name">Schutz L</h3><p class="price-scope">zu Platzhirsch</p><div class="price-amount">249&nbsp;<span class="price-unit">€/Monat</span></div><p class="price-ideal">Rundum betreut, inkl. Staging.</p><ul class="price-features"><li>Alles aus Schutz M</li><li>90 Min. Änderungen / Monat</li><li>Staging-Tests vor Live-Updates</li><li>Reaktion innerhalb 1 Werktag</li></ul><a href="anfrage.php?paket=platzhirsch" class="btn btn-dark">Mit Platzhirsch starten</a></article></div>
         <div class="svc-compare">
           <h3>Schutz S, M und L im Vergleich</h3>
-          <p>Alle Care-Stufen enthalten Hosting in Deutschland, SSL, tägliche externe Backups (30 Tage) und Uptime-Monitoring im 5-Minuten-Takt. Höhere Stufen ergänzen automatische Rechtstext-Updates, monatliche Änderungszeit, Staging und einen Performance-Check.</p>
+          <p>Alle Schutz-Stufen enthalten Hosting in Deutschland, SSL, tägliche externe Backups (30 Tage) und Uptime-Monitoring im 5-Minuten-Takt. Höhere Stufen ergänzen automatische Rechtstext-Updates, monatliche Änderungszeit, Staging und einen Performance-Check.</p>
           <p>Welche Stufe Sie erhalten, hängt an Ihrem Paket: Start→S, Wachstum→M, Platzhirsch→L. Höhere Stufe jederzeit möglich.</p>
           <div class="price-table-wrap">
             <table class="price-table">
@@ -347,11 +347,11 @@
           </div>
         </div>
         <div class="scope-grid">
-          <div class="scope-col scope-yes"><h4>Enthalten</h4><ul><li>Hosting in Deutschland + SSL-Zertifikat</li><li>Automatische Backups</li><li>Software- &amp; Sicherheitsupdates</li><li>Echtzeit-Sicherheitsmonitoring</li></ul></div>
+          <div class="scope-col scope-yes"><h4>Enthalten</h4><ul><li>Hosting in Deutschland + SSL-Zertifikat</li><li>Automatische Backups</li><li>Software- &amp; Sicherheitsupdates</li><li>Uptime-Monitoring im 5-Minuten-Takt</li></ul></div>
           <div class="scope-col scope-no"><h4>Nicht enthalten <span>(= kostenpflichtiges Add-on)</span></h4><ul><li>Inhaltliche Änderungen über Kontingent (150 €/Std, 5-Min-Takt)</li><li>Rechtstext-Updates (erst ab Schutz M)</li><li>Staging-Tests (erst ab Schutz L)</li><li>SEO-/Profil-Pflege (Retainer)</li></ul></div>
           <div class="scope-col scope-pre"><h4>Voraussetzungen / Mitwirkung</h4><ul><li>Website von Sartu erstellt oder übernommen</li><li>Domain beim Kunden oder via Umzug</li><li>Änderungswünsche gebündelt melden</li></ul></div>
         </div>
-        <p class="scope-note">Preise gelten bei Jahreszahlung. Mindestlaufzeit 12 Monate, danach monatlich kündbar. Für Sonderprojekte: Care XL – individuell.</p>
+        <p class="scope-note">Preise gelten bei Jahreszahlung. Mindestlaufzeit 12 Monate, danach monatlich kündbar. Für Sonderprojekte: Schutz XL — individuell.</p>
       </div>
     </section>
 

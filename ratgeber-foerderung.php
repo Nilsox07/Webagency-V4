@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=38" />
+  <link rel="stylesheet" href="styles.css?v=39" />
   <link rel="canonical" href="https://[DOMAIN]/ratgeber-foerderung" />
   <meta name="robots" content="noindex,nofollow" />
   <meta property="og:type" content="article" />
@@ -177,7 +177,7 @@
 
     <section class="hero-answer-strip">
       <div class="container">
-        <p class="answer-first on-light">Ja, Websites können je nach Bundesland und Vorhaben gefördert werden — allerdings <strong>meist nur, wenn sie über eine reine „Visitenkarten"-Seite hinausgehen</strong> (z.&nbsp;B. Shop, Buchungs- oder Portalfunktionen). Entscheidend ist: Der <strong>Förderantrag muss gestellt und bestätigt sein, bevor Sie den Auftrag verbindlich vergeben</strong>. Über die Bewilligung entscheidet allein die Förderstelle — einen Rechtsanspruch gibt es nicht.</p>
+        <p class="answer-first on-light">Ja, Websites können je nach Bundesland und Vorhaben gefördert werden — allerdings <strong>meist nur, wenn sie über eine reine „Visitenkarten“-Seite hinausgehen</strong> (z.&nbsp;B. Shop, Buchungs- oder Portalfunktionen). Entscheidend ist: Der <strong>Förderantrag muss gestellt und bestätigt sein, bevor Sie den Auftrag verbindlich vergeben</strong>. Über die Bewilligung entscheidet allein die Förderstelle — einen Rechtsanspruch gibt es nicht.</p>
         <div class="decision-grid two">
           <article class="decision-card">
             <span class="label">Reihenfolge</span>
@@ -203,20 +203,20 @@
           <p>Es gibt einzelne <strong>bundesweite Bausteine</strong>, die aber jeweils Grenzen haben:</p>
           <ul>
             <li><strong>BAFA-Beratungsförderung:</strong> fördert ausschließlich <em>Beratungsleistungen</em> (nicht die Umsetzung bzw. Programmierung einer Website). Dieses Programm ist nach aktuellen Angaben bis <strong>31.&nbsp;Dezember&nbsp;2026</strong> aktiv (Stand Juni&nbsp;2026). Details und aktueller Status auf <a href="https://www.bafa.de" target="_blank" rel="noopener">bafa.de</a>.</li>
-            <li><strong>Frühere Bundes-Zuschüsse:</strong> Programme wie „go-digital" und „Digital&nbsp;Jetzt" sind <strong>ausgelaufen</strong> und stehen nicht mehr zur Verfügung.</li>
+            <li><strong>Frühere Bundes-Zuschüsse:</strong> Programme wie „go-digital“ und „Digital&nbsp;Jetzt“ sind <strong>ausgelaufen</strong> und stehen nicht mehr zur Verfügung.</li>
             <li><strong>KfW-/ERP-Förderkredite:</strong> Das sind <strong>Kredite</strong>, keine Zuschüsse — sie müssen also zurückgezahlt werden (oft zu vergünstigten Konditionen).</li>
           </ul>
 
           <h2 id="voraussetzungen">Welche Voraussetzungen gelten fast überall?</h2>
           <p>Auch wenn die Programme unterschiedlich sind, ähneln sich drei Grundprinzipien in den meisten Bundesländern. Wer sie kennt, vermeidet die typischen Stolperfallen:</p>
           <h3>1. Antrag vor Auftrag</h3>
-          <p>Der Förderantrag muss gestellt und von der Förderstelle bestätigt sein, <strong>bevor</strong> ein verbindlicher Auftrag erteilt oder ein Vertrag geschlossen wird. Schon ein mündlicher Auftrag, eine unterschriebene Vereinbarung oder eine bezahlte Rechnung kann als „Maßnahmenbeginn" gewertet werden — und führt dann regelmäßig zur Ablehnung.</p>
+          <p>Der Förderantrag muss gestellt und von der Förderstelle bestätigt sein, <strong>bevor</strong> ein verbindlicher Auftrag erteilt oder ein Vertrag geschlossen wird. Schon ein mündlicher Auftrag, eine unterschriebene Vereinbarung oder eine bezahlte Rechnung kann als „Maßnahmenbeginn“ gewertet werden — und führt dann regelmäßig zur Ablehnung.</p>
           <h3>2. Funktionsmehrwert statt reiner Optik</h3>
           <p>Reine Image- oder Visitenkarten-Websites sind in vielen Programmen <strong>nicht förderfähig</strong>. Gefördert werden in der Regel Vorhaben mit echtem Prozess- oder Funktionsmehrwert (mehr dazu im nächsten Abschnitt).</p>
           <h3>3. Betriebsstätte im jeweiligen Bundesland</h3>
           <p>In der Regel können Sie nur das Programm Ihres <strong>eigenen Bundeslandes</strong> nutzen — also dort, wo Ihr Unternehmen seine Betriebsstätte hat.</p>
 
-          <h2 id="normale-website">Wird eine „normale" Website gefördert?</h2>
+          <h2 id="normale-website">Wird eine „normale“ Website gefördert?</h2>
           <p>Meist nicht. Eine klassische, schön gestaltete Unternehmenswebsite ohne besondere Funktionen reicht in vielen Programmen nicht aus. Gefördert werden eher Vorhaben, die einen <strong>digitalen Prozess</strong> abbilden oder verbessern, zum Beispiel:</p>
           <ul>
             <li>Online-Shop mit Anbindung an Warenwirtschaft oder Buchhaltung,</li>
@@ -224,7 +224,7 @@
             <li>Kundenkonten / Portal / Mitgliederbereich,</li>
             <li>Digitalisierung interner Abläufe (Formulare, Schnittstellen, Automatisierung).</li>
           </ul>
-          <p>Ob Ihr konkretes Vorhaben als „Funktionsmehrwert" anerkannt wird, legt die jeweilige Förderstelle nach den Programmbedingungen fest. Diese Einordnung können und dürfen wir Ihnen nicht abnehmen.</p>
+          <p>Ob Ihr konkretes Vorhaben als „Funktionsmehrwert“ anerkannt wird, legt die jeweilige Förderstelle nach den Programmbedingungen fest. Diese Einordnung können und dürfen wir Ihnen nicht abnehmen.</p>
 
           <div class="callout">
             <span class="callout-icon">
@@ -239,15 +239,15 @@
           <h2 id="laender">Welche Programme gibt es je Bundesland?</h2>
           <p>Eine vollständige 16-Länder-Tabelle wäre wenig hilfreich, weil sich der Status laufend ändert. Daher hier nur <strong>Beispiele mit ausdrücklichem Status-Vorbehalt (Stand Juni&nbsp;2026)</strong> — bitte vor jeder Antragstellung selbst prüfen:</p>
           <ul>
-            <li><strong>Bayern — „Digitalbonus Bayern":</strong> nach Programmangaben aktiv (laut aktueller Ankündigung bis Ende&nbsp;2027), häufig mit monatlich begrenztem Antragskontingent.</li>
-            <li><strong>Sachsen — „Digitalisierung" (Zuschuss der SAB):</strong> nach Programmangaben aktiv.</li>
+            <li><strong>Bayern — „Digitalbonus Bayern“:</strong> nach Programmangaben aktiv (laut aktueller Ankündigung bis Ende&nbsp;2027), häufig mit monatlich begrenztem Antragskontingent.</li>
+            <li><strong>Sachsen — „Digitalisierung“ (Zuschuss der SAB):</strong> nach Programmangaben aktiv.</li>
             <li><strong>Andere Länder weichen ab:</strong> In Baden-Württemberg ist z.&nbsp;B. die Zuschussvariante der Digitalisierungsprämie 2025 ausgelaufen, in Niedersachsen liefen Zuschussprogramme aus, in Nordrhein-Westfalen wird eher projektbezogen gefördert. Andere Länder haben eigene, abweichende oder gar keine Programme.</li>
           </ul>
           <p>Zuschussquoten und Höchstbeträge unterscheiden sich je Programm und werden von der Förderstelle festgelegt. Wir nennen hier bewusst <strong>keine Prozentsätze als Versprechen</strong> — sie wären schnell veraltet und nicht verbindlich.</p>
 
           <h2 id="weg">Der praktische Weg — Schritt für Schritt</h2>
           <ul>
-            <li><strong>1. Vorhaben prüfen:</strong> Hat Ihr Projekt echten Funktions-/Prozessmehrwert (Shop, Buchung, Portal …) oder ist es „nur" eine Website? Davon hängt fast alles ab.</li>
+            <li><strong>1. Vorhaben prüfen:</strong> Hat Ihr Projekt echten Funktions-/Prozessmehrwert (Shop, Buchung, Portal …) oder ist es „nur“ eine Website? Davon hängt fast alles ab.</li>
             <li><strong>2. Programm suchen:</strong> in der offiziellen <a href="https://www.foerderdatenbank.de" target="_blank" rel="noopener">Förderdatenbank des Bundes (foerderdatenbank.de)</a> und bei der <strong>Förderbank Ihres Bundeslandes</strong>.</li>
             <li><strong>3. Bedingungen lesen:</strong> Wer ist antragsberechtigt, was ist förderfähig, welche Fristen und Budgets gelten (Programme können ausgeschöpft sein)?</li>
             <li><strong>4. Antrag VOR Auftrag stellen</strong> — und auf die Bestätigung warten.</li>
@@ -259,7 +259,7 @@
           <ul>
             <li>Ihnen ein <strong>detailliertes Angebot mit Leistungsbeschreibung und Kostenaufstellung</strong> bereitstellen, das Sie Ihrem Förderantrag beilegen können;</li>
             <li>das Projekt auf Wunsch so gestalten, dass es <strong>echten Funktionsmehrwert</strong> bietet (z.&nbsp;B. Buchung, Shop, Portal);</li>
-            <li>den Ablauf <strong>„erst Antrag, dann Auftrag"</strong> respektieren und mit dem Start warten, bis Sie grünes Licht haben.</li>
+            <li>den Ablauf <strong>„erst Antrag, dann Auftrag“</strong> respektieren und mit dem Start warten, bis Sie grünes Licht haben.</li>
           </ul>
           <p>Was wir bewusst <strong>nicht</strong> tun: Wir leisten keine Förderberatung, stellen keine Anträge in Ihrem Namen und geben keine Bewilligungs- oder Quotenversprechen. Für die Förderentscheidung sind allein die offiziellen Stellen zuständig.</p>
 

@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=38" />
+  <link rel="stylesheet" href="styles.css?v=39" />
   <link rel="canonical" href="https://[DOMAIN]/ratgeber-bfsg" />
   <meta name="robots" content="noindex,nofollow" />
   <meta property="og:type" content="article" />
@@ -217,7 +217,7 @@
           <p>Aufpassen müssen Sie, sobald Ihre Website <strong>Verkaufs- oder Buchungsfunktionen</strong> bekommt: Ein Shop-Modul oder eine Online-Terminbuchung mit verbindlichem Abschluss kann die Einordnung ändern — dann zählt wieder die Frage, ob Sie unter die Kleinstunternehmen-Ausnahme fallen. Wenn Sie so eine Funktion planen (etwa beim <a href="leistung-webdesign.php">Erstellen Ihrer Website</a>), lohnt es sich, Barrierefreiheit von Anfang an mitzudenken.</p>
 
           <h2 id="konkret">Was bedeutet „barrierefrei“ konkret?</h2>
-          <p>Der praktische Maßstab sind die <strong>WCAG</strong> (Web Texte und Inhalte Accessibility Guidelines) — die international etablierten Richtlinien für barrierefreie Web-Inhalte. Die wichtigsten Grundlagen:</p>
+          <p>Der praktische Maßstab sind die <strong>WCAG</strong> (Web Content Accessibility Guidelines) — die international etablierten Richtlinien für barrierefreie Web-Inhalte. Die wichtigsten Grundlagen:</p>
           <ul>
             <li><strong>Kontraste:</strong> Text muss sich ausreichend vom Hintergrund abheben (z.&nbsp;B. kein hellgrauer Text auf Weiß).</li>
             <li><strong>Alt-Texte:</strong> Bilder brauchen Alternativtexte, damit Screenreader sie beschreiben können.</li>
@@ -233,7 +233,7 @@
           <p>Wie hoch das Risiko im Einzelfall ist, hängt von Ihrem Angebot, Ihrer Unternehmensgröße und der konkreten Umsetzung ab — das kann und darf Ihnen nur eine anwaltliche Beratung verbindlich beantworten.</p>
 
           <h2 id="freiwillig">Lohnt sich Barrierefreiheit auch freiwillig?</h2>
-          <p><strong>Ja — aus zwei handfesten Gründen.</strong> Erstens erreichst Sie mehr Menschen: Nutzer mit Sehschwäche, motorischen Einschränkungen oder schlicht ältere Besucher profitieren von Kontrast, Tastaturbedienung und klarer Sprache — und werden eher zu Kunden, wenn Ihre Seite sie nicht aussperrt.</p>
+          <p><strong>Ja — aus zwei handfesten Gründen.</strong> Erstens erreichen Sie mehr Menschen: Nutzer mit Sehschwäche, motorischen Einschränkungen oder schlicht ältere Besucher profitieren von Kontrast, Tastaturbedienung und klarer Sprache — und werden eher zu Kunden, wenn Ihre Seite sie nicht aussperrt.</p>
           <p>Zweitens hilft Barrierefreiheit der <strong>Sichtbarkeit</strong>: Die saubere Semantik, die Screenreader brauchen (Überschriften-Struktur, Alt-Texte, beschriftete Elemente), ist genau das, was auch Suchmaschinen und KI-Systeme zum Verstehen einer Seite nutzen. Barrierefreiheit und SEO ziehen am selben Strang — ein Grund, warum Sartu Kontraste, Alt-Texte, Tastatur-Fokus und semantische Struktur bei jeder <a href="leistung-webdesign.php">Website-Erstellung</a> standardmäßig berücksichtigt.</p>
 
           <!-- Disclaimer-Box -->

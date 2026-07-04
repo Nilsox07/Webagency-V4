@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=38" />
+  <link rel="stylesheet" href="styles.css?v=39" />
   <link rel="canonical" href="https://[DOMAIN]/agb" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Sartu" />
@@ -79,7 +79,7 @@
           <p>Diese Allgemeinen Geschäftsbedingungen gelten für alle Verträge zwischen [Name / Firma] („Anbieter") und dem Auftraggeber („Kunde") über die Erstellung von Websites sowie über Wartungs- und Betriebsleistungen. Abweichende Bedingungen des Kunden werden nicht anerkannt, sofern ihnen nicht ausdrücklich zugestimmt wurde.</p>
 
           <h2>§ 2 Vertragsgegenstand &amp; Leistungen</h2>
-          <p>Der Umfang der Leistungen ergibt sich aus dem jeweils gewählten Paket bzw. dem individuellen Angebot. Maßgeblich ist die zum Zeitpunkt des Vertragsschlusses gültige <strong>Leistungsbeschreibung (Stand Juni 2026)</strong>; sie ist Bestandteil jedes Angebots und auf den <a href="preise.php">Preise &amp; Pakete</a> sowie den jeweiligen <a href="leistungen.php">Leistungsseiten</a> einsehbar.</p>
+          <p>Der Umfang der Leistungen ergibt sich aus dem jeweils gewählten Paket bzw. dem individuellen Angebot. Maßgeblich ist die zum Zeitpunkt des Vertragsschlusses gültige <strong>Leistungsbeschreibung (Stand Juni 2026)</strong>; sie ist Bestandteil jedes Angebots und auf der Seite <a href="preise.php">Preise &amp; Pakete</a> sowie den jeweiligen <a href="leistungen.php">Leistungsseiten</a> einsehbar.</p>
           <p>Für alle Leistungen gelten ergänzend die folgenden Abgrenzungen:</p>
           <ol class="legal-list">
             <li><strong>Korrekturrunde.</strong> Eine Korrekturrunde ist ein gebündelter, schriftlicher Feedback-Durchlauf zu einem vorgelegten Stand; das gesammelte Feedback wird einmal umgesetzt. Mehrere getrennte Feedback-Nachrichten zählen als mehrere Runden. Fehler, die der Anbieter zu vertreten hat (Tippfehler, Abweichung von der Website-Anfrage, technische Fehler), zählen nicht als Runde.</li>

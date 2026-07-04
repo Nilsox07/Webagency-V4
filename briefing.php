@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=38" />
+  <link rel="stylesheet" href="styles.css?v=39" />
   <link rel="stylesheet" href="briefing.css?v=15" />
   <link rel="canonical" href="https://[DOMAIN]/anfrage" />
   <meta name="robots" content="noindex,nofollow" />
@@ -155,10 +155,10 @@
 
         <div class="lumi-card">
           <div class="lumi-topbar">
-            <span class="lumi-avatar" aria-hidden="true">L</span>
+            <span class="lumi-avatar" aria-hidden="true">S</span>
             <div class="lumi-topbar-meta">
               <strong>Website-Assistent</strong>
-              <span>Ihr Website-Assistent</span>
+              <span>Geführte Website-Anfrage</span>
             </div>
             <div class="lumi-progress" id="lumiProgress" hidden>
               <span id="lumiProgressLabel">Schritt 1 von 8</span>

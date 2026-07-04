@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=38" />
+  <link rel="stylesheet" href="styles.css?v=39" />
   <link rel="canonical" href="https://[DOMAIN]/ratgeber-website-kosten" />
   <meta name="robots" content="noindex,nofollow" />
   <meta property="og:type" content="article" />
@@ -204,7 +204,7 @@
           <ul>
             <li><strong>Konzept &amp; Design:</strong> Struktur, Layout, Farbwelt, Responsive-Verhalten. Je individueller, desto mehr Arbeitszeit steckt darin.</li>
             <li><strong>Umsetzung &amp; Technik:</strong> Programmierung, Formulare, Ladezeit-Optimierung, DSGVO-Setup (Cookie-Consent, verschlüsselte Übertragung).</li>
-            <li><strong>Inhalte:</strong> Texte und Bilder. Wenn Sie sie selbst liefern, sparen Sie Kosten; professionelle Texterstellung kostet bei Sartu z.&nbsp;B. 120&nbsp;€ pro Seite.</li>
+            <li><strong>Inhalte:</strong> Texte und Bilder. Innerhalb der Sartu-Pakete sind die Texte bereits enthalten; zusätzliche Texte über das Kontingent hinaus kosten ab 120&nbsp;€ pro Seite.</li>
             <li><strong>SEO-Grundlagen:</strong> Title-Tags, Meta-Descriptions, saubere Überschriftenstruktur, Sitemap — damit Google die Seite überhaupt versteht.</li>
             <li><strong>Seitenanzahl:</strong> der stärkste Preistreiber. Jede Unterseite bedeutet Konzept, Inhalt und Pflege. Bei Sartu kostet eine zusätzliche Seite über dem Paket-Kontingent 199&nbsp;€.</li>
           </ul>
@@ -217,7 +217,7 @@
           <h2 id="mehrseitig">Was kostet eine mehrseitige Firmenwebsite?</h2>
           <p>Sobald Sie mehrere Leistungen haben, die <strong>einzeln bei Google gefunden</strong> werden sollen, brauchen Sie eigene Unterseiten — pro Suchbegriff in der Regel eine Seite. Damit steigt der Aufwand für Struktur, Texte und SEO.</p>
           <ul>
-            <li><strong>Bis 8 Seiten (Sartu Pro): 2.990&nbsp;€</strong> — inklusive OnPage-SEO für jede Seite (Title, Meta, Überschriftenstruktur, je 1 Fokus-Keyword) und 3 Korrekturrunden.</li>
+            <li><strong>Bis 8 Seiten (Sartu Wachstum): 2.990&nbsp;€</strong> — inklusive OnPage-SEO für jede Seite (Title, Meta, Überschriftenstruktur, je 1 Fokus-Keyword) und 3 Korrekturrunden.</li>
             <li><strong>Bis 20 Seiten (Sartu Platzhirsch): 5.990&nbsp;€</strong> — zusätzlich einmaliges Local-SEO-Setup mit Google-Unternehmensprofil und messbaren Ladezeit-Zielwerten.</li>
             <li><strong>Sonderprojekte (Portale, Shops, Schnittstellen): ab 9.990&nbsp;€</strong> mit individuellem Pflichtenheft.</li>
           </ul>
@@ -241,10 +241,10 @@
           <p>Die Liste, die Ihnen kaum ein Anbieter freiwillig gibt:</p>
           <ul>
             <li><strong>Nachträge statt Festpreis:</strong> „ab“-Preise ohne definierte Leistung wachsen gern. Achten Sie auf eine schriftliche Leistungsbeschreibung mit konkreten Mengen (Seiten, Korrekturrunden, Bilder).</li>
-            <li><strong>Stundensatz-Takte:</strong> Manche Anbieter runden jede Kleinigkeit pauschal auf Viertelstunden auf. Fairer ist minutengenaue Abrechnung — Sartu rechnet Mehraufwand im 5-Minuten-Takt ab (150&nbsp;€/Std) — nicht stundenweise aufgerundet.</li>
+            <li><strong>Stundensatz-Takte:</strong> Manche Anbieter runden jede Kleinigkeit pauschal auf Viertelstunden auf. Fairer ist eine feingranulare Abrechnung: Sartu rechnet Mehraufwand im 5-Minuten-Takt ab (150&nbsp;€/Std), statt stundenweise aufzurunden.</li>
             <li><strong>Pflicht-Abos ohne Leistung:</strong> Wartungspauschalen sind sinnvoll — aber nur, wenn drinsteht, was Sie dafür erhalten (Backups? Updates? Änderungsminuten? Reaktionszeit?).</li>
             <li><strong>Extra-Kosten für Selbstverständliches:</strong> SSL, Mobil-Optimierung oder Cookie-Banner gehören 2026 in den Grundpreis, nicht auf die Zusatzrechnung.</li>
-            <li><strong>Korrekturrunden:</strong> Klären Sie vorher, wie viele Feedback-Runden enthalten sind und was eine weitere kostet (bei Sartu: 140&nbsp;€ pro zusätzlicher Runde).</li>
+            <li><strong>Korrekturrunden:</strong> Klären Sie vorher, wie viele Feedback-Runden enthalten sind und was eine weitere kostet (bei Sartu: nach Aufwand, 150&nbsp;€/Std. im 5-Minuten-Takt).</li>
           </ul>
 
           <h2 id="budget">Wann lohnt sich welches Budget?</h2>
@@ -288,7 +288,7 @@
           <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg>
         </span>
         <div class="guarantee-text">
-          <h3>Wissen, was DEINE Website kostet?</h3>
+          <h3>Wissen, was IHRE Website kostet?</h3>
           <p>Stellen Sie sich Ihr Paket in der 2-Minuten-Anfrage zusammen — der Preis rechnet live mit, unverbindlich und ohne Termin.</p>
         </div>
         <a href="anfrage.php" class="btn btn-primary btn-lg">Website-Anfrage starten <span class="arrow">→</span></a>

@@ -72,7 +72,7 @@
        Wortlaut überall identisch. Minutengenau im 5-Minuten-Takt — keine
        Viertelstunden- oder Stunden-Aufrundung. */
     hourlyRate: 150,
-    hourlyRateNote: '150 €/Std — minutengenau im 5-Minuten-Takt abgerechnet. Ab 30 Minuten geschätztem Umfang erhalten Sie vorher eine Kostenschätzung.',
+    hourlyRateNote: '150 €/Std — abgerechnet im 5-Minuten-Takt. Ab 30 Minuten geschätztem Umfang erhalten Sie vorher eine Kostenschätzung.',
 
     /* ---- „Nur das Design" — ohne Paket kaufbar (Code-Lieferung, kein Betrieb) ----
        Preise zentral hier; nirgends hart codieren. */
@@ -92,7 +92,7 @@
       /* — Einmalig — */
       /* Texterstellung (Leistungsseite Texte): eine Variante wählen */
       { id: 'texte',        name: 'Texterstellung pro Seite', short: 'Einzelseite', price: 120, type: 'once', hidden: true, group: 'texte',
-        qty: { min: 1, max: 10, default: 1, unit: 'pro Seite' }, desc: '300–500 Wörter je Seite, 2 Korrekturschleifen, Meta-Title + -Description.' },
+        qty: { min: 1, max: 10, default: 1, unit: 'pro Seite' }, desc: '300–500 Wörter je Seite, 2 Korrekturrunden, Meta-Title + -Description.' },
       { id: 'texte-paket',  name: 'Texte-Paket (5 Seiten)', short: '5er-Paket', price: 490, type: 'once', hidden: true, group: 'texte',
         desc: 'Texte für 5 Seiten – ca. 98 €/Seite.' },
       { id: 'texte-paket10',name: 'Texte-Paket (10 Seiten)', short: '10er-Paket', price: 890, type: 'once', hidden: true, group: 'texte',

@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=38" />
+  <link rel="stylesheet" href="styles.css?v=39" />
   <link rel="canonical" href="https://[DOMAIN]/datenschutz" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Sartu" />
@@ -86,10 +86,10 @@
           <p>Unsere Website wird bei einem Anbieter mit Serverstandort in Deutschland gehostet. Beim Aufruf der Seite werden technisch notwendige Daten (z. B. IP-Adresse, Datum/Uhrzeit, abgerufene Seite) in sogenannten Server-Logfiles verarbeitet. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. [Anbieter und ggf. Auftragsverarbeitungsvertrag ergänzen.]</p>
 
           <h2>4. SSL-/TLS-Verschlüsselung</h2>
-          <p>Diese Seite nutzt aus Sicherheitsgründen eine SSL-/TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennen Sie an „https://" und dem Schloss-Symbol in der Adresszeile Ihres Browsers.</p>
+          <p>Diese Seite nutzt aus Sicherheitsgründen eine SSL-/TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennen Sie an „https://“ und dem Schloss-Symbol in der Adresszeile Ihres Browsers.</p>
 
           <h2>5. Kontaktaufnahme</h2>
-          <p>Wenn Sie uns per E-Mail oder über das Kontaktformular kontaktierst, verarbeiten wir die von Ihnen mitgeteilten Daten (Name, E-Mail-Adresse, Nachricht) zur Bearbeitung Ihrer Anfrage. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b bzw. f DSGVO. Das Kontaktformular dieser Website erstellt eine vorausgefüllte E-Mail in Ihrem Programm; es werden dabei keine Daten auf dem Server gespeichert.</p>
+          <p>Wenn Sie uns per E-Mail oder über das Kontaktformular kontaktieren, verarbeiten wir die von Ihnen mitgeteilten Daten (Name, E-Mail-Adresse, Nachricht) zur Bearbeitung Ihrer Anfrage. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b bzw. f DSGVO. Das Kontaktformular dieser Website erstellt eine vorausgefüllte E-Mail in Ihrem Programm; es werden dabei keine Daten auf dem Server gespeichert.</p>
 
           <h2>6. Cookies &amp; Einwilligung</h2>
           <p>Diese Website setzt standardmäßig nur technisch notwendige Cookies bzw. lokalen Speicher ein (z.&nbsp;B. zum Sichern Ihrer Cookie-Auswahl) — Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO bzw. § 25 Abs. 2 TTDSG. Optionale Cookies oder Dienste (z.&nbsp;B. Statistik, Marketing, Karten, Drittanbieter-Schriften) werden erst nach Ihrer ausdrücklichen Einwilligung über unser Consent-Banner geladen (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TTDSG). Ihre Einwilligung ist freiwillig und jederzeit mit Wirkung für die Zukunft widerrufbar.</p>
@@ -111,7 +111,7 @@
           </ul>
 
           <h2>9. Beschwerderecht</h2>
-          <p>Sie haben das Recht, Sie bei einer Datenschutz-Aufsichtsbehörde über die Verarbeitung Ihrer personenbezogenen Daten zu beschweren.</p>
+          <p>Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde über die Verarbeitung Ihrer personenbezogenen Daten zu beschweren.</p>
 
           <h2>10. Aktualität</h2>
           <p>Diese Datenschutzerklärung hat den Stand [Monat/Jahr] und wird angepasst, sobald sich die Datenverarbeitung ändert.</p>

@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=38" />
+  <link rel="stylesheet" href="styles.css?v=39" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -330,7 +330,7 @@
         <div class="scope-card">
           <div class="scope-cols has-know">
             <div class="scope-list scope-in"><h4>Das ist drin</h4><ul><li>Mobil-optimiert (responsive)</li><li>Kontaktformular &amp; Google-Maps-Einbindung</li><li>Bildoptimierung &amp; Komprimierung</li><li>Basis-SEO (Titel, Meta, Sitemap)</li><li>SSL &amp; DSGVO-Setup, Cookie-Consent</li><li>Impressum &amp; Datenschutz eingebunden</li></ul></div>
-            <div class="scope-list scope-extra"><h4>Das kostet extra</h4><ul><li>Texte über das Paketkontingent hinaus — 120 € je Seite</li><li>Logo — als Extra für 490 € (3 Entwürfe, alle Rechte)</li><li>Laufende Google-Betreuung — die SEO-Betreuung ab 149 €/Monat</li><li>Funktionen wie Online-Terminbuchung (290 €) oder der KI-Chat-Assistent (990 € + 79 €/Monat)</li><li>Sonderwünsche wie Kundenbereich oder Shop — Festpreis im Angebot</li><li>Zusätzliche Änderungsrunden nach Freigabe — 150 €/Std, minutengenau im 5-Minuten-Takt</li></ul></div>
+            <div class="scope-list scope-extra"><h4>Das kostet extra</h4><ul><li>Texte über das Paketkontingent hinaus — 120 € je Seite</li><li>Logo — als Extra für 490 € (3 Entwürfe, alle Rechte)</li><li>Laufende Google-Betreuung — die SEO-Betreuung ab 149 €/Monat</li><li>Funktionen wie Online-Terminbuchung (290 €) oder der KI-Chat-Assistent (990 € + 79 €/Monat)</li><li>Sonderwünsche wie Kundenbereich oder Shop — Festpreis im Angebot</li><li>Zusätzliche Änderungsrunden nach Freigabe — 150 €/Std, abgerechnet im 5-Minuten-Takt</li></ul></div>
             <div class="scope-list scope-know"><h4>Gut zu wissen</h4><ul><li>Sie liefern Stichpunkte zu Ihrer Firma und Ihren Leistungen — die Texte schreiben wir daraus</li><li>Bilder und Logo, falls vorhanden (kein Logo? Gibt's als Extra)</li><li>Zeitnahe Freigaben, damit Ihr Termin hält</li><li>Ihre Internetadresse läuft über Sie — eine bestehende ziehen wir kostenlos mit um</li></ul></div>
           </div>
         </div>

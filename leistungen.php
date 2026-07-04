@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Webdesign, SEO, lokales SEO, Wartung &amp; Hosting, Texte und Logo — alle Sartu-Leistungen zum Festpreis im Überblick. Finde jetzt das passende Paket." />
+  <meta name="description" content="Webdesign, SEO, lokales SEO, Wartung &amp; Hosting, Texte und Logo — alle Sartu-Leistungen zum Festpreis im Überblick. Finden Sie jetzt das passende Paket." />
   <link rel="canonical" href="https://[DOMAIN]/leistungen" />
   <meta name="robots" content="noindex,nofollow" />
   <meta property="og:type" content="website" />
@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=38" />
+  <link rel="stylesheet" href="styles.css?v=39" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -85,7 +85,7 @@
           {
             "@type": "ListItem",
             "position": 5,
-            "name": "Texterstellung & Texte und Inhalte",
+            "name": "Texterstellung & Inhalte",
             "url": "https://[DOMAIN]/leistung-texte"
           },
           {
@@ -250,7 +250,7 @@
 
           <article class="service-card">
             <span class="svc-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16M4 9h16M4 14h10M4 19h7"/></svg></span>
-            <h3>Texterstellung &amp; Texte und Inhalte</h3>
+            <h3>Texterstellung &amp; Inhalte</h3>
             <p>Überzeugende Texte, die verkaufen und ranken — verständlich geschrieben und auf Ihre Zielgruppe zugeschnitten.</p>
             <span class="svc-price">ab 120 € pro Seite</span>
             <a href="leistung-texte.php" class="svc-link">Texterstellung ansehen <span aria-hidden="true">→</span></a>

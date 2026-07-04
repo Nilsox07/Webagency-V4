@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=38" />
+  <link rel="stylesheet" href="styles.css?v=39" />
   <link rel="canonical" href="https://[DOMAIN]/preise" />
   <meta name="robots" content="noindex,nofollow" />
   <meta property="og:type" content="website" />
@@ -175,7 +175,7 @@
         <div class="pricing-head">
           <p class="eyebrow eyebrow-green center">Einmalig + fester Rundum-Schutz</p>
           <h2 class="section-title">Wie groß soll Ihre Website werden?</h2>
-          <p class="answer-first">Eine Website von Sartu kostet als <strong>Festpreis zwischen 1.290 € (Start) und ab 9.990 € (Sonderprojekte)</strong> — ohne versteckte Kosten. Dazu gehört ein fester Rundum-Schutz ab 49 €/Monat. Sie wählen nur die Größe, um alles andere kümmern wir uns.</p>
+          <p class="answer-first">Eine Website von Sartu kostet als <strong>Festpreis zwischen 1.290 € (Start) und 5.990 € (Platzhirsch), Sonderprojekte ab 9.990 €</strong> — ohne versteckte Kosten. Dazu gehört ein fester Rundum-Schutz ab 49 €/Monat. Sie wählen nur die Größe, um alles andere kümmern wir uns.</p>
         </div>
         <div class="decision-grid" style="margin-bottom:34px;">
             <article class="decision-card">
@@ -207,7 +207,7 @@
               <li>Alles Wichtige auf einer Seite (wer Sie sind, was Sie machen, wie man Sie erreicht)</li>
               <li>Sieht auf Handy, Tablet und PC gleich gut aus</li>
               <li>Google findet Sie (Texte und Technik dafür eingebaut)</li>
-              <li>Alle Texte schreiben wir für Sie — Sie liefern nur Stichpunkte (300–500 Wörter, 2 Korrekturschleifen, inkl. der zwei Google-Textzeilen)</li>
+              <li>Alle Texte schreiben wir für Sie — Sie liefern nur Stichpunkte (300–500 Wörter, 2 Korrekturrunden, inkl. der zwei Google-Textzeilen)</li>
               <li>Sie haben schon eine Website? Umzug inklusive — ohne Ausfall (Internetadresse, Inhalte, bis 3 E-Mail-Adressen, Weiterleitungen)</li>
               <li>Besucher-Statistik inklusive (datenschutzkonform)</li>
               <li>Datenschutz fertig eingerichtet</li>
@@ -215,7 +215,7 @@
               <li>In 7 Werktagen online</li>
             </ul>
             <div class="price-card-cta">
-              <a href="anfrage.php?paket=basis" class="btn btn-dark">Start anfragen</a>
+              <a href="anfrage.php?paket=start" class="btn btn-dark">Start anfragen</a>
               <a href="leistung-webdesign.php" class="price-detail-link">Alle Details zum Paket →</a>
             </div>
           </article>
@@ -241,7 +241,7 @@
               <li>30 Minuten Änderungen pro Monat inklusive (im Rundum-Schutz)</li>
             </ul>
             <div class="price-card-cta">
-              <a href="anfrage.php?paket=pro" class="btn btn-primary">Wachstum anfragen <span class="arrow">→</span></a>
+              <a href="anfrage.php?paket=wachstum" class="btn btn-primary">Wachstum anfragen <span class="arrow">→</span></a>
               <a href="leistung-webdesign.php" class="price-detail-link">Alle Details zum Paket →</a>
             </div>
           </article>
@@ -265,9 +265,10 @@
               <li>Lädt besonders schnell</li>
               <li>4 Runden Änderungswünsche</li>
               <li>90 Minuten Änderungen pro Monat inklusive</li>
+              <li>In 7–14 Werktagen online</li>
             </ul>
             <div class="price-card-cta">
-              <a href="anfrage.php?paket=platin" class="btn btn-dark">Platzhirsch anfragen</a>
+              <a href="anfrage.php?paket=platzhirsch" class="btn btn-dark">Platzhirsch anfragen</a>
               <a href="leistung-webdesign.php" class="price-detail-link">Alle Details zum Paket →</a>
             </div>
           </article>
@@ -278,7 +279,7 @@
             <p class="anchor-amount"><span>ab</span> 9.990 €</p>
             <p>Online-Shop, Kundenportal, mehrere Standorte, Schnittstellen.</p>
             <p>Individuelles Festpreis-Angebot.</p>
-            <a href="anfrage.php?paket=enterprise" class="anchor-link">Anfrage stellen →</a>
+            <a href="anfrage.php?paket=sonderprojekte" class="anchor-link">Anfrage stellen →</a>
           </article>
         </div>
 
@@ -304,7 +305,7 @@
         <div class="pricing-head">
           <p class="eyebrow eyebrow-green center">Optional</p>
           <h2 class="section-title">Extras — nur, was Sie wirklich brauchen</h2>
-          <p>Nichts davon ist Pflicht. Website-Assistent sagt Ihnen ehrlich, was zu Ihrer Situation passt.</p>
+          <p>Nichts davon ist Pflicht. Der Website-Assistent sagt Ihnen ehrlich, was zu Ihrer Situation passt.</p>
         </div>
 
         <div class="extra-grid">
