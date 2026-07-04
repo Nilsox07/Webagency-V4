@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=39" />
+  <link rel="stylesheet" href="styles.css?v=40" />
   <link rel="canonical" href="https://[DOMAIN]/datenschutz" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Sartu" />
@@ -92,7 +92,7 @@
           <p>Wenn Sie uns per E-Mail oder über das Kontaktformular kontaktieren, verarbeiten wir die von Ihnen mitgeteilten Daten (Name, E-Mail-Adresse, Nachricht) zur Bearbeitung Ihrer Anfrage. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b bzw. f DSGVO. Das Kontaktformular dieser Website erstellt eine vorausgefüllte E-Mail in Ihrem Programm; es werden dabei keine Daten auf dem Server gespeichert.</p>
 
           <h2>6. Cookies &amp; Einwilligung</h2>
-          <p>Diese Website setzt standardmäßig nur technisch notwendige Cookies bzw. lokalen Speicher ein (z.&nbsp;B. zum Sichern Ihrer Cookie-Auswahl) — Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO bzw. § 25 Abs. 2 TTDSG. Optionale Cookies oder Dienste (z.&nbsp;B. Statistik, Marketing, Karten, Drittanbieter-Schriften) werden erst nach Ihrer ausdrücklichen Einwilligung über unser Consent-Banner geladen (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TTDSG). Ihre Einwilligung ist freiwillig und jederzeit mit Wirkung für die Zukunft widerrufbar.</p>
+          <p>Diese Website setzt standardmäßig nur technisch notwendige Cookies bzw. lokalen Speicher ein (z.&nbsp;B. zum Sichern Ihrer Cookie-Auswahl) — Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO bzw. § 25 Abs. 2 TDDDG. Optionale Cookies oder Dienste (z.&nbsp;B. Statistik, Marketing, Karten, Drittanbieter-Schriften) werden erst nach Ihrer ausdrücklichen Einwilligung über unser Consent-Banner geladen (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG). Ihre Einwilligung ist freiwillig und jederzeit mit Wirkung für die Zukunft widerrufbar.</p>
           <p>Sie können Ihre Auswahl jederzeit anpassen: <a href="#" data-cookie-settings>Cookie-Einstellungen öffnen</a>. [Bei Einsatz konkreter Dienste hier ergänzen.]</p>
 
           <h2>7. Webanalyse</h2>

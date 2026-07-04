@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=39" />
+  <link rel="stylesheet" href="styles.css?v=40" />
   <link rel="canonical" href="https://[DOMAIN]/preise" />
   <meta name="robots" content="noindex,nofollow" />
   <meta property="og:type" content="website" />
@@ -162,7 +162,7 @@
 
           <div class="svc-hero-visual">
             <figure class="hero-photo svc-hero-photo">
-              <picture><source srcset="assets/hero-process-pricing-petrol.webp" type="image/webp" /><img src="assets/hero-process-pricing-petrol.png" alt="Realistische Webdesign-Szene im Sartu-Stil" loading="eager" width="1792" height="1024" /></picture>
+              <picture><source srcset="assets/hero-process-pricing-petrol.webp" type="image/webp" /><img src="assets/hero-process-pricing-petrol.png" alt="Arbeitsplatz mit Paketübersicht und Projektplanung" loading="eager" width="1792" height="1024" /></picture>
             </figure>
           </div>
         </div>
@@ -205,15 +205,20 @@
             <p class="price-situation">Für Sie, wenn Kunden Sie nach einer Empfehlung googeln — und einen richtig guten Eindruck bekommen sollen.</p>
             <ul class="price-features">
               <li>Alles Wichtige auf einer Seite (wer Sie sind, was Sie machen, wie man Sie erreicht)</li>
-              <li>Sieht auf Handy, Tablet und PC gleich gut aus</li>
-              <li>Google findet Sie (Texte und Technik dafür eingebaut)</li>
               <li>Alle Texte schreiben wir für Sie — Sie liefern nur Stichpunkte (300–500 Wörter, 2 Korrekturrunden, inkl. der zwei Google-Textzeilen)</li>
               <li>Sie haben schon eine Website? Umzug inklusive — ohne Ausfall (Internetadresse, Inhalte, bis 3 E-Mail-Adressen, Weiterleitungen)</li>
-              <li>Besucher-Statistik inklusive (datenschutzkonform)</li>
-              <li>Datenschutz fertig eingerichtet</li>
               <li>2 Runden Änderungswünsche</li>
               <li>In 7 Werktagen online</li>
             </ul>
+            <details class="price-more">
+              <summary>Alle Leistungen anzeigen</summary>
+              <ul class="price-features">
+                <li>Sieht auf Handy, Tablet und PC gleich gut aus</li>
+                <li>Google findet Sie (Texte und Technik dafür eingebaut)</li>
+                <li>Besucher-Statistik inklusive (datenschutzkonform)</li>
+                <li>Datenschutz fertig eingerichtet</li>
+              </ul>
+            </details>
             <div class="price-card-cta">
               <a href="anfrage.php?paket=start" class="btn btn-dark">Start anfragen</a>
               <a href="leistung-webdesign.php" class="price-detail-link">Alle Details zum Paket →</a>
@@ -230,16 +235,21 @@
             <p class="price-situation">Für Sie, wenn Ihre Website aktiv neue Anfragen bringen soll — jede Leistung wird einzeln bei Google gefunden.</p>
             <ul class="price-features">
               <li>Bis zu 8 Seiten — jede Leistung bekommt ihre eigene</li>
-              <li>Design nur für Sie, kein Baukasten</li>
               <li>Google findet jede einzelne Seite</li>
               <li>Alle Texte schreiben wir für Sie — Sie liefern nur Stichpunkte</li>
               <li>Umzug Ihrer alten Website inklusive — ohne Ausfall</li>
-              <li>Besucher-Statistik inklusive (datenschutzkonform)</li>
-              <li>Texte und Bilder später selbst änderbar</li>
-              <li>3 Runden Änderungswünsche</li>
               <li>In 7–14 Werktagen online</li>
-              <li>30 Minuten Änderungen pro Monat inklusive (im Rundum-Schutz)</li>
             </ul>
+            <details class="price-more">
+              <summary>Alle Leistungen anzeigen</summary>
+              <ul class="price-features">
+                <li>Design nur für Sie, kein Baukasten</li>
+                <li>Besucher-Statistik inklusive (datenschutzkonform)</li>
+                <li>Texte und Bilder später selbst änderbar</li>
+                <li>3 Runden Änderungswünsche</li>
+                <li>30 Minuten Änderungen pro Monat inklusive (im Rundum-Schutz)</li>
+              </ul>
+            </details>
             <div class="price-card-cta">
               <a href="anfrage.php?paket=wachstum" class="btn btn-primary">Wachstum anfragen <span class="arrow">→</span></a>
               <a href="leistung-webdesign.php" class="price-detail-link">Alle Details zum Paket →</a>
@@ -257,16 +267,21 @@
               <li>Bis zu 20 Seiten — inkl. Team-Seite und Stellenangeboten — Stellen pflegen Sie selbst ein</li>
               <li>Kunden aus Ihrer Region finden Sie (inkl. Einrichtung Ihres Google-Firmeneintrags)</li>
               <li>Alle Texte schreiben wir für Sie — Sie liefern nur Stichpunkte</li>
-              <li>Texte und Bilder später selbst änderbar</li>
-              <li>Umzug Ihrer alten Website inklusive — ohne Ausfall</li>
-              <li>Besucher-Statistik inklusive (datenschutzkonform)</li>
-              <li>Newsletter-Anmeldung inklusive — mit Bestätigungs-Mail, wie es das Gesetz verlangt</li>
-              <li>Bereich für Neuigkeiten und Projekte — Beiträge stellen Sie selbst ein (oder wir übernehmen das in der SEO-Betreuung)</li>
-              <li>Lädt besonders schnell</li>
-              <li>4 Runden Änderungswünsche</li>
               <li>90 Minuten Änderungen pro Monat inklusive</li>
               <li>In 7–14 Werktagen online</li>
             </ul>
+            <details class="price-more">
+              <summary>Alle Leistungen anzeigen</summary>
+              <ul class="price-features">
+                <li>Texte und Bilder später selbst änderbar</li>
+                <li>Umzug Ihrer alten Website inklusive — ohne Ausfall</li>
+                <li>Besucher-Statistik inklusive (datenschutzkonform)</li>
+                <li>Newsletter-Anmeldung inklusive — mit Bestätigungs-Mail, wie es das Gesetz verlangt</li>
+                <li>Bereich für Neuigkeiten und Projekte — Beiträge stellen Sie selbst ein (oder wir übernehmen das in der SEO-Betreuung)</li>
+                <li>Lädt besonders schnell</li>
+                <li>4 Runden Änderungswünsche</li>
+              </ul>
+            </details>
             <div class="price-card-cta">
               <a href="anfrage.php?paket=platzhirsch" class="btn btn-dark">Platzhirsch anfragen</a>
               <a href="leistung-webdesign.php" class="price-detail-link">Alle Details zum Paket →</a>

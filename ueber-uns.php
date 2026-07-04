@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=39" />
+  <link rel="stylesheet" href="styles.css?v=40" />
   <link rel="canonical" href="https://[DOMAIN]/ueber-uns" />
   <meta name="robots" content="noindex,nofollow" />
   <meta property="og:type" content="website" />
@@ -148,7 +148,7 @@
         <p class="page-lead">„Kontaktlos“ heißt bei uns: keine Pflichttermine, keine Warteschleife, kein Hin und Her. Persönlich bleiben wir trotzdem — mit echten Antworten und kurzen Video-Updates, wenn es darauf ankommt.</p>
           </div>
           <figure class="hero-photo page-hero-media">
-              <picture><source srcset="assets/hero-team-contact-petrol.webp" type="image/webp" /><img src="assets/hero-team-contact-petrol.png" alt="Realistische Szene passend zum Seitenthema im Sartu-Stil" loading="eager" width="1792" height="1024" /></picture>
+              <picture><source srcset="assets/hero-team-contact-petrol.webp" type="image/webp" /><img src="assets/hero-team-contact-petrol.png" alt="Heller Sartu-Arbeitsplatz mit Laptop und Notizbuch" loading="eager" width="1792" height="1024" /></picture>
             </figure>
         </div>
     </section>

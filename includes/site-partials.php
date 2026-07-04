@@ -92,7 +92,7 @@ function render_site_footer(string $logoHref = './'): void
       </div>
 
       <div class="footer-bottom">
-        <span class="copy">© [JAHR] Sartu · Alle Rechte vorbehalten.</span>
+        <span class="copy">© <?= date('Y') ?> Sartu · Alle Rechte vorbehalten.</span>
         <div class="footer-social">
           <!-- GO-LIVE: [INSTAGRAM-URL] als <a>-Tag einsetzen --><span class="footer-social-soon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></span>
           <!-- GO-LIVE: [FACEBOOK-URL] als <a>-Tag einsetzen --><span class="footer-social-soon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M14 9h3V6h-3c-2.2 0-4 1.8-4 4v2H7v3h3v6h3v-6h3l1-3h-4v-2c0-.6.4-1 1-1z"/></svg></span>

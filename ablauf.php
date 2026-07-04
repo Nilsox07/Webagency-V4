@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=39" />
+  <link rel="stylesheet" href="styles.css?v=40" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -196,7 +196,7 @@
                     </div>
           </div>
           <figure class="hero-photo page-hero-media">
-              <picture><source srcset="assets/hero-process-pricing-petrol.webp" type="image/webp" /><img src="assets/hero-process-pricing-petrol.png" alt="Realistische Szene passend zum Seitenthema im Sartu-Stil" loading="eager" width="1792" height="1024" /></picture>
+              <picture><source srcset="assets/hero-process-pricing-petrol.webp" type="image/webp" /><img src="assets/hero-process-pricing-petrol.png" alt="Arbeitsplatz mit Projektplan und Zeitleiste eines Website-Projekts" loading="eager" width="1792" height="1024" /></picture>
             </figure>
         </div>
     </section>

@@ -16,6 +16,12 @@ Diese Punkte sind bewusst bis zum Go-live offen. **Reihenfolge bei Domain-Wechse
 - [ ] Social-Links als echte `<a>`-Tags einsetzen (`[INSTAGRAM-URL]`, `[FACEBOOK-URL]`, `[LINKEDIN-URL]`).
 
 ## Performance / Assets
+- [ ] **Fehlende Bild-Dateien ins Repo aufnehmen:** Es werden 27 Asset-Dateien referenziert, im Repo
+      liegen nur 4 (`contact-workspace-v1*`). Es fehlen u. a. `logo-wordmark-teal.svg`,
+      `logo-wordmark-teal-light.svg` (Header/Footer-Logo!), `logo-teal.png` (Favicon),
+      alle `hero-*-petrol.*`, `strategy-workspace-v2-petrol.*`, `quality-check-v1-petrol.*`,
+      `photo-placeholder-studio-workspace-petrol.*`. Falls sie nur auf dem Server liegen:
+      committen, sonst ist der Stand nicht reproduzierbar.
 - [ ] **Favicon fehlt:** favicon.ico / SVG-Favicon + `<link rel="icon">` auf allen Seiten ergänzen.
 - [x] Hero-Bilder und `assets/logo.png` als WebP-Varianten bereitgestellt und eingebunden.
 - [ ] **Platzhalter-Fotos ersetzen:** `assets/photo-placeholder-*.png/.webp` und `assets/hero-agency-workspace-v2.png/.webp` vor dem finalen Launch durch echte Sartu-Fotos ersetzen
@@ -43,6 +49,16 @@ Diese Punkte sind bewusst bis zum Go-live offen. **Reihenfolge bei Domain-Wechse
 ## Strukturierte Daten (erst mit echter Adresse)
 - [ ] LocalBusiness/ProfessionalService-Schema mit echter NAP ergänzen + Organization um `address` erweitern.
 - [ ] Organization `sameAs` mit den echten Social-URLs füllen.
+
+## Rechtstexte (Lücken aus dem Review, BERICHT-REVIEW.md Abschnitt 6)
+- [ ] Impressum: `[Vor- und Nachname / Firmenname]`, `[USt-IdNr.]` u. a. Musterdaten ersetzen.
+- [ ] AGB: `[X] Tagen` Zahlungsziel festlegen, `[Widerrufsbelehrung gesondert beifügen]`,
+      `[Monat/Jahr]` ersetzen.
+- [ ] Datenschutz: `[Anbieter und ggf. Auftragsverarbeitungsvertrag ergänzen]` füllen
+      (TDDDG-Umbenennung ist bereits erledigt).
+- [ ] Ratgeber: „Stand: Juni 2026" + `dateModified` beim nächsten Review aktualisieren
+      (ideal: eine zentrale Konstante). BAFA-Angabe „bis 31.12.2026" mit Wiedervorlage.
+- [ ] Schlusscheck vor Livegang: `grep -rE '\[([A-ZÄÖÜ/ -]+)\]' *.php includes/` → keine Treffer.
 
 ## Rechtliches / AGB (Nachtrag Extras + Mehrsprachigkeit)
 - [ ] **AGB von Kanzlei prüfen lassen:** Sprachversions-Klausel („Änderungen und Kontingente

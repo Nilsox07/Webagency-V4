@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=39" />
+  <link rel="stylesheet" href="styles.css?v=40" />
   <link rel="icon" href="assets/logo-teal.png" type="image/png" />
   <link rel="canonical" href="https://[DOMAIN]/" />
   <meta name="robots" content="noindex,nofollow" />
@@ -156,35 +156,7 @@
       </div>
     </section>
 
-    <!-- ===== ABSCHNITT 2 · Positionierung ===== -->
-    <section class="positioning-band" aria-label="Erst Klarheit, dann Design">
-      <div class="container positioning-grid">
-        <div class="positioning-copy">
-          <p class="eyebrow">Warum Sartu</p>
-          <h2>Erst Klarheit. Dann Design.</h2>
-          <p>Eine gute Firmenwebsite muss nicht laut sein. Sie muss schnell erklären, warum Sie der richtige Anbieter sind und wie der nächste Schritt aussieht.</p>
-        </div>
-        <div class="positioning-points">
-          <article>
-            <span>01</span>
-            <h3>Angebot verstehen</h3>
-            <p>Besucher erkennen in wenigen Sekunden, was Sie anbieten, für wen es passt und welche Lösung sie erwarten können.</p>
-          </article>
-          <article>
-            <span>02</span>
-            <h3>Vertrauen aufbauen</h3>
-            <p>Texte, Struktur, Bilder und Technik wirken zusammen, damit Ihr Unternehmen seriös, nahbar und professionell erscheint.</p>
-          </article>
-          <article>
-            <span>03</span>
-            <h3>Anfrage erleichtern</h3>
-            <p>Klare Wege zur Kontaktaufnahme senken die Hürde, ohne Besucher mit Druck, Pop-ups oder künstlichen Versprechen zu nerven.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== ABSCHNITT 3 · Problem & Lösung ===== -->
+    <!-- ===== ABSCHNITT 2 · Problem & Lösung ===== -->
     <section class="story-split-section" aria-label="Warum viele Websites nicht genug Anfragen bringen">
       <div class="container story-split">
         <div class="story-copy">

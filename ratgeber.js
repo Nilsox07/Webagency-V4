@@ -19,6 +19,7 @@
       const matchText = !q || normalize(card.textContent).includes(q);
       const show = matchCat && matchText;
       card.classList.toggle('is-hidden', !show);
+      if (typeof card.open === 'boolean') card.open = show && q.length >= 2;
       if (show) visible++;
     });
     if (count) {
