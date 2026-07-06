@@ -1,119 +1,159 @@
-# Sartu — Finales Leistungsportfolio (Beschluss Juli 2026)
+# Sartu — Finales Leistungsportfolio (Tesla-Edition)
 
-Ergebnis aus Marktrecherche (25 Wettbewerber, siehe MARKT-LEISTUNGSKATALOG.md) + Strategieentscheidung.
-Leitprinzip: **Einmal wenig Arbeit, dann Ruhe.** Kunde trifft beim Kauf genau EINE Entscheidung
-(Paketgröße). Kein Konfigurator. Alle Experten-Entscheidungen (Seitenzahl, SEO-Bedarf, Aufwand)
-liegen bei Sartu, nicht beim Kunden. Zwei unverwässerbare Alleinstellungen: **kontaktloser Verkauf**
-und **Texte immer inklusive**.
+Beschluss Juli 2026, nach Marktrecherche (328 Wettbewerber, siehe WETTBEWERBER-LISTE.md &
+MARKT-LEISTUNGSKATALOG.md) und Strategie-Durchsprache.
+
+## Leitprinzip
+**Tesla, nicht Mercedes.** Wenige Modelle, jedes voll ausgestattet, Festpreis, kontaktlos bestellt.
+Der Kunde trifft beim Kauf **eine** Entscheidung (Größe) — oder lässt sie sich vom Assistenten
+empfehlen (dann null Entscheidungen). Zwei unverwässerbare Alleinstellungen, die im ganzen Markt
+niemand hat: **kontaktloser Verkauf** + **Texte immer inklusive**. Alles läuft auf **Sartus Servern**
+(voller Betrieb, kein Code-Handover).
+
+Positionierung in einem Satz:
+> Firmenwebsites zum Festpreis, kontaktlos, komplett bei uns gehostet und gepflegt. Keine Shops,
+> kein Technik-Kram, keine Termine — Sie liefern Stichpunkte, wir bauen und betreiben.
 
 ---
 
-## 1. Website-Pakete (die einzige Kaufentscheidung)
+## 1. Die drei Modelle — die einzige Kaufentscheidung
 
-| Paket | Preis (statt bisher) | Rundum-Schutz | Neu eingepackt |
+| | **Start** | **Wachstum** | **Platzhirsch** |
 |---|---|---|---|
-| **Start** | 1.290 € (=) | 49 €/Mon. | Google-Bewertungen auf der Website |
-| **Wachstum** | **3.290 €** (statt 2.990) | 99 €/Mon. | Google-Profil-Setup, Bewertungs-Feed, Conversion-Tracking |
-| **Platzhirsch** | **6.490 €** (statt 5.990) | 249 €/Mon. | Logo Lite, Online-Terminbuchung (+ alles aus Wachstum) |
-| **Sonderprojekte** | ab 9.990 € (=) | individuell | Shop, Portal, Schnittstellen |
+| Preis | 1.290 € | **3.290 €** ⚠️ | **6.490 €** ⚠️ |
+| Für wen (Situation zuerst) | Gefunden werden, guter Eindruck | Aktiv Anfragen gewinnen | Nr. 1 der Region + Mitarbeiter finden |
+| Umfang (klein/Fußnote) | 1 Seite | bis 8 Seiten | bis 20 Seiten inkl. Team & Jobs |
+| Rundum-Schutz (fix) | 49 €/Mon. | 99 €/Mon. | 249 €/Mon. |
+| Zusätzlich drin | Google-Bewertungen | + Google-Profil, Tracking | + Logo, Terminbuchung |
 
-Start bleibt als Preisanker („ab 1.290 €") unangetastet. Kunde hat schon ein Logo (Platzhirsch)?
-→ kein Rabatt, sondern Tausch (Logo-Auffrischung oder 2 Zusatzseiten), vermeidet Preisdiskussion.
+⚠️ **Preis noch offen** — siehe Abschnitt „Offene Entscheidung".
+Karten führen mit der **Situation**, nicht mit der Seitenzahl (die steht klein daneben).
 
-## 2. Angebots-Extras (max. 5 — NUR im schriftlichen Angebot, kein Selbstbedienungs-Konfigurator)
+## 2. Alles inklusive — aber gedeckelt
 
-Kunde kreuzt nichts an; Sartu empfiehlt im Angebot, wenn es passt.
-1. **Branding-Upgrade** — Branding Pro 990 € / Corporate Design 1.890 € (vom inkludierten Logo)
-2. **Online-Terminbuchung** 290 € (für Start/Wachstum; in Platzhirsch drin)
-3. **KI-Chat-Assistent** 990 € + 79 €/Mon. (laufende Inferenzkosten → nie ins Paket)
-4. **Mehrsprachigkeit** +40 % je Sprache
-5. **Express-Lieferung** +50 %, mind. 390 €
+In **jedem** Paket: Texte, Bilder, SEO-Grundlage, KI-Suche-Vorbereitung, DSGVO, Besucher-Statistik.
+„Alles drin" heißt **alles Definierte**, nicht alles Unbegrenzte. Die Grenzen (= Schutz vor
+Gratisarbeit):
+- Seitenzahl 1 / 8 / 20 · Korrekturrunden 2 / 3 / 4 · Änderungsminuten im Schutz 30 / 90 Min.
+- Texte aus den Stichpunkten des Kunden, keine endlosen Neufassungen.
+- Alles darüber → weitere Seite 199 € oder Festpreis vorab (nie nach Stunden).
+- **Keine Shops, keine Konfiguratoren, keine Custom-Software** (siehe Abschnitt 7).
 
-## 3. Einmalige Check-Produkte (NEU — marktvalidiert, ruhe-kompatibel)
+## 3. Höchstens 2 Optionen (Ja/Nein, kein Menü)
 
-Einmalige Arbeit, schriftlicher Bericht, kein Folgeaufwand. Funktionieren als eigenständige
-Türöffner und als Upsell aus den Leadmagnet-Checklisten.
+Nur was sich strukturell nicht bündeln lässt, bleibt als Schalter:
+1. **Mehrsprachig? +40 % je Sprache** (echte Übersetzungsarbeit pro Sprache)
+2. **KI-Chat-Assistent? 990 € + 79 €/Mon.** (laufende KI-Kosten — nie „gratis" ins Paket)
 
-- **BFSG-Barrierefreiheits-Check — 490 €.** Prüfung einer bestehenden Website auf
-  Barrierefreiheit (WCAG/BFSG) + schriftlicher Maßnahmenbericht. Zielgruppe v.a. Praxen/Kanzleien
-  (Pflichtthema seit 2025). Vorbild: Friendventure, kulturbanause. Content da: ratgeber-bfsg.php.
-- **KI-Sichtbarkeits-Check (GEO-Audit) — 390 €.** „Wie erscheint Ihre Firma in ChatGPT, Gemini &
-  Perplexity?" Analyse + schriftliche Empfehlungen. Im KMU-Markt konkurrenzlos. Vorbild: morefire,
-  Peak Ace. Passt zur vorhandenen KI-Suche-Positionierung.
-- Optional als Bundle „Website-Doppelcheck 790 €" (beide zusammen) denkbar.
+Logo: in Platzhirsch inklusive; bei Start/Wachstum optionaler Zusatz. Kein Terminbuchungs-/
+Analytics-/Newsletter-Häkchen mehr — alles gefaltet.
 
-## 4. Laufend (monatlich)
+## 4. Ein Einstiegsprodukt (einmalig)
 
-- **Rundum-Schutz** 49/99/249 € — Pflicht, fest ans Paket gekoppelt, keine Wahl (unverändert).
-  Fast vollständig automatisierbar (Hosting, SSL, Backups, Updates, Monitoring, Rechtstext-Auto-
-  Update) → das ist die passive Ruhe-Rendite.
-- **SEO-Betreuung — 490 €/Monat, EIN Produkt, begrenzte Plätze.**
-  Statt bisher 5 Stufen (SEO Lite/Pro/Premium + Profil-Pflege Basic/Pro) nur noch eins.
-  Positionierung: „Wir betreuen laufend nur eine begrenzte Zahl von Websites — Anfrage stellen."
-  Inhalt in Klartext: Google-Profil aktuell halten, Bewertungen beantworten, monatlich eine Seite
-  auffrischen/neue Kundenfrage beantworten, KI-Suche-Optimierung, monatlicher Klartext-Report.
-  3 Monate Mindestlaufzeit, danach monatlich kündbar. Nur für Sartu-Websites.
-  Größerer Bedarf (mehrere Standorte) → individuelles Angebot (wie Sonderprojekte).
-  Wird NACH dem Go-Live verkauft, nicht beim Website-Kauf. Markt-Minimum liegt bei 500–1.000 €,
-  490 € ist bewusst knapp darunter, aber glaubwürdig (nicht die 149 € von früher).
+- **Website-Check — 490 €.** Ein Bericht statt zwei Audits: Ist die bestehende Seite barrierefrei
+  (BFSG), wird sie in Google **und** in ChatGPT & Co. gefunden, wo klemmt's? Einmalig, schriftlich,
+  kein Folgeaufwand. Türöffner + Upsell aus den Leadmagnet-Checklisten.
+  Marktbefund: BFSG-Audit als Festpreis-Einzelprodukt bietet **niemand** — eigenständiges Format.
 
-## 5. Zwei stehende Versprechen (ersetzen Stundensatz & Extraseiten-Stepper)
+## 5. Ein laufendes Zusatzprodukt (monatlich)
 
-- **„Jede spätere Seite: 199 € — Text inklusive."** Wachstumsversprechen für nach dem Go-Live,
-  keine Vorab-Rechenaufgabe. Ersetzt den Extraseiten-Stepper.
-- **„Sie zahlen nie nach Stunden. Kleine Änderungen sind im Rundum-Schutz enthalten, alles Größere
-  bekommt vorher einen Festpreis — schriftlich."** Der Stundensatz 150 €/Std. wandert komplett aus
-  dem Marketing in die AGB (interne Kalkulationsbasis).
-- **„Später größer? Sie zahlen nur die Differenz."** Paket-Upgrade (Start→Wachstum = 2.000 €).
-  Nimmt die Angst vor falscher Paketwahl.
+- **SEO-Betreuung — 490 €/Mon., eine Stufe, begrenzte Plätze.** Statt 5-Stufen-Matrix ein Produkt.
+  Google-Profil pflegen, Bewertungen beantworten, monatlich eine Seite auffrischen/Kundenfrage
+  beantworten, KI-Suche-Optimierung, Klartext-Monatsreport. 3 Mon. Mindestlaufzeit, dann monatlich
+  kündbar. **Nach dem Go-Live** verkauft, eine Ja/Nein-Frage. Markt-Minimum 500–1.000 € → 490 €
+  ist knapp darunter, aber glaubwürdig (die 49-€-Angebote im Markt sind reine Pflege).
 
-## 6. Vertriebs-/Marketing-Elemente (NEU)
+## 6. Drei stehende Versprechen (ersetzen jeden Kleinkram)
 
-- **Branchenexklusivität.** „Pro Ort und Branche arbeiten wir bevorzugt für einen Anbieter."
-  Starkes lokales Argument (Vorbild netzbekannt). Formulierung mit „bevorzugt/in der Regel", um bei
-  zwei Anfragen aus derselben Stadt+Branche flexibel zu bleiben.
-- **Leadmagnet-Checklisten (PDF gegen E-Mail).** BFSG-Checkliste + Website-Kosten-Checkliste.
-  Kontaktlos, einmalig erstellt, Content aus vorhandenen Ratgebern. BFSG-Checkliste → Upsell
-  BFSG-Check. Vorbild: Friendventure verschenkt genau so eine BFSG-Checkliste.
-- **Karriere-/Recruiting-Winkel.** „Mitarbeiter finden über die eigene Website" als eigener
-  Ratgeber + Verkaufswinkel (Fachkräftemangel Handwerk/Praxen). Kein neues Produkt — Team-/Jobs-
-  Seite steckt schon in Platzhirsch, wird nur als Nutzen sichtbar gemacht.
+- „Jede spätere Seite: **199 € — Text inklusive.**" (Wachstum nach Go-Live, keine Kaufentscheidung)
+- „Sie zahlen **nie nach Stunden.** Größeres bekommt vorher einen Festpreis — schriftlich."
+  (Stundensatz 150 €/Std. wandert als Kalkulationsbasis in die AGB)
+- „Später größer? **Nur die Differenz.**" (Start→Wachstum = 2.000 €)
 
-## 7. Was wegfällt
+## 7. Die leise Catch-Zeile (statt bepreistem Sonderprojekte-Kasten)
 
-- **Konfigurator / Warenkorb / Live-Preisrechner** (briefing.js Website-Plan, pricing-calc Live-
-  Summe, Varianten-Gruppen). Der Assistent bleibt — aber als **Lead-Qualifizierung + Paket-
-  Empfehlung**, endet bei „Für Sie passt Wachstum" + Kontakt. Keine anklickbaren Add-ons mehr.
-- **Extraseiten-Stepper** → ersetzt durch das 199-€-Versprechen.
-- **Sichtbarer Stundensatz** → in die AGB.
-- **~12 Einzel-Add-ons:** Analytics-Setup, Social-Feed, Newsletter, Google-Profil-Setup, Migration
-  (jetzt in Paketen); Zusatz-Korrekturrunde 140 € (deckt der Festpreis-Mechanismus); die 3
-  Textpakete 120/490/890 € (ersetzt durch 199-€-Seite inkl. Text; bleiben höchstens als Einzel-
-  produkt auf der Texte-Seite für Bestandskunden).
-- **SEO-Stufen-Matrix** (5 Stufen → 1 Produkt).
-- **Google Ads** — bewusst nicht ins Portfolio (laufendes Geschäft, widerspricht Ruhe-Ziel).
+Kein viertes Kästchen, keine „ab 9.990 €"-Karte. Nur eine unscheinbare Zeile unter den Preisen:
+> „Mehr als 20 Seiten, mehrere Standorte oder eine Sonderfunktion? Schreiben Sie uns — individueller Festpreis."
 
-## 8. Der Kunden-Lebenszyklus (inbound, nicht aktiv)
+Das ist das **Ventil**, wo alles „jenseits von normal" landet: Konfigurator, Shop, Portal,
+Login-Bereich, Preisrechner, Schnittstelle. **Regel: wiederverwendbarer Baustein → Option;
+Einzelanfertigung → nicht Standard.** Sartu lehnt ab oder nimmt es als echtes Einzelprojekt (mit
+offenen Augen: bricht die Vorlagen-Fertigung). Trick: die meisten „Konfigurator"-Wünsche sind
+überspezifiziert — echtes Bedürfnis ist oft ein gutes Anfrageformular (das ist im Paket drin).
 
-Bauen (bezahlt, einmalig) → Rundum-Schutz (automatisiert, stapelt sich) → alles Weitere nur, wenn
-der Kunde von selbst kommt, immer zum Festpreis. Automatische Statistik-Mail (Besucher-Statistik
-ist eh in jedem Paket) mit zwei stehenden Links („Seite dazubuchen 199 €", „Extras ansehen") —
-kein aktives Nachfassen, keine Kampagnen, keine Termine. Kontaktlos in beide Richtungen.
+## 8. Infrastruktur & Betrieb (alles bei Sartu)
+
+- Alle Websites laufen auf **Sartus Servern**. Kein Code-Handover, kein Selbst-Hosting.
+- Macht **Rundum-Schutz natürlich zur Pflicht** (Site lebt auf Sartu-Infra) und bindet Kunden über
+  den Betrieb — legitim, **muss aber transparent sein**: „Ihre Website läuft auf unseren Servern;
+  der Rundum-Schutz hält sie online" (AGB + Seite). Kein Fallen-Gefühl.
+- **DSGVO/AVV:** Sartu hostet fremde Kundendaten → Auftragsverarbeitungsvertrag mit jedem Kunden
+  (Go-Live-Liste).
+- **Kein Umzug/Migration** als Leistung — die Seite entsteht frisch aus dem Briefing, nicht durch
+  Import der alten. Nur die bestehende **Domain** wird verbunden (trivialer DNS-Eintrag beim
+  Go-Live). **Kein E-Mail-Hosting** (Support-Fass).
+- „Nur-Design / Code-Lieferung ohne Betrieb"-Produkt entfällt (widerspricht dem Modell).
+
+## 9. Der Ablauf — zweistufig, möglichst kontaktlos
+
+**Stufe 1 — öffentlich, vor der Anfrage (~2 Min., fast nur Klicks):** nur so viel, dass Paket
+empfohlen + Lead eingesammelt wird.
+- Branche · **Leistungsbereiche** (1 / 2–5 / 6+ → erzeugt Sitemap-Größe + Paket) · Ziel · Team/Jobs
+  gewünscht? · Schon eine Website? (URL → **Content-Gerüst vorbefüllen**, nicht Migration) · E-Mail
+- Ausgabe: „Für Sie passt Wachstum — Festpreis 3.290 €, unverbindlich." Kurz = wenig Absprung.
+
+**Stufe 2 — im Kundenportal, nach dem Ja (darf lang sein):** das volle Briefing.
+- Sitemap bestätigen/anpassen · Stichpunkte je Seite · Farben, Logo, Bilder, Uploads
+- Der Assistent leitet die Seiten aus den Leistungen ab (**jede Leistung = 1 Seite** + Standard-
+  seiten Start/Über-uns/Kontakt). Kunde beantwortet Geschäfts-Fragen, Struktur fällt heraus.
+- Ergebnis: vollständiges Briefing → **Freigabe = Scope-Grenze** (alles danach = Festpreis-Zusatz).
+- Deep-Arbeit passiert nur für committete Kunden, nicht für Tire-Kicker.
+
+Für klare Fälle (Handwerk/Praxis/Kanzlei) ~90 % vollautomatisch; für dünne Antworten **eine
+schriftliche** Rückfrage (kein Anruf) → daher „möglichst" kontaktlos.
+
+## 10. Vertrieb & Marketing (kostet wenig, wirkt lokal)
+
+- **Branchenexklusivität** („pro Ort und Branche bevorzugt für einen Anbieter" — „bevorzugt", um
+  bei Doppel-Anfragen flexibel zu bleiben).
+- **Leadmagnet-Checklisten** als PDF gegen E-Mail: BFSG-Checkliste (→ Upsell Website-Check) +
+  Website-Kosten-Checkliste.
+- **Karriere-Winkel:** „Mitarbeiter finden über die eigene Website" als Ratgeber/Verkaufswinkel
+  (Team & Jobs steckt in Platzhirsch). Kein neues Produkt.
+- **Kein Google Ads** (laufendes Geschäft, widerspricht Ruhe-Ziel).
+
+## 11. Was wegfällt
+
+Konfigurator / Warenkorb / Live-Preisrechner (Assistent bleibt als Empfehlung + Briefing) ·
+Extraseiten-Stepper · sichtbarer Stundensatz (→ AGB) · ~12 Einzel-Add-ons · SEO-Stufen-Matrix ·
+Shops / E-Commerce · bepreister Sonderprojekte-Kasten · „Umzug inklusive" · E-Mail-Postfächer ·
+„Nur-Design"-Produkt.
+
+## 12. Kundenlebenszyklus (inbound, kein aktives Nachfassen)
+
+Bauen (bezahlt, einmalig) → Rundum-Schutz (automatisiert, stapelt sich = passive Rendite) → alles
+Weitere nur, wenn der Kunde von selbst kommt. Automatische Besucher-Statistik-Mail (ist in jedem
+Paket) mit zwei stehenden Links („Seite dazu 199 €", „SEO-Betreuung ansehen"). Keine Kampagnen,
+keine Termine. Kontaktlos in beide Richtungen.
 
 ---
 
-## Umsetzungs-Umfang (was der Umbau berührt)
+## Offene Entscheidung: die Paketpreise
 
-- **pricing.js** eindampfen: 3 Pakete (neue Preise) + 4 Extras + 2 Checks + 1 SEO-Produkt;
-  ~12 Add-ons, SEO-Stufen, Extraseiten-Stepper, sichtbarer Stundensatz raus.
-- **briefing.js / briefing.php**: Website-Plan + Live-Preis + Varianten-Gruppen entfernen,
-  Assistent endet bei Empfehlung + Kontakt. pricing-calc.js/pricing.test.js anpassen.
-- **preise.php**: radikal vereinfachen (3 Karten + Sonderprojekte, Extras als Angebots-Hinweis,
-  Checks als eigener Block, stehende Versprechen). Extras-Grid & Zahlungslogik straffen.
-- **index.php, leistung-webdesign.php, leistung-seo.php, leistung-lokales-seo.php,
-  leistung-wartung.php, leistung-texte.php, leistung-logo.php**: Preise/Wording nachziehen,
-  SEO-Stufen → 1 Produkt, Stundensatz raus.
-- **Neu:** Check-Produkte sichtbar machen (eigener Abschnitt oder 2 kleine Leistungsseiten),
-  Leadmagnet-Checklisten (PDF + E-Mail-Gate), Karriere-Ratgeber, Branchenexklusivität-Baustein.
-- **agb.php**: Stundensatz als Kalkulationsbasis, SEO-Mindestlaufzeit, Upgrade-Differenz.
-- Alle Preisnennungen + JSON-LD + Ratgeber-Zahlen nachziehen; Cache-Buster erhöhen; Tests grün.
+Das Einzige, was noch nicht final ist. Beim Bündeln der Kleinteile (Google-Profil, Tracking, Feed,
+Logo, Terminbuchung) in Wachstum/Platzhirsch wurde der Preis mit angehoben — sonst wäre es
+Gratisarbeit. Zwei Optionen:
+- **Vorschlag: 1.290 / 3.290 / 6.490 €** (Erhöhung deckt die eingebündelten Leistungen).
+- **Alt behalten: 1.290 / 2.990 / 5.990 €** (dann ist ein Teil der Bündelung eine „Alles-drin-
+  Dividende" auf Kosten der Marge).
+
+Entscheidung hängt am realen **Bauaufwand pro Paket** (Stunden × Ziel-Stundenlohn). Start bleibt in
+beiden Fällen 1.290 € (Preisanker). Marktvergleich: drela nimmt für Vergleichbares 4.890–9.390 €,
+Festpreis-Einstieg im Markt 478–2.990 € — Sartus Gefüge sitzt sauber.
+
+## Umbau-Umfang (nächster Schritt nach Preis-Entscheidung)
+
+pricing.js eindampfen · briefing.js/portal zweistufig (Stufe 1 kurz öffentlich, Stufe 2 Portal) ·
+Konfigurator/Live-Preis/Stepper raus · preise.php auf 3 Modelle + Catch-Zeile + Website-Check ·
+Leistungsseiten & JSON-LD nachziehen · „Umzug/E-Mail/Shop/Nur-Design" entfernen · Server-/Hosting-
+Aussage + AVV/„offline bei Kündigung" in AGB · SEO auf 1 Produkt · Tests grün · Cache-Buster.
