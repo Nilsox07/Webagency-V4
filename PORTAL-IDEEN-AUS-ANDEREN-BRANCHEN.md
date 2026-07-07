@@ -194,3 +194,36 @@ Fast alle 💎-Ideen zahlen auf **drei Ziele** ein:
 
 Das ist der Filter für jede künftige Idee: *Sichert sie Umsatz, bindet sie Kunden, oder
 skaliert sie mich?* Wenn nichts davon → nicht bauen.
+
+---
+
+## Entscheidungen aus dem Gespräch (Stand laufend)
+
+Durchgang durch die „Top 12 Neu" mit Nils — was bleibt, was fliegt, was sich ändert:
+
+- **#1 Anfragen im Kundenportal** — mit Vorsicht. Ein nacktes „0 Anfragen" geht nach hinten
+  los. Deshalb: **Schlagzeile = Besucher/Findbarkeit** (fast immer positiv), Anfragen nur als
+  Bonus mit Kontext. Schwache Zahl führt **immer zu einem nächsten Schritt** (SEO-Angebot),
+  nie ins Leere. Anfangsphase (~8 Wochen) abfedern: „deine Seite kommt bei Google an" statt
+  harter Konversionszahlen. **Kein** manuelles Erfassen von Offline-/Telefon-Anfragen (= Arbeit).
+- **#2 „Dein Monat bei Sartu"-Report** — ✅ bauen, aber **vollautomatisch** (null Handarbeit)
+  und gefüllt mit dem, was Sartu geleistet hat (Uptime, Updates, Backups, Besucher) — alles
+  verlässlich positiv. Riskante Anfrage-Zahlen bewusst raus. Bester Kündigungs-Schutz.
+- **#3 Mahn-Automatik + SEPA-Wiederholung** — ✅ ja.
+- **#4 Angebot digital annehmen (E-Signatur) → Projekt+Rechnung** — ✅ ja.
+- **#5 Freigabe-Schleifen** — ✅ ja, **erweitert**: Entwurf auf Sub-Domain (`vorschau.sartu.de/…`),
+  Kunde setzt **Notizen direkt auf der Seite** („Bild größer, Text weg"), du bekommst sie als
+  Liste. „Freigeben"-Knopf, wenn zufrieden. Killt das E-Mail-Ping-Pong im Projekt.
+- **#6 Impersonate „In Kundenkonto wechseln"** — ✅ ja.
+- **#7 BFSG- + SEO-Ampel je Seite** — ✅ ja.
+- **#8 KI im Editor** — **aufgeteilt**: **Auto-Alt-Texte bleiben** (unsichtbare Automatik,
+  BFSG, spart *dir* Arbeit — kein Baukasten). **KI-Textassistent für den Kunden RAUS** —
+  macht's zum „mach's selbst"-Baukasten, widerspricht „Sartu macht das". KI nutzt **Nils
+  intern**, um Texte schneller zu erstellen; nach außen bleibt „Sartu schreibt deine Texte".
+- **#9 Projekt-Vorlagen + Automatisierungen** — ✅ **Kern-Hebel**, um große Agenturen
+  auszuperformen. Hohe Priorität.
+- **#10 Zeiterfassung** — ❌ raus. Fixpreis-Modell, „nicht für Zeit arbeiten".
+- **#11 Termin-Buchung** — ❌ raus. Widerspricht dem Versprechen „schriftlich, ohne Termin".
+- **#12 Öffentliche Status-Seite** — ❌ streichen (bzw. viel später). Nutzen v. a. für große
+  Anbieter; stellt Ausfälle öffentlich zur Schau. Uptime-Beweis lieber privat im Cockpit +
+  Monatsreport.
