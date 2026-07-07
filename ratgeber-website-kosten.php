@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Was kostet eine Website 2026? Ehrliche Zahlen: One-Pager ab 1.290 €, Firmenwebsite bis 5.990 €, laufend ab 49 €/Monat — plus versteckte Kosten." />
+  <meta name="description" content="Was kostet eine Website 2026? Ehrliche Zahlen: One-Pager ab 1.290 €, Firmenwebsite bis 6.490 €, laufend ab 49 €/Monat — plus versteckte Kosten." />
   <title>Was kostet eine Website 2026? Preise ehrlich erklärt | Sartu</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,7 +16,7 @@
   <meta property="og:locale" content="de_DE" />
   <meta property="og:url" content="https://[DOMAIN]/ratgeber-website-kosten" />
   <meta property="og:title" content="Was kostet eine Website 2026? Preise ehrlich erklärt | Sartu" />
-  <meta property="og:description" content="Onepager ab 1.290 €, Firmenwebsite bis 5.990 €, laufend ab 49 €/Monat — woraus sich der Preis zusammensetzt und welche versteckten Kosten es gibt." />
+  <meta property="og:description" content="Onepager ab 1.290 €, Firmenwebsite bis 6.490 €, laufend ab 49 €/Monat — woraus sich der Preis zusammensetzt und welche versteckten Kosten es gibt." />
   <meta property="og:image" content="https://[DOMAIN]/[OG-IMAGE]" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Was kostet eine Website 2026? Preise ehrlich erklärt | Sartu" />
@@ -132,7 +132,7 @@
       {
         "@type": "Article",
         "headline": "Was kostet eine Website 2026? Ehrliche Zahlen statt „kommt drauf an“.",
-        "description": "Was kostet eine Website 2026? Ehrliche Zahlen: Onepager ab 1.290 €, Firmenwebsite bis 5.990 €, laufende Kosten ab 49 €/Monat — plus versteckte Kosten, auf die Sie achten sollten.",
+        "description": "Was kostet eine Website 2026? Ehrliche Zahlen: Onepager ab 1.290 €, Firmenwebsite bis 6.490 €, laufende Kosten ab 49 €/Monat — plus versteckte Kosten, auf die Sie achten sollten.",
         "datePublished": "2026-06-10",
         "dateModified": "2026-06-10",
         "author": {
@@ -178,7 +178,7 @@
 
     <section class="hero-answer-strip">
       <div class="container">
-        <p class="answer-first on-light">Eine professionelle Website kostet 2026 bei Agenturen nach Erfahrungswerten typischerweise zwischen rund 1.000&nbsp;€ (Onepager) und 10.000+&nbsp;€ (umfangreiche Firmenwebsite). Bei Sartu zahlen Sie <strong>Festpreis: ab 1.290&nbsp;€ (Onepager) bis 5.990&nbsp;€ (bis 20 Seiten), Sonderprojekte ab 9.990&nbsp;€</strong> — plus laufende Wartung ab 49&nbsp;€/Monat.</p>
+        <p class="answer-first on-light">Eine professionelle Website kostet 2026 bei Agenturen nach Erfahrungswerten typischerweise zwischen rund 1.000&nbsp;€ (Onepager) und 10.000+&nbsp;€ (umfangreiche Firmenwebsite). Bei Sartu zahlen Sie <strong>Festpreis: ab 1.290&nbsp;€ (Onepager) bis 6.490&nbsp;€ (bis 20 Seiten), größere Vorhaben auf Anfrage</strong> — plus laufende Wartung ab 49&nbsp;€/Monat.</p>
         <div class="decision-grid two">
           <article class="decision-card">
             <span class="label">Vergleich</span>
@@ -217,9 +217,9 @@
           <h2 id="mehrseitig">Was kostet eine mehrseitige Firmenwebsite?</h2>
           <p>Sobald Sie mehrere Leistungen haben, die <strong>einzeln bei Google gefunden</strong> werden sollen, brauchen Sie eigene Unterseiten — pro Suchbegriff in der Regel eine Seite. Damit steigt der Aufwand für Struktur, Texte und SEO.</p>
           <ul>
-            <li><strong>Bis 8 Seiten (Sartu Wachstum): 2.990&nbsp;€</strong> — inklusive OnPage-SEO für jede Seite (Title, Meta, Überschriftenstruktur, je 1 Fokus-Keyword) und 3 Korrekturrunden.</li>
-            <li><strong>Bis 20 Seiten (Sartu Platzhirsch): 5.990&nbsp;€</strong> — zusätzlich einmaliges Local-SEO-Setup mit Google-Unternehmensprofil und messbaren Ladezeit-Zielwerten.</li>
-            <li><strong>Sonderprojekte (Portale, Shops, Schnittstellen): ab 9.990&nbsp;€</strong> mit individuellem Pflichtenheft.</li>
+            <li><strong>Bis 8 Seiten (Sartu Wachstum): 3.290&nbsp;€</strong> — inklusive OnPage-SEO für jede Seite (Title, Meta, Überschriftenstruktur, je 1 Fokus-Keyword) und 3 Korrekturrunden.</li>
+            <li><strong>Bis 20 Seiten (Sartu Platzhirsch): 6.490&nbsp;€</strong> — zusätzlich einmaliges Local-SEO-Setup mit Google-Unternehmensprofil und messbaren Ladezeit-Zielwerten.</li>
+            <li><strong>Größere Vorhaben (Portale, mehrere Standorte, Schnittstellen): individueller Festpreis</strong> nach kurzer Abstimmung.</li>
           </ul>
           <p>Alle Details und was genau enthalten ist: <a href="leistung-webdesign.php">Website erstellen lassen zum Festpreis</a> und <a href="preise.php">alle Festpreis-Pakete im Detail</a>.</p>
 
@@ -228,7 +228,7 @@
           <ul>
             <li><strong>Hosting &amp; Wartung:</strong> Server, SSL-Zertifikat, Sicherheits-Updates, Backups. Bei Sartu ist das gebündelt in <a href="leistung-wartung.php">Rundum-Schutz ab 49&nbsp;€/Monat</a> (Pflicht bei jeder Sartu-Website) — mit täglichen externen Backups und Uptime-Monitoring im 5-Minuten-Takt.</li>
             <li><strong>Domain:</strong> Ihre Internetadresse kostet typischerweise nur <strong>wenige Euro pro Jahr</strong> — preislich fast vernachlässigbar.</li>
-            <li><strong>Optionale laufende Leistungen:</strong> z.&nbsp;B. die SEO-Betreuung ab 149&nbsp;€/Monat (inkl. Google-Profil-Pflege) — sinnvoll, wenn Sichtbarkeit aktiv wachsen soll, aber kein Muss zum Start.</li>
+            <li><strong>Optionale laufende Leistungen:</strong> z.&nbsp;B. die SEO-Betreuung 490&nbsp;€/Monat (inkl. Google-Profil-Pflege, begrenzte Plätze) — sinnvoll, wenn Sichtbarkeit aktiv wachsen soll, aber kein Muss zum Start.</li>
           </ul>
 
           <h2 id="vergleich">Baukasten, Freelancer oder Agentur — der ehrliche Vergleich</h2>
@@ -241,18 +241,18 @@
           <p>Die Liste, die Ihnen kaum ein Anbieter freiwillig gibt:</p>
           <ul>
             <li><strong>Nachträge statt Festpreis:</strong> „ab“-Preise ohne definierte Leistung wachsen gern. Achten Sie auf eine schriftliche Leistungsbeschreibung mit konkreten Mengen (Seiten, Korrekturrunden, Bilder).</li>
-            <li><strong>Stundensatz-Takte:</strong> Manche Anbieter runden jede Kleinigkeit pauschal auf Viertelstunden auf. Fairer ist eine feingranulare Abrechnung: Sartu rechnet Mehraufwand im 5-Minuten-Takt ab (150&nbsp;€/Std), statt stundenweise aufzurunden.</li>
+            <li><strong>Stundensatz-Takte:</strong> Manche Anbieter runden jede Kleinigkeit pauschal auf Viertelstunden auf. Fairer ist Klarheit vorab: Bei Sartu zahlen Sie nie nach Stunden — kleine Änderungen sind im Rundum-Schutz enthalten, alles Größere bekommt vorher einen Festpreis.</li>
             <li><strong>Pflicht-Abos ohne Leistung:</strong> Wartungspauschalen sind sinnvoll — aber nur, wenn drinsteht, was Sie dafür erhalten (Backups? Updates? Änderungsminuten? Reaktionszeit?).</li>
             <li><strong>Extra-Kosten für Selbstverständliches:</strong> SSL, Mobil-Optimierung oder Cookie-Banner gehören 2026 in den Grundpreis, nicht auf die Zusatzrechnung.</li>
-            <li><strong>Korrekturrunden:</strong> Klären Sie vorher, wie viele Feedback-Runden enthalten sind und was eine weitere kostet (bei Sartu: nach Aufwand, 150&nbsp;€/Std. im 5-Minuten-Takt).</li>
+            <li><strong>Korrekturrunden:</strong> Klären Sie vorher, wie viele Feedback-Runden enthalten sind (bei Sartu: 1–3 je Paket) und dass Größeres vorab einen Festpreis bekommt — nicht nach Stunden.</li>
           </ul>
 
           <h2 id="budget">Wann lohnt sich welches Budget?</h2>
           <ul>
             <li><strong>Um 1.290&nbsp;€ (Onepager):</strong> Sie haben EIN klares Angebot, möchten schnell professionell online sein und vor allem gefunden und kontaktiert werden.</li>
-            <li><strong>Um 2.990&nbsp;€ (bis 8 Seiten):</strong> Sie haben mehrere Leistungen, die einzeln bei Google ranken sollen — der Standard für die meisten kleinen Unternehmen.</li>
-            <li><strong>Um 5.990&nbsp;€ (bis 20 Seiten):</strong> Sie möchten regional dominieren: viele Leistungs- und Themenseiten plus Local-SEO-Setup mit Google-Unternehmensprofil.</li>
-            <li><strong>Ab 9.990&nbsp;€ (Sonderprojekte):</strong> Portale, Buchungssysteme, Schnittstellen, Mehrsprachigkeit — alles mit individuellem Pflichtenheft.</li>
+            <li><strong>Um 3.290&nbsp;€ (bis 8 Seiten):</strong> Sie haben mehrere Leistungen, die einzeln bei Google ranken sollen — der Standard für die meisten kleinen Unternehmen.</li>
+            <li><strong>Um 6.490&nbsp;€ (bis 20 Seiten):</strong> Sie möchten regional dominieren: viele Leistungs- und Themenseiten plus Local-SEO-Setup mit Google-Unternehmensprofil.</li>
+            <li><strong>Größere Vorhaben:</strong> Portale, Buchungssysteme, Schnittstellen oder mehrere Standorte — individueller Festpreis nach kurzer Abstimmung.</li>
           </ul>
           <p>Übrigens: Unter bestimmten Bedingungen kann Ihr Website-Projekt förderfähig sein — was geht und was nicht, erklärt der Ratgeber <a href="ratgeber-foerderung.php">Förderung für Websites &amp; Digitalisierung</a>.</p>
 

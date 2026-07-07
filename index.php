@@ -227,8 +227,8 @@
             <ul class="price-features">
               <li>Alles Wichtige auf einer Seite</li>
               <li>Alle Texte inklusive — Sie liefern nur Stichpunkte</li>
-              <li>Umzug &amp; Besucher-Statistik inklusive</li>
-              <li>In 7 Werktagen online</li>
+              <li>Gefunden bei Firmennamen-Suche · Backend inklusive</li>
+              <li>Besucher-Statistik inklusive · in 7 Werktagen online</li>
             </ul>
             <a href="anfrage.php?paket=start" class="btn btn-dark">Start anfragen</a>
           </article>
@@ -238,12 +238,12 @@
             <span class="price-badge">Meistgewählt</span>
             <h3 class="price-name">Wachstum</h3>
             <p class="price-situation">Für Sie, wenn Ihre Website aktiv neue Anfragen bringen soll.</p>
-            <div class="price-amount">2.990&nbsp;<span class="price-unit">€</span></div>
+            <div class="price-amount">3.290&nbsp;<span class="price-unit">€</span></div>
             <p class="price-care">+ 99 €/Monat Rundum-Schutz <span>— gehört dazu</span></p>
             <ul class="price-features">
-              <li>Bis zu 8 Seiten — jede Leistung einzeln</li>
-              <li>Alle Texte inklusive — Sie liefern nur Stichpunkte</li>
-              <li>Umzug &amp; Besucher-Statistik inklusive</li>
+              <li>Bis zu 8 Seiten — jede Leistung einzeln gefunden</li>
+              <li>Alle Texte inklusive · Google-Profil &amp; Anfragen messen</li>
+              <li>Inhalte selbst ändern · Besucher-Statistik inklusive</li>
               <li>In 7–14 Werktagen online</li>
             </ul>
             <a href="anfrage.php?paket=wachstum" class="btn btn-primary">Wachstum anfragen <span class="arrow">→</span></a>
@@ -253,20 +253,19 @@
           <article class="price-card">
             <h3 class="price-name">Platzhirsch</h3>
             <p class="price-situation">Für Sie, wenn Sie in Ihrer Region die Nummer 1 sein möchten.</p>
-            <div class="price-amount">5.990&nbsp;<span class="price-unit">€</span></div>
+            <div class="price-amount">6.490&nbsp;<span class="price-unit">€</span></div>
             <p class="price-care">+ 249 €/Monat Rundum-Schutz <span>— gehört dazu</span></p>
             <ul class="price-features">
               <li>Bis zu 20 Seiten inkl. Team &amp; Jobs</li>
-              <li>Alle Texte inklusive — Sie liefern nur Stichpunkte</li>
-              <li>Umzug, Besucher-Statistik &amp; Newsletter inklusive</li>
-              <li>90 Minuten Änderungen pro Monat inklusive</li>
+              <li>Logo &amp; Online-Terminbuchung inklusive</li>
+              <li>Alle Texte inklusive · Newsletter &amp; News-/Blog-Bereich</li>
               <li>In 7–14 Werktagen online</li>
             </ul>
             <a href="anfrage.php?paket=platzhirsch" class="btn btn-dark">Platzhirsch anfragen</a>
           </article>
         </div>
 
-        <p class="extra-pages-note">Größeres Vorhaben — Shop, Kundenportal, mehrere Standorte? <strong>Sonderprojekte ab 9.990 €.</strong> <a href="preise.php">Alle Pakete &amp; Details ansehen →</a></p>
+        <p class="extra-pages-note">Größeres Vorhaben — mehr als 20 Seiten oder mehrere Standorte? <strong>Individueller Festpreis.</strong> <a href="preise.php">Alle Pakete &amp; Details ansehen →</a></p>
 
         <div class="home-services-editorial" aria-label="Sartu Leistungen">
           <div class="home-services-head">

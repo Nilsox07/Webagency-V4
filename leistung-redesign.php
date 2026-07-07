@@ -297,7 +297,7 @@
         </div>
 
         <div class="price-bridge">
-          <p>Ein Redesign gibt es zu den normalen Paketgrößen: <strong>Start 1.290 € · Wachstum 2.990 € · Platzhirsch 5.990 €</strong> — jeweils + Rundum-Schutz. <a href="preise.php">Alle Details und Extras →</a></p>
+          <p>Ein Redesign gibt es zu den normalen Paketgrößen: <strong>Start 1.290 € · Wachstum 3.290 € · Platzhirsch 6.490 €</strong> — jeweils + Rundum-Schutz. <a href="preise.php">Alle Details und Extras →</a></p>
         </div>
       </div>
     </section>

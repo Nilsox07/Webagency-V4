@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Website erstellen lassen ab 1.290 € Festpreis: mobil-optimiert, Basis-SEO, DSGVO, fertig in 7–14 Werktagen. Bis 20 Seiten ab 5.990 €. Jetzt Website-Anfrage starten." />
+  <meta name="description" content="Website erstellen lassen ab 1.290 € Festpreis: mobil-optimiert, Basis-SEO, DSGVO, fertig in 7–14 Werktagen. Bis 20 Seiten ab 6.490 €. Jetzt Website-Anfrage starten." />
   <link rel="canonical" href="https://[DOMAIN]/leistung-webdesign" />
   <meta name="robots" content="noindex,nofollow" />
   <meta property="og:type" content="website" />
@@ -72,7 +72,7 @@
             {
               "@type": "Offer",
               "name": "Wachstum",
-              "price": "2990",
+              "price": "3290",
               "priceCurrency": "EUR",
               "itemOffered": {
                 "@type": "Service",
@@ -83,7 +83,7 @@
             {
               "@type": "Offer",
               "name": "Platzhirsch",
-              "price": "5990",
+              "price": "6490",
               "priceCurrency": "EUR",
               "itemOffered": {
                 "@type": "Service",
@@ -325,12 +325,12 @@
           <p>Vom One-Pager bis zur 20-seitigen Firmenwebsite. Der Rundum-Schutz gehört bei jedem Paket dazu.</p>
         </div>
         <div class="price-bridge">
-          <p>Website erstellen lassen gibt es in drei Größen: <strong>Start 1.290 € · Wachstum 2.990 € · Platzhirsch 5.990 €</strong> — jeweils + Rundum-Schutz. <a href="preise.php">Alle Details und Extras →</a></p>
+          <p>Website erstellen lassen gibt es in drei Größen: <strong>Start 1.290 € · Wachstum 3.290 € · Platzhirsch 6.490 €</strong> — jeweils + Rundum-Schutz. <a href="preise.php">Alle Details und Extras →</a></p>
         </div>
         <div class="scope-card">
           <div class="scope-cols has-know">
             <div class="scope-list scope-in"><h4>Das ist drin</h4><ul><li>Mobil-optimiert (responsive)</li><li>Kontaktformular &amp; Google-Maps-Einbindung</li><li>Bildoptimierung &amp; Komprimierung</li><li>Basis-SEO (Titel, Meta, Sitemap)</li><li>SSL &amp; DSGVO-Setup, Cookie-Consent</li><li>Impressum &amp; Datenschutz eingebunden</li></ul></div>
-            <div class="scope-list scope-extra"><h4>Das kostet extra</h4><ul><li>Texte über das Paketkontingent hinaus — 120 € je Seite</li><li>Logo — als Extra für 490 € (3 Entwürfe, alle Rechte)</li><li>Laufende Google-Betreuung — die SEO-Betreuung ab 149 €/Monat</li><li>Funktionen wie Online-Terminbuchung (290 €) oder der KI-Chat-Assistent (990 € + 79 €/Monat)</li><li>Sonderwünsche wie Kundenbereich oder Shop — Festpreis im Angebot</li><li>Zusätzliche Änderungsrunden nach Freigabe — 150 €/Std, abgerechnet im 5-Minuten-Takt</li></ul></div>
+            <div class="scope-list scope-extra"><h4>Das kostet extra</h4><ul><li>Weitere Seiten später — 199 € je Seite, Text inklusive</li><li>Logo — als Extra für 490 € (in Platzhirsch inklusive)</li><li>Laufende SEO-Betreuung — 490 €/Monat (begrenzte Plätze)</li><li>Online-Terminbuchung (290 €, in Platzhirsch inklusive) oder KI-Chat-Assistent (990 € + 79 €/Monat)</li><li>Größere Änderungen nach Freigabe — vorab Festpreis, nie nach Stunden</li></ul></div>
             <div class="scope-list scope-know"><h4>Gut zu wissen</h4><ul><li>Sie liefern Stichpunkte zu Ihrer Firma und Ihren Leistungen — die Texte schreiben wir daraus</li><li>Bilder und Logo, falls vorhanden (kein Logo? Gibt's als Extra)</li><li>Zeitnahe Freigaben, damit Ihr Termin hält</li><li>Ihre Internetadresse läuft über Sie — eine bestehende ziehen wir kostenlos mit um</li></ul></div>
           </div>
         </div>
