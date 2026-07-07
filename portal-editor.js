@@ -353,7 +353,9 @@
       var help = section.customer_help || section.help;
       if (help) card.appendChild(el('p', 'muted ed-sec-help', help));
       if (mode === 'edit') {
-        section.fields.forEach(function (field) { card.appendChild(buildField(section.key, field)); });
+        var wrap = el('div', section.key === 'design' ? 'ed-colorgrid' : '');
+        section.fields.forEach(function (field) { wrap.appendChild(buildField(section.key, field)); });
+        card.appendChild(wrap);
       } else {
         renderToggleSection(card, section);
       }
@@ -566,8 +568,17 @@
         { key: 'telefon', label: 'Telefon', type: 'tel', max: 60 },
         { key: 'email', label: 'E-Mail', type: 'email', max: 120 }
       ] },
-      { key: 'design', label: 'Design', customer: 'edit', help: 'Ihre Akzentfarbe — Wähler, Hex oder Vorschlag.', fields: [
-        { key: 'akzentfarbe', label: 'Akzentfarbe', type: 'color' }
+      { key: 'design', label: 'Farben', customer: 'edit', help: 'Alle Farben Ihrer Website — je Farbe ein Wähler, Hex-Code oder Vorschlag.', fields: [
+        { key: 'akzentfarbe', label: 'Akzent (Buttons, Links)', type: 'color' },
+        { key: 'akzent_text', label: 'Schrift auf Buttons', type: 'color' },
+        { key: 'text', label: 'Fließtext', type: 'color' },
+        { key: 'ueberschrift', label: 'Überschriften', type: 'color' },
+        { key: 'text_leise', label: 'Gedämpfter Text', type: 'color' },
+        { key: 'hintergrund', label: 'Seitenhintergrund', type: 'color' },
+        { key: 'abschnitt', label: 'Abschnitts-Hintergrund', type: 'color' },
+        { key: 'karte', label: 'Karten-Hintergrund', type: 'color' },
+        { key: 'rahmen', label: 'Rahmen & Linien', type: 'color' },
+        { key: 'navigation', label: 'Navigationsleiste', type: 'color' }
       ] }
     ] };
     var impressumTemplate = { label: 'Impressum', sections: [
@@ -602,7 +613,7 @@
             ] },
             oeffnungszeiten: { zeiten: { Montag: '7–18 Uhr', Samstag: '7–13 Uhr' }, hinweis: 'An Feiertagen geschlossen' },
             kontakt: { adresse: 'Hauptstraße 1\n12345 Musterstadt', telefon: '030 123456', email: 'hallo@muster-baeckerei.de' },
-            design: { akzentfarbe: '#b45309' }
+            design: { akzentfarbe: '#b45309', abschnitt: '#faf5ee', ueberschrift: '#3d2b1f' }
           } },
         aktuelles: { slug: 'aktuelles', vorlage: 'inhalt', typ: 'inhalt', template: sartuTemplate('inhalt', 'Inhalt'),
           content: { inhalt: { titel: 'Aktuelles', text: 'Diese Seite pflegt Sartu.' } } },

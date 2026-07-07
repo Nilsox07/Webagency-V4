@@ -46,6 +46,37 @@ function sartu_site_valid_hex(string $value): bool
 }
 
 /**
+ * Alle Farb-Rollen der Kundenseite. Jede Rolle = eine CSS-Variable im Renderer und
+ * ein Farbfeld in der Design-Sektion. Eine Quelle für Schema und Ausgabe.
+ * Rückgabe: [ ['key','label','default','var','help'?], … ].
+ */
+function sartu_site_theme(): array
+{
+    return [
+        ['key' => 'akzentfarbe',  'var' => 'accent',      'label' => 'Akzent (Buttons, Links)', 'default' => '#0f766e'],
+        ['key' => 'akzent_text',  'var' => 'accent-text', 'label' => 'Schrift auf Buttons',      'default' => '#ffffff'],
+        ['key' => 'text',         'var' => 'text',        'label' => 'Fließtext',                'default' => '#1c2530'],
+        ['key' => 'ueberschrift', 'var' => 'heading',     'label' => 'Überschriften',            'default' => '#1c2530'],
+        ['key' => 'text_leise',   'var' => 'muted',       'label' => 'Gedämpfter Text',          'default' => '#5c6672'],
+        ['key' => 'hintergrund',  'var' => 'bg',          'label' => 'Seitenhintergrund',        'default' => '#ffffff'],
+        ['key' => 'abschnitt',    'var' => 'soft',        'label' => 'Abschnitts-Hintergrund',   'default' => '#f5f7f8'],
+        ['key' => 'karte',        'var' => 'card',        'label' => 'Karten-Hintergrund',       'default' => '#ffffff'],
+        ['key' => 'rahmen',       'var' => 'line',        'label' => 'Rahmen & Linien',          'default' => '#e6eaed'],
+        ['key' => 'navigation',   'var' => 'nav',         'label' => 'Navigationsleiste',        'default' => '#ffffff'],
+    ];
+}
+
+/** Design-Sektions-Felder aus den Farb-Rollen bauen. */
+function sartu_site_theme_fields(): array
+{
+    $fields = [];
+    foreach (sartu_site_theme() as $role) {
+        $fields[] = ['key' => $role['key'], 'label' => $role['label'], 'type' => 'color'];
+    }
+    return $fields;
+}
+
+/**
  * Alle Vorlagen. Rückgabe: [vorlage => ['label' => …, 'sections' => [ … ]]].
  */
 function sartu_site_schema(): array
@@ -134,12 +165,10 @@ function sartu_site_schema(): array
                 ],
                 [
                     'key' => 'design',
-                    'label' => 'Design',
+                    'label' => 'Farben',
                     'customer' => 'edit',
-                    'help' => 'Ihre Akzentfarbe — als Wähler, per Hex-Code oder aus den Vorschlägen.',
-                    'fields' => [
-                        ['key' => 'akzentfarbe', 'label' => 'Akzentfarbe', 'type' => 'color'],
-                    ],
+                    'help' => 'Alle Farben Ihrer Website — je Farbe ein Wähler, Hex-Code oder Vorschlag. Gilt für die ganze Website.',
+                    'fields' => sartu_site_theme_fields(),
                 ],
 
                 // ---- Von Sartu gepflegt (nicht im Kunden-Editor) ----

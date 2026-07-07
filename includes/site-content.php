@@ -258,18 +258,32 @@ function sc_paragraphs(?string $text): string
 }
 
 /**
+ * Farb-Rollen aus dem Design-Inhalt auflösen: [css-var => validierter Hex].
+ * Ungültige/leere Werte fallen auf den Standard zurück (Injection-Schutz).
+ */
+function sc_resolve_theme(array $design): array
+{
+    $out = [];
+    foreach (sartu_site_theme() as $role) {
+        $val = $design[$role['key']] ?? '';
+        if (!is_string($val) || !(sartu_site_valid_hex($val) || sartu_site_palette_has($val))) {
+            $val = $role['default'];
+        }
+        $out[$role['var']] = strtolower($val);
+    }
+    return $out;
+}
+
+/**
  * Die komplette Kundenseite rendern (Mehrseiten-fähig).
  * $page: site_pages-Row · $content: sc_load_content() · $media: Map ·
- * $nav: [['slug','label','url','current'=>bool], …] · $accent: Site-Akzent (optional).
+ * $nav: [['slug','label','url','current'=>bool], …] · $theme: Site-Theme (optional).
  */
-function render_customer_site(array $page, array $content, array $media = [], array $nav = [], ?string $accent = null): void
+function render_customer_site(array $page, array $content, array $media = [], array $nav = [], ?array $theme = null): void
 {
     $vorlage = (string) ($page['vorlage'] ?? 'standard');
-    if ($accent === null) {
-        $accent = $content['design']['akzentfarbe'] ?? '#0f766e';
-    }
-    if (!is_string($accent) || !(sartu_site_palette_has($accent) || sartu_site_valid_hex($accent))) {
-        $accent = '#0f766e';
+    if ($theme === null) {
+        $theme = sc_resolve_theme($content['design'] ?? []);
     }
     $hero = $content['hero'] ?? [];
     $seo = $content['seo'] ?? [];
@@ -283,31 +297,37 @@ function render_customer_site(array $page, array $content, array $media = [], ar
   <title><?= sc_e((string) $title) ?></title>
   <?php if ($metaDesc !== ''): ?><meta name="description" content="<?= sc_e($metaDesc) ?>" /><?php endif; ?>
   <style>
-    :root { --accent: <?= sc_e($accent) ?>; --ink:#1c2530; --muted:#5c6672; --bg:#ffffff; --soft:#f5f7f8; }
+    :root {
+      --accent: <?= sc_e($theme['accent']) ?>; --accent-text: <?= sc_e($theme['accent-text']) ?>;
+      --text: <?= sc_e($theme['text']) ?>; --heading: <?= sc_e($theme['heading']) ?>; --muted: <?= sc_e($theme['muted']) ?>;
+      --bg: <?= sc_e($theme['bg']) ?>; --soft: <?= sc_e($theme['soft']) ?>; --card: <?= sc_e($theme['card']) ?>;
+      --line: <?= sc_e($theme['line']) ?>; --nav: <?= sc_e($theme['nav']) ?>;
+    }
     * { box-sizing:border-box; }
-    body { margin:0; font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif; color:var(--ink); background:var(--bg); line-height:1.6; }
+    body { margin:0; font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif; color:var(--text); background:var(--bg); line-height:1.6; }
     img { max-width:100%; height:auto; display:block; }
+    h1,h2,h3 { color:var(--heading); }
     .cs-wrap { max-width:1080px; margin:0 auto; padding:0 20px; }
     .cs-hero { background:var(--soft); padding:72px 0; }
     .cs-hero h1 { font-size:clamp(28px,5vw,48px); margin:0 0 12px; }
     .cs-hero p { font-size:18px; color:var(--muted); max-width:640px; }
-    .cs-btn { display:inline-block; margin-top:20px; background:var(--accent); color:#fff; text-decoration:none; padding:12px 22px; border-radius:10px; font-weight:600; }
+    .cs-btn { display:inline-block; margin-top:20px; background:var(--accent); color:var(--accent-text); text-decoration:none; padding:12px 22px; border-radius:10px; font-weight:600; }
     section.cs-sec { padding:56px 0; }
     section.cs-sec:nth-child(even) { background:var(--soft); }
     .cs-sec h2 { font-size:clamp(22px,3.5vw,32px); margin:0 0 8px; }
+    section.cs-sec a { color:var(--accent); }
     .cs-ey { color:var(--accent); font-weight:700; letter-spacing:.04em; text-transform:uppercase; font-size:13px; margin:0 0 6px; }
     .cs-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; margin-top:24px; }
-    .cs-card { background:var(--bg); border:1px solid #e6eaed; border-radius:14px; padding:20px; }
-    section.cs-sec:nth-child(even) .cs-card { background:#fff; }
+    .cs-card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px; }
     .cs-card h3 { margin:0 0 6px; }
     .cs-hours { list-style:none; padding:0; margin:16px 0 0; max-width:420px; }
-    .cs-hours li { display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #e6eaed; }
+    .cs-hours li { display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--line); }
     .cs-foot { padding:32px 0; color:var(--muted); font-size:14px; text-align:center; }
     .cs-foot a { color:var(--muted); }
     .cs-media { border-radius:14px; overflow:hidden; margin-top:24px; }
-    .cs-nav { background:#fff; border-bottom:1px solid #e6eaed; position:sticky; top:0; z-index:5; }
+    .cs-nav { background:var(--nav); border-bottom:1px solid var(--line); position:sticky; top:0; z-index:5; }
     .cs-nav .cs-wrap { display:flex; gap:18px; align-items:center; flex-wrap:wrap; padding-top:14px; padding-bottom:14px; }
-    .cs-nav a { color:var(--ink); text-decoration:none; font-weight:600; font-size:15px; }
+    .cs-nav a { color:var(--text); text-decoration:none; font-weight:600; font-size:15px; }
     .cs-nav a.is-current { color:var(--accent); }
     .cs-legal p { margin:0 0 10px; }
   </style>

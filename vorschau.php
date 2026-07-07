@@ -38,7 +38,7 @@ if (isset($_GET['preview']) && $_GET['preview'] === '1') {
             ]],
             'oeffnungszeiten' => ['zeiten' => ['Montag' => '7–18 Uhr', 'Samstag' => '7–13 Uhr', 'Sonntag' => 'geschlossen'], 'hinweis' => 'An Feiertagen geschlossen.'],
             'kontakt' => ['adresse' => "Hauptstraße 1\n12345 Musterstadt", 'telefon' => '030 123456', 'email' => 'hallo@muster-baeckerei.de'],
-            'design' => ['akzentfarbe' => '#b45309'],
+            'design' => ['akzentfarbe' => '#b45309', 'abschnitt' => '#faf5ee', 'ueberschrift' => '#3d2b1f'],
         ],
         'aktuelles' => ['inhalt' => ['titel' => 'Aktuelles', 'text' => "Diese Inhaltsseite pflegt Sartu für Sie.\n\nSie können sie im Portal jederzeit ein- oder ausblenden."]],
         'impressum' => ['impressum' => ['firmenname' => 'Muster Bäckerei GmbH', 'inhaber' => 'Max Mustermann', 'adresse' => "Hauptstraße 1\n12345 Musterstadt", 'telefon' => '030 123456', 'email' => 'hallo@muster-baeckerei.de', 'ust_id' => 'DE123456789']],
@@ -49,13 +49,13 @@ if (isset($_GET['preview']) && $_GET['preview'] === '1') {
     if (!isset($demoPages[$slug])) {
         $slug = 'home';
     }
-    $accent = $demoContent['home']['design']['akzentfarbe'] ?? null;
+    $theme = sc_resolve_theme($demoContent['home']['design'] ?? []);
     $nav = [];
     foreach ($demoPages as $s => $def) {
         $nav[] = ['slug' => $s, 'label' => $def['nav_label'], 'url' => vorschau_url($s, 'preview=1&'), 'current' => $s === $slug];
     }
     $page = ['id' => 'demo', 'project_id' => 'demo', 'slug' => $slug, 'vorlage' => $demoPages[$slug]['vorlage'], 'titel' => $demoPages[$slug]['titel']];
-    render_customer_site($page, $demoContent[$slug], [], $nav, $accent);
+    render_customer_site($page, $demoContent[$slug], [], $nav, $theme);
     exit;
 }
 
@@ -90,10 +90,10 @@ if (!$page) {
 }
 $content = sc_load_content($pdo, $page, $variant);
 
-// Site-Akzent aus der Startseite (gilt für alle Seiten).
+// Site-Theme aus der Startseite (gilt für alle Seiten).
 $homePage = sc_page_by_slug($pdo, $projectId, 'home');
 $homeContent = $homePage ? sc_load_content($pdo, $homePage, $variant) : [];
-$accent = $homeContent['design']['akzentfarbe'] ?? null;
+$theme = sc_resolve_theme($homeContent['design'] ?? []);
 
 // Media-Map.
 $media = [];
@@ -114,4 +114,4 @@ foreach (sc_project_pages($pdo, $projectId) as $p) {
 
 header('Content-Type: text/html; charset=UTF-8');
 header('X-Robots-Tag: noindex, nofollow');
-render_customer_site($page, $content, $media, $nav, $accent);
+render_customer_site($page, $content, $media, $nav, $theme);
