@@ -314,3 +314,19 @@ pre.json { background: #060d18; border: 1px solid var(--border); border-radius: 
 /* Farb-Raster in der Design-Sektion (viele Farben kompakt) */
 .ed-colorgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 6px 20px; }
 .ed-colorgrid .ed-field { margin: 8px 0; }
+
+/* ===== Stufe-2-Briefing (Onboarding-Wizard) ===== */
+.ob-progress { height: 8px; background: rgba(255,255,255,0.08); border-radius: 999px; overflow: hidden; margin: 8px 0 6px; }
+.ob-bar { height: 100%; background: var(--lime); width: 0; transition: width .3s ease; }
+.ob-steplabel { margin-bottom: 16px; font-weight: 600; }
+.ob-nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 8px; }
+.ob-nav #obSaveState { flex: 1; text-align: center; }
+.ob-help { display: block; color: var(--text-muted); font-size: 12px; margin: -2px 0 7px; }
+.ob-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.ob-chip { font: inherit; font-weight: 600; font-size: 14px; cursor: pointer; padding: 9px 14px; border-radius: 999px; border: 1.5px solid var(--border); background: transparent; color: var(--text-light); }
+.ob-chip.is-on { background: var(--lime); color: var(--ink); border-color: var(--lime); }
+.ob-files { display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px; }
+.ob-file { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 8px 10px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 8px; font-size: 13px; color: var(--text-light); }
+.pt-briefing-card { display: block; text-decoration: none; margin-bottom: 16px; }
+.pt-briefing-card:hover { border-color: var(--lime); text-decoration: none; }
+.pt-briefing-card p { color: var(--text-light); }

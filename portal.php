@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="portal.css?v=8" />
+  <link rel="stylesheet" href="portal.css?v=9" />
 </head>
 <body>
   <div class="pt-wrap pt-wrap-app">
@@ -46,6 +46,11 @@
 
       <!-- ===== COCKPIT ===== -->
       <section id="pane-cockpit" class="pt-pane">
+        <a class="card now-card pt-briefing-card" id="briefingCard" href="onboarding.php">
+          <p class="eyebrow">Projekt-Briefing</p>
+          <p>Erzählen Sie uns von Ihrem Projekt — Logo, Bilder, Inhalte. Daraus bauen wir Ihre Website. <strong>Briefing starten &rarr;</strong></p>
+        </a>
+
         <div class="pt-tiles">
           <div class="pt-tile pt-tile-ok"><span class="pt-tile-k">Website</span><strong id="tOnline">Online</strong><span class="pt-tile-s">rund um die Uhr erreichbar</span></div>
           <div class="pt-tile pt-tile-ok"><span class="pt-tile-k">Ladezeit</span><strong id="tSpeed">Schnell</strong><span class="pt-tile-s">läuft im Cockpit mit</span></div>

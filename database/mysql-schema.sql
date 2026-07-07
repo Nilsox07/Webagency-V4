@@ -152,6 +152,21 @@ create table if not exists site_page_versions (
   constraint fk_spv_page foreign key (page_id) references site_pages(id) on delete cascade
 ) engine=InnoDB default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
+-- ===== Stufe-2-Briefing (Detail-Onboarding im Portal) =====
+-- Ein Briefing je Projekt. answers = JSON der Antworten (Felder-Keys), Datei-Uploads
+-- referenzieren uploads.id. status offen|abgeschlossen.
+create table if not exists project_briefings (
+  id           char(36) primary key,
+  created_at   datetime not null default current_timestamp,
+  updated_at   datetime not null default current_timestamp on update current_timestamp,
+  project_id   char(36) not null,
+  answers      json null,
+  status       enum('offen','abgeschlossen') not null default 'offen',
+  submitted_at datetime null,
+  unique key uq_project_briefings (project_id),
+  constraint fk_project_briefings_project foreign key (project_id) references projects(id) on delete cascade
+) engine=InnoDB default charset=utf8mb4 collate=utf8mb4_unicode_ci;
+
 -- Ersten Admin anlegen: E-Mail anpassen, danach über /login einloggen.
 -- insert into profiles (id, email, name, role)
 -- values (uuid(), 'admin@deine-domain.de', 'Sartu Admin', 'admin');
