@@ -63,6 +63,9 @@ create table if not exists uploads (
   typ             varchar(80) null,
   storage_path    varchar(500) null,
   original_name   varchar(255) null,
+  alt_text        varchar(500) null,
+  mime            varchar(120) null,
+  bytes           int null,
   hochgeladen_von char(36) null,
   constraint fk_uploads_project foreign key (project_id) references projects(id) on delete cascade
 ) engine=InnoDB default charset=utf8mb4 collate=utf8mb4_unicode_ci;
@@ -97,6 +100,54 @@ create table if not exists documents (
   titel         varchar(255) null,
   constraint fk_documents_customer foreign key (customer_id) references profiles(id) on delete cascade,
   constraint fk_documents_project foreign key (project_id) references projects(id) on delete set null
+) engine=InnoDB default charset=utf8mb4 collate=utf8mb4_unicode_ci;
+
+-- ===== Selbst-Editor / Inhalts-Modell (Stufe 1) =====
+-- Eine Kundenseite (site_pages) besteht aus Feldern (site_blocks). Jedes Feld hat
+-- einen Entwurfs- und einen Veröffentlicht-Wert. "Veröffentlichen" kopiert Entwurf →
+-- Live. Vor jeder Veröffentlichung wird ein Schnappschuss (site_page_versions) für
+-- "Rückgängig" abgelegt. Welche Sektionen/Felder eine Seite hat, definiert das
+-- Feld-Schema in includes/site-content-schema.php (Spalte vorlage).
+
+create table if not exists site_pages (
+  id           char(36) primary key,
+  created_at   datetime not null default current_timestamp,
+  updated_at   datetime not null default current_timestamp on update current_timestamp,
+  project_id   char(36) not null,
+  slug         varchar(120) not null,
+  vorlage      varchar(80) not null default 'standard',
+  titel        varchar(255) null,
+  nav_label    varchar(120) null,
+  position     int not null default 0,
+  is_published tinyint(1) not null default 0,
+  index idx_site_pages_project (project_id),
+  unique key uq_site_pages_slug (project_id, slug),
+  constraint fk_site_pages_project foreign key (project_id) references projects(id) on delete cascade
+) engine=InnoDB default charset=utf8mb4 collate=utf8mb4_unicode_ci;
+
+create table if not exists site_blocks (
+  id             char(36) primary key,
+  created_at     datetime not null default current_timestamp,
+  updated_at     datetime not null default current_timestamp on update current_timestamp,
+  page_id        char(36) not null,
+  section_key    varchar(120) not null,
+  field_key      varchar(120) not null,
+  wert_draft     longtext null,
+  wert_published longtext null,
+  unique key uq_site_blocks_field (page_id, section_key, field_key),
+  index idx_site_blocks_page (page_id),
+  constraint fk_site_blocks_page foreign key (page_id) references site_pages(id) on delete cascade
+) engine=InnoDB default charset=utf8mb4 collate=utf8mb4_unicode_ci;
+
+create table if not exists site_page_versions (
+  id           char(36) primary key,
+  created_at   datetime not null default current_timestamp,
+  page_id      char(36) not null,
+  anlass       varchar(80) null,
+  snapshot     longtext null,
+  erstellt_von char(36) null,
+  index idx_site_page_versions_page (page_id),
+  constraint fk_spv_page foreign key (page_id) references site_pages(id) on delete cascade
 ) engine=InnoDB default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
 -- Ersten Admin anlegen: E-Mail anpassen, danach über /login einloggen.
