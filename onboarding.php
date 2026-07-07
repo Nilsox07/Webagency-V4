@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="portal.css?v=9" />
+  <link rel="stylesheet" href="portal.css?v=10" />
 </head>
 <body>
   <div class="pt-wrap pt-wrap-app">
@@ -31,6 +31,7 @@
         </div>
       </div>
 
+      <nav id="obChapters" class="ob-chaptermenu" aria-label="Kapitel"></nav>
       <div class="ob-progress"><div class="ob-bar" id="obBar"></div></div>
       <p class="muted ob-steplabel" id="obStepLabel"></p>
 
@@ -53,6 +54,6 @@
   </div>
 
   <script id="briefingSchema" type="application/json"><?= json_encode(sartu_briefing2_schema(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?></script>
-  <script src="onboarding.js?v=1"></script>
+  <script src="onboarding.js?v=2"></script>
 </body>
 </html>

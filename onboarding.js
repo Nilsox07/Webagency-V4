@@ -167,10 +167,34 @@
     }
   }
 
-  // ---- Schritte ----
+  // ---- Kapitel & Schritte ----
+  function stepFilled(step) {
+    return step.fields.some(function (f) {
+      var v = get(f.key);
+      if (Array.isArray(v)) return v.length > 0;
+      return v != null && String(v).trim() !== '';
+    });
+  }
+
+  function renderChapters() {
+    var menu = $('obChapters'); if (!menu) return;
+    var steps = schema.steps || [];
+    menu.innerHTML = '';
+    steps.forEach(function (step, i) {
+      var done = stepFilled(step);
+      var b = el('button', 'ob-chapter' + (i === state.step ? ' is-current' : '') + (done ? ' is-done' : ''));
+      b.type = 'button';
+      var nr = el('span', 'ob-chapter-nr', done ? '✓' : String(i + 1));
+      b.appendChild(nr); b.appendChild(document.createTextNode(step.title));
+      b.addEventListener('click', function () { flush(); state.step = i; window.scrollTo(0, 0); renderStep(); });
+      menu.appendChild(b);
+    });
+  }
+
   function renderStep() {
     var steps = schema.steps || [];
     var step = steps[state.step]; if (!step) return;
+    renderChapters();
     var body = $('obStepBody'); body.innerHTML = '';
     var card = el('div', 'card');
     card.appendChild(el('h2', null, step.title));
@@ -178,9 +202,9 @@
     step.fields.forEach(function (field) { if (fieldVisible(field)) card.appendChild(buildField(field)); });
     body.appendChild(card);
 
-    var pct = Math.round(((state.step + 1) / steps.length) * 100);
-    $('obBar').style.width = pct + '%';
-    $('obStepLabel').textContent = 'Schritt ' + (state.step + 1) + ' von ' + steps.length + ' · ' + step.title;
+    var filled = steps.filter(stepFilled).length;
+    $('obBar').style.width = Math.round((filled / steps.length) * 100) + '%';
+    $('obStepLabel').textContent = 'Kapitel ' + (state.step + 1) + ' von ' + steps.length + ' · ' + step.title + ' — ' + filled + '/' + steps.length + ' ausgefüllt';
     $('obBack').disabled = state.step === 0;
     $('obNext').textContent = state.step === steps.length - 1 ? 'Briefing absenden' : 'Weiter';
   }
@@ -214,7 +238,12 @@
 
     if (new URLSearchParams(window.location.search).get('preview') === '1') {
       state.preview = true;
-      state.answers = { firmenname: 'Muster Bäckerei', hat_logo: 'ja', stimmung: ['modern', 'warm'], leistungen: 'Brot & Brötchen\nKuchen & Torten' };
+      state.answers = {
+        firmenname: 'Muster Bäckerei', branche: 'Bäckerei & Café', gegruendet: '1985',
+        hauptziele: ['anfragen', 'termine'], hat_logo: 'ja', stimmung: ['modern', 'warm'],
+        leistungen_inhalt: 'Brot & Brötchen – über 20 Sorten\nKuchen & Torten – auch auf Bestellung',
+        adresse: 'Hauptstraße 1\n12345 Musterstadt', kleinunternehmer: 'nein'
+      };
       showApp(); renderStep(); saveState('Vorschau-Modus — Ihre Eingaben werden nicht gespeichert.');
       return;
     }
