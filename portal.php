@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="portal.css?v=3" />
+  <link rel="stylesheet" href="portal.css?v=4" />
 </head>
 <body>
   <div class="pt-wrap pt-wrap-app">
@@ -63,18 +63,17 @@
 
       <!-- ===== WEBSITE BEARBEITEN ===== -->
       <section id="pane-bearbeiten" class="pt-pane hidden">
-        <div class="card">
-          <h2>Inhalte selbst ändern</h2>
-          <p class="muted">Texte, Bilder, Öffnungszeiten, Team und Beiträge ändern Sie hier selbst — Ihr Design bleibt geschützt. Neue Seite gewünscht? 199&nbsp;€ inkl. Text über „Wachsen".</p>
-          <div class="pt-edit-list" id="editList">
-            <button class="pt-edit-row"><strong>Texte &amp; Überschriften</strong><span>bearbeiten →</span></button>
-            <button class="pt-edit-row"><strong>Bilder tauschen</strong><span>bearbeiten →</span></button>
-            <button class="pt-edit-row"><strong>Öffnungszeiten &amp; Kontakt</strong><span>bearbeiten →</span></button>
-            <button class="pt-edit-row"><strong>Team &amp; Beiträge</strong><span>bearbeiten →</span></button>
-            <button class="pt-edit-row"><strong>Akzentfarbe (aus Palette)</strong><span>ändern →</span></button>
+        <div class="pt-editbar">
+          <div>
+            <h2>Website bearbeiten</h2>
+            <p class="muted" id="edStatus">Ihre Änderungen speichern sich automatisch. Ihr Design bleibt geschützt.</p>
           </div>
-          <p class="pt-soon-note">Der Editor wird gerade fertiggestellt. Bis dahin: kleine Änderungen einfach per Nachricht an uns.</p>
+          <div class="pt-editbar-actions">
+            <a class="btn btn-ghost btn-sm" id="edPreview" href="vorschau.php" target="_blank" rel="noopener">Vorschau</a>
+            <button class="btn btn-primary btn-sm" id="edPublish">Veröffentlichen</button>
+          </div>
         </div>
+        <div id="editorRoot"><p class="muted"><span class="spinner"></span> Lädt Editor …</p></div>
       </section>
 
       <!-- ===== STATISTIK ===== -->
@@ -136,6 +135,7 @@
     <p class="notice notice-err hidden" id="err"></p>
   </div>
 
-  <script src="portal-local.js?v=5"></script>
+  <script src="portal-local.js?v=6"></script>
+  <script src="portal-editor.js?v=1"></script>
 </body>
 </html>
