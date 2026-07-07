@@ -1,0 +1,9 @@
+# PHP-Includes (Konfiguration, DB-Zugang, Auth) nie direkt über HTTP ausliefern.
+# Werden serverseitig per require geladen, nie per URL aufgerufen.
+<IfModule mod_authz_core.c>
+  Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+  Order allow,deny
+  Deny from all
+</IfModule>

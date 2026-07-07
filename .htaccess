@@ -1,0 +1,46 @@
+# ===== Sartu — Sicherheit (Apache) =====
+# router.php schützt nur beim PHP-Testserver. Auf echtem Apache-Hosting greifen
+# diese Regeln. (Für nginx entsprechende location-Blöcke setzen.)
+
+# Sensible Dateitypen nie ausliefern (DB-Schema, Doku, Logs, Skripte).
+<FilesMatch "\.(sql|md|log|lock|sh|ini|yml|yaml|env)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+# Konfiguration mit Zugangsdaten zusätzlich sperren (PHP führt sie ohnehin aus).
+<FilesMatch "^config\.local(\.example)?\.php$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+# Punkt-Dateien (.git, .gitignore, .env …) nicht ausliefern.
+<FilesMatch "^\.">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+# Verzeichnis-Auflistung aus.
+Options -Indexes
+
+# Sicherheits-Header für alle Antworten.
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
