@@ -125,6 +125,35 @@ if ($action === 'delete_media') {
     json_response(['ok' => true, 'csrf' => csrf_token()]);
 }
 
+if ($action === 'toggle_section') {
+    $section = (string) ($input['section'] ?? '');
+    $sec = sartu_site_section($vorlage, $section);
+    $mode = sartu_site_customer_mode($vorlage, $section);
+    if (!$sec || !in_array($mode, ['edit', 'toggle'], true) || empty($sec['hideable'])) {
+        json_response(['ok' => false, 'error' => 'Nicht erlaubt.'], 403);
+    }
+    sc_save_field($pdo, $pageId, $section, '__aktiv', !empty($input['aktiv']) ? '1' : '0');
+    json_response(['ok' => true, 'csrf' => csrf_token()]);
+}
+
+if ($action === 'toggle_item') {
+    $section = (string) ($input['section'] ?? '');
+    $field = (string) ($input['field'] ?? '');
+    $index = (int) ($input['index'] ?? -1);
+    $key = $section . '.' . $field;
+    if (!isset($fields[$key]) || ($fields[$key]['customer'] ?? null) !== 'toggle' || empty($fields[$key]['spec']['toggle_items'])) {
+        json_response(['ok' => false, 'error' => 'Nicht erlaubt.'], 403);
+    }
+    $draft = sc_load_content($pdo, $page, 'draft');
+    $list = $draft[$section][$field] ?? [];
+    if (!is_array($list) || !isset($list[$index]) || !is_array($list[$index])) {
+        json_response(['ok' => false, 'error' => 'Eintrag nicht gefunden.'], 400);
+    }
+    $list[$index]['_aktiv'] = !empty($input['aktiv']);
+    sc_save_field($pdo, $pageId, $section, $field, array_values($list));
+    json_response(['ok' => true, 'csrf' => csrf_token()]);
+}
+
 // action === 'save' : Entwurfs-Felder speichern.
 $incoming = $input['fields'] ?? [];
 if (!is_array($incoming)) {
@@ -141,6 +170,9 @@ foreach ($incoming as $f) {
     $key = $section . '.' . $field;
     if (!isset($fields[$key])) {
         continue; // nur bekannte Felder aus dem Schema
+    }
+    if (($fields[$key]['customer'] ?? null) !== 'edit') {
+        continue; // nur betriebliche Felder darf der Kunde bearbeiten (kein SEO/Marketing)
     }
     $spec = $fields[$key]['spec'];
     $type = $fields[$key]['type'];

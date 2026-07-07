@@ -130,6 +130,28 @@ function sc_restore_version(PDO $pdo, string $pageId, string $versionId): bool
  * Renderer — gibt die Kundenseite aus. $media: [upload_id => ['url','alt']].
  * ========================================================================= */
 
+/** Ist eine Sektion sichtbar? (Kunde kann sie auf __aktiv=0 stellen) */
+function sc_visible(array $content, string $section): bool
+{
+    return (string) ($content[$section]['__aktiv'] ?? '1') !== '0';
+}
+
+/** Nur aktive Listeneinträge (Kunde kann einzelne auf _aktiv=false stellen). */
+function sc_active_items($items): array
+{
+    if (!is_array($items)) {
+        return [];
+    }
+    $out = [];
+    foreach ($items as $it) {
+        if (is_array($it) && array_key_exists('_aktiv', $it) && $it['_aktiv'] === false) {
+            continue;
+        }
+        $out[] = $it;
+    }
+    return $out;
+}
+
 function sc_media(array $media, ?string $ref): array
 {
     if ($ref === null || $ref === '') {
@@ -251,7 +273,7 @@ function render_customer_site(array $page, array $content, array $media = []): v
     </div>
   </header>
 
-  <?php if (trim((string) $get('ueber', 'titel')) !== '' || trim((string) $get('ueber', 'text')) !== ''): ?>
+  <?php if (sc_visible($content, 'ueber') && (trim((string) $get('ueber', 'titel')) !== '' || trim((string) $get('ueber', 'text')) !== '')): ?>
   <section class="cs-sec"><div class="cs-wrap">
     <?php if ($get('ueber', 'titel')): ?><h2><?= sc_e((string) $get('ueber', 'titel')) ?></h2><?php endif; ?>
     <?= sc_richtext((string) $get('ueber', 'text')) ?>
@@ -259,7 +281,7 @@ function render_customer_site(array $page, array $content, array $media = []): v
   </div></section>
   <?php endif; ?>
 
-  <?php $items = $get('leistungen', 'items', []); if (is_array($items) && $items): ?>
+  <?php $items = sc_active_items($get('leistungen', 'items', [])); if (sc_visible($content, 'leistungen') && $items): ?>
   <section class="cs-sec"><div class="cs-wrap">
     <?php if ($get('leistungen', 'titel')): ?><h2><?= sc_e((string) $get('leistungen', 'titel')) ?></h2><?php endif; ?>
     <?php if ($get('leistungen', 'einleitung')): ?><p><?= nl2br(sc_e((string) $get('leistungen', 'einleitung'))) ?></p><?php endif; ?>
@@ -271,7 +293,7 @@ function render_customer_site(array $page, array $content, array $media = []): v
   </div></section>
   <?php endif; ?>
 
-  <?php $members = $get('team', 'members', []); if (is_array($members) && $members): ?>
+  <?php $members = sc_active_items($get('team', 'members', [])); if (sc_visible($content, 'team') && $members): ?>
   <section class="cs-sec"><div class="cs-wrap">
     <?php if ($get('team', 'titel')): ?><h2><?= sc_e((string) $get('team', 'titel')) ?></h2><?php endif; ?>
     <div class="cs-grid">
@@ -282,7 +304,7 @@ function render_customer_site(array $page, array $content, array $media = []): v
   </div></section>
   <?php endif; ?>
 
-  <?php $zeiten = $get('oeffnungszeiten', 'zeiten', []); if (is_array($zeiten) && $zeiten): ?>
+  <?php $zeiten = $get('oeffnungszeiten', 'zeiten', []); if (sc_visible($content, 'oeffnungszeiten') && is_array($zeiten) && $zeiten): ?>
   <section class="cs-sec"><div class="cs-wrap">
     <?php if ($get('oeffnungszeiten', 'titel')): ?><h2><?= sc_e((string) $get('oeffnungszeiten', 'titel')) ?></h2><?php endif; ?>
     <ul class="cs-hours">
@@ -292,7 +314,7 @@ function render_customer_site(array $page, array $content, array $media = []): v
   </div></section>
   <?php endif; ?>
 
-  <?php $posts = $get('beitraege', 'posts', []); if (is_array($posts) && $posts): ?>
+  <?php $posts = sc_active_items($get('beitraege', 'posts', [])); if (sc_visible($content, 'beitraege') && $posts): ?>
   <section class="cs-sec"><div class="cs-wrap">
     <?php if ($get('beitraege', 'titel')): ?><h2><?= sc_e((string) $get('beitraege', 'titel')) ?></h2><?php endif; ?>
     <div class="cs-grid">
@@ -313,7 +335,23 @@ function render_customer_site(array $page, array $content, array $media = []): v
   </div></section>
   <?php endif; ?>
 
-  <footer class="cs-foot"><div class="cs-wrap"><?= sc_e((string) ($hero['headline'] ?? '')) ?> · Website von Sartu</div></footer>
+  <?php $imp = $content['impressum'] ?? []; $hasImp = trim((string) ($imp['firmenname'] ?? '')) !== '' || trim((string) ($imp['adresse'] ?? '')) !== ''; ?>
+  <?php if ($hasImp): ?>
+  <section class="cs-sec" id="impressum"><div class="cs-wrap">
+    <h2>Impressum</h2>
+    <p>Angaben gemäß § 5 DDG</p>
+    <?php if (!empty($imp['firmenname'])): ?><p><strong><?= sc_e((string) $imp['firmenname']) ?></strong></p><?php endif; ?>
+    <?php if (!empty($imp['inhaber'])): ?><p><?= sc_e((string) $imp['inhaber']) ?></p><?php endif; ?>
+    <?= sc_paragraphs((string) ($imp['adresse'] ?? '')) ?>
+    <?php if (!empty($imp['telefon'])): ?><p>Telefon: <?= sc_e((string) $imp['telefon']) ?></p><?php endif; ?>
+    <?php if (!empty($imp['email'])): ?><p>E-Mail: <?= sc_e((string) $imp['email']) ?></p><?php endif; ?>
+    <?php if (!empty($imp['ust_id'])): ?><p>USt-IdNr.: <?= sc_e((string) $imp['ust_id']) ?></p><?php endif; ?>
+    <?php if (!empty($imp['register'])): ?><p><?= sc_e((string) $imp['register']) ?></p><?php endif; ?>
+    <?php if (!empty($imp['verantwortlich'])): ?><p>Verantwortlich für den Inhalt: <?= sc_e((string) $imp['verantwortlich']) ?></p><?php endif; ?>
+  </div></section>
+  <?php endif; ?>
+
+  <footer class="cs-foot"><div class="cs-wrap"><?= sc_e((string) ($hero['headline'] ?? '')) ?> · Website von Sartu<?php if ($hasImp): ?> · <a href="#impressum">Impressum</a><?php endif; ?></div></footer>
 </body>
 </html>
 <?php

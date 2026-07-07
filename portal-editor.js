@@ -248,18 +248,84 @@
     catch (e) { return s || ''; }
   }
 
+  // Ein-/Aus-Schalter (Checkbox als Schieber).
+  function switchEl(labelText, checked, onChange) {
+    var wrap = el('label', 'ed-switch');
+    var cb = el('input'); cb.type = 'checkbox'; cb.checked = checked;
+    cb.addEventListener('change', function () { onChange(cb.checked); });
+    var slider = el('span', 'ed-switch-slider');
+    wrap.appendChild(cb); wrap.appendChild(slider);
+    if (labelText) wrap.appendChild(el('span', 'ed-switch-label', labelText));
+    return wrap;
+  }
+  function isSectionOn(key) { return String(getVal(key, '__aktiv') || '1') !== '0'; }
+
+  function sectionSwitch(section) {
+    return switchEl('Anzeigen', isSectionOn(section.key), function (next) {
+      if (!state.content[section.key]) state.content[section.key] = {};
+      state.content[section.key]['__aktiv'] = next ? '1' : '0';
+      if (state.preview) { setUnpublished(true); return; }
+      post({ action: 'toggle_section', section: section.key, aktiv: next })
+        .then(function () { setUnpublished(true); status('Gespeichert ✓'); })
+        .catch(function (e) { status('Fehler: ' + e.message); });
+    });
+  }
+
+  function firstText(item, subfields) {
+    for (var i = 0; i < subfields.length; i++) {
+      if (subfields[i].type !== 'image' && item[subfields[i].key]) return item[subfields[i].key];
+    }
+    return '';
+  }
+
+  function renderToggleSection(card, section) {
+    var listField = null;
+    section.fields.forEach(function (f) { if (f.type === 'list' && f.toggle_items) listField = f; });
+    if (!listField) { card.appendChild(el('p', 'muted', 'Nichts zum Ein-/Ausblenden.')); return; }
+    var items = getVal(section.key, listField.key); if (!Array.isArray(items)) items = [];
+    if (!items.length) { card.appendChild(el('p', 'muted', 'Noch keine Einträge. Neue fügt Sartu für Sie hinzu.')); return; }
+    var list = el('div', 'ed-toggle-list');
+    items.forEach(function (item, idx) {
+      var row = el('div', 'ed-toggle-row');
+      row.appendChild(el('span', 'ed-toggle-label', firstText(item, listField.item) || ('Eintrag ' + (idx + 1))));
+      var on = !(item && item._aktiv === false);
+      row.appendChild(switchEl('', on, function (next) {
+        item._aktiv = next;
+        if (state.preview) { setUnpublished(true); return; }
+        post({ action: 'toggle_item', section: section.key, field: listField.key, index: idx, aktiv: next })
+          .then(function () { setUnpublished(true); status('Gespeichert ✓'); })
+          .catch(function (e) { status('Fehler: ' + e.message); });
+      }));
+      list.appendChild(row);
+    });
+    card.appendChild(list);
+  }
+
   function render() {
     var root = document.getElementById('editorRoot');
     if (!root) return;
     root.innerHTML = '';
     if (!state.template) { root.appendChild(el('p', 'muted', 'Noch keine Website hinterlegt.')); return; }
+    var shown = 0;
     state.template.sections.forEach(function (section) {
+      var mode = section.customer;
+      if (mode !== 'edit' && mode !== 'toggle') return; // Marketing/SEO = Sartu, nicht im Kunden-Editor
+      shown++;
       var card = el('div', 'card ed-section');
-      card.appendChild(el('h3', null, section.label));
-      if (section.help) card.appendChild(el('p', 'muted ed-sec-help', section.help));
-      section.fields.forEach(function (field) { card.appendChild(buildField(section.key, field)); });
+      var head = el('div', 'ed-section-head');
+      head.appendChild(el('h3', null, section.label));
+      if (section.hideable) head.appendChild(sectionSwitch(section));
+      card.appendChild(head);
+      var help = section.customer_help || section.help;
+      if (help) card.appendChild(el('p', 'muted ed-sec-help', help));
+      if (mode === 'edit') {
+        section.fields.forEach(function (field) { card.appendChild(buildField(section.key, field)); });
+      } else {
+        renderToggleSection(card, section);
+      }
       root.appendChild(card);
     });
+    if (!shown) root.appendChild(el('p', 'muted', 'Für Ihre Website gibt es aktuell nichts selbst zu bearbeiten.'));
     renderVersions(root);
   }
 
@@ -425,36 +491,40 @@
       ],
       template: {
         label: 'Standard', sections: [
-          { key: 'hero', label: 'Kopfbereich', help: 'Das Erste, was Besucher sehen.', fields: [
-            { key: 'headline', label: 'Überschrift', type: 'text', max: 90 },
-            { key: 'subline', label: 'Unterzeile', type: 'textarea', max: 220 },
-            { key: 'bild', label: 'Hauptbild', type: 'image' },
-            { key: 'cta_text', label: 'Button-Text', type: 'text', max: 40 }
+          { key: 'leistungen', label: 'Leistungen / Angebot', customer: 'toggle', hideable: true,
+            customer_help: 'Einzelne Leistungen können Sie aus- und einblenden. Neue Leistungen oder Textänderungen übernimmt Sartu.', fields: [
+              { key: 'items', label: 'Einträge', type: 'list', toggle_items: true, item: [
+                { key: 'titel', label: 'Titel', type: 'text', max: 80 }, { key: 'text', label: 'Beschreibung', type: 'textarea', max: 300 }
+              ] }
+            ] },
+          { key: 'oeffnungszeiten', label: 'Öffnungszeiten', customer: 'edit', hideable: true, fields: [
+            { key: 'zeiten', label: 'Zeiten', type: 'hours' },
+            { key: 'hinweis', label: 'Hinweis', type: 'text', max: 160, placeholder: 'z. B. Betriebsurlaub 1.–14. August' }
           ] },
-          { key: 'leistungen', label: 'Leistungen', fields: [
-            { key: 'titel', label: 'Titel', type: 'text', max: 90 },
-            { key: 'items', label: 'Einträge', type: 'list', max_items: 12, item: [
-              { key: 'titel', label: 'Titel', type: 'text', max: 80 },
-              { key: 'text', label: 'Beschreibung', type: 'textarea', max: 300 }
-            ] }
+          { key: 'kontakt', label: 'Kontakt', customer: 'edit', fields: [
+            { key: 'adresse', label: 'Adresse', type: 'textarea', max: 240 },
+            { key: 'telefon', label: 'Telefon', type: 'tel', max: 60 },
+            { key: 'email', label: 'E-Mail', type: 'email', max: 120 }
           ] },
-          { key: 'oeffnungszeiten', label: 'Öffnungszeiten', fields: [
-            { key: 'zeiten', label: 'Zeiten', type: 'hours' }
+          { key: 'impressum', label: 'Impressum', customer: 'edit', customer_help: 'Gesetzlich vorgeschrieben. Bitte aktuell halten.', fields: [
+            { key: 'firmenname', label: 'Firmenname', type: 'text', max: 160 },
+            { key: 'inhaber', label: 'Inhaber', type: 'text', max: 160 },
+            { key: 'adresse', label: 'Anschrift', type: 'textarea', max: 240 }
           ] },
-          { key: 'seo', label: 'Suchmaschine (Google)', help: 'So erscheint Ihre Seite in den Google-Ergebnissen.', fields: [
-            { key: 'titel', label: 'Seitentitel', type: 'text', max: 65, help: 'Erscheint als blaue Überschrift bei Google.' },
-            { key: 'description', label: 'Beschreibung', type: 'textarea', max: 160, help: 'Der graue Text unter dem Titel bei Google.' }
-          ] },
-          { key: 'design', label: 'Design', help: 'Ihre Akzentfarbe — Wähler, Hex oder Vorschlag.', fields: [
+          { key: 'design', label: 'Design', customer: 'edit', help: 'Ihre Akzentfarbe — Wähler, Hex oder Vorschlag.', fields: [
             { key: 'akzentfarbe', label: 'Akzentfarbe', type: 'color' }
           ] }
         ]
       },
       content: {
-        hero: { headline: 'Muster Bäckerei', subline: 'Frisch & handgemacht, seit 1985.', cta_text: 'Jetzt anrufen' },
-        leistungen: { titel: 'Unser Angebot', items: [{ titel: 'Brot & Brötchen', text: 'Täglich **frisch** aus dem Ofen.' }] },
-        oeffnungszeiten: { zeiten: { Montag: '7–18 Uhr', Samstag: '7–13 Uhr' } },
-        seo: { titel: 'Muster Bäckerei – frisches Brot in Musterstadt', description: 'Handgemachtes Brot, Kuchen und Frühstück im Herzen von Musterstadt. Seit 1985.' },
+        leistungen: { items: [
+          { titel: 'Brot & Brötchen', text: 'Täglich frisch aus dem Ofen.' },
+          { titel: 'Kuchen & Torten', text: 'Hausgemacht, auch auf Bestellung.' },
+          { titel: 'Partyservice', text: 'Belegte Brötchen für Feiern.', _aktiv: false }
+        ] },
+        oeffnungszeiten: { zeiten: { Montag: '7–18 Uhr', Samstag: '7–13 Uhr' }, hinweis: 'An Feiertagen geschlossen' },
+        kontakt: { adresse: 'Hauptstraße 1\n12345 Musterstadt', telefon: '030 123456', email: 'hallo@muster-baeckerei.de' },
+        impressum: { firmenname: 'Muster Bäckerei GmbH', inhaber: 'Max Mustermann', adresse: 'Hauptstraße 1\n12345 Musterstadt' },
         design: { akzentfarbe: '#b45309' }
       },
       media: [],

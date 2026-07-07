@@ -285,3 +285,17 @@ pre.json { background: #060d18; border: 1px solid var(--border); border-radius: 
 .ed-versions { display: flex; flex-direction: column; gap: 8px; }
 .ed-version { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); color: var(--text-light); font-size: 13px; }
 .ed-unpub { align-self: center; background: rgba(245,200,80,0.15); color: #ffd66b; border: 1px solid rgba(245,200,80,0.35); border-radius: 999px; padding: 5px 12px; font-size: 12px; font-weight: 600; }
+
+/* ===== Editor: Ein-/Ausblenden (Schalter) ===== */
+.ed-section-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.ed-switch { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; }
+.ed-switch input { position: absolute; opacity: 0; width: 0; height: 0; }
+.ed-switch-slider { width: 40px; height: 22px; background: rgba(255,255,255,0.16); border-radius: 999px; position: relative; transition: background .2s; flex: none; }
+.ed-switch-slider::before { content: ''; position: absolute; width: 18px; height: 18px; border-radius: 50%; background: #fff; top: 2px; left: 2px; transition: transform .2s; }
+.ed-switch input:checked + .ed-switch-slider { background: var(--lime); }
+.ed-switch input:checked + .ed-switch-slider::before { transform: translateX(18px); }
+.ed-switch input:focus-visible + .ed-switch-slider { outline: 2px solid var(--lime); outline-offset: 2px; }
+.ed-switch-label { color: var(--text-muted); font-size: 12px; }
+.ed-toggle-list { display: flex; flex-direction: column; gap: 8px; }
+.ed-toggle-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 10px; }
+.ed-toggle-label { color: var(--text-light); font-size: 14px; }
