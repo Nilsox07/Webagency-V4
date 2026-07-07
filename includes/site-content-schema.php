@@ -33,6 +33,12 @@ function sartu_site_palette(): array
     ];
 }
 
+/** Gültiger Hex-Farbwert (#rgb oder #rrggbb) — verhindert CSS-Injektion. */
+function sartu_site_valid_hex(string $value): bool
+{
+    return (bool) preg_match('/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/', $value);
+}
+
 /**
  * Alle Vorlagen. Rückgabe: [vorlage => ['label' => …, 'sections' => [ … ]]].
  * Jede Sektion: ['key','label','fields'=>[ ['key','label','type', …opt] ]].
@@ -122,9 +128,18 @@ function sartu_site_schema(): array
                     ],
                 ],
                 [
+                    'key' => 'seo',
+                    'label' => 'Suchmaschine (Google)',
+                    'help' => 'So erscheint Ihre Seite in den Google-Ergebnissen.',
+                    'fields' => [
+                        ['key' => 'titel', 'label' => 'Seitentitel', 'type' => 'text', 'max' => 65, 'help' => 'Erscheint als blaue Überschrift bei Google (ca. 60 Zeichen).', 'placeholder' => 'Muster Bäckerei – frisches Brot in Musterstadt'],
+                        ['key' => 'description', 'label' => 'Beschreibung', 'type' => 'textarea', 'max' => 160, 'help' => 'Der graue Text unter dem Titel bei Google (ca. 155 Zeichen).'],
+                    ],
+                ],
+                [
                     'key' => 'design',
                     'label' => 'Design',
-                    'help' => 'Nur die Akzentfarbe ist wählbar — der Rest bleibt geschützt.',
+                    'help' => 'Ihre Akzentfarbe — als Wähler, per Hex-Code oder aus den Vorschlägen.',
                     'fields' => [
                         ['key' => 'akzentfarbe', 'label' => 'Akzentfarbe', 'type' => 'color'],
                     ],

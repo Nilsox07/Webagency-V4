@@ -152,7 +152,31 @@ function sc_img(array $media, ?string $ref, string $class = ''): string
     return '<img' . $cls . ' src="' . sc_e($m['url']) . '" alt="' . sc_e($m['alt']) . '" loading="lazy" />';
 }
 
-/** p-Absätze aus Zeilenumbrüchen (escaped). */
+/**
+ * Einfache, sichere Formatierung: **fett**, *kursiv*, Links (URL/E-Mail) und
+ * Absätze. Zuerst escapen (kein HTML vom Kunden), dann die Marker anwenden —
+ * so ist XSS ausgeschlossen, der Kunde bekommt aber echte Formatierung.
+ */
+function sc_richtext(?string $text): string
+{
+    $text = trim((string) $text);
+    if ($text === '') {
+        return '';
+    }
+    $parts = preg_split('~\n{2,}~', $text) ?: [$text];
+    $html = '';
+    foreach ($parts as $p) {
+        $safe = sc_e(trim($p));
+        $safe = preg_replace('~\*\*(.+?)\*\*~s', '<strong>$1</strong>', $safe);
+        $safe = preg_replace('~(?<![\*\w])\*(?!\s)(.+?)(?<!\s)\*(?![\*\w])~s', '<em>$1</em>', $safe);
+        $safe = preg_replace('~\b(https?://[^\s<]+)~i', '<a href="$1" target="_blank" rel="noopener">$1</a>', $safe);
+        $safe = preg_replace('~([\w.+-]+@[\w-]+\.[\w.-]+)~', '<a href="mailto:$1">$1</a>', $safe);
+        $html .= '<p>' . nl2br($safe) . '</p>';
+    }
+    return $html;
+}
+
+/** Alias für reinen Absatz-Text (ohne Marker) — z. B. Adressen. */
 function sc_paragraphs(?string $text): string
 {
     $text = trim((string) $text);
@@ -175,11 +199,13 @@ function render_customer_site(array $page, array $content, array $media = []): v
 {
     $tpl = sartu_site_template((string) ($page['vorlage'] ?? 'standard'));
     $accent = $content['design']['akzentfarbe'] ?? '#0f766e';
-    if (!is_string($accent) || !sartu_site_palette_has($accent)) {
+    if (!is_string($accent) || !(sartu_site_palette_has($accent) || sartu_site_valid_hex($accent))) {
         $accent = '#0f766e';
     }
     $hero = $content['hero'] ?? [];
-    $title = $hero['headline'] ?? ($page['titel'] ?? 'Website');
+    $seo = $content['seo'] ?? [];
+    $title = ($seo['titel'] ?? '') !== '' ? $seo['titel'] : ($hero['headline'] ?? ($page['titel'] ?? 'Website'));
+    $metaDesc = trim((string) ($seo['description'] ?? ''));
 
     $get = static function (string $section, string $field, $default = '') use ($content) {
         return $content[$section][$field] ?? $default;
@@ -190,6 +216,7 @@ function render_customer_site(array $page, array $content, array $media = []): v
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title><?= sc_e((string) $title) ?></title>
+  <?php if ($metaDesc !== ''): ?><meta name="description" content="<?= sc_e($metaDesc) ?>" /><?php endif; ?>
   <style>
     :root { --accent: <?= sc_e($accent) ?>; --ink:#1c2530; --muted:#5c6672; --bg:#ffffff; --soft:#f5f7f8; }
     * { box-sizing:border-box; }
@@ -227,7 +254,7 @@ function render_customer_site(array $page, array $content, array $media = []): v
   <?php if (trim((string) $get('ueber', 'titel')) !== '' || trim((string) $get('ueber', 'text')) !== ''): ?>
   <section class="cs-sec"><div class="cs-wrap">
     <?php if ($get('ueber', 'titel')): ?><h2><?= sc_e((string) $get('ueber', 'titel')) ?></h2><?php endif; ?>
-    <?= sc_paragraphs((string) $get('ueber', 'text')) ?>
+    <?= sc_richtext((string) $get('ueber', 'text')) ?>
     <?php $img = sc_img($media, $get('ueber', 'bild', null), ''); if ($img !== ''): ?><div class="cs-media"><?= $img ?></div><?php endif; ?>
   </div></section>
   <?php endif; ?>
@@ -238,7 +265,7 @@ function render_customer_site(array $page, array $content, array $media = []): v
     <?php if ($get('leistungen', 'einleitung')): ?><p><?= nl2br(sc_e((string) $get('leistungen', 'einleitung'))) ?></p><?php endif; ?>
     <div class="cs-grid">
       <?php foreach ($items as $it): if (!is_array($it)) continue; ?>
-      <div class="cs-card"><h3><?= sc_e((string) ($it['titel'] ?? '')) ?></h3><p><?= nl2br(sc_e((string) ($it['text'] ?? ''))) ?></p></div>
+      <div class="cs-card"><h3><?= sc_e((string) ($it['titel'] ?? '')) ?></h3><?= sc_richtext((string) ($it['text'] ?? '')) ?></div>
       <?php endforeach; ?>
     </div>
   </div></section>
@@ -270,7 +297,7 @@ function render_customer_site(array $page, array $content, array $media = []): v
     <?php if ($get('beitraege', 'titel')): ?><h2><?= sc_e((string) $get('beitraege', 'titel')) ?></h2><?php endif; ?>
     <div class="cs-grid">
       <?php foreach ($posts as $p): if (!is_array($p)) continue; ?>
-      <div class="cs-card"><?= sc_img($media, $p['bild'] ?? null, '') ?><p class="cs-ey"><?= sc_e((string) ($p['datum'] ?? '')) ?></p><h3><?= sc_e((string) ($p['titel'] ?? '')) ?></h3><p><?= nl2br(sc_e((string) ($p['text'] ?? ''))) ?></p></div>
+      <div class="cs-card"><?= sc_img($media, $p['bild'] ?? null, '') ?><p class="cs-ey"><?= sc_e((string) ($p['datum'] ?? '')) ?></p><h3><?= sc_e((string) ($p['titel'] ?? '')) ?></h3><?= sc_richtext((string) ($p['text'] ?? '')) ?></div>
       <?php endforeach; ?>
     </div>
   </div></section>

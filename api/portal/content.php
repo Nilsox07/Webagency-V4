@@ -52,9 +52,14 @@ if ($method === 'GET') {
     $verStmt = $pdo->prepare('select id, created_at, anlass from site_page_versions where page_id = ? order by created_at desc limit 20');
     $verStmt->execute([$page['id']]);
 
+    $diff = $pdo->prepare('select count(*) as c from site_blocks where page_id = ? and not (wert_draft <=> wert_published)');
+    $diff->execute([$page['id']]);
+    $unpublished = (int) ($diff->fetch()['c'] ?? 0) > 0;
+
     json_response([
         'ok' => true,
         'has_project' => true,
+        'unpublished' => $unpublished,
         'page' => [
             'id' => $page['id'],
             'slug' => $page['slug'],
@@ -106,6 +111,20 @@ if ($action === 'alt') {
     json_response(['ok' => true, 'csrf' => csrf_token()]);
 }
 
+if ($action === 'delete_media') {
+    $uid = trim((string) ($input['upload_id'] ?? ''));
+    $sel = $pdo->prepare('select storage_path from uploads where id = ? and project_id = ? limit 1');
+    $sel->execute([$uid, (string) $page['_project']['id']]);
+    $u = $sel->fetch();
+    if ($u) {
+        if (!empty($u['storage_path']) && is_file($u['storage_path'])) {
+            @unlink($u['storage_path']);
+        }
+        $pdo->prepare('delete from uploads where id = ? and project_id = ?')->execute([$uid, (string) $page['_project']['id']]);
+    }
+    json_response(['ok' => true, 'csrf' => csrf_token()]);
+}
+
 // action === 'save' : Entwurfs-Felder speichern.
 $incoming = $input['fields'] ?? [];
 if (!is_array($incoming)) {
@@ -128,7 +147,8 @@ foreach ($incoming as $f) {
     $wert = $f['wert'] ?? null;
 
     if ($type === 'color') {
-        $wert = is_string($wert) && sartu_site_palette_has($wert) ? $wert : null;
+        $wert = is_string($wert) ? strtolower(trim($wert)) : '';
+        $wert = ($wert !== '' && (sartu_site_palette_has($wert) || sartu_site_valid_hex($wert))) ? $wert : null;
     } elseif ($type === 'list') {
         $wert = is_array($wert) ? array_slice(array_values($wert), 0, (int) ($spec['max_items'] ?? 50)) : [];
     } elseif ($type === 'hours') {

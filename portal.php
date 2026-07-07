@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="portal.css?v=4" />
+  <link rel="stylesheet" href="portal.css?v=5" />
 </head>
 <body>
   <div class="pt-wrap pt-wrap-app">
@@ -136,6 +136,6 @@
   </div>
 
   <script src="portal-local.js?v=6"></script>
-  <script src="portal-editor.js?v=1"></script>
+  <script src="portal-editor.js?v=2"></script>
 </body>
 </html>

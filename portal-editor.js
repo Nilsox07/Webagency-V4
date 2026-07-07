@@ -7,7 +7,7 @@
 
   var API = 'api/portal/content.php';
   var csrf = '';
-  var state = { page: null, template: null, content: {}, media: [], palette: [], preview: false, project_id: '' };
+  var state = { page: null, template: null, content: {}, media: [], palette: [], versions: [], unpublished: false, preview: false, project_id: '' };
   var pendingSave = {}; // "section.field" -> value
   var saveTimer = null;
 
@@ -41,19 +41,27 @@
     queueSave(section, field, value);
   }
   function queueSave(section, field, value) {
-    if (state.preview) { status('Vorschau-Modus — Änderungen werden nicht gespeichert.'); return; }
+    if (state.preview) { setUnpublished(true); status('Vorschau-Modus — Änderungen werden nicht gespeichert.'); return; }
     pendingSave[section + '.' + field] = { section: section, field: field, wert: value };
     status('Speichert …');
     clearTimeout(saveTimer);
     saveTimer = setTimeout(flushSave, 700);
   }
   function flushSave() {
+    clearTimeout(saveTimer);
     var fields = Object.keys(pendingSave).map(function (k) { return pendingSave[k]; });
-    if (!fields.length) return;
+    if (!fields.length) return Promise.resolve();
     pendingSave = {};
-    post({ action: 'save', fields: fields }).then(function () {
+    return post({ action: 'save', fields: fields }).then(function () {
       status('Automatisch gespeichert ✓');
-    }).catch(function (e) { status('Konnte nicht speichern: ' + e.message); });
+      setUnpublished(true);
+    }).catch(function (e) { status('Konnte nicht speichern: ' + e.message); throw e; });
+  }
+
+  function setUnpublished(v) {
+    state.unpublished = v;
+    var chip = document.getElementById('edUnpub');
+    if (chip) chip.hidden = !v;
   }
 
   // ---- Feld-Steuerelemente ----
@@ -73,26 +81,57 @@
     if (field.max) input.maxLength = field.max;
     if (field.placeholder) input.placeholder = field.placeholder;
     var v = getVal(section, field.key); input.value = (v == null) ? '' : v;
-    input.addEventListener('input', function () { setVal(section, field.key, input.value); });
+    var counter = field.max ? el('span', 'ed-count') : null;
+    function paintCount() { if (counter) counter.textContent = input.value.length + ' / ' + field.max; }
+    input.addEventListener('input', function () { setVal(section, field.key, input.value); paintCount(); });
     w.appendChild(input);
+    if (counter) { paintCount(); w.appendChild(counter); }
+    if (multiline) w.appendChild(el('span', 'ed-help', 'Tipp: **fett**, *kursiv*, Links werden automatisch erkannt.'));
     return w;
   }
 
+  function normalizeHex(v) {
+    v = String(v || '').trim();
+    if (/^#[0-9a-fA-F]{3}$/.test(v)) { v = '#' + v[1] + v[1] + v[2] + v[2] + v[3] + v[3]; }
+    return /^#[0-9a-fA-F]{6}$/.test(v) ? v.toLowerCase() : '#0f766e';
+  }
+  function isHex(v) { return /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(String(v || '')); }
+
   function colorControl(section, field) {
     var w = labelWrap(field);
-    var row = el('div', 'ed-palette');
-    var cur = getVal(section, field.key);
-    state.palette.forEach(function (c) {
-      var b = el('button', 'ed-swatch' + (cur === c.value ? ' is-on' : ''));
-      b.type = 'button'; b.style.background = c.value; b.title = c.label;
-      b.addEventListener('click', function () {
-        setVal(section, field.key, c.value);
-        Array.prototype.forEach.call(row.children, function (x) { x.classList.remove('is-on'); });
-        b.classList.add('is-on');
-      });
-      row.appendChild(b);
+    var cur = getVal(section, field.key) || '#0f766e';
+
+    var top = el('div', 'ed-color');
+    var picker = el('input'); picker.type = 'color'; picker.className = 'ed-color-picker'; picker.value = normalizeHex(cur);
+    var hex = el('input'); hex.type = 'text'; hex.className = 'ed-color-hex'; hex.maxLength = 7; hex.value = cur; hex.setAttribute('aria-label', 'Hex-Code');
+    top.appendChild(picker); top.appendChild(hex);
+
+    var presets = el('div', 'ed-palette');
+    function markPresets(v) {
+      Array.prototype.forEach.call(presets.children, function (x) { x.classList.toggle('is-on', x.getAttribute('data-c') === v); });
+    }
+    function apply(v, from) {
+      v = String(v).toLowerCase();
+      setVal(section, field.key, v);
+      if (from !== 'picker') picker.value = normalizeHex(v);
+      if (from !== 'hex') hex.value = v;
+      markPresets(v);
+    }
+    picker.addEventListener('input', function () { apply(picker.value, 'picker'); });
+    hex.addEventListener('input', function () {
+      var v = hex.value.trim(); if (v && v[0] !== '#') v = '#' + v;
+      if (isHex(v)) apply(v, 'hex');
     });
-    w.appendChild(row);
+
+    (state.palette || []).forEach(function (c) {
+      var b = el('button', 'ed-swatch' + (cur === c.value ? ' is-on' : ''));
+      b.type = 'button'; b.style.background = c.value; b.title = c.label; b.setAttribute('data-c', c.value);
+      b.addEventListener('click', function () { apply(c.value, 'preset'); });
+      presets.appendChild(b);
+    });
+
+    w.appendChild(top);
+    w.appendChild(presets);
     return w;
   }
 
@@ -203,6 +242,12 @@
     }
   }
 
+  var VERSION_LABEL = { vor_veroeffentlichung: 'vor einer Veröffentlichung', vor_rueckgaengig: 'vor einem Rückgängig' };
+  function fmtWhen(s) {
+    try { return new Date((s || '').replace(' ', 'T')).toLocaleString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }); }
+    catch (e) { return s || ''; }
+  }
+
   function render() {
     var root = document.getElementById('editorRoot');
     if (!root) return;
@@ -215,24 +260,78 @@
       section.fields.forEach(function (field) { card.appendChild(buildField(section.key, field)); });
       root.appendChild(card);
     });
+    renderVersions(root);
+  }
+
+  function renderVersions(root) {
+    if (!state.versions || !state.versions.length) return;
+    var card = el('div', 'card ed-section');
+    card.appendChild(el('h3', null, 'Frühere Stände'));
+    card.appendChild(el('p', 'muted ed-sec-help', 'Jede Veröffentlichung wird gesichert. Sie können jederzeit auf einen früheren Stand zurück.'));
+    var list = el('div', 'ed-versions');
+    state.versions.forEach(function (v) {
+      var rowEl = el('div', 'ed-version');
+      rowEl.appendChild(el('span', null, fmtWhen(v.created_at) + ' · Stand ' + (VERSION_LABEL[v.anlass] || v.anlass || '')));
+      var btn = el('button', 'btn btn-ghost btn-sm'); btn.type = 'button'; btn.textContent = 'Wiederherstellen';
+      btn.addEventListener('click', function () {
+        if (state.preview) { status('Vorschau-Modus — Wiederherstellen ist hier deaktiviert.'); return; }
+        if (!window.confirm('Diesen früheren Stand als Entwurf laden? Ihre aktuellen, nicht veröffentlichten Änderungen werden ersetzt.')) return;
+        status('Stellt wieder her …');
+        post({ action: 'restore', version_id: v.id }).then(function () { return reload(); }).then(function () {
+          setUnpublished(true); status('Früherer Stand geladen ✓ — prüfen und dann veröffentlichen.');
+        }).catch(function (e) { status('Fehler: ' + e.message); });
+      });
+      rowEl.appendChild(btn);
+      list.appendChild(rowEl);
+    });
+    card.appendChild(list);
+    root.appendChild(card);
   }
 
   // ---- Mediathek / Upload ----
   function mediaById(id) { for (var i = 0; i < state.media.length; i++) if (state.media[i].id === id) return state.media[i]; return null; }
+
+  function saveAlt(id, alt) {
+    var m = mediaById(id); if (m) m.alt_text = alt;
+    if (state.preview) return Promise.resolve();
+    return post({ action: 'alt', upload_id: id, alt_text: alt }).catch(function () {});
+  }
+  function deleteMedia(id) {
+    state.media = state.media.filter(function (m) { return m.id !== id; });
+    if (state.preview) return Promise.resolve();
+    return post({ action: 'delete_media', upload_id: id }).catch(function () {});
+  }
 
   function openMediaPicker(onChoose) {
     var overlay = el('div', 'ed-modal-bg');
     var box = el('div', 'ed-modal');
     box.appendChild(el('h3', null, 'Bild wählen'));
     var grid = el('div', 'ed-media-grid');
+    var altTimer = {};
     function paintGrid() {
       grid.innerHTML = '';
-      if (!state.media.length) grid.appendChild(el('p', 'muted', 'Noch keine Bilder. Laden Sie eins hoch.'));
-      state.media.filter(function (m) { return (m.mime || '').indexOf('image/') === 0; }).forEach(function (m) {
+      var imgs = state.media.filter(function (m) { return (m.mime || '').indexOf('image/') === 0; });
+      if (!imgs.length) grid.appendChild(el('p', 'muted', 'Noch keine Bilder. Laden Sie eins hoch.'));
+      imgs.forEach(function (m) {
+        var cardEl = el('div', 'ed-media-card');
         var t = el('button', 'ed-media-thumb'); t.type = 'button';
         var img = el('img'); img.src = m.url; img.alt = m.alt_text || ''; t.appendChild(img);
         t.addEventListener('click', function () { onChoose(m.id); close(); });
-        grid.appendChild(t);
+        cardEl.appendChild(t);
+
+        var alt = el('input'); alt.type = 'text'; alt.className = 'ed-media-alt'; alt.value = m.alt_text || '';
+        alt.placeholder = 'Bildbeschreibung (Google & Barrierefreiheit)';
+        alt.addEventListener('input', function () { clearTimeout(altTimer[m.id]); altTimer[m.id] = setTimeout(function () { saveAlt(m.id, alt.value); }, 600); });
+        cardEl.appendChild(alt);
+
+        var row = el('div', 'ed-media-row');
+        var use = el('button', 'btn btn-primary btn-sm'); use.type = 'button'; use.textContent = 'Auswählen';
+        use.addEventListener('click', function () { onChoose(m.id); close(); });
+        var del = el('button', 'ed-mini ed-mini-del'); del.type = 'button'; del.textContent = 'Löschen';
+        del.addEventListener('click', function () { if (window.confirm('Bild wirklich löschen?')) { deleteMedia(m.id); paintGrid(); } });
+        row.appendChild(use); row.appendChild(del);
+        cardEl.appendChild(row);
+        grid.appendChild(cardEl);
       });
     }
     paintGrid();
@@ -279,12 +378,23 @@
 
   // ---- Aktionen ----
   function initActions() {
+    // "Unveröffentlichte Änderungen"-Hinweis neben den Buttons einfügen.
+    var bar = document.querySelector('.pt-editbar-actions');
+    if (bar && !document.getElementById('edUnpub')) {
+      var chip = el('span', 'ed-unpub', 'Nicht veröffentlichte Änderungen');
+      chip.id = 'edUnpub'; chip.hidden = true;
+      bar.insertBefore(chip, bar.firstChild);
+    }
     var pub = document.getElementById('edPublish');
     if (pub) pub.addEventListener('click', function () {
       if (state.preview) { status('Vorschau-Modus — Veröffentlichen ist hier deaktiviert.'); return; }
-      flushSave();
       pub.disabled = true; status('Veröffentlicht …');
-      post({ action: 'publish' }).then(function () { status('Ihre Website ist aktualisiert und live ✓'); }).catch(function (e) { status('Fehler: ' + e.message); }).finally(function () { pub.disabled = false; });
+      Promise.resolve(flushSave()).then(function () {
+        return post({ action: 'publish' });
+      }).then(function () {
+        setUnpublished(false); status('Ihre Website ist aktualisiert und live ✓');
+        return reload();
+      }).catch(function (e) { status('Fehler: ' + e.message); }).finally(function () { pub.disabled = false; });
     });
   }
 
@@ -295,8 +405,14 @@
     state.content = data.content || {};
     state.media = data.media || [];
     state.palette = data.palette || [];
+    state.versions = data.versions || [];
     state.project_id = data.page ? data.page.project_id : '';
     render();
+    setUnpublished(!!data.unpublished);
+  }
+
+  function reload() {
+    return api(API).then(function (data) { if (data.has_project) boot(data); return data; });
   }
 
   function demoData() {
@@ -325,18 +441,25 @@
           { key: 'oeffnungszeiten', label: 'Öffnungszeiten', fields: [
             { key: 'zeiten', label: 'Zeiten', type: 'hours' }
           ] },
-          { key: 'design', label: 'Design', help: 'Nur die Akzentfarbe ist wählbar.', fields: [
+          { key: 'seo', label: 'Suchmaschine (Google)', help: 'So erscheint Ihre Seite in den Google-Ergebnissen.', fields: [
+            { key: 'titel', label: 'Seitentitel', type: 'text', max: 65, help: 'Erscheint als blaue Überschrift bei Google.' },
+            { key: 'description', label: 'Beschreibung', type: 'textarea', max: 160, help: 'Der graue Text unter dem Titel bei Google.' }
+          ] },
+          { key: 'design', label: 'Design', help: 'Ihre Akzentfarbe — Wähler, Hex oder Vorschlag.', fields: [
             { key: 'akzentfarbe', label: 'Akzentfarbe', type: 'color' }
           ] }
         ]
       },
       content: {
         hero: { headline: 'Muster Bäckerei', subline: 'Frisch & handgemacht, seit 1985.', cta_text: 'Jetzt anrufen' },
-        leistungen: { titel: 'Unser Angebot', items: [{ titel: 'Brot & Brötchen', text: 'Täglich frisch aus dem Ofen.' }] },
+        leistungen: { titel: 'Unser Angebot', items: [{ titel: 'Brot & Brötchen', text: 'Täglich **frisch** aus dem Ofen.' }] },
         oeffnungszeiten: { zeiten: { Montag: '7–18 Uhr', Samstag: '7–13 Uhr' } },
+        seo: { titel: 'Muster Bäckerei – frisches Brot in Musterstadt', description: 'Handgemachtes Brot, Kuchen und Frühstück im Herzen von Musterstadt. Seit 1985.' },
         design: { akzentfarbe: '#b45309' }
       },
-      media: []
+      media: [],
+      versions: [{ id: 'demo-v1', created_at: '2026-07-05 09:12:00', anlass: 'vor_veroeffentlichung' }],
+      unpublished: false
     };
   }
 
