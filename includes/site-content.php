@@ -21,6 +21,27 @@ function sc_e(?string $value): string
     return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
 }
 
+/**
+ * Nur sichere URL-Schemata für Links aus Kundeninhalten zulassen
+ * (kein javascript:/data:). Relative Links und Anker sind erlaubt.
+ */
+function sc_safe_url(?string $url, array $schemes = ['http', 'https', 'mailto', 'tel']): string
+{
+    $url = trim((string) $url);
+    if ($url === '') {
+        return '';
+    }
+    if ($url[0] === '#' || $url[0] === '/') {
+        return $url;
+    }
+    foreach ($schemes as $s) {
+        if (stripos($url, $s . ':') === 0) {
+            return $url;
+        }
+    }
+    return '';
+}
+
 /** Seite per project_id + slug holen; legt sie an, wenn sie fehlt. */
 function sc_get_or_create_page(PDO $pdo, string $projectId, string $slug = 'home', string $vorlage = 'standard'): array
 {
@@ -409,7 +430,7 @@ function sc_body_standard(array $content, array $media): void
     <div class="cs-wrap">
       <h1><?= sc_e((string) ($hero['headline'] ?? '')) ?></h1>
       <?php if (!empty($hero['subline'])): ?><p><?= nl2br(sc_e((string) $hero['subline'])) ?></p><?php endif; ?>
-      <?php if (!empty($hero['cta_text'])): ?><a class="cs-btn" href="<?= sc_e((string) ($hero['cta_ziel'] ?? '#')) ?>"><?= sc_e((string) $hero['cta_text']) ?></a><?php endif; ?>
+      <?php if (!empty($hero['cta_text'])): $ctaZiel = sc_safe_url($hero['cta_ziel'] ?? '') ?: '#'; ?><a class="cs-btn" href="<?= sc_e($ctaZiel) ?>"><?= sc_e((string) $hero['cta_text']) ?></a><?php endif; ?>
       <?php $img = sc_img($media, $hero['bild'] ?? null, 'cs-media-img'); if ($img !== ''): ?><div class="cs-media"><?= $img ?></div><?php endif; ?>
     </div>
   </header>
@@ -472,7 +493,7 @@ function sc_body_standard(array $content, array $media): void
     <?= sc_paragraphs((string) $get('kontakt', 'adresse')) ?>
     <?php if ($get('kontakt', 'telefon')): ?><p><a href="tel:<?= sc_e((string) $get('kontakt', 'telefon')) ?>"><?= sc_e((string) $get('kontakt', 'telefon')) ?></a></p><?php endif; ?>
     <?php if ($get('kontakt', 'email')): ?><p><a href="mailto:<?= sc_e((string) $get('kontakt', 'email')) ?>"><?= sc_e((string) $get('kontakt', 'email')) ?></a></p><?php endif; ?>
-    <?php if ($get('kontakt', 'maps')): ?><p><a href="<?= sc_e((string) $get('kontakt', 'maps')) ?>" target="_blank" rel="noopener">Auf der Karte ansehen &rarr;</a></p><?php endif; ?>
+    <?php $maps = sc_safe_url($get('kontakt', 'maps', ''), ['http', 'https']); if ($maps !== ''): ?><p><a href="<?= sc_e($maps) ?>" target="_blank" rel="noopener">Auf der Karte ansehen &rarr;</a></p><?php endif; ?>
   </div></section>
   <?php endif; ?>
     <?php

@@ -70,3 +70,16 @@ Diese Punkte sind bewusst bis zum Go-live offen. **Reihenfolge bei Domain-Wechse
 ## Redaktionsplan / Backlog
 - [ ] Ratgeber-Artikel als Nachfrage-Generator: „Lohnt sich eine polnische oder tschechische
       Website für Betriebe in der Lausitz?" (Mehrsprachigkeit Grenzregion).
+
+## Sicherheit vor dem Live-Gang (geprüft Juli 2026)
+Code-Review ergab keine ausnutzbaren Lücken: alle DB-Abfragen mit Prepared Statements,
+Rechteprüfung serverseitig (jeder nur eigene Daten), CSRF auf allen Schreib-Aktionen,
+Ausgaben escaped (XSS-fest), Uploads geprüft + außerhalb Web-Zugriff, Farben/URLs validiert.
+Vor dem Hochladen noch erledigen:
+- [ ] `.htaccess`-Sperren wirken (Apache): `/database/mysql-schema.sql`, `/includes/config.local.php`
+      und `/storage/…` dürfen im Browser **nicht** ladbar sein (404/403). Bei nginx entsprechende
+      location-Blöcke setzen.
+- [ ] Starkes, eigenes **DB-Passwort** in `includes/config.local.php` (nie ins Git).
+- [ ] **HTTPS** erzwingen (Zertifikat + Weiterleitung http→https).
+- [ ] Uploads/Geheimnisse möglichst **außerhalb** des Web-Ordners (`SARTU_STORAGE_PATH`).
+- [ ] PHP/MySQL aktuell halten; `SARTU_DEBUG` in Produktion **aus**.
