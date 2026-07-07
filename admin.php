@@ -8,10 +8,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="portal.css?v=2" />
+  <link rel="stylesheet" href="portal.css?v=3" />
 </head>
 <body>
-  <div class="pt-wrap pt-wrap-wide">
+  <div class="pt-wrap pt-wrap-app pt-wrap-wide">
     <div class="pt-top">
       <a class="pt-brand" href="./"><span class="dot"></span>Sartu · Admin</a>
       <div class="pt-top-actions"><button class="btn btn-ghost btn-sm" id="logoutBtn">Abmelden</button></div>
@@ -24,11 +24,21 @@
     </div>
 
     <main id="app" class="hidden">
-      <div class="tabs">
+      <div class="pt-hello">
+        <div><p class="eyebrow">Admin</p><h1>Übersicht</h1></div>
+      </div>
+
+      <div class="pt-tiles">
+        <div class="pt-tile"><span class="pt-tile-k">Neue Anfragen</span><strong id="ovAnfragen">—</strong><span class="pt-tile-s">unbearbeitet</span></div>
+        <div class="pt-tile"><span class="pt-tile-k">Aktive Projekte</span><strong id="ovProjekte">—</strong><span class="pt-tile-s">in Arbeit / live</span></div>
+        <div class="pt-tile"><span class="pt-tile-k">Kunden</span><strong id="ovKunden">—</strong><span class="pt-tile-s">gesamt</span></div>
+      </div>
+
+      <nav class="tabs pt-tabs">
         <button class="tab is-on" data-tab="anfragen">Anfragen</button>
         <button class="tab" data-tab="projekte">Projekte</button>
         <button class="tab" data-tab="kunden">Kunden</button>
-      </div>
+      </nav>
 
       <section id="tab-anfragen">
         <div class="tbl-wrap">
@@ -61,10 +71,9 @@
     <p class="notice notice-err hidden" id="err"></p>
   </div>
 
-  <!-- Generisches Modal -->
   <div class="modal-bg" id="modalBg"><div class="modal" id="modalBox"></div></div>
 
   <script src="briefing-schema.js?v=5"></script>
-  <script src="admin-local.js?v=4"></script>
+  <script src="admin-local.js?v=5"></script>
 </body>
 </html>

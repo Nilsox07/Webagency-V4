@@ -117,12 +117,32 @@
       state.briefings = out[0].briefings || [];
       state.projects = out[1].projects || [];
       state.profiles = out[2].profiles || out[1].profiles || [];
+      renderOverview();
       renderBriefings();
       renderProjects();
       renderCustomers(out[2].projects || []);
     }).catch(function (e) {
       showErr(e.message);
     });
+  }
+
+  function renderAll() {
+    renderOverview();
+    renderBriefings();
+    renderProjects();
+    renderCustomers();
+  }
+
+  function setOv(id, n) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = String(n);
+  }
+  function renderOverview() {
+    var neu = state.briefings.filter(function (b) { return (b.status || 'neu') === 'neu'; }).length;
+    var kunden = state.profiles.filter(function (p) { return (p.role || 'customer') !== 'admin'; }).length;
+    setOv('ovAnfragen', neu);
+    setOv('ovProjekte', state.projects.length);
+    setOv('ovKunden', kunden);
   }
 
   function renderBriefings() {
@@ -280,7 +300,26 @@
     });
   }
 
-  requireAdmin().then(function (ok) {
-    if (ok) loadAll();
-  });
+  // Sicherer Vorschau-Modus: nur Demo-Daten, kein Login, keine echten Daten — für Design-Review.
+  if (new URLSearchParams(window.location.search).get('preview') === '1') {
+    document.getElementById('gate').classList.add('hidden');
+    document.getElementById('app').classList.remove('hidden');
+    state.profiles = [
+      { id: 1, name: 'Max Mustermann', email: 'max@muster.de', firma: 'Muster Bäckerei GmbH', telefon: '030 1234567', role: 'customer' },
+      { id: 2, name: 'Sabine Beispiel', email: 'sabine@beispiel-hotel.de', firma: 'Hotel Beispiel', telefon: '', role: 'customer' }
+    ];
+    state.projects = [
+      { id: 11, customer_id: 1, titel: 'muster-baeckerei.de', paket: 'wachstum', phase: 'live', liefertermin: '2026-06-30', notiz_kunde: '', notiz_intern: '' },
+      { id: 12, customer_id: 2, titel: 'beispiel-hotel.de', paket: 'platzhirsch', phase: 'design_laeuft', liefertermin: '2026-07-21', notiz_kunde: '', notiz_intern: '' }
+    ];
+    state.briefings = [
+      { id: 101, created_at: '2026-07-06T09:12:00', status: 'neu', kontakt_name: 'Peter Klein', kontakt_email: 'peter@klein-elektro.de', payload: { kontakt: { name: 'Peter Klein', email: 'peter@klein-elektro.de', telefon: '0170 9998877' }, konfiguration: { paket: 'start', paket_name: 'Start', summe_einmalig: 1290, summe_monatlich: 49 } } },
+      { id: 102, created_at: '2026-07-05T16:40:00', status: 'in_bearbeitung', kontakt_name: 'Sabine Beispiel', kontakt_email: 'sabine@beispiel-hotel.de', payload: { kontakt: { name: 'Sabine Beispiel', email: 'sabine@beispiel-hotel.de' }, konfiguration: { paket: 'platzhirsch', paket_name: 'Platzhirsch', summe_einmalig: 6490, summe_monatlich: 249 } } }
+    ];
+    renderAll();
+  } else {
+    requireAdmin().then(function (ok) {
+      if (ok) loadAll();
+    });
+  }
 })();
