@@ -200,6 +200,83 @@ create table if not exists project_briefings (
   constraint fk_project_briefings_project foreign key (project_id) references projects(id) on delete cascade
 ) engine=InnoDB default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
+-- ===== Rechnungen & Zahlungen (Billing) =====
+-- Beträge in Cent (Ganzzahl) — keine Fließkomma-Rundungsfehler.
+create table if not exists rechnung_counter (
+  jahr          int primary key,
+  letzte_nummer int not null default 0
+) engine=InnoDB default charset=utf8mb4 collate=utf8mb4_unicode_ci;
+
+create table if not exists invoices (
+  id            char(36) primary key,
+  created_at    datetime not null default current_timestamp,
+  updated_at    datetime not null default current_timestamp on update current_timestamp,
+  nummer        varchar(40) null,
+  customer_id   char(36) not null,
+  project_id    char(36) null,
+  angebot_id    char(36) null,
+  status        enum('entwurf','offen','bezahlt','storniert') not null default 'entwurf',
+  ausgestellt_am date null,
+  faellig_am    date null,
+  netto_cent    int not null default 0,
+  ust_satz      int not null default 19,
+  ust_cent      int not null default 0,
+  brutto_cent   int not null default 0,
+  kleinunternehmer tinyint(1) not null default 0,
+  empfaenger    json null,
+  hinweis       text null,
+  pdf_path      varchar(500) null,
+  xml_path      varchar(500) null,
+  unique key uq_invoices_nummer (nummer),
+  index idx_invoices_customer (customer_id),
+  index idx_invoices_status (status),
+  constraint fk_invoices_customer foreign key (customer_id) references profiles(id) on delete cascade,
+  constraint fk_invoices_project foreign key (project_id) references projects(id) on delete set null,
+  constraint fk_invoices_angebot foreign key (angebot_id) references angebote(id) on delete set null
+) engine=InnoDB default charset=utf8mb4 collate=utf8mb4_unicode_ci;
+
+create table if not exists invoice_items (
+  id            char(36) primary key,
+  invoice_id    char(36) not null,
+  pos           int not null default 1,
+  bezeichnung   varchar(500) null,
+  menge         int not null default 1,
+  einzelpreis_cent int not null default 0,
+  betrag_cent   int not null default 0,
+  index idx_invoice_items_invoice (invoice_id),
+  constraint fk_invoice_items_invoice foreign key (invoice_id) references invoices(id) on delete cascade
+) engine=InnoDB default charset=utf8mb4 collate=utf8mb4_unicode_ci;
+
+create table if not exists payments (
+  id            char(36) primary key,
+  created_at    datetime not null default current_timestamp,
+  updated_at    datetime not null default current_timestamp on update current_timestamp,
+  invoice_id    char(36) not null,
+  provider      varchar(40) not null default 'mollie',
+  provider_id   varchar(120) null,
+  methode       varchar(60) null,
+  betrag_cent   int not null default 0,
+  status        varchar(40) not null default 'open',
+  bezahlt_am    datetime null,
+  index idx_payments_invoice (invoice_id),
+  index idx_payments_provider_id (provider_id),
+  constraint fk_payments_invoice foreign key (invoice_id) references invoices(id) on delete cascade
+) engine=InnoDB default charset=utf8mb4 collate=utf8mb4_unicode_ci;
+
+create table if not exists subscriptions (
+  id            char(36) primary key,
+  created_at    datetime not null default current_timestamp,
+  updated_at    datetime not null default current_timestamp on update current_timestamp,
+  customer_id   char(36) not null,
+  art           varchar(60) null,
+  betrag_cent   int not null default 0,
+  intervall     varchar(20) not null default 'monat',
+  provider_id   varchar(120) null,
+  status        varchar(40) not null default 'inaktiv',
+  index idx_subscriptions_customer (customer_id),
+  constraint fk_subscriptions_customer foreign key (customer_id) references profiles(id) on delete cascade
+) engine=InnoDB default charset=utf8mb4 collate=utf8mb4_unicode_ci;
+
 -- Ersten Admin anlegen: E-Mail anpassen, danach über /login einloggen.
 -- insert into profiles (id, email, name, role)
 -- values (uuid(), 'admin@deine-domain.de', 'Sartu Admin', 'admin');
