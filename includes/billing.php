@@ -237,6 +237,11 @@ function billing_pdf_document(array $doc): string
     $fy = 800;
     $foot = trim(($seller['name'] ?? '') . ($seller['iban'] ? ' · IBAN: ' . $seller['iban'] : '') . ($seller['bic'] ? ' · BIC: ' . $seller['bic'] : ''));
     if ($foot !== '') { $pdf->line($M, $fy - 12, $right, $fy - 12, 0.4, [200, 200, 200]); $pdf->text($M, $fy, $foot, 8, false, 'L', [120, 120, 120]); }
+
+    // ZUGFeRD / Factur-X: E-Rechnungs-XML ins PDF einbetten (macht es zur hybriden E-Rechnung).
+    if (!empty($doc['facturx'])) {
+        $pdf->attachFacturX((string) $doc['facturx']);
+    }
     return $pdf->output();
 }
 
@@ -287,6 +292,7 @@ function billing_render_invoice_pdf(array $inv): string
         'netto' => (int) $inv['netto_cent'], 'ust' => (int) $inv['ust_cent'], 'brutto' => (int) $inv['brutto_cent'],
         'satz' => (int) $inv['ust_satz'], 'klein' => (int) $inv['kleinunternehmer'] === 1,
         'texte' => $texte, 'seller' => $seller,
+        'facturx' => billing_render_cii($inv),
     ]);
 }
 
@@ -352,4 +358,76 @@ function billing_render_xrechnung(array $inv): string
         . '<cac:LegalMonetaryTotal><cbc:LineExtensionAmount currencyID="EUR">' . $netto . '</cbc:LineExtensionAmount><cbc:TaxExclusiveAmount currencyID="EUR">' . $netto . '</cbc:TaxExclusiveAmount><cbc:TaxInclusiveAmount currencyID="EUR">' . $brutto . '</cbc:TaxInclusiveAmount><cbc:PayableAmount currencyID="EUR">' . $brutto . '</cbc:PayableAmount></cac:LegalMonetaryTotal>'
         . $lines
         . '</Invoice>';
+}
+
+/* ---------------------------------------------------------------------------
+ * E-Rechnung (ZUGFeRD / Factur-X — CII, ins PDF eingebettet)
+ * ------------------------------------------------------------------------- */
+
+/** Cross-Industry-Invoice (EN16931-Profil) für die Einbettung ins Rechnungs-PDF. */
+function billing_render_cii(array $inv): string
+{
+    $s = billing_seller();
+    $e = static function ($v): string { return htmlspecialchars((string) $v, ENT_XML1 | ENT_QUOTES, 'UTF-8'); };
+    $c = static function (int $cent): string { return number_format($cent / 100, 2, '.', ''); };
+    $buyer = $inv['empfaenger_lines'][0] ?? 'Kunde';
+    $nummer = (string) ($inv['nummer'] ?? '');
+    $issue = date('Ymd', strtotime((string) ($inv['ausgestellt_am'] ?: 'now')));
+    $due = date('Ymd', strtotime((string) ($inv['faellig_am'] ?: 'now')));
+    $klein = (int) $inv['kleinunternehmer'] === 1;
+    $satz = (int) $inv['ust_satz'];
+    $taxCat = $klein ? 'E' : 'S'; // E = befreit, S = Standard
+    $prozent = $klein ? 0 : $satz;
+    $netto = $c((int) $inv['netto_cent']);
+    $ust = $c((int) $inv['ust_cent']);
+    $brutto = $c((int) $inv['brutto_cent']);
+
+    $lines = '';
+    $i = 0;
+    foreach ($inv['items'] as $it) {
+        $i++;
+        $lines .= '<ram:IncludedSupplyChainTradeLineItem>'
+            . '<ram:AssociatedDocumentLineDocument><ram:LineID>' . $i . '</ram:LineID></ram:AssociatedDocumentLineDocument>'
+            . '<ram:SpecifiedTradeProduct><ram:Name>' . $e($it['bezeichnung']) . '</ram:Name></ram:SpecifiedTradeProduct>'
+            . '<ram:SpecifiedLineTradeAgreement><ram:NetPriceProductTradePrice><ram:ChargeAmount>' . $c((int) $it['einzelpreis_cent']) . '</ram:ChargeAmount></ram:NetPriceProductTradePrice></ram:SpecifiedLineTradeAgreement>'
+            . '<ram:SpecifiedLineTradeDelivery><ram:BilledQuantity unitCode="C62">' . (int) $it['menge'] . '</ram:BilledQuantity></ram:SpecifiedLineTradeDelivery>'
+            . '<ram:SpecifiedLineTradeSettlement>'
+            . '<ram:ApplicableTradeTax><ram:TypeCode>VAT</ram:TypeCode><ram:CategoryCode>' . $taxCat . '</ram:CategoryCode><ram:RateApplicablePercent>' . $prozent . '</ram:RateApplicablePercent></ram:ApplicableTradeTax>'
+            . '<ram:SpecifiedTradeSettlementLineMonetarySummation><ram:LineTotalAmount>' . $c((int) $it['betrag_cent']) . '</ram:LineTotalAmount></ram:SpecifiedTradeSettlementLineMonetarySummation>'
+            . '</ram:SpecifiedLineTradeSettlement>'
+            . '</ram:IncludedSupplyChainTradeLineItem>';
+    }
+
+    $exemptReason = $klein ? '<ram:ExemptionReason>Kleinunternehmer gemäß § 19 UStG</ram:ExemptionReason>' : '';
+
+    return '<?xml version="1.0" encoding="UTF-8"?>' . "\n"
+        . '<rsm:CrossIndustryInvoice xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100">'
+        . '<rsm:ExchangedDocumentContext><ram:GuidelineSpecifiedDocumentContextParameter><ram:ID>urn:cen.eu:en16931:2017</ram:ID></ram:GuidelineSpecifiedDocumentContextParameter></rsm:ExchangedDocumentContext>'
+        . '<rsm:ExchangedDocument><ram:ID>' . $e($nummer) . '</ram:ID><ram:TypeCode>380</ram:TypeCode>'
+        . '<ram:IssueDateTime><udt:DateTimeString format="102">' . $issue . '</udt:DateTimeString></ram:IssueDateTime></rsm:ExchangedDocument>'
+        . '<rsm:SupplyChainTradeTransaction>'
+        . $lines
+        . '<ram:ApplicableHeaderTradeAgreement>'
+        . '<ram:SellerTradeParty><ram:Name>' . $e($s['name'] ?? '') . '</ram:Name>'
+        . '<ram:PostalTradeAddress><ram:LineOne>' . $e($s['strasse'] ?? '') . '</ram:LineOne><ram:CityName>' . $e($s['plz_ort'] ?? '') . '</ram:CityName><ram:CountryID>DE</ram:CountryID></ram:PostalTradeAddress>'
+        . ($s['email'] ? '<ram:URIUniversalCommunication><ram:URIID schemeID="EM">' . $e($s['email']) . '</ram:URIID></ram:URIUniversalCommunication>' : '')
+        . ($s['ust_id'] ? '<ram:SpecifiedTaxRegistration><ram:ID schemeID="VA">' . $e($s['ust_id']) . '</ram:ID></ram:SpecifiedTaxRegistration>' : '')
+        . '</ram:SellerTradeParty>'
+        . '<ram:BuyerTradeParty><ram:Name>' . $e($buyer) . '</ram:Name></ram:BuyerTradeParty>'
+        . '</ram:ApplicableHeaderTradeAgreement>'
+        . '<ram:ApplicableHeaderTradeDelivery/>'
+        . '<ram:ApplicableHeaderTradeSettlement>'
+        . '<ram:InvoiceCurrencyCode>EUR</ram:InvoiceCurrencyCode>'
+        . '<ram:ApplicableTradeTax><ram:CalculatedAmount>' . $ust . '</ram:CalculatedAmount><ram:TypeCode>VAT</ram:TypeCode>' . $exemptReason . '<ram:BasisAmount>' . $netto . '</ram:BasisAmount><ram:CategoryCode>' . $taxCat . '</ram:CategoryCode><ram:RateApplicablePercent>' . $prozent . '</ram:RateApplicablePercent></ram:ApplicableTradeTax>'
+        . '<ram:SpecifiedTradePaymentTerms><ram:DueDateDateTime><udt:DateTimeString format="102">' . $due . '</udt:DateTimeString></ram:DueDateDateTime></ram:SpecifiedTradePaymentTerms>'
+        . '<ram:SpecifiedTradeSettlementHeaderMonetarySummation>'
+        . '<ram:LineTotalAmount>' . $netto . '</ram:LineTotalAmount>'
+        . '<ram:TaxBasisTotalAmount>' . $netto . '</ram:TaxBasisTotalAmount>'
+        . '<ram:TaxTotalAmount currencyID="EUR">' . $ust . '</ram:TaxTotalAmount>'
+        . '<ram:GrandTotalAmount>' . $brutto . '</ram:GrandTotalAmount>'
+        . '<ram:DuePayableAmount>' . $brutto . '</ram:DuePayableAmount>'
+        . '</ram:SpecifiedTradeSettlementHeaderMonetarySummation>'
+        . '</ram:ApplicableHeaderTradeSettlement>'
+        . '</rsm:SupplyChainTradeTransaction>'
+        . '</rsm:CrossIndustryInvoice>';
 }

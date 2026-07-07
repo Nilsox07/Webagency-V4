@@ -1,6 +1,44 @@
 # Sartu — Go-Live-Checkliste
 
 Diese Punkte sind bewusst bis zum Go-live offen. **Reihenfolge bei Domain-Wechsel beachten.**
+> Diese Liste wird bei jedem Bau-Schritt mitgepflegt — Erledigtes ist abgehakt.
+
+## Portal, Backend & Abrechnung — Setup auf dem Hosting
+**Gebaut & einsatzbereit (Code fertig, per Vorschau/Playwright geprüft):**
+- [x] Kundenportal (Cockpit, Website-Editor, Statistik, Wachsen, Paket & Rechnungen, Hilfe)
+- [x] Selbst-Editor: nur Betriebliches editierbar, volle Farbsteuerung, Mehrseiten mit
+      Pflichtseiten, Vorschau/Veröffentlichen, Versionen/Rückgängig, Bild-Upload + Alt-Texte
+- [x] Impressum- + Datenschutz-Generator (füttert sich aus den Kundenangaben)
+- [x] Auftragsmechanismus: Anfrage → Angebot (Admin) → verbindliche Zusage (§312j BGB) + Protokoll
+- [x] Stufe-2-Briefing (12 Kapitel, kapitelbasiert) + Anzeige im Admin-Projekt
+- [x] Admin-Portal: Anfragen, Angebote (+ Annahme-Protokoll), Rechnungen, Projekte, Kunden
+- [x] Rechnungen + Angebot-/Rechnungs-PDF + E-Rechnung-XML + Mollie-Anbindung (hinter Schalter)
+- [x] Sicherheits-Review: keine ausnutzbaren Lücken; `.htaccess`-Härtung ergänzt
+
+**Vor dem ersten echten Kunden erledigen (braucht dein Hosting/MySQL):**
+- [ ] **DB-Schema einspielen:** `database/mysql-schema.sql` importieren (alle Tabellen:
+      profiles, login_tokens, briefings, projects, uploads, site_pages/site_blocks/site_page_versions,
+      angebote, project_briefings, invoices/invoice_items/payments/subscriptions/rechnung_counter).
+- [ ] **Ersten Admin anlegen** (INSERT am Ende der Schema-Datei, deine E-Mail) → über `/login` einloggen.
+- [ ] **`includes/config.local.php`** aus `config.local.example.php` anlegen: DB-Zugang,
+      `SARTU_BASE_URL`, Mailabsender.
+- [ ] **Mailversand** prüfen (Login-/Angebots-Mails kommen an; sonst SMTP statt `mail()`).
+- [ ] **Kompletten Durchlauf testen:** Anfrage → Angebot senden → als Kunde einloggen →
+      verbindlich beauftragen → Briefing ausfüllen → Editor/Vorschau/Veröffentlichen → Rechnung/PDF.
+
+## Zahlungen aktivieren (Mollie)
+- [ ] Mollie-Konto anlegen; im Dashboard PayPal/Kreditkarte/SEPA/Sofort aktivieren.
+- [ ] `SARTU_MOLLIE_KEY` in `config.local.php` eintragen (erst `test_…`) → „Bezahlen" wird sichtbar.
+- [ ] Rechnungs-Absenderdaten `SARTU_FIRMA_*` (Name, Anschrift, USt-IdNr./Steuernr., IBAN/BIC)
+      sowie `SARTU_KLEINUNTERNEHMER=1` **oder** `SARTU_UST=19` setzen.
+- [ ] Testzahlung im Mollie-Testmodus (Webhook `…/api/mollie-webhook.php` erreichbar? Rechnung wird „bezahlt"?).
+- [ ] Danach auf `live_…`-Key umstellen.
+
+## E-Rechnung
+- [x] XRechnung/EN16931-UBL-XML je Rechnung (Download im Portal & Admin)
+- [x] ZUGFeRD/Factur-X-PDF (E-Rechnungs-XML eingebettet ins Rechnungs-PDF, PDF/A-3-Metadaten)
+- [ ] Generierte E-Rechnung einmal gegen einen Online-Validator prüfen (z. B. XRechnung-/ZUGFeRD-Validator).
+- [ ] Rechnungen GoBD-konform archivieren (unveränderbar, 10 Jahre).
 
 ## Indexierung (ZUERST)
 - [ ] **noindex entfernen:** `meta robots` auf allen Seiten zurück auf

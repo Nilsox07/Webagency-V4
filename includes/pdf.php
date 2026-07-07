@@ -13,6 +13,8 @@ final class SartuPdf
     private string $buf = '';
     /** Helvetica AFM-Zeichenbreiten (1/1000 em) für gängige Zeichen. */
     private array $cw;
+    private ?string $attachXml = null;      // eingebettete E-Rechnung (Factur-X CII)
+    private string $attachName = 'factur-x.xml';
 
     public function __construct()
     {
@@ -76,10 +78,29 @@ final class SartuPdf
         $this->buf .= $color . sprintf('%.2F w %.2F %.2F m %.2F %.2F l S', $w, $x1, $y1, $x2, $y2) . $reset . "\n";
     }
 
+    /** E-Rechnungs-XML (Factur-X/ZUGFeRD, CII) ins PDF einbetten. */
+    public function attachFacturX(string $xml, string $name = 'factur-x.xml'): void
+    {
+        $this->attachXml = $xml;
+        $this->attachName = $name;
+    }
+
+    private function xmp(): string
+    {
+        $now = date('Y-m-d\TH:i:sP');
+        return '<?xpacket begin="' . "\xEF\xBB\xBF" . '" id="W5M0MpCehiHzreSzNTczkc9d"?>'
+            . '<x:xmpmeta xmlns:x="adobe:ns:meta/"><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">'
+            . '<rdf:Description rdf:about="" xmlns:pdfaid="http://www.aiim.org/pdfa/ns/id/"><pdfaid:part>3</pdfaid:part><pdfaid:conformance>B</pdfaid:conformance></rdf:Description>'
+            . '<rdf:Description rdf:about="" xmlns:dc="http://purl.org/dc/elements/1.1/"><dc:title><rdf:Alt><rdf:li xml:lang="x-default">Rechnung</rdf:li></rdf:Alt></dc:title></rdf:Description>'
+            . '<rdf:Description rdf:about="" xmlns:xmp="http://ns.adobe.com/xap/1.0/"><xmp:CreateDate>' . $now . '</xmp:CreateDate><xmp:CreatorTool>Sartu</xmp:CreatorTool></rdf:Description>'
+            . '<rdf:Description rdf:about="" xmlns:fx="urn:factur-x:pdfa:CrossIndustryDocument:invoice:1p0#"><fx:DocumentType>INVOICE</fx:DocumentType><fx:DocumentFileName>' . $this->attachName . '</fx:DocumentFileName><fx:Version>1.0</fx:Version><fx:ConformanceLevel>EN 16931</fx:ConformanceLevel></rdf:Description>'
+            . '</rdf:RDF></x:xmpmeta><?xpacket end="w"?>';
+    }
+
     public function output(): string
     {
+        $attach = $this->attachXml !== null;
         $objs = [];
-        $objs[1] = '<< /Type /Catalog /Pages 2 0 R >>';
         $objs[2] = '<< /Type /Pages /Kids [3 0 R] /Count 1 >>';
         $objs[3] = sprintf('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 %.2F %.2F] /Resources << /Font << /F1 5 0 R /F2 6 0 R >> >> /Contents 4 0 R >>', $this->w, $this->h);
         $stream = $this->buf;
@@ -87,7 +108,20 @@ final class SartuPdf
         $objs[5] = '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>';
         $objs[6] = '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>';
 
-        $pdf = "%PDF-1.4\n";
+        $catalogExtra = '';
+        if ($attach) {
+            $xml = (string) $this->attachXml;
+            $mod = 'D:' . date('YmdHis') . "+00'00'";
+            $objs[7] = "<< /Type /EmbeddedFile /Subtype /text#2Fxml /Params << /Size " . strlen($xml) . " /ModDate (" . $mod . ") >> /Length " . strlen($xml) . " >>\nstream\n" . $xml . "\nendstream";
+            $objs[8] = "<< /Type /Filespec /F (" . $this->attachName . ") /UF (" . $this->attachName . ") /AFRelationship /Alternative /Desc (Rechnungsdaten Factur-X/ZUGFeRD) /EF << /F 7 0 R /UF 7 0 R >> >>";
+            $xmp = $this->xmp();
+            $objs[9] = "<< /Type /Metadata /Subtype /XML /Length " . strlen($xmp) . " >>\nstream\n" . $xmp . "\nendstream";
+            $catalogExtra = ' /AF [8 0 R] /Names << /EmbeddedFiles << /Names [(' . $this->attachName . ') 8 0 R] >> >> /Metadata 9 0 R /MarkInfo << /Marked true >>';
+        }
+        $objs[1] = '<< /Type /Catalog /Pages 2 0 R' . $catalogExtra . ' >>';
+        ksort($objs);
+
+        $pdf = "%PDF-1.4\n%\xE2\xE3\xCF\xD3\n";
         $offsets = [];
         foreach ($objs as $n => $body) {
             $offsets[$n] = strlen($pdf);
