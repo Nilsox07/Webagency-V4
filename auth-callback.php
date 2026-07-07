@@ -10,7 +10,11 @@ $token = trim((string) ($_GET['token'] ?? ''));
 if ($token !== '') {
     $profile = consume_login_link($token);
     if ($profile) {
-        header('Location: ' . (($profile['role'] ?? '') === 'admin' ? 'admin.php' : 'portal.php'));
+        $default = ($profile['role'] ?? '') === 'admin' ? 'admin.php' : 'portal.php';
+        // Nur whitelisted interne Zielseiten zulassen (kein Open-Redirect).
+        $allowed = ['angebot.php', 'onboarding.php', 'portal.php', 'admin.php'];
+        $next = (string) ($_GET['next'] ?? '');
+        header('Location: ' . (in_array($next, $allowed, true) && ($profile['role'] ?? '') !== 'admin' ? $next : $default));
         exit;
     }
     $error = 'Der Login-Link ist ungültig oder abgelaufen. Bitte fordern Sie einen neuen Link an.';

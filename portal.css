@@ -330,3 +330,5 @@ pre.json { background: #060d18; border: 1px solid var(--border); border-radius: 
 .pt-briefing-card { display: block; text-decoration: none; margin-bottom: 16px; }
 .pt-briefing-card:hover { border-color: var(--lime); text-decoration: none; }
 .pt-briefing-card p { color: var(--text-light); }
+.ob-agb { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--text-light); cursor: pointer; line-height: 1.5; }
+.ob-agb input { margin-top: 3px; flex: none; }

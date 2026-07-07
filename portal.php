@@ -140,7 +140,7 @@
     <p class="notice notice-err hidden" id="err"></p>
   </div>
 
-  <script src="portal-local.js?v=6"></script>
+  <script src="portal-local.js?v=7"></script>
   <script src="portal-editor.js?v=6"></script>
 </body>
 </html>

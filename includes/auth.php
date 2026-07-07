@@ -162,6 +162,29 @@ function send_login_mail(array $profile, string $code, string $linkToken): bool
     return mail((string) $profile['email'], $subject, $body, implode("\r\n", $headers));
 }
 
+function send_offer_mail(array $profile, string $code, string $linkToken): bool
+{
+    $mail = app_config()['mail'];
+    $base = public_base_url();
+    $link = $base . '/auth-callback.php?token=' . rawurlencode($linkToken) . '&next=angebot.php';
+    $name = trim((string) ($profile['name'] ?: $profile['email']));
+
+    $subject = 'Ihr Angebot von Sartu';
+    $body = "Hallo {$name},\n\n"
+        . "Ihr persönliches Angebot liegt bereit. Sie können es hier ansehen und verbindlich beauftragen:\n{$link}\n\n"
+        . "Falls der Login-Code abgefragt wird, lautet er: {$code}\n"
+        . "Der Code ist 20 Minuten gültig.\n\n"
+        . "Viele Grüße\nSartu";
+
+    $headers = [
+        'From: Sartu <' . $mail['from'] . '>',
+        'Reply-To: ' . $mail['reply_to'],
+        'Content-Type: text/plain; charset=UTF-8',
+    ];
+
+    return mail((string) $profile['email'], $subject, $body, implode("\r\n", $headers));
+}
+
 function consume_login_code(string $email, string $code): ?array
 {
     $stmt = db()->prepare(

@@ -163,12 +163,22 @@
     });
   }
 
+  var PAKET_PREIS = { start: 1290, wachstum: 3290, platzhirsch: 6490 };
+  var PAKET_KORR = { start: 1, wachstum: 2, platzhirsch: 3 };
+  var CARE_PREIS = { 'care-s': 49, 'care-m': 99, 'care-l': 249 };
+  var PAKET_ALIAS = { basis: 'start', pro: 'wachstum', platin: 'platzhirsch', start: 'start', wachstum: 'wachstum', platzhirsch: 'platzhirsch' };
+
   function openBriefing(b) {
     var k = contactOf(b);
     var cfg = configOf(b);
     var anfrage = payloadOf(b).anfrage || {};
     var once = cfg.summe_einmalig ? Number(cfg.summe_einmalig).toLocaleString('de-DE') + ' €' : 'noch offen';
     var monthly = cfg.summe_monatlich ? Number(cfg.summe_monatlich).toLocaleString('de-DE') + ' €/Mon.' : 'noch offen';
+    var pak0 = PAKET_ALIAS[String(cfg.paket || '').toLowerCase()] || 'start';
+    function opt(v, l, sel) { return '<option value="' + v + '"' + (v === sel ? ' selected' : '') + '>' + l + '</option>'; }
+    var pakOpts = opt('start', 'Start', pak0) + opt('wachstum', 'Wachstum', pak0) + opt('platzhirsch', 'Platzhirsch', pak0);
+    var careOpts = opt('', 'kein Schutz', '') + opt('care-s', 'Schutz S', 'care-m') + opt('care-m', 'Schutz M', 'care-m') + opt('care-l', 'Schutz L', 'care-m');
+
     openModal(
       '<div class="spread"><h2 style="color:#fff">Website-Anfrage</h2><button class="btn btn-ghost btn-sm" id="aClose">Schließen</button></div>' +
       '<p class="muted">' + esc(fmtDate(b.created_at)) + ' · ' + esc(k.name || '-') + ' · ' + esc(k.email || '-') + '</p>' +
@@ -177,8 +187,21 @@
         '<div class="card"><p class="eyebrow">Kontakt</p><h3>' + esc(k.name || '-') + '</h3><p class="muted">' + esc(k.email || '-') + (k.telefon ? ' · ' + esc(k.telefon) : '') + '</p></div>' +
       '</div>' +
       '<div class="field"><label>Status</label><select id="aStatus">' + STATUS.map(function (s) { return '<option value="' + s + '"' + (s === b.status ? ' selected' : '') + '>' + s + '</option>'; }).join('') + '</select></div>' +
-      '<div class="field"><label>Projektname</label><input id="aTitle" type="text" value="' + esc((k.name || 'Kunde') + ' Website') + '"></div>' +
-      '<div class="row row-end"><button class="btn btn-ghost" id="aSave">Status speichern</button><button class="btn btn-primary" id="aConvert">In Projekt umwandeln</button></div>' +
+      '<hr style="border:none;border-top:1px solid rgba(255,255,255,.12); margin:18px 0;">' +
+      '<h3 style="color:#fff; margin-bottom:4px;">Angebot erstellen &amp; senden</h3>' +
+      '<p class="muted" style="margin-bottom:12px;">Der Kunde bekommt eine Mail, sieht das Angebot im Portal und beauftragt verbindlich. Erst dann entsteht das Projekt.</p>' +
+      '<div class="field"><label>Projektname</label><input id="oTitel" type="text" value="' + esc((k.name || 'Kunde') + ' Website') + '"></div>' +
+      '<div class="grid-2" style="gap:12px;">' +
+        '<div class="field"><label>Paket</label><select id="oPaket">' + pakOpts + '</select></div>' +
+        '<div class="field"><label>Einmalpreis (€)</label><input id="oPreis" type="number" value="' + (PAKET_PREIS[pak0] || 1290) + '"></div>' +
+        '<div class="field"><label>Rundum-Schutz</label><select id="oCare">' + careOpts + '</select></div>' +
+        '<div class="field"><label>Schutz (€/Monat)</label><input id="oCarePreis" type="number" value="99"></div>' +
+        '<div class="field"><label>Korrekturrunden</label><input id="oKorr" type="number" value="' + (PAKET_KORR[pak0] || 1) + '"></div>' +
+        '<div class="field"><label>Fertigstellung</label><input id="oLiefer" type="text" value="in 7–14 Werktagen"></div>' +
+        '<div class="field"><label>Angebot gültig bis</label><input id="oGueltig" type="date"></div>' +
+      '</div>' +
+      '<div class="field"><label>Leistungsumfang (eine Zeile je Punkt)</label><textarea id="oUmfang" rows="4"></textarea></div>' +
+      '<div class="row row-end"><button class="btn btn-ghost" id="aSave">Status speichern</button><button class="btn btn-primary" id="oSend">Angebot senden</button></div>' +
       '<details style="margin-top:18px;"><summary>Alle Angaben anzeigen</summary><pre style="white-space:pre-wrap; color:#d6f6e6; font-size:12px;">' + esc(JSON.stringify({ anfrage: anfrage, konfiguration: cfg }, null, 2)) + '</pre></details>'
     );
     document.getElementById('aClose').addEventListener('click', closeModal);
@@ -187,19 +210,34 @@
         .then(function () { closeModal(); return loadAll(); })
         .catch(function (e) { showErr(e.message); });
     });
-    document.getElementById('aConvert').addEventListener('click', function () {
-      send('api/admin/convert.php', {
+    document.getElementById('oPaket').addEventListener('change', function () {
+      var v = this.value;
+      document.getElementById('oPreis').value = PAKET_PREIS[v] || '';
+      document.getElementById('oKorr').value = PAKET_KORR[v] || '';
+    });
+    document.getElementById('oCare').addEventListener('change', function () {
+      document.getElementById('oCarePreis').value = CARE_PREIS[this.value] || '';
+    });
+    document.getElementById('oSend').addEventListener('click', function () {
+      var btn = this; btn.disabled = true;
+      send('api/admin/offers.php', {
         briefing_id: b.id,
         email: k.email || b.kontakt_email || '',
         name: k.name || b.kontakt_name || '',
-        titel: document.getElementById('aTitle').value || 'Website-Projekt',
-        paket: cfg.paket || '',
-        care_stufe: cfg.wartung_name || cfg.wartung || ''
+        titel: document.getElementById('oTitel').value || 'Website-Projekt',
+        paket: document.getElementById('oPaket').value,
+        preis_einmalig: document.getElementById('oPreis').value,
+        care_stufe: document.getElementById('oCare').value,
+        care_preis: document.getElementById('oCarePreis').value,
+        korrekturrunden: document.getElementById('oKorr').value,
+        liefertext: document.getElementById('oLiefer').value,
+        gueltig_bis: document.getElementById('oGueltig').value,
+        umfang: document.getElementById('oUmfang').value
       }).then(function (res) {
         closeModal();
-        if (!res.invite_sent) showErr('Projekt erstellt. Die Login-Mail konnte noch nicht versendet werden. Bitte Mailversand prüfen.');
+        if (!res.mail_sent) showErr('Angebot erstellt. Die Mail konnte noch nicht versendet werden — bitte Mailversand prüfen.');
         return loadAll();
-      }).catch(function (e) { showErr(e.message); });
+      }).catch(function (e) { btn.disabled = false; showErr(e.message); });
     });
   }
 

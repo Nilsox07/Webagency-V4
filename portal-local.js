@@ -85,7 +85,21 @@
       var projects = data.projects || [];
       show();
       fill(data.profile || {}, projects[0] || {});
+      updateBriefingCard();
     }).catch(function () { window.location.href = 'login.php'; });
+  }
+
+  // Cockpit-Karte: offenes Angebot -> "Angebot ansehen", sonst -> "Briefing starten".
+  function updateBriefingCard() {
+    var card = $('briefingCard');
+    if (!card) return;
+    api('api/portal/offer.php').then(function (d) {
+      if (d.has_offer && d.offer && d.offer.status === 'gesendet') {
+        card.setAttribute('href', 'angebot.php');
+        var ey = card.querySelector('.eyebrow'); if (ey) ey.textContent = 'Ihr Angebot liegt vor';
+        var p = card.querySelectorAll('p'); if (p.length) p[p.length - 1].innerHTML = 'Prüfen Sie Ihr Angebot und beauftragen Sie uns verbindlich. <strong>Angebot ansehen &rarr;</strong>';
+      }
+    }).catch(function () {});
   }
 
   init();

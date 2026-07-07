@@ -152,6 +152,39 @@ create table if not exists site_page_versions (
   constraint fk_spv_page foreign key (page_id) references site_pages(id) on delete cascade
 ) engine=InnoDB default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
+-- ===== Auftragsmechanismus: Angebot -> verbindliche Zusage =====
+-- Admin erstellt ein Angebot (aus einer Anfrage), der Kunde nimmt es im Portal
+-- verbindlich an (AGB + Protokoll). Bei Annahme wird das Projekt erstellt (project_id)
+-- und ein unveraenderbarer Schnappschuss (snapshot) festgehalten.
+create table if not exists angebote (
+  id             char(36) primary key,
+  created_at     datetime not null default current_timestamp,
+  updated_at     datetime not null default current_timestamp on update current_timestamp,
+  briefing_id    char(36) null,
+  customer_id    char(36) not null,
+  titel          varchar(255) null,
+  paket          varchar(80) null,
+  preis_einmalig int null,
+  care_stufe     varchar(80) null,
+  care_preis     int null,
+  korrekturrunden int null,
+  umfang         text null,
+  liefertext     varchar(255) null,
+  hinweis        text null,
+  gueltig_bis    date null,
+  status         enum('entwurf','gesendet','angenommen','abgelehnt') not null default 'entwurf',
+  angenommen_am  datetime null,
+  angenommen_ip  varchar(64) null,
+  agb_version    varchar(40) null,
+  snapshot       json null,
+  project_id     char(36) null,
+  index idx_angebote_customer (customer_id),
+  index idx_angebote_status (status),
+  constraint fk_angebote_customer foreign key (customer_id) references profiles(id) on delete cascade,
+  constraint fk_angebote_briefing foreign key (briefing_id) references briefings(id) on delete set null,
+  constraint fk_angebote_project foreign key (project_id) references projects(id) on delete set null
+) engine=InnoDB default charset=utf8mb4 collate=utf8mb4_unicode_ci;
+
 -- ===== Stufe-2-Briefing (Detail-Onboarding im Portal) =====
 -- Ein Briefing je Projekt. answers = JSON der Antworten (Felder-Keys), Datei-Uploads
 -- referenzieren uploads.id. status offen|abgeschlossen.
