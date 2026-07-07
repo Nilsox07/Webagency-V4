@@ -1,0 +1,8 @@
+# Hochgeladene Dateien nie direkt ausliefern — Zugriff nur über api/file.php.
+<IfModule mod_authz_core.c>
+  Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+  Order allow,deny
+  Deny from all
+</IfModule>

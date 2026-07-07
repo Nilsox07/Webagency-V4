@@ -21,6 +21,9 @@ if (
     preg_match('/\.(md|sql|log)$/i', $blockedFile)
     || preg_match('/^(\.env|.*\.env.*|config\.local(\.example)?\.php)$/i', $blockedFile)
     || str_starts_with($path, '.git/')
+    || str_starts_with($path, 'storage/')
+    || str_starts_with($path, 'includes/')
+    || str_starts_with($path, 'cron/')
 ) {
     http_response_code(404);
     return true;

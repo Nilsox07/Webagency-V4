@@ -1,0 +1,7 @@
+# Hochgeladene Dateien nicht versionieren — nur Schutz-Dateien behalten.
+*
+!.gitignore
+!.htaccess
+!uploads/
+uploads/*
+!uploads/.gitkeep
