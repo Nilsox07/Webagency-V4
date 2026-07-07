@@ -212,6 +212,7 @@ function sartu_site_schema(): array
                         ['key' => 'telefon', 'label' => 'Telefon', 'type' => 'tel', 'max' => 60],
                         ['key' => 'email', 'label' => 'E-Mail', 'type' => 'email', 'max' => 120],
                         ['key' => 'ust_id', 'label' => 'USt-IdNr. (falls vorhanden)', 'type' => 'text', 'max' => 60],
+                        ['key' => 'kleinunternehmer', 'label' => 'Kleinunternehmer nach § 19 UStG (keine Umsatzsteuer)', 'type' => 'checkbox', 'help' => 'Anhaken, wenn Sie keine Umsatzsteuer ausweisen.'],
                         ['key' => 'register', 'label' => 'Handelsregister / Nr. (falls vorhanden)', 'type' => 'text', 'max' => 120],
                         ['key' => 'verantwortlich', 'label' => 'Verantwortlich für den Inhalt', 'type' => 'text', 'max' => 160],
                     ],

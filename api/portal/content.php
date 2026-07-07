@@ -128,6 +128,18 @@ if ($action === 'toggle_page') {
     json_response(['ok' => true, 'csrf' => csrf_token()]);
 }
 
+if ($action === 'generate_datenschutz') {
+    $impPage = sc_page_by_slug($pdo, $projectId, 'impressum');
+    $imp = $impPage ? (sc_load_content($pdo, $impPage, 'draft')['impressum'] ?? []) : [];
+    $dsPage = sc_page_by_slug($pdo, $projectId, 'datenschutz');
+    if (!$dsPage) {
+        json_response(['ok' => false, 'error' => 'Datenschutz-Seite fehlt.'], 404);
+    }
+    sc_save_field($pdo, (string) $dsPage['id'], 'datenschutz', 'titel', 'Datenschutzerklärung');
+    sc_save_field($pdo, (string) $dsPage['id'], 'datenschutz', 'text', sartu_generate_datenschutz($imp, []));
+    json_response(['ok' => true, 'content' => sc_load_content($pdo, $dsPage, 'draft'), 'csrf' => csrf_token()]);
+}
+
 if ($action === 'alt') {
     $uid = trim((string) ($input['upload_id'] ?? ''));
     $alt = mb_substr(trim((string) ($input['alt_text'] ?? '')), 0, 500);
@@ -218,6 +230,8 @@ foreach ($incoming as $f) {
     if ($type === 'color') {
         $wert = is_string($wert) ? strtolower(trim($wert)) : '';
         $wert = ($wert !== '' && (sartu_site_palette_has($wert) || sartu_site_valid_hex($wert))) ? $wert : null;
+    } elseif ($type === 'checkbox') {
+        $wert = (!empty($wert) && (string) $wert !== '0') ? '1' : '';
     } elseif ($type === 'list') {
         $wert = is_array($wert) ? array_slice(array_values($wert), 0, (int) ($spec['max_items'] ?? 50)) : [];
     } elseif ($type === 'hours') {

@@ -42,8 +42,10 @@ if (isset($_GET['preview']) && $_GET['preview'] === '1') {
         ],
         'aktuelles' => ['inhalt' => ['titel' => 'Aktuelles', 'text' => "Diese Inhaltsseite pflegt Sartu für Sie.\n\nSie können sie im Portal jederzeit ein- oder ausblenden."]],
         'impressum' => ['impressum' => ['firmenname' => 'Muster Bäckerei GmbH', 'inhaber' => 'Max Mustermann', 'adresse' => "Hauptstraße 1\n12345 Musterstadt", 'telefon' => '030 123456', 'email' => 'hallo@muster-baeckerei.de', 'ust_id' => 'DE123456789']],
-        'datenschutz' => ['datenschutz' => ['titel' => 'Datenschutzerklärung', 'text' => "Der Schutz Ihrer Daten ist uns wichtig.\n\nDiese Erklärung wird von Sartu rechtssicher erstellt und hier eingesetzt."]],
+        'datenschutz' => ['datenschutz' => ['titel' => 'Datenschutzerklärung', 'text' => '']],
     ];
+    // Datenschutz-Vorschau echt aus den Impressum-Angaben generieren.
+    $demoContent['datenschutz']['datenschutz']['text'] = sartu_generate_datenschutz($demoContent['impressum']['impressum'], []);
 
     $slug = vorschau_slug();
     if (!isset($demoPages[$slug])) {
@@ -55,7 +57,8 @@ if (isset($_GET['preview']) && $_GET['preview'] === '1') {
         $nav[] = ['slug' => $s, 'label' => $def['nav_label'], 'url' => vorschau_url($s, 'preview=1&'), 'current' => $s === $slug];
     }
     $page = ['id' => 'demo', 'project_id' => 'demo', 'slug' => $slug, 'vorlage' => $demoPages[$slug]['vorlage'], 'titel' => $demoPages[$slug]['titel']];
-    render_customer_site($page, $demoContent[$slug], [], $nav, $theme);
+    $siteName = (string) ($demoContent['home']['hero']['headline'] ?? '');
+    render_customer_site($page, $demoContent[$slug], [], $nav, $theme, $siteName);
     exit;
 }
 
@@ -112,6 +115,8 @@ foreach (sc_project_pages($pdo, $projectId) as $p) {
     $nav[] = ['slug' => $p['slug'], 'label' => ($p['nav_label'] ?: $p['titel'] ?: $p['slug']), 'url' => vorschau_url((string) $p['slug'], $suffix), 'current' => $p['slug'] === $page['slug']];
 }
 
+$siteName = (string) ($homeContent['hero']['headline'] ?? ($homeContent['impressum']['firmenname'] ?? ''));
+
 header('Content-Type: text/html; charset=UTF-8');
 header('X-Robots-Tag: noindex, nofollow');
-render_customer_site($page, $content, $media, $nav, $theme);
+render_customer_site($page, $content, $media, $nav, $theme, $siteName);

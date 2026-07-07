@@ -231,12 +231,22 @@
     return w;
   }
 
+  function checkboxControl(section, field) {
+    var w = el('div', 'ed-field');
+    var cur = getVal(section, field.key);
+    var on = cur === '1' || cur === true;
+    w.appendChild(switchEl(field.label, on, function (next) { setVal(section, field.key, next ? '1' : ''); }));
+    if (field.help) w.appendChild(el('span', 'ed-help', field.help));
+    return w;
+  }
+
   function buildField(section, field) {
     switch (field.type) {
       case 'textarea': return textControl(section, field, true);
       case 'color': return colorControl(section, field);
       case 'hours': return hoursControl(section, field);
       case 'list': return listControl(section, field);
+      case 'checkbox': return checkboxControl(section, field);
       case 'image': return imageControl(section, field, function () { return getVal(section, field.key); }, function (id) { setVal(section, field.key, id); });
       default: return textControl(section, field, false);
     }
@@ -361,9 +371,29 @@
       }
       root.appendChild(card);
     });
-    if (!shown) root.appendChild(el('div', 'card', 'Diese Seite pflegt Sartu für Sie. Sie können sie oben nur ein- oder ausblenden.'));
+    if (!shown && !(state.page && state.page.vorlage === 'datenschutz')) {
+      root.appendChild(el('div', 'card', 'Diese Seite pflegt Sartu für Sie. Sie können sie oben nur ein- oder ausblenden.'));
+    }
+    if (state.page && state.page.vorlage === 'datenschutz') renderGenerateDatenschutz(root);
     renderVersions(root);
     updatePreviewLink();
+  }
+
+  function renderGenerateDatenschutz(root) {
+    var card = el('div', 'card ed-section');
+    card.appendChild(el('h3', null, 'Datenschutzerklärung'));
+    card.appendChild(el('p', 'muted ed-sec-help', 'Erstellt oder aktualisiert den Datenschutztext automatisch aus Ihren Impressum-Angaben. Der Text wird von Sartu geprüft.'));
+    var btn = el('button', 'btn btn-primary btn-sm'); btn.type = 'button'; btn.textContent = 'Aus meinen Angaben erzeugen';
+    btn.addEventListener('click', function () {
+      if (state.preview) { status('Vorschau-Modus — im echten Portal erzeugt dies Ihren Datenschutztext.'); return; }
+      status('Erzeugt …'); btn.disabled = true;
+      post({ action: 'generate_datenschutz' }).then(function (d) {
+        if (d.content) state.content = d.content;
+        setUnpublished(true); status('Datenschutz erzeugt ✓ — bitte prüfen und veröffentlichen.'); render();
+      }).catch(function (e) { status('Fehler: ' + e.message); }).finally(function () { btn.disabled = false; });
+    });
+    card.appendChild(btn);
+    root.appendChild(card);
   }
 
   function updatePreviewLink() {
@@ -588,7 +618,8 @@
         { key: 'adresse', label: 'Anschrift', type: 'textarea', max: 240 },
         { key: 'telefon', label: 'Telefon', type: 'tel', max: 60 },
         { key: 'email', label: 'E-Mail', type: 'email', max: 120 },
-        { key: 'ust_id', label: 'USt-IdNr. (falls vorhanden)', type: 'text', max: 60 }
+        { key: 'ust_id', label: 'USt-IdNr. (falls vorhanden)', type: 'text', max: 60 },
+        { key: 'kleinunternehmer', label: 'Kleinunternehmer nach § 19 UStG (keine Umsatzsteuer)', type: 'checkbox', help: 'Anhaken, wenn Sie keine Umsatzsteuer ausweisen.' }
       ] }
     ] };
     // Von Sartu gepflegte Seiten: nichts zum Bearbeiten (nur ein-/ausblenden über die Seitenliste).
@@ -618,7 +649,7 @@
         aktuelles: { slug: 'aktuelles', vorlage: 'inhalt', typ: 'inhalt', template: sartuTemplate('inhalt', 'Inhalt'),
           content: { inhalt: { titel: 'Aktuelles', text: 'Diese Seite pflegt Sartu.' } } },
         impressum: { slug: 'impressum', vorlage: 'impressum', typ: 'pflicht', template: impressumTemplate,
-          content: { impressum: { firmenname: 'Muster Bäckerei GmbH', inhaber: 'Max Mustermann', adresse: 'Hauptstraße 1\n12345 Musterstadt', telefon: '030 123456', email: 'hallo@muster-baeckerei.de' } } },
+          content: { impressum: { firmenname: 'Muster Bäckerei GmbH', inhaber: 'Max Mustermann', adresse: 'Hauptstraße 1\n12345 Musterstadt', telefon: '030 123456', email: 'hallo@muster-baeckerei.de', kleinunternehmer: '1' } } },
         datenschutz: { slug: 'datenschutz', vorlage: 'datenschutz', typ: 'pflicht', template: sartuTemplate('datenschutz', 'Datenschutzerklärung'),
           content: { datenschutz: { titel: 'Datenschutzerklärung', text: 'Von Sartu gepflegt.' } } }
       }

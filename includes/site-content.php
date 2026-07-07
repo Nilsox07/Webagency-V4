@@ -14,6 +14,7 @@ declare(strict_types=1);
  */
 
 require_once __DIR__ . '/site-content-schema.php';
+require_once __DIR__ . '/legal-generator.php';
 
 function sc_e(?string $value): string
 {
@@ -39,14 +40,32 @@ function sc_get_or_create_page(PDO $pdo, string $projectId, string $slug = 'home
 /** Standard-Seiten (Start + Pflichtseiten) für ein Projekt anlegen, falls fehlend. */
 function sc_ensure_pages(PDO $pdo, string $projectId): void
 {
+    // Kundenprofil für die Vorbelegung der Rechtsseiten.
+    $prof = $pdo->prepare('select p.* from profiles p join projects pr on pr.customer_id = p.id where pr.id = ? limit 1');
+    $prof->execute([$projectId]);
+    $profile = $prof->fetch() ?: [];
+    $impData = sartu_legal_prefill_impressum($profile);
+
     foreach (sartu_site_page_types() as $slug => $def) {
         $stmt = $pdo->prepare('select id from site_pages where project_id = ? and slug = ? limit 1');
         $stmt->execute([$projectId, $slug]);
         if ($stmt->fetch()) {
             continue;
         }
+        $pageId = uuidv4();
         $ins = $pdo->prepare('insert into site_pages (id, project_id, slug, vorlage, titel, nav_label, typ, position) values (?, ?, ?, ?, ?, ?, ?, ?)');
-        $ins->execute([uuidv4(), $projectId, $slug, $def['vorlage'], $def['titel'], $def['nav_label'], $def['typ'], $def['position']]);
+        $ins->execute([$pageId, $projectId, $slug, $def['vorlage'], $def['titel'], $def['nav_label'], $def['typ'], $def['position']]);
+
+        if ($slug === 'impressum') {
+            foreach ($impData as $k => $v) {
+                if ($v !== '') {
+                    sc_save_field($pdo, $pageId, 'impressum', $k, $v);
+                }
+            }
+        } elseif ($slug === 'datenschutz') {
+            sc_save_field($pdo, $pageId, 'datenschutz', 'titel', 'Datenschutzerklärung');
+            sc_save_field($pdo, $pageId, 'datenschutz', 'text', sartu_generate_datenschutz($impData, []));
+        }
     }
 }
 
@@ -279,13 +298,16 @@ function sc_resolve_theme(array $design): array
  * $page: site_pages-Row · $content: sc_load_content() · $media: Map ·
  * $nav: [['slug','label','url','current'=>bool], …] · $theme: Site-Theme (optional).
  */
-function render_customer_site(array $page, array $content, array $media = [], array $nav = [], ?array $theme = null): void
+function render_customer_site(array $page, array $content, array $media = [], array $nav = [], ?array $theme = null, string $siteName = ''): void
 {
     $vorlage = (string) ($page['vorlage'] ?? 'standard');
     if ($theme === null) {
         $theme = sc_resolve_theme($content['design'] ?? []);
     }
     $hero = $content['hero'] ?? [];
+    if ($siteName === '') {
+        $siteName = (string) ($hero['headline'] ?? ($page['titel'] ?? ''));
+    }
     $seo = $content['seo'] ?? [];
     $title = ($seo['titel'] ?? '') !== '' ? $seo['titel'] : ($hero['headline'] ?? ($page['titel'] ?? 'Website'));
     $metaDesc = trim((string) ($seo['description'] ?? ''));
@@ -345,7 +367,7 @@ function render_customer_site(array $page, array $content, array $media = [], ar
         sc_body_standard($content, $media);
     }
   ?>
-  <?php sc_render_footer($nav, (string) ($hero['headline'] ?? ($page['titel'] ?? ''))); ?>
+  <?php sc_render_footer($nav, $siteName); ?>
 </body>
 </html>
 <?php
@@ -456,22 +478,37 @@ function sc_body_standard(array $content, array $media): void
     <?php
 }
 
-/** Pflichtseite: Impressum. */
+/** Pflichtseite: Impressum — aus den Feldern zu einem vollständigen Impressum zusammengesetzt. */
 function sc_body_impressum(array $content): void
 {
     $imp = $content['impressum'] ?? [];
+    $klein = !empty($imp['kleinunternehmer']) && (string) $imp['kleinunternehmer'] !== '0';
     ?>
   <section class="cs-sec cs-legal" id="impressum"><div class="cs-wrap">
     <h2>Impressum</h2>
-    <p>Angaben gemäß § 5 DDG</p>
+    <h3>Angaben gemäß § 5 DDG</h3>
     <?php if (!empty($imp['firmenname'])): ?><p><strong><?= sc_e((string) $imp['firmenname']) ?></strong></p><?php endif; ?>
-    <?php if (!empty($imp['inhaber'])): ?><p><?= sc_e((string) $imp['inhaber']) ?></p><?php endif; ?>
     <?= sc_paragraphs((string) ($imp['adresse'] ?? '')) ?>
-    <?php if (!empty($imp['telefon'])): ?><p>Telefon: <?= sc_e((string) $imp['telefon']) ?></p><?php endif; ?>
-    <?php if (!empty($imp['email'])): ?><p>E-Mail: <?= sc_e((string) $imp['email']) ?></p><?php endif; ?>
-    <?php if (!empty($imp['ust_id'])): ?><p>USt-IdNr.: <?= sc_e((string) $imp['ust_id']) ?></p><?php endif; ?>
-    <?php if (!empty($imp['register'])): ?><p><?= sc_e((string) $imp['register']) ?></p><?php endif; ?>
-    <?php if (!empty($imp['verantwortlich'])): ?><p>Verantwortlich für den Inhalt: <?= sc_e((string) $imp['verantwortlich']) ?></p><?php endif; ?>
+    <?php if (!empty($imp['inhaber'])): ?><h3>Vertreten durch</h3><p><?= sc_e((string) $imp['inhaber']) ?></p><?php endif; ?>
+    <?php if (!empty($imp['telefon']) || !empty($imp['email'])): ?>
+      <h3>Kontakt</h3>
+      <?php if (!empty($imp['telefon'])): ?><p>Telefon: <?= sc_e((string) $imp['telefon']) ?></p><?php endif; ?>
+      <?php if (!empty($imp['email'])): ?><p>E-Mail: <?= sc_e((string) $imp['email']) ?></p><?php endif; ?>
+    <?php endif; ?>
+    <?php if (!empty($imp['ust_id'])): ?><h3>Umsatzsteuer-ID</h3><p>Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz:<br><?= sc_e((string) $imp['ust_id']) ?></p><?php endif; ?>
+    <?php if ($klein): ?><h3>Kleinunternehmerregelung</h3><p>Gemäß § 19 UStG wird keine Umsatzsteuer berechnet und ausgewiesen.</p><?php endif; ?>
+    <?php if (!empty($imp['register'])): ?><h3>Registereintrag</h3><p><?= sc_e((string) $imp['register']) ?></p><?php endif; ?>
+    <?php if (!empty($imp['verantwortlich'])): ?><h3>Redaktionell verantwortlich</h3><p><?= sc_e((string) $imp['verantwortlich']) ?></p><?php endif; ?>
+    <h3>EU-Streitschlichtung</h3>
+    <p>Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener">https://ec.europa.eu/consumers/odr/</a></p>
+    <h3>Verbraucherstreitbeilegung</h3>
+    <p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+    <h3>Haftung für Inhalte</h3>
+    <p>Als Diensteanbieter sind wir gemäß § 7 Abs. 1 DDG für eigene Inhalte auf diesen Seiten verantwortlich. Nach §§ 8 bis 10 DDG sind wir jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen.</p>
+    <h3>Haftung für Links</h3>
+    <p>Unser Angebot enthält ggf. Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Für diese fremden Inhalte ist stets der jeweilige Anbieter verantwortlich.</p>
+    <h3>Urheberrecht</h3>
+    <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke unterliegen dem deutschen Urheberrecht.</p>
   </div></section>
     <?php
 }
