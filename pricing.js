@@ -5,7 +5,7 @@
        (Sartu — Leistungsbeschreibung, Version 2.0, Stand Juni 2026). <<<
    Speist Website-Plan-Karten UND Live-Berechnung.
 
-   Pakete:   Basis 1.290 € (1 Seite), Pro 2.990 € (8), Platin 5.990 € (20),
+   Pakete:   Basis 1.290 € (1 Seite), Pro 3.290 € (8), Platin 6.490 € (20),
              Enterprise ab 9.990 € (individuell)
    Care:     Schutz S 49, Schutz M 99, Schutz L 249 €/Mon (bei Jahreszahlung) — PFLICHT
    Extraseite: 199 € pro Seite
@@ -34,11 +34,11 @@
         configurable: true, maintenanceFloor: 'care-s', popular: false,
         situation: 'Kunden Sie nach einer Empfehlung googeln — und einen richtig guten Eindruck bekommen sollen.',
         perks: ['Alles Wichtige auf einer Seite', 'Mobil-optimiert & DSGVO-konform', '2 Korrekturrunden'] },
-      { id: 'pro', name: 'Wachstum', price: 2990, scope: 'bis 8 Seiten', includedPages: 8,
+      { id: 'pro', name: 'Wachstum', price: 3290, scope: 'bis 8 Seiten', includedPages: 8,
         configurable: true, maintenanceFloor: 'care-m', popular: false,
         situation: 'Ihre Website aktiv neue Anfragen bringen soll — jede Leistung wird einzeln bei Google gefunden.',
         perks: ['Bis 8 Unterseiten, individuell', 'Jede Leistung wird bei Google gefunden', '3 Korrekturrunden'] },
-      { id: 'platin', name: 'Platzhirsch', price: 5990, scope: 'bis 20 Seiten', includedPages: 20,
+      { id: 'platin', name: 'Platzhirsch', price: 6490, scope: 'bis 20 Seiten', includedPages: 20,
         configurable: true, maintenanceFloor: 'care-l', popular: true,
         situation: 'Sie in Ihrer Region die Nummer 1 sein möchten — und auch Mitarbeiter über die Website finden möchten.',
         perks: ['Bis 20 Seiten inkl. Team & Jobs', 'Kunden aus Ihrer Region finden Sie', '4 Korrekturrunden'] },

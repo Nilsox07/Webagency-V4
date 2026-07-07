@@ -35,12 +35,12 @@ eq('Basis monatlich (Schutz S 49)', r1.monthly, 49);
 
 // 2) Pro + Schutz M (99) + Logo Lite (490) + Texte ×3 (120×3)
 var r2 = t({ paket: 'pro', wartung: 'care-m', addons: addons({ 'logo-lite': true, texte: 3 }) });
-eq('Pro+Logo Lite+Texte×3 einmalig', r2.once, 2990 + 490 + 360);
+eq('Pro+Logo Lite+Texte×3 einmalig', r2.once, 3290 + 490 + 360);
 eq('Pro+Schutz M monatlich', r2.monthly, 99);
 
 // 3) Platin + Schutz L (249) + KI-Chatbot (Kombi: 490 einmalig + 49/Mon) + Terminbuchung (290 einmalig)
 var r3 = t({ paket: 'platin', wartung: 'care-l', addons: addons({ chatbot: true, terminbuchung: true }) });
-eq('Platin einmalig (Chatbot 490 + Termin 290)', r3.once, 5990 + 490 + 290);
+eq('Platin einmalig (Chatbot 490 + Termin 290)', r3.once, 6490 + 490 + 290);
 eq('Platin monatlich (Schutz L 249 + Chatbot-Betrieb 49)', r3.monthly, 249 + 49);
 
 // 4) Enterprise = price null → Paket zählt NICHT in die Einmalsumme
@@ -57,9 +57,9 @@ var st6 = addons({ 'logo-lite': true }); st6['logo-lite'].selected = false;
 var r6 = t({ paket: 'basis', wartung: 'care-s', addons: st6 });
 eq('Abgewähltes Add-on zählt nicht', r6.once, 1290);
 
-// 7) Express = +50 % vom Paketpreis, mind. 390 € (Pro 2990 → +1495)
+// 7) Express = +50 % vom Paketpreis, mind. 390 € (Pro 3290 → +1645)
 var r7 = t({ paket: 'pro', wartung: 'care-m', addons: addons({ express: true }) });
-eq('Express +50 % auf Pro (2990→+1495)', r7.once, 2990 + 1495);
+eq('Express +50 % auf Pro (3290→+1645)', r7.once, 3290 + 1645);
 
 // 8) Mehrsprachigkeit = +40 % je Sprache (Basis 1290, ×2 → +1032)
 var r8 = t({ paket: 'basis', wartung: 'care-s', addons: addons({ mehrsprachig: 2 }) });
@@ -67,7 +67,7 @@ eq('Mehrsprachig ×2 (+40 % je Sprache) einmalig', r8.once, 1290 + 1032);
 
 // 9) Extraseiten (Variante A): Pro + 5 Extraseiten (199×5)
 var r9 = t({ paket: 'pro', wartung: 'care-m', extraPages: 5, addons: addons({}) });
-eq('Pro + 5 Extraseiten einmalig (2990 + 995)', r9.once, 2990 + 995);
+eq('Pro + 5 Extraseiten einmalig (3290 + 995)', r9.once, 3290 + 995);
 eq('Pro + 5 Extraseiten monatlich (Schutz M 99)', r9.monthly, 99);
 
 // 10) Monatliche Retainer: SEO Lite (149) + Profil Basic (79) + Schutz M (99)

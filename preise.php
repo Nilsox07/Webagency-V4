@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=40" />
+  <link rel="stylesheet" href="styles.css?v=41" />
   <link rel="canonical" href="https://[DOMAIN]/preise" />
   <meta name="robots" content="noindex,nofollow" />
   <meta property="og:type" content="website" />
@@ -175,7 +175,7 @@
         <div class="pricing-head">
           <p class="eyebrow eyebrow-green center">Einmalig + fester Rundum-Schutz</p>
           <h2 class="section-title">Wie groß soll Ihre Website werden?</h2>
-          <p class="answer-first">Eine Website von Sartu kostet als <strong>Festpreis zwischen 1.290 € (Start) und 5.990 € (Platzhirsch), Sonderprojekte ab 9.990 €</strong> — ohne versteckte Kosten. Dazu gehört ein fester Rundum-Schutz ab 49 €/Monat. Sie wählen nur die Größe, um alles andere kümmern wir uns.</p>
+          <p class="answer-first">Eine Website von Sartu kostet als <strong>Festpreis zwischen 1.290 € (Start) und 6.490 € (Platzhirsch)</strong> — ohne versteckte Kosten. Dazu gehört ein fester Rundum-Schutz ab 49 €/Monat. Sie wählen nur die Größe, um alles andere kümmern wir uns.</p>
         </div>
         <div class="decision-grid" style="margin-bottom:34px;">
             <article class="decision-card">
@@ -205,18 +205,19 @@
             <p class="price-situation">Für Sie, wenn Kunden Sie nach einer Empfehlung googeln — und einen richtig guten Eindruck bekommen sollen.</p>
             <ul class="price-features">
               <li>Alles Wichtige auf einer Seite (wer Sie sind, was Sie machen, wie man Sie erreicht)</li>
-              <li>Alle Texte schreiben wir für Sie — Sie liefern nur Stichpunkte (300–500 Wörter, 2 Korrekturrunden, inkl. der zwei Google-Textzeilen)</li>
-              <li>Sie haben schon eine Website? Umzug inklusive — ohne Ausfall (Internetadresse, Inhalte, bis 3 E-Mail-Adressen, Weiterleitungen)</li>
-              <li>2 Runden Änderungswünsche</li>
-              <li>In 7 Werktagen online</li>
+              <li>Alle Texte schreiben wir für Sie — Sie liefern nur Stichpunkte</li>
+              <li>Gefunden, wenn Kunden Ihren Firmennamen googeln</li>
+              <li>Google-Bewertungen auf der Seite</li>
+              <li>Inhalte selbst ändern — einfaches Backend inklusive</li>
+              <li>1 Korrekturrunde · in 7 Werktagen online</li>
             </ul>
             <details class="price-more">
               <summary>Alle Leistungen anzeigen</summary>
               <ul class="price-features">
                 <li>Sieht auf Handy, Tablet und PC gleich gut aus</li>
-                <li>Google findet Sie (Texte und Technik dafür eingebaut)</li>
+                <li>Für Google &amp; KI-Suche (ChatGPT &amp; Co.) vorbereitet</li>
                 <li>Besucher-Statistik inklusive (datenschutzkonform)</li>
-                <li>Datenschutz fertig eingerichtet</li>
+                <li>DSGVO &amp; Barrierefreiheit-Grundlagen fertig eingerichtet</li>
               </ul>
             </details>
             <div class="price-card-cta">
@@ -230,24 +231,24 @@
             <span class="price-badge">Meistgewählt</span>
             <h3 class="price-name">Wachstum</h3>
             <p class="price-scope">bis 8 Seiten</p>
-            <div class="price-amount">2.990&nbsp;<span class="price-unit">€</span></div>
+            <div class="price-amount">3.290&nbsp;<span class="price-unit">€</span></div>
             <p class="price-care">+ 99 €/Monat Rundum-Schutz <span>— gehört dazu</span></p>
             <p class="price-situation">Für Sie, wenn Ihre Website aktiv neue Anfragen bringen soll — jede Leistung wird einzeln bei Google gefunden.</p>
             <ul class="price-features">
               <li>Bis zu 8 Seiten — jede Leistung bekommt ihre eigene</li>
-              <li>Google findet jede einzelne Seite</li>
-              <li>Alle Texte schreiben wir für Sie — Sie liefern nur Stichpunkte</li>
-              <li>Umzug Ihrer alten Website inklusive — ohne Ausfall</li>
-              <li>In 7–14 Werktagen online</li>
+              <li>Für <strong>jede Leistung einzeln</strong> bei Google gefunden</li>
+              <li>Google-Unternehmensprofil eingerichtet (lokal &amp; in Maps)</li>
+              <li>Anfragen messen — Sie sehen, was funktioniert</li>
+              <li>Alle Texte inklusive · Inhalte selbst änderbar</li>
+              <li>2 Korrekturrunden · in 7–14 Werktagen online</li>
             </ul>
             <details class="price-more">
               <summary>Alle Leistungen anzeigen</summary>
               <ul class="price-features">
+                <li>Alles aus Start</li>
                 <li>Design nur für Sie, kein Baukasten</li>
                 <li>Besucher-Statistik inklusive (datenschutzkonform)</li>
-                <li>Texte und Bilder später selbst änderbar</li>
-                <li>3 Runden Änderungswünsche</li>
-                <li>30 Minuten Änderungen pro Monat inklusive (im Rundum-Schutz)</li>
+                <li>Für Google &amp; KI-Suche vorbereitet</li>
               </ul>
             </details>
             <div class="price-card-cta">
@@ -260,26 +261,24 @@
           <article class="price-card">
             <h3 class="price-name">Platzhirsch</h3>
             <p class="price-scope">bis 20 Seiten</p>
-            <div class="price-amount">5.990&nbsp;<span class="price-unit">€</span></div>
+            <div class="price-amount">6.490&nbsp;<span class="price-unit">€</span></div>
             <p class="price-care">+ 249 €/Monat Rundum-Schutz <span>— gehört dazu</span></p>
             <p class="price-situation">Für Sie, wenn Sie in Ihrer Region die Nummer 1 sein möchten — und auch Mitarbeiter über die Website finden möchten.</p>
             <ul class="price-features">
-              <li>Bis zu 20 Seiten — inkl. Team-Seite und Stellenangeboten — Stellen pflegen Sie selbst ein</li>
-              <li>Kunden aus Ihrer Region finden Sie (inkl. Einrichtung Ihres Google-Firmeneintrags)</li>
-              <li>Alle Texte schreiben wir für Sie — Sie liefern nur Stichpunkte</li>
-              <li>90 Minuten Änderungen pro Monat inklusive</li>
-              <li>In 7–14 Werktagen online</li>
+              <li>Bis zu 20 Seiten — inkl. Team- &amp; Stellen-/Jobs-Seiten</li>
+              <li><strong>Logo inklusive</strong> — kompletter Auftritt aus einer Hand</li>
+              <li><strong>Online-Terminbuchung</strong> inklusive</li>
+              <li>Kunden aus Ihrer Region finden Sie (Google-Profil eingerichtet)</li>
+              <li>Newsletter &amp; News-/Blog-Bereich</li>
+              <li>3 Korrekturrunden · in 7–14 Werktagen online</li>
             </ul>
             <details class="price-more">
               <summary>Alle Leistungen anzeigen</summary>
               <ul class="price-features">
-                <li>Texte und Bilder später selbst änderbar</li>
-                <li>Umzug Ihrer alten Website inklusive — ohne Ausfall</li>
+                <li>Alles aus Wachstum</li>
+                <li>Inhalte &amp; Beiträge selbst pflegen — einfaches Backend</li>
                 <li>Besucher-Statistik inklusive (datenschutzkonform)</li>
-                <li>Newsletter-Anmeldung inklusive — mit Bestätigungs-Mail, wie es das Gesetz verlangt</li>
-                <li>Bereich für Neuigkeiten und Projekte — Beiträge stellen Sie selbst ein (oder wir übernehmen das in der SEO-Betreuung)</li>
                 <li>Lädt besonders schnell</li>
-                <li>4 Runden Änderungswünsche</li>
               </ul>
             </details>
             <div class="price-card-cta">
@@ -288,17 +287,16 @@
             </div>
           </article>
 
-          <!-- Sonderprojekte (Anker-Karte, bewusst leise) -->
+          <!-- Catch-Zeile (bewusst leise, kein bepreistes Paket) -->
           <article class="anchor-card">
-            <h3 class="price-name">Sonderprojekte</h3>
-            <p class="anchor-amount"><span>ab</span> 9.990 €</p>
-            <p>Online-Shop, Kundenportal, mehrere Standorte, Schnittstellen.</p>
-            <p>Individuelles Festpreis-Angebot.</p>
-            <a href="anfrage.php?paket=sonderprojekte" class="anchor-link">Anfrage stellen →</a>
+            <h3 class="price-name">Größeres Vorhaben?</h3>
+            <p>Mehr als 20 Seiten, mehrere Standorte oder eine Sonderfunktion?</p>
+            <p>Schreiben Sie uns — Sie bekommen einen individuellen Festpreis, schriftlich, bevor Sie zusagen.</p>
+            <a href="anfrage.php" class="anchor-link">Anfrage stellen →</a>
           </article>
         </div>
 
-        <p class="extra-pages-note">Sie brauchen mehr Seiten? <strong>Jede weitere Seite 199 €</strong> — in jedem Paket (inklusive Text).</p>
+        <p class="extra-pages-note">Später mehr? <strong>Jede weitere Seite 199 € — Text inklusive.</strong> Größer werden? Sie zahlen <strong>nur die Differenz</strong> zum nächsten Paket. Und: bei uns zahlen Sie <strong>nie nach Stunden</strong> — Größeres bekommt vorab einen Festpreis, schriftlich.</p>
       </div>
     </section>
 
@@ -384,10 +382,10 @@
       <div class="container">
         <div class="upsell-band">
           <div class="upsell-copy">
-            <h2>Nach dem Start: SEO-Betreuung ab 149 €/Monat</h2>
-            <p>Wenn Ihre Website nicht nur stehen, sondern bei Google immer weiter nach oben soll: Wir betreuen Inhalte, Technik und Sichtbarkeit laufend. Das braucht Monate, nicht Tage — dafür bleibt es.</p>
+            <h2>Nach dem Start: SEO-Betreuung 490 €/Monat</h2>
+            <p>Wenn Ihre Website nicht nur stehen, sondern bei Google und in der KI-Suche immer weiter nach oben soll: Wir betreuen Inhalte, Technik und Sichtbarkeit laufend. Das braucht Monate, nicht Tage — dafür bleibt es. <strong>Wir betreuen bewusst nur eine begrenzte Zahl an Websites.</strong></p>
           </div>
-          <a href="leistung-seo.php" class="btn btn-dark">Programm ansehen →</a>
+          <a href="leistung-seo.php" class="btn btn-dark">SEO-Betreuung ansehen →</a>
         </div>
       </div>
     </section>

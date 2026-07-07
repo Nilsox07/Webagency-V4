@@ -96,7 +96,7 @@ function render_ratgeber_article(string $slug): void
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=40" />
+  <link rel="stylesheet" href="styles.css?v=41" />
   <link rel="canonical" href="<?= ratgeber_e($url) ?>" />
   <meta name="robots" content="noindex,nofollow" />
   <meta property="og:type" content="article" />
