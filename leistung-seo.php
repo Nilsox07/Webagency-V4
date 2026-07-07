@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="SEO-Betreuung ab 149 €/Monat: OnPage-Optimierung, Keyword-Tracking, transparenter Monatsreport — Maßnahmen statt Ranking-Versprechen. Jetzt Stufe wählen." />
+  <meta name="description" content="SEO-Betreuung 490 €/Monat, begrenzte Plätze: Google-Profil, KI-Suche-Optimierung, monatliche Auffrischung und Klartext-Report — Maßnahmen statt Ranking-Versprechen." />
   <link rel="canonical" href="https://[DOMAIN]/leistung-seo" />
   <meta name="robots" content="noindex,nofollow" />
   <meta property="og:type" content="website" />
@@ -17,7 +17,7 @@
   <meta name="twitter:title" content="Suchmaschinenoptimierung (SEO) | Sartu" />
   <meta name="twitter:description" content="Damit Kunden Sie bei Google finden: Keyword-Strategie, OnPage-SEO und technisches SEO." />
   <meta name="twitter:image" content="https://[DOMAIN]/[OG-IMAGE]" />
-  <title>SEO-Betreuung ab 149 €/Monat — ohne Ranking-Märchen | Sartu</title>
+  <title>SEO-Betreuung 490 €/Monat — ohne Ranking-Märchen | Sartu</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -48,55 +48,21 @@
         "description": "OnPage-SEO und technische Suchmaschinenoptimierung: Keyword-Strategie, saubere Seitenstruktur, optimierte Title-Tags und Meta-Descriptions, schnelle Ladezeiten und strukturierte Daten.",
         "hasOfferCatalog": {
           "@type": "OfferCatalog",
-          "name": "SEO-Betreuung (Retainer, 3 Monate Mindestlaufzeit)",
+          "name": "SEO-Betreuung (Retainer, 3 Monate Mindestlaufzeit, begrenzte Plätze)",
           "itemListElement": [
             {
               "@type": "Offer",
-              "name": "SEO Lite",
-              "price": "149",
+              "name": "SEO-Betreuung",
+              "price": "490",
               "priceCurrency": "EUR",
               "itemOffered": {
                 "@type": "Service",
-                "name": "SEO Lite",
-                "description": "Google-Profil-Pflege komplett, Google-Textzeilen aller Seiten, Keyword-Tracking bis 20, 1 Seiten-Refresh/Quartal, Klartext-Monatsreport. Nur für Sartu-Websites."
+                "name": "SEO-Betreuung",
+                "description": "Google-Profil aktuell halten, Bewertungen beantworten, monatliche Auffrischung oder neue Kundenfrage beantworten, KI-Suche-Optimierung, Klartext-Monatsreport. Nur für Sartu-Websites, begrenzte Plätze."
               },
               "priceSpecification": {
                 "@type": "UnitPriceSpecification",
-                "price": "149",
-                "priceCurrency": "EUR",
-                "unitCode": "MON"
-              }
-            },
-            {
-              "@type": "Offer",
-              "name": "SEO Pro",
-              "price": "390",
-              "priceCurrency": "EUR",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "SEO Pro",
-                "description": "Alles aus Lite + KI-Suche-Optimierung, 2 Seiten-Refreshes + 1 neue Seite inkl. Text pro Monat, Keyword-Tracking bis 50, schriftlicher Strategieplan je Quartal."
-              },
-              "priceSpecification": {
-                "@type": "UnitPriceSpecification",
-                "price": "390",
-                "priceCurrency": "EUR",
-                "unitCode": "MON"
-              }
-            },
-            {
-              "@type": "Offer",
-              "name": "SEO Premium",
-              "price": "790",
-              "priceCurrency": "EUR",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "SEO Premium",
-                "description": "Alles aus Pro + KI-Sichtbarkeits-Monitoring, bis 2 neue Seiten/Monat, Sichtbarkeits-Empfehlungen schriftlich, Keyword-Tracking bis 100, monatlicher Maßnahmenplan."
-              },
-              "priceSpecification": {
-                "@type": "UnitPriceSpecification",
-                "price": "790",
+                "price": "490",
                 "priceCurrency": "EUR",
                 "unitCode": "MON"
               }
@@ -107,7 +73,7 @@
           "@type": "Offer",
           "priceSpecification": {
             "@type": "UnitPriceSpecification",
-            "minPrice": "149",
+            "price": "490",
             "priceCurrency": "EUR",
             "unitCode": "MON"
           }
@@ -230,7 +196,7 @@
             <h1>Suchmaschinen&shy;optimierung (SEO): <span class="accent">bei Google gefunden werden.</span></h1>
             <p class="svc-hero-sub">Wenn Kunden nach Ihrer Leistung suchen, aber die Konkurrenz erscheint, bauen wir Schritt für Schritt bessere Sichtbarkeit auf.</p>
             <ul class="fact-chips">
-              <li class="fact-chip">ab 149 €/Monat</li>
+              <li class="fact-chip">490 €/Monat · begrenzte Plätze</li>
               <li class="fact-chip">monatlicher Klartext-Bericht</li>
               <li class="fact-chip">jederzeit nach Onlinegang startbar</li>
             </ul>
@@ -252,7 +218,7 @@
       <div class="container svc-lead-grid">
         <div class="svc-prose">
           <h2>SEO macht Ihr Angebot auffindbar und verständlich</h2>
-          <p class="answer-first"><strong>Basis-SEO ist in jedem Sartu-Paket enthalten.</strong> Laufende SEO-Betreuung gibt es ab 149 €/Monat mit Monatsreport, klaren Maßnahmen und ohne unseriöse Ranking-Versprechen.</p>
+          <p class="answer-first"><strong>Basis-SEO ist in jedem Sartu-Paket enthalten.</strong> Laufende SEO-Betreuung gibt es für 490 €/Monat (begrenzte Plätze) mit Monatsreport, klaren Maßnahmen und ohne unseriöse Ranking-Versprechen.</p>
           <div class="sales-points">
             <article class="sales-card">
               <span class="label">Keywords</span>
@@ -338,14 +304,12 @@
     <section class="pricing" id="stufen">
       <div class="container">
         <div class="pricing-head">
-          <p class="eyebrow eyebrow-green center">Stufen &amp; Preise</p>
-          <h2 class="section-title">Die SEO-Betreuung — ab 149 €/Monat</h2>
-          <p>Die laufende SEO-Betreuung ist keine Paket-Leistung, sondern die Arbeit obendrauf — ab 149 €/Monat. Basis-SEO steckt bereits in jedem Paket. Wir setzen Maßnahmen um und berichten transparent. Nur für Websites, die von Sartu gebaut wurden. Eine bestimmte Google-Position kann seriös nicht garantiert werden.</p>
+          <p class="eyebrow eyebrow-green center">SEO-Betreuung</p>
+          <h2 class="section-title">Die SEO-Betreuung — 490 €/Monat</h2>
+          <p>Die laufende SEO-Betreuung ist keine Paket-Leistung, sondern die Arbeit obendrauf — 490 €/Monat. Basis-SEO steckt bereits in jedem Paket. Wir betreuen bewusst nur eine begrenzte Zahl an Websites, setzen Maßnahmen um und berichten transparent. Nur für Websites, die von Sartu gebaut wurden. Eine bestimmte Google-Position kann seriös nicht garantiert werden.</p>
         </div>
-        <div class="price-grid price-grid-3">
-          <article class="price-card"><h3 class="price-name">Lite</h3><p class="price-scope">149 €/Monat</p><div class="price-amount">149&nbsp;<span class="price-unit">€/Monat</span></div><p class="price-ideal">Sichtbar bleiben mit gepflegtem Profil.</p><ul class="price-features"><li>Google-Profil-Pflege komplett (1 Beitrag/Mon., Antwort ≤ 2 Werktage)</li><li>Google-Textzeilen aller Seiten</li><li>Keyword-Tracking bis 20</li><li>1 Seiten-Refresh / Quartal</li><li>Klartext-Monatsreport</li></ul><a href="kontakt.php" class="btn btn-dark">Lite anfragen</a></article>
-          <article class="price-card featured"><span class="price-badge">Meistgewählt</span><h3 class="price-name">Pro</h3><p class="price-scope">390 €/Monat</p><div class="price-amount">390&nbsp;<span class="price-unit">€/Monat</span></div><p class="price-ideal">Aktiv wachsen mit neuen Seiten &amp; KI-Suche.</p><ul class="price-features"><li>Alles aus Lite</li><li>KI-Suche-Optimierung (alle Seiten)</li><li>2 Seiten-Refreshes + 1 neue Seite inkl. Text / Monat</li><li>Keyword-Tracking bis 50</li><li>Schriftlicher Strategieplan je Quartal — was wir getan haben, was als Nächstes kommt, in Klartext.</li></ul><a href="kontakt.php" class="btn btn-primary">Pro anfragen <span class="arrow">→</span></a></article>
-          <article class="price-card"><h3 class="price-name">Premium</h3><p class="price-scope">790 €/Monat</p><div class="price-amount">790&nbsp;<span class="price-unit">€/Monat</span></div><p class="price-ideal">Maximale Sichtbarkeit inkl. schriftlicher Empfehlungen.</p><ul class="price-features"><li>Alles aus Pro</li><li>Bis 2 neue Seiten inkl. Text / Monat</li><li>KI-Sichtbarkeits-Monitoring</li><li>Sichtbarkeits-Empfehlungen schriftlich — wir nennen Ihnen konkrete lokale Erwähnungs-Chancen (Innung, Vereine, Lokalpresse) und liefern fertige Anschreiben. Anfragen stellen Sie selbst.</li><li>Keyword-Tracking bis 100</li><li>Monatlicher Maßnahmenplan — schriftlich, zum Nachlesen statt Termin.</li></ul><a href="kontakt.php" class="btn btn-dark">Premium anfragen</a></article>
+        <div class="price-grid" style="max-width:520px;margin:0 auto;">
+          <article class="price-card featured"><span class="price-badge">Begrenzte Plätze</span><h3 class="price-name">SEO-Betreuung</h3><p class="price-scope">490 €/Monat</p><div class="price-amount">490&nbsp;<span class="price-unit">€/Monat</span></div><p class="price-ideal">Sichtbar bleiben und weiter wachsen — bei Google und in der KI-Suche.</p><ul class="price-features"><li>Google-Profil aktuell halten, Bewertungen ≤ 2 Werktage beantworten</li><li>Jeden Monat eine Seite auffrischen oder eine neue Kundenfrage beantworten</li><li>KI-Suche-Optimierung (ChatGPT &amp; Co.)</li><li>Keyword-Tracking &amp; Google-Textzeilen aller Seiten</li><li>Klartext-Monatsreport — was wir getan haben, was als Nächstes kommt</li></ul><a href="kontakt.php" class="btn btn-primary">SEO-Betreuung anfragen <span class="arrow">→</span></a></article>
         </div>
 
         <!-- Brücken-Box: was die Website schon mitbringt -->
@@ -358,20 +322,14 @@
         </div>
 
         <div class="svc-compare" style="max-width:1000px;margin-left:auto;margin-right:auto;">
-          <h3>Lite, Pro und Premium im Vergleich</h3>
-          <p>Jede Stufe liefert einen Klartext-Monatsreport mit Rankings, Sichtbarkeit und durchgeführten Maßnahmen — ohne Ranking-Versprechen. Kontingente sind harte Obergrenzen und verfallen am Periodenende. 3 Monate Mindestlaufzeit, danach monatlich kündbar. Ohne Pflichttermine — wie alles bei Sartu.</p>
-          <div class="price-table-wrap">
-            <table class="price-table">
-              <thead><tr><th>Leistung</th><th>Lite · 149 €</th><th class="highlight">Pro · 390 €</th><th>Premium · 790 €</th></tr></thead>
-              <tbody><tr><td class="feature">Google-Profil-Pflege komplett (1 Beitrag/Mon., Antwort ≤ 2 Werktage)</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr><tr><td class="feature">Google-Textzeilen (Title/Meta)</td><td>alle Seiten</td><td>alle Seiten</td><td>alle Seiten</td></tr><tr><td class="feature">Keyword-Tracking</td><td>bis 20</td><td>bis 50</td><td>bis 100</td></tr><tr><td class="feature">Seiten-Refresh (Bestandsseiten aktualisieren)</td><td>1 / Quartal</td><td>2 / Monat</td><td>4 / Monat</td></tr><tr><td class="feature">KI-Suche-Optimierung (Answer-First, strukturierte Daten)</td><td class="no">–</td><td>alle Seiten</td><td>alle Seiten + Monitoring</td></tr><tr><td class="feature">Neue Seiten inkl. Text</td><td class="no">–</td><td>1 / Monat</td><td>bis 2 / Monat</td></tr><tr><td class="feature">Sichtbarkeits-Empfehlungen (schriftlich)</td><td class="no">–</td><td class="no">–</td><td class="yes">✓</td></tr><tr><td class="feature">Strategie-/Maßnahmenplan (schriftlich)</td><td class="no">–</td><td>je Quartal</td><td>monatlich</td></tr><tr><td class="feature">Klartext-Monatsreport</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr></tbody>
-            </table>
-          </div>
+          <h3>Was in der SEO-Betreuung steckt</h3>
+          <p>Jeden Monat ein Klartext-Report mit Rankings, Sichtbarkeit und durchgeführten Maßnahmen — ohne Ranking-Versprechen. 3 Monate Mindestlaufzeit, danach monatlich kündbar. Ohne Pflichttermine — wie alles bei Sartu. Größerer Bedarf (mehrere Standorte, starker Wettbewerb)? Dafür machen wir Ihnen ein individuelles Angebot.</p>
         </div>
         <div class="scope-grid scope-grid-2">
-          <div class="scope-col scope-no"><h4>Nicht enthalten</h4><ul><li>Texte über das Kontingent hinaus (120 €/Seite)</li><li>Aktiver Linkaufbau / Linkkauf (verstößt gegen Google-Richtlinien — die Erwähnungen, die zählen, zeigen wir Ihnen in der Sichtbarkeits-Beratung)</li><li>Bezahlte Werbung (Google Ads) als eigenes Mandat</li></ul></div>
+          <div class="scope-col scope-no"><h4>Nicht enthalten</h4><ul><li>Zusätzliche neue Seiten über die monatliche Auffrischung hinaus (199 €/Seite)</li><li>Aktiver Linkaufbau / Linkkauf (verstößt gegen Google-Richtlinien — die Erwähnungen, die zählen, zeigen wir Ihnen in der Sichtbarkeits-Beratung)</li><li>Bezahlte Werbung (Google Ads) als eigenes Mandat</li></ul></div>
           <div class="scope-col scope-pre"><h4>Voraussetzungen</h4><ul><li>Ihre Website wurde von Sartu gebaut — fremde Websites optimieren wir nicht.</li><li>Zugang zu Google-Profil &amp; Search Console</li><li>Zeitnahe inhaltliche Freigaben</li></ul></div>
         </div>
-        <p class="scope-note">Mindestlaufzeit 3 Monate, danach monatlich kündbar. Keine Ranking-Garantie. Nur für Sartu-Websites. Mehraufwand über die Kontingente: 150 €/Std — abgerechnet im 5-Minuten-Takt. Ab 30 Minuten geschätztem Umfang erhalten Sie vorher eine Kostenschätzung.</p>
+        <p class="scope-note">Mindestlaufzeit 3 Monate, danach monatlich kündbar. Keine Ranking-Garantie. Nur für Sartu-Websites, begrenzte Plätze. Größeres Vorhaben bekommt vorher einen Festpreis — nie nach Stunden.</p>
       </div>
     </section>
 

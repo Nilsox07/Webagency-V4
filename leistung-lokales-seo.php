@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Lokales SEO &amp; Google-Profil: in Ihrer Region und in Google Maps gefunden werden. Im Platzhirsch-Paket inklusive, sonst im Programm ab 149 €/Monat." />
+  <meta name="description" content="Lokales SEO &amp; Google-Profil: in Ihrer Region und in Google Maps gefunden werden. Im Platzhirsch-Paket inklusive, sonst in der SEO-Betreuung 490 €/Monat." />
   <link rel="canonical" href="https://[DOMAIN]/leistung-lokales-seo" />
   <meta name="robots" content="noindex,nofollow" />
   <meta property="og:type" content="website" />
@@ -17,7 +17,7 @@
   <meta name="twitter:title" content="Lokales SEO & Google-Profil | Sartu" />
   <meta name="twitter:description" content="Werden Sie in Ihrer Region und in Google Maps gefunden — lokales SEO und Google-Unternehmensprofil." />
   <meta name="twitter:image" content="https://[DOMAIN]/[OG-IMAGE]" />
-  <title>Lokales SEO &amp; Google-Profil — im Programm ab 149 €/Mon. | Sartu</title>
+  <title>Lokales SEO &amp; Google-Profil — in der SEO-Betreuung 490 €/Mon. | Sartu</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -53,7 +53,7 @@
             {
               "@type": "Offer",
               "name": "SEO-Betreuung (inkl. Google-Profil-Pflege)",
-              "price": "149",
+              "price": "490",
               "priceCurrency": "EUR",
               "itemOffered": {
                 "@type": "Service",
@@ -62,7 +62,7 @@
               },
               "priceSpecification": {
                 "@type": "UnitPriceSpecification",
-                "price": "149",
+                "price": "490",
                 "priceCurrency": "EUR",
                 "unitCode": "MON"
               }
@@ -73,7 +73,7 @@
           "@type": "Offer",
           "priceSpecification": {
             "@type": "UnitPriceSpecification",
-            "minPrice": "149",
+            "price": "490",
             "priceCurrency": "EUR",
             "unitCode": "MON"
           }
@@ -196,8 +196,8 @@
             <h1>Lokales SEO: in Ihrer Region und <span class="accent">in Google Maps gefunden werden.</span></h1>
             <p class="svc-hero-sub">Werden Sie in Ihrer Region und in Google Maps gefunden — mit gepflegtem Google-Profil und schnellen Bewertungs-Antworten.</p>
             <ul class="fact-chips">
-              <li class="fact-chip">im Programm ab 149 €/Monat</li>
-              <li class="fact-chip">Einrichtung bei Programmstart inklusive</li>
+              <li class="fact-chip">in der SEO-Betreuung 490 €/Monat</li>
+              <li class="fact-chip">Einrichtung beim Start inklusive</li>
               <li class="fact-chip">Bewertungs-Antwort ≤ 2 Werktage</li>
             </ul>
             <div class="svc-hero-actions">
@@ -246,8 +246,8 @@
         </div>
         <aside class="svc-facts">
           <h3>Auf einen Blick</h3>
-          <div class="svc-fact-row"><span class="k">Im Programm</span><span class="v">ab 149 €/Mon.</span></div>
-          <div class="svc-fact-row"><span class="k">Einrichtung</span><span class="v">bei Programmstart inklusive</span></div>
+          <div class="svc-fact-row"><span class="k">SEO-Betreuung</span><span class="v">490 €/Mon.</span></div>
+          <div class="svc-fact-row"><span class="k">Einrichtung</span><span class="v">beim Start inklusive</span></div>
           <div class="svc-fact-row"><span class="k">Im Website-Paket</span><span class="v">Platzhirsch enthalten</span></div>
           <div class="svc-fact-row"><span class="k">Ideal für</span><span class="v">regionale Betriebe</span></div>
           <p class="scope-note">Im Platzhirsch-Paket ist die Einrichtung inklusive; die laufende Pflege ist Teil der SEO-Betreuung.</p>
@@ -307,21 +307,21 @@
         <div class="pricing-head">
           <p class="eyebrow eyebrow-green center">So werden Sie lokal sichtbar</p>
           <h2 class="section-title">Google-Profil — Einrichtung &amp; Pflege</h2>
-          <p>Die Einrichtung Ihres Google-Unternehmensprofils ist im Platzhirsch-Paket inklusive und bei jedem Programmstart dabei. Die laufende Pflege ist Teil der SEO-Betreuung — ab 149 €/Monat.</p>
+          <p>Die Einrichtung Ihres Google-Unternehmensprofils ist im Platzhirsch-Paket inklusive und beim Start der SEO-Betreuung dabei. Die laufende Pflege ist Teil der SEO-Betreuung — 490 €/Monat.</p>
         </div>
         <div class="callout" style="max-width:900px;margin:0 auto;">
           <span class="callout-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.2-7-11a7 7 0 0 1 14 0c0 5.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
           <div>
-            <h4>Google-Profil-Pflege steckt im Programm</h4>
+            <h4>Google-Profil-Pflege steckt in der SEO-Betreuung</h4>
             <p>Die komplette Google-Profil-Pflege wird nicht einzeln gebucht, sondern ist Teil der <a href="leistung-seo.php">SEO-Betreuung</a>: jede Bewertung in ≤ 2 Werktagen beantwortet, Infos und Öffnungszeiten aktuell, regelmäßige Beiträge und Monitoring. Im <a href="preise.php">Platzhirsch-Paket</a> ist die Einrichtung bereits enthalten.</p>
             <p style="margin-top:12px;"><a href="leistung-seo.php" class="btn btn-dark">Zur SEO-Betreuung →</a></p>
           </div>
         </div>
         <div class="scope-grid scope-grid-2">
-          <div class="scope-col scope-yes"><h4>Im Programm enthalten</h4><ul><li>Bewertungen beantworten (≤ 2 Werktage)</li><li>Kerninfos &amp; Öffnungszeiten aktuell halten</li><li>Regelmäßige Beiträge &amp; Profil-Monitoring</li></ul></div>
+          <div class="scope-col scope-yes"><h4>In der SEO-Betreuung enthalten</h4><ul><li>Bewertungen beantworten (≤ 2 Werktage)</li><li>Kerninfos &amp; Öffnungszeiten aktuell halten</li><li>Regelmäßige Beiträge &amp; Profil-Monitoring</li></ul></div>
           <div class="scope-col scope-pre"><h4>Voraussetzungen</h4><ul><li>Ihre Website wurde von Sartu gebaut</li><li>Zugang/Inhaberschaft des Google-Profils</li><li>Freigabe für Antworttexte · Bildmaterial vom Kunden</li></ul></div>
         </div>
-        <p class="scope-note">Im Platzhirsch-Paket ist die Profil-Einrichtung inklusive. Die laufende Pflege ist Teil der SEO-Betreuung (ab 149 €/Monat) — keine separate Buchung nötig.</p>
+        <p class="scope-note">Im Platzhirsch-Paket ist die Profil-Einrichtung inklusive. Die laufende Pflege ist Teil der SEO-Betreuung (490 €/Monat) — keine separate Buchung nötig.</p>
       </div>
     </section>
 
