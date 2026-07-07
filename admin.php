@@ -1,4 +1,4 @@
-<?php require __DIR__ . '/includes/bootstrap.php'; ?><!DOCTYPE html>
+<?php require __DIR__ . '/includes/bootstrap.php'; require __DIR__ . '/includes/briefing2-schema.php'; ?><!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
@@ -30,12 +30,14 @@
 
       <div class="pt-tiles">
         <div class="pt-tile"><span class="pt-tile-k">Neue Anfragen</span><strong id="ovAnfragen">—</strong><span class="pt-tile-s">unbearbeitet</span></div>
+        <div class="pt-tile"><span class="pt-tile-k">Offene Angebote</span><strong id="ovAngebote">—</strong><span class="pt-tile-s">gesendet, wartet</span></div>
         <div class="pt-tile"><span class="pt-tile-k">Aktive Projekte</span><strong id="ovProjekte">—</strong><span class="pt-tile-s">in Arbeit / live</span></div>
         <div class="pt-tile"><span class="pt-tile-k">Kunden</span><strong id="ovKunden">—</strong><span class="pt-tile-s">gesamt</span></div>
       </div>
 
       <nav class="tabs pt-tabs">
         <button class="tab is-on" data-tab="anfragen">Anfragen</button>
+        <button class="tab" data-tab="angebote">Angebote</button>
         <button class="tab" data-tab="projekte">Projekte</button>
         <button class="tab" data-tab="kunden">Kunden</button>
       </nav>
@@ -45,6 +47,15 @@
           <table class="tbl">
             <thead><tr><th>Datum</th><th>Name</th><th>E-Mail</th><th>Status</th></tr></thead>
             <tbody id="anfragenBody"><tr><td colspan="4"><span class="spinner"></span> Lädt …</td></tr></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="tab-angebote" class="hidden">
+        <div class="tbl-wrap">
+          <table class="tbl">
+            <thead><tr><th>Datum</th><th>Kunde</th><th>Paket</th><th>Preis</th><th>Status</th></tr></thead>
+            <tbody id="angebotBody"><tr><td colspan="5"><span class="spinner"></span> Lädt …</td></tr></tbody>
           </table>
         </div>
       </section>
@@ -73,7 +84,8 @@
 
   <div class="modal-bg" id="modalBg"><div class="modal" id="modalBox"></div></div>
 
+  <script id="briefing2Schema" type="application/json"><?= json_encode(sartu_briefing2_schema(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?></script>
   <script src="briefing-schema.js?v=5"></script>
-  <script src="admin-local.js?v=5"></script>
+  <script src="admin-local.js?v=6"></script>
 </body>
 </html>

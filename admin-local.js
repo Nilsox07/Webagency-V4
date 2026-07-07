@@ -14,7 +14,19 @@
     live: 'Live'
   };
   var STATUS = ['neu', 'in_bearbeitung', 'umgewandelt', 'abgelehnt'];
-  var state = { briefings: [], projects: [], profiles: [] };
+  var OFFER_STATUS = { entwurf: 'Entwurf', gesendet: 'gesendet', angenommen: 'angenommen', abgelehnt: 'abgelehnt' };
+  var state = { briefings: [], projects: [], profiles: [], offers: [], _demoBriefing: null };
+  var BRIEFING2 = (function () { try { return JSON.parse(document.getElementById('briefing2Schema').textContent) || { steps: [] }; } catch (e) { return { steps: [] }; } })();
+  function euro(n) { return (n == null || n === '') ? '—' : Number(n).toLocaleString('de-DE') + ' €'; }
+  function optLabel(f, val) { var o = (f.options || []).filter(function (x) { return x.value === val; })[0]; return o ? o.label : val; }
+  function fileLink(x) { var id = (x && typeof x === 'object') ? x.id : x; var nm = (x && typeof x === 'object' && x.name) ? x.name : 'Datei'; return '<a href="api/file.php?id=' + encodeURIComponent(id) + '" target="_blank" rel="noopener">' + esc(nm) + '</a>'; }
+  function fmtAns(f, v) {
+    if (f.type === 'multi') return (Array.isArray(v) ? v : []).map(function (x) { return esc(optLabel(f, x)); }).join(', ');
+    if (f.type === 'choice') return esc(optLabel(f, v));
+    if (f.type === 'file') return fileLink(v);
+    if (f.type === 'files') return (Array.isArray(v) ? v : []).map(fileLink).join(' · ');
+    return esc(String(v)).replace(/\n/g, '<br>');
+  }
   var csrfToken = '';
 
   var err = document.getElementById('err');
@@ -112,13 +124,16 @@
     return Promise.all([
       api('api/admin/briefings.php'),
       api('api/admin/projects.php'),
-      api('api/admin/customers.php')
+      api('api/admin/customers.php'),
+      api('api/admin/offers.php')
     ]).then(function (out) {
       state.briefings = out[0].briefings || [];
       state.projects = out[1].projects || [];
       state.profiles = out[2].profiles || out[1].profiles || [];
+      state.offers = out[3].offers || [];
       renderOverview();
       renderBriefings();
+      renderOffers();
       renderProjects();
       renderCustomers(out[2].projects || []);
     }).catch(function (e) {
@@ -129,6 +144,7 @@
   function renderAll() {
     renderOverview();
     renderBriefings();
+    renderOffers();
     renderProjects();
     renderCustomers();
   }
@@ -140,7 +156,9 @@
   function renderOverview() {
     var neu = state.briefings.filter(function (b) { return (b.status || 'neu') === 'neu'; }).length;
     var kunden = state.profiles.filter(function (p) { return (p.role || 'customer') !== 'admin'; }).length;
+    var offen = state.offers.filter(function (o) { return (o.status || '') === 'gesendet'; }).length;
     setOv('ovAnfragen', neu);
+    setOv('ovAngebote', offen);
     setOv('ovProjekte', state.projects.length);
     setOv('ovKunden', kunden);
   }
@@ -241,6 +259,43 @@
     });
   }
 
+  function renderOffers() {
+    var body = document.getElementById('angebotBody');
+    if (!body) return;
+    if (!state.offers.length) {
+      body.innerHTML = '<tr><td colspan="5" class="muted">Noch keine Angebote.</td></tr>';
+      return;
+    }
+    body.innerHTML = '';
+    state.offers.forEach(function (o) {
+      var tr = document.createElement('tr');
+      tr.className = 'clickable';
+      tr.innerHTML = '<td>' + esc(fmtDate(o.created_at)) + '</td><td>' + esc(o.name || o.email || '-') + '</td><td>' + esc(cap(o.paket)) + '</td><td>' + esc(euro(o.preis_einmalig)) + '</td><td><span class="badge">' + esc(OFFER_STATUS[o.status] || o.status) + '</span></td>';
+      tr.addEventListener('click', function () { openOffer(o); });
+      body.appendChild(tr);
+    });
+  }
+
+  function openOffer(o) {
+    var proto = '';
+    if (o.status === 'angenommen') {
+      proto = '<div class="card" style="margin-top:14px;"><p class="eyebrow">Verbindliche Annahme</p><p class="muted">Angenommen am ' + esc(fmtDate(o.angenommen_am)) + '<br>IP: ' + esc(o.angenommen_ip || '-') + ' · AGB-Version: ' + esc(o.agb_version || '-') + '</p></div>';
+    }
+    openModal(
+      '<div class="spread"><h2 style="color:#fff">' + esc(o.titel || 'Angebot') + '</h2><button class="btn btn-ghost btn-sm" id="ofClose">Schließen</button></div>' +
+      '<p class="muted">' + esc(fmtDate(o.created_at)) + ' · ' + esc(o.name || o.email || '-') + ' · <span class="badge">' + esc(OFFER_STATUS[o.status] || o.status) + '</span></p>' +
+      '<div class="pt-kv"><span>Paket</span><strong>' + esc(cap(o.paket)) + '</strong></div>' +
+      '<div class="pt-kv"><span>Einmalpreis</span><strong>' + esc(euro(o.preis_einmalig)) + '</strong></div>' +
+      (o.care_stufe ? '<div class="pt-kv"><span>Rundum-Schutz</span><strong>' + esc(o.care_stufe) + (o.care_preis != null ? ' · ' + esc(euro(o.care_preis)) + '/Mon.' : '') + '</strong></div>' : '') +
+      (o.korrekturrunden != null ? '<div class="pt-kv"><span>Korrekturrunden</span><strong>' + esc(String(o.korrekturrunden)) + '</strong></div>' : '') +
+      (o.liefertext ? '<div class="pt-kv"><span>Fertigstellung</span><strong>' + esc(o.liefertext) + '</strong></div>' : '') +
+      (o.gueltig_bis ? '<div class="pt-kv"><span>Gültig bis</span><strong>' + esc(o.gueltig_bis) + '</strong></div>' : '') +
+      (o.umfang ? '<p class="eyebrow" style="margin-top:12px;">Leistungsumfang</p><p class="muted" style="white-space:pre-line;">' + esc(o.umfang) + '</p>' : '') +
+      proto
+    );
+    document.getElementById('ofClose').addEventListener('click', closeModal);
+  }
+
   function renderProjects() {
     var body = document.getElementById('projekteBody');
     if (!body) return;
@@ -268,7 +323,8 @@
       '<div class="field"><label>Liefertermin</label><input id="pTermin" type="date" value="' + esc((p.liefertermin || '').slice(0, 10)) + '"></div>' +
       '<div class="field"><label>Notiz für Kunde</label><textarea id="pNotizK" rows="4">' + esc(p.notiz_kunde || '') + '</textarea></div>' +
       '<div class="field"><label>Interne Notiz</label><textarea id="pNotizI" rows="4">' + esc(p.notiz_intern || '') + '</textarea></div>' +
-      '<div class="row row-end"><button class="btn btn-primary" id="pSave">Projekt speichern</button></div>'
+      '<div class="row row-end"><button class="btn btn-primary" id="pSave">Projekt speichern</button></div>' +
+      '<div id="pBriefing" style="margin-top:20px;"></div>'
     );
     document.getElementById('pClose').addEventListener('click', closeModal);
     document.getElementById('pSave').addEventListener('click', function () {
@@ -280,6 +336,35 @@
         notiz_intern: document.getElementById('pNotizI').value || ''
       }, 'PATCH').then(function () { closeModal(); return loadAll(); }).catch(function (e) { showErr(e.message); });
     });
+    fillBriefing(p);
+  }
+
+  function fillBriefing(p) {
+    var box = document.getElementById('pBriefing');
+    if (!box) return;
+    function render(answers, status) {
+      if (!answers || !Object.keys(answers).length) {
+        box.innerHTML = '<p class="eyebrow">Briefing</p><p class="muted">Noch kein Briefing ausgefüllt.</p>';
+        return;
+      }
+      var html = '<p class="eyebrow">Briefing ' + (status === 'abgeschlossen' ? '· abgeschlossen' : '· in Arbeit') + '</p>';
+      (BRIEFING2.steps || []).forEach(function (step) {
+        var rows = '';
+        step.fields.forEach(function (f) {
+          var v = answers[f.key];
+          if (v == null || (Array.isArray(v) && !v.length) || String(v).trim() === '') return;
+          rows += '<div class="pt-kv"><span>' + esc(f.label) + '</span><strong>' + fmtAns(f, v) + '</strong></div>';
+        });
+        if (rows) html += '<h3 style="color:#fff;margin:16px 0 6px;">' + esc(step.title) + '</h3>' + rows;
+      });
+      box.innerHTML = html;
+    }
+    box.innerHTML = '<p class="eyebrow">Briefing</p><p class="muted">Lädt …</p>';
+    if (state.preview) { render(state._demoBriefing || {}, 'abgeschlossen'); return; }
+    api('api/admin/briefing.php?project_id=' + encodeURIComponent(p.id)).then(function (d) {
+      if (!d.has_briefing) { box.innerHTML = '<p class="eyebrow">Briefing</p><p class="muted">Noch kein Briefing ausgefüllt.</p>'; return; }
+      render(d.answers, d.status);
+    }).catch(function () { box.innerHTML = '<p class="eyebrow">Briefing</p><p class="muted">Briefing konnte nicht geladen werden.</p>'; });
   }
 
   function renderCustomers(projectRows) {
@@ -324,7 +409,7 @@
   Array.prototype.forEach.call(document.querySelectorAll('.tab'), function (btn) {
     btn.addEventListener('click', function () {
       Array.prototype.forEach.call(document.querySelectorAll('.tab'), function (b) { b.classList.toggle('is-on', b === btn); });
-      ['anfragen', 'projekte', 'kunden'].forEach(function (name) {
+      ['anfragen', 'angebote', 'projekte', 'kunden'].forEach(function (name) {
         var section = document.getElementById('tab-' + name);
         if (section) section.classList.toggle('hidden', btn.getAttribute('data-tab') !== name);
       });
@@ -340,6 +425,7 @@
 
   // Sicherer Vorschau-Modus: nur Demo-Daten, kein Login, keine echten Daten — für Design-Review.
   if (new URLSearchParams(window.location.search).get('preview') === '1') {
+    state.preview = true;
     document.getElementById('gate').classList.add('hidden');
     document.getElementById('app').classList.remove('hidden');
     state.profiles = [
@@ -354,6 +440,11 @@
       { id: 101, created_at: '2026-07-06T09:12:00', status: 'neu', kontakt_name: 'Peter Klein', kontakt_email: 'peter@klein-elektro.de', payload: { kontakt: { name: 'Peter Klein', email: 'peter@klein-elektro.de', telefon: '0170 9998877' }, konfiguration: { paket: 'start', paket_name: 'Start', summe_einmalig: 1290, summe_monatlich: 49 } } },
       { id: 102, created_at: '2026-07-05T16:40:00', status: 'in_bearbeitung', kontakt_name: 'Sabine Beispiel', kontakt_email: 'sabine@beispiel-hotel.de', payload: { kontakt: { name: 'Sabine Beispiel', email: 'sabine@beispiel-hotel.de' }, konfiguration: { paket: 'platzhirsch', paket_name: 'Platzhirsch', summe_einmalig: 6490, summe_monatlich: 249 } } }
     ];
+    state.offers = [
+      { id: 'o1', created_at: '2026-07-06T10:00:00', name: 'Peter Klein', email: 'peter@klein-elektro.de', paket: 'start', preis_einmalig: 1290, care_stufe: 'care-s', care_preis: 49, korrekturrunden: 1, liefertext: 'in 7 Werktagen', gueltig_bis: '2026-07-31', umfang: 'One-Pager\nTexte inklusive', status: 'gesendet' },
+      { id: 'o2', created_at: '2026-07-04T14:00:00', name: 'Sabine Beispiel', email: 'sabine@beispiel-hotel.de', paket: 'platzhirsch', preis_einmalig: 6490, care_stufe: 'care-l', care_preis: 249, korrekturrunden: 3, liefertext: 'in 7–14 Werktagen', status: 'angenommen', angenommen_am: '2026-07-05T09:30:00', angenommen_ip: '84.12.x.x', agb_version: 'AGB-2026-07' }
+    ];
+    state._demoBriefing = { firmenname: 'Muster Bäckerei', branche: 'Bäckerei & Café', gegruendet: '1985', hauptziele: ['anfragen', 'termine'], hat_logo: 'ja', stimmung: ['modern', 'warm'], leistungen_inhalt: 'Brot & Brötchen\nKuchen & Torten', adresse: 'Hauptstraße 1\n12345 Musterstadt', telefon: '030 123456', kleinunternehmer: 'nein', suchbegriffe: 'Bäckerei Musterstadt, Sauerteigbrot' };
     renderAll();
   } else {
     requireAdmin().then(function (ok) {
