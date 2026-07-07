@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=41" />
+  <link rel="stylesheet" href="styles.css?v=43" />
   <link rel="canonical" href="https://[DOMAIN]/preise" />
   <meta name="robots" content="noindex,nofollow" />
   <meta property="og:type" content="website" />
@@ -350,16 +350,13 @@
           </div>
         </div>
 
-        <details class="extras-more">
-          <summary>Weitere Extras</summary>
-          <div class="extra-grid">
-            <div class="extra-card">
-              <h4>Newsletter-Anmeldung</h4>
-              <p class="extra-price">290 €</p>
-              <p>Anmeldeformular mit Bestätigungs-Mail, angebunden an Ihr Newsletter-Tool. Im Platzhirsch-Paket schon inklusive.</p>
-            </div>
+        <div class="callout" style="max-width:820px;margin:28px auto 0;">
+          <span class="callout-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span>
+          <div>
+            <h4>Noch unsicher? Website-Check — 490 €</h4>
+            <p>Sie haben schon eine Website und wollen wissen, wo sie steht? Wir prüfen sie einmal gründlich: barrierefrei (BFSG), in Google <strong>und</strong> in ChatGPT &amp; Co. auffindbar, schnell genug? Sie bekommen einen schriftlichen Bericht mit klaren Empfehlungen — unabhängig davon, ob Sie danach mit uns bauen. <a href="kontakt.php">Website-Check anfragen →</a></p>
           </div>
-        </details>
+        </div>
       </div>
     </section>
 
@@ -372,7 +369,7 @@
           <p>Wenn ein Standardpaket nicht genau zu Ihrem Vorhaben passt.</p>
         </div>
         <div class="onrequest-line" style="max-width:760px;margin:0 auto;">
-          <p>Ihre Website soll mehr können? <strong>geschützter Kundenbereich, Shop-Funktionen, Schnittstellen u. v. m.</strong> — geben Sie es im Website-Assistenten an. Auch dafür erhalten Sie vorab einen Festpreis: schriftlich, bevor Sie zusagen. <a href="anfrage.php">Geführte Anfrage starten →</a></p>
+          <p>Ihre Website soll mehr können? <strong>geschützter Kundenbereich, mehrere Standorte, Schnittstellen u. v. m.</strong> — sagen Sie es uns in der Anfrage. Auch dafür erhalten Sie vorab einen Festpreis: schriftlich, bevor Sie zusagen. <a href="anfrage.php">Anfrage starten →</a></p>
         </div>
       </div>
     </section>

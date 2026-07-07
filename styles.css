@@ -3389,6 +3389,10 @@ body:has(.cookie-banner.is-visible) .fab-helper { bottom: 110px; }
 .pricing.alt .price-features li::before {
   background: rgba(18, 165, 148, 0.12);
 }
+/* Callout (weiße Karte) in dunkler pricing.alt-Sektion: Text darf nicht Weiß erben */
+.pricing.alt .callout h4 { color: var(--text-dark); }
+.pricing.alt .callout p { color: var(--text-muted); }
+.pricing.alt .callout p a { color: var(--green-strong); }
 
 /* ============================================================
    Globaler Hell-Dunkel-Rhythmus

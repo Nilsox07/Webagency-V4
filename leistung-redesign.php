@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Website-Redesign bei Sartu: bestehende Seite komplett neu auf moderner Technik — Texte und Bilder übernehmen wir, Umzug inklusive. Paket-Festpreis ab 1.290 €." />
+  <meta name="description" content="Website-Redesign bei Sartu: bestehende Seite komplett neu auf moderner Technik — Texte und Bilder übernehmen wir. Paket-Festpreis ab 1.290 €." />
   <link rel="canonical" href="https://[DOMAIN]/leistung-redesign" />
   <meta name="robots" content="noindex,nofollow" />
   <meta property="og:type" content="website" />
@@ -11,17 +11,17 @@
   <meta property="og:locale" content="de_DE" />
   <meta property="og:url" content="https://[DOMAIN]/leistung-redesign" />
   <meta property="og:title" content="Website-Redesign zum Festpreis ab 1.290 € | Sartu" />
-  <meta property="og:description" content="Bestehende Website komplett neu — Inhalte ziehen mit um, Umzug inklusive. Paket-Festpreis ab 1.290 €." />
+  <meta property="og:description" content="Bestehende Website komplett neu — Inhalte übernehmen wir. Paket-Festpreis ab 1.290 €." />
   <meta property="og:image" content="https://[DOMAIN]/[OG-IMAGE]" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Website-Redesign zum Festpreis ab 1.290 € | Sartu" />
-  <meta name="twitter:description" content="Bestehende Website komplett neu — Inhalte ziehen mit um, Umzug inklusive. Paket-Festpreis ab 1.290 €." />
+  <meta name="twitter:description" content="Bestehende Website komplett neu — Inhalte übernehmen wir. Paket-Festpreis ab 1.290 €." />
   <meta name="twitter:image" content="https://[DOMAIN]/[OG-IMAGE]" />
   <title>Website-Redesign zum Festpreis ab 1.290 € | Sartu</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=41" />
+  <link rel="stylesheet" href="styles.css?v=43" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
