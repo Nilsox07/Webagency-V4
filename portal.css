@@ -299,3 +299,14 @@ pre.json { background: #060d18; border: 1px solid var(--border); border-radius: 
 .ed-toggle-list { display: flex; flex-direction: column; gap: 8px; }
 .ed-toggle-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 10px; }
 .ed-toggle-label { color: var(--text-light); font-size: 14px; }
+
+/* ===== Editor: Seitenliste (Mehrseiten) ===== */
+.ed-pagebar { margin-bottom: 16px; }
+.ed-pages { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+.ed-page-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 10px; }
+.ed-page-row.is-current { border-color: var(--lime); background: rgba(18,165,148,.07); }
+.ed-page-open { background: none; border: 0; color: var(--white); font: inherit; font-weight: 700; font-size: 15px; cursor: pointer; padding: 0; text-align: left; }
+.ed-page-open:hover { color: var(--lime); }
+.ed-page-right { display: flex; align-items: center; gap: 8px; }
+.ed-page-lock { color: var(--text-muted); font-size: 12px; }
+.ed-editing { margin: -4px 0 14px; }

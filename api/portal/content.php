@@ -8,18 +8,12 @@ require_once __DIR__ . '/../../includes/uploads.php';
 $profile = require_profile();
 $pdo = db();
 
-/** Erstes Projekt des Kunden + zugehörige Editor-Seite holen (legt sie an). */
-function content_page_for(PDO $pdo, array $profile): ?array
+/** Erstes Projekt des Kunden (oder null). */
+function content_project(PDO $pdo, array $profile): ?array
 {
     $stmt = $pdo->prepare('select id, titel, paket from projects where customer_id = ? order by created_at asc limit 1');
     $stmt->execute([$profile['id']]);
-    $project = $stmt->fetch();
-    if (!$project) {
-        return null;
-    }
-    $page = sc_get_or_create_page($pdo, $project['id'], 'home', 'standard');
-    $page['_project'] = $project;
-    return $page;
+    return $stmt->fetch() ?: null;
 }
 
 /** Media-Liste (Bilder/PDFs) eines Projekts. */
@@ -30,47 +24,71 @@ function content_media(PDO $pdo, string $projectId): array
     $out = [];
     foreach ($stmt->fetchAll() as $u) {
         $out[] = [
-            'id' => $u['id'],
-            'original_name' => $u['original_name'],
-            'alt_text' => $u['alt_text'],
-            'mime' => $u['mime'],
-            'bytes' => (int) $u['bytes'],
-            'url' => upload_public_url($u['id']),
+            'id' => $u['id'], 'original_name' => $u['original_name'], 'alt_text' => $u['alt_text'],
+            'mime' => $u['mime'], 'bytes' => (int) $u['bytes'], 'url' => upload_public_url($u['id']),
         ];
     }
     return $out;
 }
 
+/** Kompakte Seitenliste fürs Portal. */
+function content_pages(PDO $pdo, string $projectId): array
+{
+    $out = [];
+    foreach (sc_project_pages($pdo, $projectId) as $p) {
+        $out[] = [
+            'slug' => $p['slug'], 'titel' => $p['titel'], 'nav_label' => $p['nav_label'],
+            'typ' => $p['typ'], 'aktiv' => (int) $p['aktiv'] === 1,
+        ];
+    }
+    return $out;
+}
+
+/** Gibt es projektweit unveröffentlichte Änderungen? */
+function content_unpublished(PDO $pdo, string $projectId): bool
+{
+    $stmt = $pdo->prepare(
+        'select count(*) as c from site_blocks b
+         join site_pages p on p.id = b.page_id
+         where p.project_id = ? and not (b.wert_draft <=> b.wert_published)'
+    );
+    $stmt->execute([$projectId]);
+    return (int) ($stmt->fetch()['c'] ?? 0) > 0;
+}
+
 $method = strtoupper((string) ($_SERVER['REQUEST_METHOD'] ?? 'GET'));
 
 if ($method === 'GET') {
-    $page = content_page_for($pdo, $profile);
-    if (!$page) {
+    $project = content_project($pdo, $profile);
+    if (!$project) {
         json_response(['ok' => true, 'has_project' => false, 'csrf' => csrf_token()]);
     }
-    $vorlage = (string) $page['vorlage'];
+    $projectId = (string) $project['id'];
+    sc_ensure_pages($pdo, $projectId);
+
+    $slug = preg_replace('~[^a-z0-9\-]~', '', strtolower((string) ($_GET['page'] ?? 'home'))) ?: 'home';
+    $page = sc_page_by_slug($pdo, $projectId, $slug) ?: sc_page_by_slug($pdo, $projectId, 'home');
+    if (!$page) {
+        json_response(['ok' => false, 'error' => 'Keine Seite gefunden.'], 404);
+    }
+
     $verStmt = $pdo->prepare('select id, created_at, anlass from site_page_versions where page_id = ? order by created_at desc limit 20');
     $verStmt->execute([$page['id']]);
-
-    $diff = $pdo->prepare('select count(*) as c from site_blocks where page_id = ? and not (wert_draft <=> wert_published)');
-    $diff->execute([$page['id']]);
-    $unpublished = (int) ($diff->fetch()['c'] ?? 0) > 0;
 
     json_response([
         'ok' => true,
         'has_project' => true,
-        'unpublished' => $unpublished,
+        'unpublished' => content_unpublished($pdo, $projectId),
+        'pages' => content_pages($pdo, $projectId),
         'page' => [
-            'id' => $page['id'],
-            'slug' => $page['slug'],
-            'vorlage' => $vorlage,
-            'is_published' => (int) $page['is_published'] === 1,
-            'project_id' => $page['_project']['id'],
+            'id' => $page['id'], 'slug' => $page['slug'], 'titel' => $page['titel'],
+            'vorlage' => $page['vorlage'], 'typ' => $page['typ'], 'aktiv' => (int) $page['aktiv'] === 1,
+            'is_published' => (int) $page['is_published'] === 1, 'project_id' => $projectId,
         ],
-        'template' => sartu_site_template($vorlage),
+        'template' => sartu_site_template((string) $page['vorlage']),
         'palette' => sartu_site_palette(),
         'content' => sc_load_content($pdo, $page, 'draft'),
-        'media' => content_media($pdo, (string) $page['_project']['id']),
+        'media' => content_media($pdo, $projectId),
         'versions' => $verStmt->fetchAll(),
         'csrf' => csrf_token(),
     ]);
@@ -84,45 +102,67 @@ require_csrf_token();
 $input = json_input();
 $action = (string) ($input['action'] ?? 'save');
 
-$page = content_page_for($pdo, $profile);
-if (!$page) {
+$project = content_project($pdo, $profile);
+if (!$project) {
     json_response(['ok' => false, 'error' => 'Kein Projekt vorhanden.'], 400);
 }
-$pageId = (string) $page['id'];
-$vorlage = (string) $page['vorlage'];
-$fields = sartu_site_fields($vorlage);
+$projectId = (string) $project['id'];
+sc_ensure_pages($pdo, $projectId);
 
+// Projektweite Aktionen zuerst.
 if ($action === 'publish') {
-    sc_publish_page($pdo, $pageId, (string) $profile['id']);
+    sc_publish_project($pdo, $projectId, (string) $profile['id']);
     json_response(['ok' => true, 'published' => true, 'csrf' => csrf_token()]);
 }
 
-if ($action === 'restore') {
-    $vid = trim((string) ($input['version_id'] ?? ''));
-    $done = $vid !== '' && sc_restore_version($pdo, $pageId, $vid);
-    json_response(['ok' => $done, 'restored' => $done, 'content' => sc_load_content($pdo, $page, 'draft'), 'csrf' => csrf_token()]);
+if ($action === 'toggle_page') {
+    $slug = preg_replace('~[^a-z0-9\-]~', '', strtolower((string) ($input['slug'] ?? ''))) ?: '';
+    $pg = sc_page_by_slug($pdo, $projectId, $slug);
+    if (!$pg) {
+        json_response(['ok' => false, 'error' => 'Seite nicht gefunden.'], 404);
+    }
+    if (($pg['typ'] ?? '') !== 'inhalt') {
+        json_response(['ok' => false, 'error' => 'Startseite und Pflichtseiten können nicht deaktiviert werden.'], 403);
+    }
+    sc_set_page_active($pdo, (string) $pg['id'], !empty($input['aktiv']));
+    json_response(['ok' => true, 'csrf' => csrf_token()]);
 }
 
 if ($action === 'alt') {
     $uid = trim((string) ($input['upload_id'] ?? ''));
     $alt = mb_substr(trim((string) ($input['alt_text'] ?? '')), 0, 500);
-    $stmt = $pdo->prepare('update uploads set alt_text = ? where id = ? and project_id = ?');
-    $stmt->execute([$alt, $uid, (string) $page['_project']['id']]);
+    $pdo->prepare('update uploads set alt_text = ? where id = ? and project_id = ?')->execute([$alt, $uid, $projectId]);
     json_response(['ok' => true, 'csrf' => csrf_token()]);
 }
 
 if ($action === 'delete_media') {
     $uid = trim((string) ($input['upload_id'] ?? ''));
     $sel = $pdo->prepare('select storage_path from uploads where id = ? and project_id = ? limit 1');
-    $sel->execute([$uid, (string) $page['_project']['id']]);
+    $sel->execute([$uid, $projectId]);
     $u = $sel->fetch();
     if ($u) {
         if (!empty($u['storage_path']) && is_file($u['storage_path'])) {
             @unlink($u['storage_path']);
         }
-        $pdo->prepare('delete from uploads where id = ? and project_id = ?')->execute([$uid, (string) $page['_project']['id']]);
+        $pdo->prepare('delete from uploads where id = ? and project_id = ?')->execute([$uid, $projectId]);
     }
     json_response(['ok' => true, 'csrf' => csrf_token()]);
+}
+
+// Ab hier seiten-bezogene Aktionen — Zielseite auflösen.
+$slug = preg_replace('~[^a-z0-9\-]~', '', strtolower((string) ($input['page'] ?? 'home'))) ?: 'home';
+$page = sc_page_by_slug($pdo, $projectId, $slug) ?: sc_page_by_slug($pdo, $projectId, 'home');
+if (!$page) {
+    json_response(['ok' => false, 'error' => 'Seite nicht gefunden.'], 404);
+}
+$pageId = (string) $page['id'];
+$vorlage = (string) $page['vorlage'];
+$fields = sartu_site_fields($vorlage);
+
+if ($action === 'restore') {
+    $vid = trim((string) ($input['version_id'] ?? ''));
+    $done = $vid !== '' && sc_restore_version($pdo, $pageId, $vid);
+    json_response(['ok' => $done, 'restored' => $done, 'content' => sc_load_content($pdo, $page, 'draft'), 'csrf' => csrf_token()]);
 }
 
 if ($action === 'toggle_section') {
@@ -154,7 +194,7 @@ if ($action === 'toggle_item') {
     json_response(['ok' => true, 'csrf' => csrf_token()]);
 }
 
-// action === 'save' : Entwurfs-Felder speichern.
+// action === 'save' : Entwurfs-Felder speichern (nur betriebliche 'edit'-Felder).
 $incoming = $input['fields'] ?? [];
 if (!is_array($incoming)) {
     json_response(['ok' => false, 'error' => 'Ungültige Daten.'], 400);
@@ -168,11 +208,8 @@ foreach ($incoming as $f) {
     $section = (string) ($f['section'] ?? '');
     $field = (string) ($f['field'] ?? '');
     $key = $section . '.' . $field;
-    if (!isset($fields[$key])) {
-        continue; // nur bekannte Felder aus dem Schema
-    }
-    if (($fields[$key]['customer'] ?? null) !== 'edit') {
-        continue; // nur betriebliche Felder darf der Kunde bearbeiten (kein SEO/Marketing)
+    if (!isset($fields[$key]) || ($fields[$key]['customer'] ?? null) !== 'edit') {
+        continue;
     }
     $spec = $fields[$key]['spec'];
     $type = $fields[$key]['type'];

@@ -118,6 +118,8 @@ create table if not exists site_pages (
   vorlage      varchar(80) not null default 'standard',
   titel        varchar(255) null,
   nav_label    varchar(120) null,
+  typ          varchar(20) not null default 'inhalt',
+  aktiv        tinyint(1) not null default 1,
   position     int not null default 0,
   is_published tinyint(1) not null default 0,
   index idx_site_pages_project (project_id),

@@ -36,6 +36,50 @@ function sc_get_or_create_page(PDO $pdo, string $projectId, string $slug = 'home
     return $stmt->fetch();
 }
 
+/** Standard-Seiten (Start + Pflichtseiten) für ein Projekt anlegen, falls fehlend. */
+function sc_ensure_pages(PDO $pdo, string $projectId): void
+{
+    foreach (sartu_site_page_types() as $slug => $def) {
+        $stmt = $pdo->prepare('select id from site_pages where project_id = ? and slug = ? limit 1');
+        $stmt->execute([$projectId, $slug]);
+        if ($stmt->fetch()) {
+            continue;
+        }
+        $ins = $pdo->prepare('insert into site_pages (id, project_id, slug, vorlage, titel, nav_label, typ, position) values (?, ?, ?, ?, ?, ?, ?, ?)');
+        $ins->execute([uuidv4(), $projectId, $slug, $def['vorlage'], $def['titel'], $def['nav_label'], $def['typ'], $def['position']]);
+    }
+}
+
+/** Alle Seiten eines Projekts (für Seitenliste/Navigation). */
+function sc_project_pages(PDO $pdo, string $projectId): array
+{
+    $stmt = $pdo->prepare('select id, slug, vorlage, titel, nav_label, typ, aktiv, is_published, position from site_pages where project_id = ? order by position asc, created_at asc');
+    $stmt->execute([$projectId]);
+    return $stmt->fetchAll();
+}
+
+/** Eine Seite per Slug (oder null). */
+function sc_page_by_slug(PDO $pdo, string $projectId, string $slug): ?array
+{
+    $stmt = $pdo->prepare('select * from site_pages where project_id = ? and slug = ? limit 1');
+    $stmt->execute([$projectId, $slug]);
+    return $stmt->fetch() ?: null;
+}
+
+/** Seite ein-/ausblenden (nur für nicht-pflichtige Inhaltsseiten sinnvoll). */
+function sc_set_page_active(PDO $pdo, string $pageId, bool $aktiv): void
+{
+    $pdo->prepare('update site_pages set aktiv = ?, updated_at = current_timestamp where id = ?')->execute([$aktiv ? 1 : 0, $pageId]);
+}
+
+/** Alle Seiten eines Projekts veröffentlichen (Entwurf → Live). */
+function sc_publish_project(PDO $pdo, string $projectId, ?string $userId = null): void
+{
+    foreach (sc_project_pages($pdo, $projectId) as $p) {
+        sc_publish_page($pdo, (string) $p['id'], $userId);
+    }
+}
+
 /**
  * Inhalte einer Seite als [section][field] => wert laden.
  * $variant: 'draft' (Editor) oder 'published' (Live). List/hours-Felder werden
@@ -214,13 +258,16 @@ function sc_paragraphs(?string $text): string
 }
 
 /**
- * Die komplette Kundenseite rendern.
- * $page: site_pages-Row · $content: sc_load_content()-Ergebnis · $media: Map.
+ * Die komplette Kundenseite rendern (Mehrseiten-fähig).
+ * $page: site_pages-Row · $content: sc_load_content() · $media: Map ·
+ * $nav: [['slug','label','url','current'=>bool], …] · $accent: Site-Akzent (optional).
  */
-function render_customer_site(array $page, array $content, array $media = []): void
+function render_customer_site(array $page, array $content, array $media = [], array $nav = [], ?string $accent = null): void
 {
-    $tpl = sartu_site_template((string) ($page['vorlage'] ?? 'standard'));
-    $accent = $content['design']['akzentfarbe'] ?? '#0f766e';
+    $vorlage = (string) ($page['vorlage'] ?? 'standard');
+    if ($accent === null) {
+        $accent = $content['design']['akzentfarbe'] ?? '#0f766e';
+    }
     if (!is_string($accent) || !(sartu_site_palette_has($accent) || sartu_site_valid_hex($accent))) {
         $accent = '#0f766e';
     }
@@ -228,10 +275,6 @@ function render_customer_site(array $page, array $content, array $media = []): v
     $seo = $content['seo'] ?? [];
     $title = ($seo['titel'] ?? '') !== '' ? $seo['titel'] : ($hero['headline'] ?? ($page['titel'] ?? 'Website'));
     $metaDesc = trim((string) ($seo['description'] ?? ''));
-
-    $get = static function (string $section, string $field, $default = '') use ($content) {
-        return $content[$section][$field] ?? $default;
-    };
     ?><!DOCTYPE html>
 <html lang="de">
 <head>
@@ -260,10 +303,66 @@ function render_customer_site(array $page, array $content, array $media = []): v
     .cs-hours { list-style:none; padding:0; margin:16px 0 0; max-width:420px; }
     .cs-hours li { display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #e6eaed; }
     .cs-foot { padding:32px 0; color:var(--muted); font-size:14px; text-align:center; }
+    .cs-foot a { color:var(--muted); }
     .cs-media { border-radius:14px; overflow:hidden; margin-top:24px; }
+    .cs-nav { background:#fff; border-bottom:1px solid #e6eaed; position:sticky; top:0; z-index:5; }
+    .cs-nav .cs-wrap { display:flex; gap:18px; align-items:center; flex-wrap:wrap; padding-top:14px; padding-bottom:14px; }
+    .cs-nav a { color:var(--ink); text-decoration:none; font-weight:600; font-size:15px; }
+    .cs-nav a.is-current { color:var(--accent); }
+    .cs-legal p { margin:0 0 10px; }
   </style>
 </head>
 <body>
+  <?php sc_render_nav($nav); ?>
+  <?php
+    if ($vorlage === 'impressum') {
+        sc_body_impressum($content);
+    } elseif ($vorlage === 'datenschutz') {
+        sc_body_datenschutz($content);
+    } elseif ($vorlage === 'inhalt') {
+        sc_body_inhalt($content);
+    } else {
+        sc_body_standard($content, $media);
+    }
+  ?>
+  <?php sc_render_footer($nav, (string) ($hero['headline'] ?? ($page['titel'] ?? ''))); ?>
+</body>
+</html>
+<?php
+}
+
+/** Obere Navigation über die aktiven Seiten. */
+function sc_render_nav(array $nav): void
+{
+    if (count($nav) < 2) {
+        return;
+    }
+    ?>
+  <nav class="cs-nav"><div class="cs-wrap">
+    <?php foreach ($nav as $n): ?><a href="<?= sc_e((string) $n['url']) ?>"<?= !empty($n['current']) ? ' class="is-current"' : '' ?>><?= sc_e((string) $n['label']) ?></a><?php endforeach; ?>
+  </div></nav>
+    <?php
+}
+
+/** Fußzeile mit Links zu den Pflichtseiten. */
+function sc_render_footer(array $nav, string $siteName): void
+{
+    $legal = array_filter($nav, static function ($n) {
+        return in_array($n['slug'] ?? '', ['impressum', 'datenschutz'], true);
+    });
+    ?>
+  <footer class="cs-foot"><div class="cs-wrap"><?= sc_e($siteName) ?> · Website von Sartu<?php foreach ($legal as $n): ?> · <a href="<?= sc_e((string) $n['url']) ?>"><?= sc_e((string) $n['label']) ?></a><?php endforeach; ?></div></footer>
+    <?php
+}
+
+/** Startseite / Onepager. */
+function sc_body_standard(array $content, array $media): void
+{
+    $get = static function (string $section, string $field, $default = '') use ($content) {
+        return $content[$section][$field] ?? $default;
+    };
+    $hero = $content['hero'] ?? [];
+    ?>
   <header class="cs-hero">
     <div class="cs-wrap">
       <h1><?= sc_e((string) ($hero['headline'] ?? '')) ?></h1>
@@ -306,9 +405,9 @@ function render_customer_site(array $page, array $content, array $media = []): v
 
   <?php $zeiten = $get('oeffnungszeiten', 'zeiten', []); if (sc_visible($content, 'oeffnungszeiten') && is_array($zeiten) && $zeiten): ?>
   <section class="cs-sec"><div class="cs-wrap">
-    <?php if ($get('oeffnungszeiten', 'titel')): ?><h2><?= sc_e((string) $get('oeffnungszeiten', 'titel')) ?></h2><?php endif; ?>
+    <?php if ($get('oeffnungszeiten', 'titel')): ?><h2><?= sc_e((string) $get('oeffnungszeiten', 'titel')) ?></h2><?php else: ?><h2>Öffnungszeiten</h2><?php endif; ?>
     <ul class="cs-hours">
-      <?php foreach ($zeiten as $tag => $wert): ?><li><span><?= sc_e((string) $tag) ?></span><span><?= sc_e((string) $wert) ?></span></li><?php endforeach; ?>
+      <?php foreach ($zeiten as $tag => $wert): if (trim((string) $wert) === '') continue; ?><li><span><?= sc_e((string) $tag) ?></span><span><?= sc_e((string) $wert) ?></span></li><?php endforeach; ?>
     </ul>
     <?php if ($get('oeffnungszeiten', 'hinweis')): ?><p><?= sc_e((string) $get('oeffnungszeiten', 'hinweis')) ?></p><?php endif; ?>
   </div></section>
@@ -327,17 +426,22 @@ function render_customer_site(array $page, array $content, array $media = []): v
 
   <?php if (trim((string) $get('kontakt', 'titel')) !== '' || trim((string) $get('kontakt', 'adresse')) !== ''): ?>
   <section class="cs-sec" id="kontakt"><div class="cs-wrap">
-    <?php if ($get('kontakt', 'titel')): ?><h2><?= sc_e((string) $get('kontakt', 'titel')) ?></h2><?php endif; ?>
+    <h2><?= sc_e((string) ($get('kontakt', 'titel') ?: 'Kontakt')) ?></h2>
     <?= sc_paragraphs((string) $get('kontakt', 'adresse')) ?>
     <?php if ($get('kontakt', 'telefon')): ?><p><a href="tel:<?= sc_e((string) $get('kontakt', 'telefon')) ?>"><?= sc_e((string) $get('kontakt', 'telefon')) ?></a></p><?php endif; ?>
     <?php if ($get('kontakt', 'email')): ?><p><a href="mailto:<?= sc_e((string) $get('kontakt', 'email')) ?>"><?= sc_e((string) $get('kontakt', 'email')) ?></a></p><?php endif; ?>
     <?php if ($get('kontakt', 'maps')): ?><p><a href="<?= sc_e((string) $get('kontakt', 'maps')) ?>" target="_blank" rel="noopener">Auf der Karte ansehen &rarr;</a></p><?php endif; ?>
   </div></section>
   <?php endif; ?>
+    <?php
+}
 
-  <?php $imp = $content['impressum'] ?? []; $hasImp = trim((string) ($imp['firmenname'] ?? '')) !== '' || trim((string) ($imp['adresse'] ?? '')) !== ''; ?>
-  <?php if ($hasImp): ?>
-  <section class="cs-sec" id="impressum"><div class="cs-wrap">
+/** Pflichtseite: Impressum. */
+function sc_body_impressum(array $content): void
+{
+    $imp = $content['impressum'] ?? [];
+    ?>
+  <section class="cs-sec cs-legal" id="impressum"><div class="cs-wrap">
     <h2>Impressum</h2>
     <p>Angaben gemäß § 5 DDG</p>
     <?php if (!empty($imp['firmenname'])): ?><p><strong><?= sc_e((string) $imp['firmenname']) ?></strong></p><?php endif; ?>
@@ -349,10 +453,33 @@ function render_customer_site(array $page, array $content, array $media = []): v
     <?php if (!empty($imp['register'])): ?><p><?= sc_e((string) $imp['register']) ?></p><?php endif; ?>
     <?php if (!empty($imp['verantwortlich'])): ?><p>Verantwortlich für den Inhalt: <?= sc_e((string) $imp['verantwortlich']) ?></p><?php endif; ?>
   </div></section>
-  <?php endif; ?>
+    <?php
+}
 
-  <footer class="cs-foot"><div class="cs-wrap"><?= sc_e((string) ($hero['headline'] ?? '')) ?> · Website von Sartu<?php if ($hasImp): ?> · <a href="#impressum">Impressum</a><?php endif; ?></div></footer>
-</body>
-</html>
-<?php
+/** Generische Inhaltsseite (von Sartu gepflegter Text). */
+function sc_body_inhalt(array $content): void
+{
+    $in = $content['inhalt'] ?? [];
+    ?>
+  <section class="cs-sec cs-legal"><div class="cs-wrap">
+    <h2><?= sc_e((string) ($in['titel'] ?? 'Seite')) ?></h2>
+    <?= sc_richtext((string) ($in['text'] ?? '')) ?>
+  </div></section>
+    <?php
+}
+
+/** Pflichtseite: Datenschutz (von Sartu gepflegter Text). */
+function sc_body_datenschutz(array $content): void
+{
+    $ds = $content['datenschutz'] ?? [];
+    ?>
+  <section class="cs-sec cs-legal" id="datenschutz"><div class="cs-wrap">
+    <h2><?= sc_e((string) ($ds['titel'] ?? 'Datenschutzerklärung')) ?></h2>
+    <?php if (trim((string) ($ds['text'] ?? '')) !== ''): ?>
+      <?= sc_richtext((string) $ds['text']) ?>
+    <?php else: ?>
+      <p>Die Datenschutzerklärung wird von Sartu erstellt und hier eingesetzt.</p>
+    <?php endif; ?>
+  </div></section>
+    <?php
 }

@@ -7,7 +7,7 @@
 
   var API = 'api/portal/content.php';
   var csrf = '';
-  var state = { page: null, template: null, content: {}, media: [], palette: [], versions: [], unpublished: false, preview: false, project_id: '' };
+  var state = { page: null, template: null, content: {}, media: [], palette: [], versions: [], unpublished: false, preview: false, project_id: '', pages: [], currentSlug: 'home', demo: null };
   var pendingSave = {}; // "section.field" -> value
   var saveTimer = null;
 
@@ -52,7 +52,7 @@
     var fields = Object.keys(pendingSave).map(function (k) { return pendingSave[k]; });
     if (!fields.length) return Promise.resolve();
     pendingSave = {};
-    return post({ action: 'save', fields: fields }).then(function () {
+    return post({ action: 'save', fields: fields, page: state.currentSlug }).then(function () {
       status('Automatisch gespeichert ✓');
       setUnpublished(true);
     }).catch(function (e) { status('Konnte nicht speichern: ' + e.message); throw e; });
@@ -265,7 +265,7 @@
       if (!state.content[section.key]) state.content[section.key] = {};
       state.content[section.key]['__aktiv'] = next ? '1' : '0';
       if (state.preview) { setUnpublished(true); return; }
-      post({ action: 'toggle_section', section: section.key, aktiv: next })
+      post({ action: 'toggle_section', section: section.key, aktiv: next, page: state.currentSlug })
         .then(function () { setUnpublished(true); status('Gespeichert ✓'); })
         .catch(function (e) { status('Fehler: ' + e.message); });
     });
@@ -292,7 +292,7 @@
       row.appendChild(switchEl('', on, function (next) {
         item._aktiv = next;
         if (state.preview) { setUnpublished(true); return; }
-        post({ action: 'toggle_item', section: section.key, field: listField.key, index: idx, aktiv: next })
+        post({ action: 'toggle_item', section: section.key, field: listField.key, index: idx, aktiv: next, page: state.currentSlug })
           .then(function () { setUnpublished(true); status('Gespeichert ✓'); })
           .catch(function (e) { status('Fehler: ' + e.message); });
       }));
@@ -301,11 +301,45 @@
     card.appendChild(list);
   }
 
+  var PAGE_BADGE = { start: 'Startseite', pflicht: 'Pflichtseite', inhalt: 'Seite' };
+  function renderPageBar(root) {
+    if (!state.pages || state.pages.length < 2) return;
+    var bar = el('div', 'card ed-pagebar');
+    bar.appendChild(el('p', 'eyebrow', 'Seiten Ihrer Website'));
+    var list = el('div', 'ed-pages');
+    state.pages.forEach(function (pg) {
+      var row = el('div', 'ed-page-row' + (pg.slug === state.currentSlug ? ' is-current' : ''));
+      var open = el('button', 'ed-page-open'); open.type = 'button';
+      open.textContent = pg.titel || pg.slug;
+      open.addEventListener('click', function () { if (pg.slug !== state.currentSlug) loadPage(pg.slug); });
+      row.appendChild(open);
+      var right = el('div', 'ed-page-right');
+      if (pg.typ === 'start' || pg.typ === 'pflicht') {
+        right.appendChild(el('span', 'ed-page-lock', (pg.typ === 'start' ? 'Startseite' : 'Pflichtseite') + ' · immer aktiv'));
+      } else {
+        right.appendChild(switchEl('Anzeigen', pg.aktiv !== false, function (next) {
+          pg.aktiv = next;
+          if (state.preview) { setUnpublished(true); return; }
+          post({ action: 'toggle_page', slug: pg.slug, aktiv: next })
+            .then(function () { setUnpublished(true); status('Gespeichert ✓'); })
+            .catch(function (e) { status('Fehler: ' + e.message); });
+        }));
+      }
+      row.appendChild(right);
+      list.appendChild(row);
+    });
+    bar.appendChild(list);
+    root.appendChild(bar);
+  }
+
   function render() {
     var root = document.getElementById('editorRoot');
     if (!root) return;
     root.innerHTML = '';
     if (!state.template) { root.appendChild(el('p', 'muted', 'Noch keine Website hinterlegt.')); return; }
+    renderPageBar(root);
+    var curr = state.pages.filter(function (p) { return p.slug === state.currentSlug; })[0];
+    if (curr && state.pages.length > 1) root.appendChild(el('p', 'muted ed-editing', 'Sie bearbeiten: ' + (curr.titel || curr.slug)));
     var shown = 0;
     state.template.sections.forEach(function (section) {
       var mode = section.customer;
@@ -325,8 +359,15 @@
       }
       root.appendChild(card);
     });
-    if (!shown) root.appendChild(el('p', 'muted', 'Für Ihre Website gibt es aktuell nichts selbst zu bearbeiten.'));
+    if (!shown) root.appendChild(el('div', 'card', 'Diese Seite pflegt Sartu für Sie. Sie können sie oben nur ein- oder ausblenden.'));
     renderVersions(root);
+    updatePreviewLink();
+  }
+
+  function updatePreviewLink() {
+    var pv = document.getElementById('edPreview'); if (!pv) return;
+    var base = state.preview ? 'vorschau.php?preview=1&page=' : 'vorschau.php?page=';
+    pv.setAttribute('href', base + encodeURIComponent(state.currentSlug || 'home'));
   }
 
   function renderVersions(root) {
@@ -343,7 +384,7 @@
         if (state.preview) { status('Vorschau-Modus — Wiederherstellen ist hier deaktiviert.'); return; }
         if (!window.confirm('Diesen früheren Stand als Entwurf laden? Ihre aktuellen, nicht veröffentlichten Änderungen werden ersetzt.')) return;
         status('Stellt wieder her …');
-        post({ action: 'restore', version_id: v.id }).then(function () { return reload(); }).then(function () {
+        post({ action: 'restore', version_id: v.id, page: state.currentSlug }).then(function () { return reload(); }).then(function () {
           setUnpublished(true); status('Früherer Stand geladen ✓ — prüfen und dann veröffentlichen.');
         }).catch(function (e) { status('Fehler: ' + e.message); });
       });
@@ -472,64 +513,104 @@
     state.media = data.media || [];
     state.palette = data.palette || [];
     state.versions = data.versions || [];
-    state.project_id = data.page ? data.page.project_id : '';
+    if (data.pages) state.pages = data.pages;
+    state.currentSlug = data.page ? data.page.slug : 'home';
+    state.project_id = data.page ? data.page.project_id : state.project_id;
     render();
     setUnpublished(!!data.unpublished);
   }
 
-  function reload() {
-    return api(API).then(function (data) { if (data.has_project) boot(data); return data; });
+  function loadPage(slug) {
+    return Promise.resolve(flushSave()).catch(function () {}).then(function () {
+      if (state.preview) { bootDemoPage(slug); return; }
+      status('Lädt Seite …');
+      return api(API + '?page=' + encodeURIComponent(slug)).then(function (data) { if (data.has_project) boot(data); status(''); });
+    });
   }
 
-  function demoData() {
-    return {
-      page: { project_id: 'demo', vorlage: 'standard', is_published: false },
-      palette: [
-        { value: '#0f766e', label: 'Petrol' }, { value: '#1d4ed8', label: 'Blau' },
-        { value: '#b45309', label: 'Bernstein' }, { value: '#be123c', label: 'Rot' },
-        { value: '#7c3aed', label: 'Violett' }, { value: '#15803d', label: 'Grün' }, { value: '#334155', label: 'Schiefer' }
-      ],
-      template: {
-        label: 'Standard', sections: [
-          { key: 'leistungen', label: 'Leistungen / Angebot', customer: 'toggle', hideable: true,
-            customer_help: 'Einzelne Leistungen können Sie aus- und einblenden. Neue Leistungen oder Textänderungen übernimmt Sartu.', fields: [
-              { key: 'items', label: 'Einträge', type: 'list', toggle_items: true, item: [
-                { key: 'titel', label: 'Titel', type: 'text', max: 80 }, { key: 'text', label: 'Beschreibung', type: 'textarea', max: 300 }
-              ] }
-            ] },
-          { key: 'oeffnungszeiten', label: 'Öffnungszeiten', customer: 'edit', hideable: true, fields: [
-            { key: 'zeiten', label: 'Zeiten', type: 'hours' },
-            { key: 'hinweis', label: 'Hinweis', type: 'text', max: 160, placeholder: 'z. B. Betriebsurlaub 1.–14. August' }
-          ] },
-          { key: 'kontakt', label: 'Kontakt', customer: 'edit', fields: [
-            { key: 'adresse', label: 'Adresse', type: 'textarea', max: 240 },
-            { key: 'telefon', label: 'Telefon', type: 'tel', max: 60 },
-            { key: 'email', label: 'E-Mail', type: 'email', max: 120 }
-          ] },
-          { key: 'impressum', label: 'Impressum', customer: 'edit', customer_help: 'Gesetzlich vorgeschrieben. Bitte aktuell halten.', fields: [
-            { key: 'firmenname', label: 'Firmenname', type: 'text', max: 160 },
-            { key: 'inhaber', label: 'Inhaber', type: 'text', max: 160 },
-            { key: 'adresse', label: 'Anschrift', type: 'textarea', max: 240 }
-          ] },
-          { key: 'design', label: 'Design', customer: 'edit', help: 'Ihre Akzentfarbe — Wähler, Hex oder Vorschlag.', fields: [
-            { key: 'akzentfarbe', label: 'Akzentfarbe', type: 'color' }
+  function reload() {
+    var slug = state.currentSlug || 'home';
+    if (state.preview) { bootDemoPage(slug); return Promise.resolve(); }
+    return api(API + '?page=' + encodeURIComponent(slug)).then(function (data) { if (data.has_project) boot(data); return data; });
+  }
+
+  function bootDemoPage(slug) {
+    var d = state.demo; if (!d) return;
+    var pg = d.byPage[slug] || d.byPage.home;
+    boot({
+      page: { slug: pg.slug, vorlage: pg.vorlage, typ: pg.typ, project_id: 'demo' },
+      template: pg.template, content: pg.content, media: d.media, palette: d.palette,
+      versions: pg.versions || [], pages: d.pages, unpublished: false
+    });
+  }
+
+  function demoBundle() {
+    var palette = [
+      { value: '#0f766e', label: 'Petrol' }, { value: '#1d4ed8', label: 'Blau' },
+      { value: '#b45309', label: 'Bernstein' }, { value: '#be123c', label: 'Rot' },
+      { value: '#7c3aed', label: 'Violett' }, { value: '#15803d', label: 'Grün' }, { value: '#334155', label: 'Schiefer' }
+    ];
+    var homeTemplate = { label: 'Standard', sections: [
+      { key: 'leistungen', label: 'Leistungen / Angebot', customer: 'toggle', hideable: true,
+        customer_help: 'Einzelne Leistungen können Sie aus- und einblenden. Neue Leistungen oder Textänderungen übernimmt Sartu.', fields: [
+          { key: 'items', label: 'Einträge', type: 'list', toggle_items: true, item: [
+            { key: 'titel', label: 'Titel', type: 'text', max: 80 }, { key: 'text', label: 'Beschreibung', type: 'textarea', max: 300 }
           ] }
-        ]
-      },
-      content: {
-        leistungen: { items: [
-          { titel: 'Brot & Brötchen', text: 'Täglich frisch aus dem Ofen.' },
-          { titel: 'Kuchen & Torten', text: 'Hausgemacht, auch auf Bestellung.' },
-          { titel: 'Partyservice', text: 'Belegte Brötchen für Feiern.', _aktiv: false }
         ] },
-        oeffnungszeiten: { zeiten: { Montag: '7–18 Uhr', Samstag: '7–13 Uhr' }, hinweis: 'An Feiertagen geschlossen' },
-        kontakt: { adresse: 'Hauptstraße 1\n12345 Musterstadt', telefon: '030 123456', email: 'hallo@muster-baeckerei.de' },
-        impressum: { firmenname: 'Muster Bäckerei GmbH', inhaber: 'Max Mustermann', adresse: 'Hauptstraße 1\n12345 Musterstadt' },
-        design: { akzentfarbe: '#b45309' }
-      },
-      media: [],
-      versions: [{ id: 'demo-v1', created_at: '2026-07-05 09:12:00', anlass: 'vor_veroeffentlichung' }],
-      unpublished: false
+      { key: 'oeffnungszeiten', label: 'Öffnungszeiten', customer: 'edit', hideable: true, fields: [
+        { key: 'zeiten', label: 'Zeiten', type: 'hours' },
+        { key: 'hinweis', label: 'Hinweis', type: 'text', max: 160, placeholder: 'z. B. Betriebsurlaub 1.–14. August' }
+      ] },
+      { key: 'kontakt', label: 'Kontakt', customer: 'edit', fields: [
+        { key: 'adresse', label: 'Adresse', type: 'textarea', max: 240 },
+        { key: 'telefon', label: 'Telefon', type: 'tel', max: 60 },
+        { key: 'email', label: 'E-Mail', type: 'email', max: 120 }
+      ] },
+      { key: 'design', label: 'Design', customer: 'edit', help: 'Ihre Akzentfarbe — Wähler, Hex oder Vorschlag.', fields: [
+        { key: 'akzentfarbe', label: 'Akzentfarbe', type: 'color' }
+      ] }
+    ] };
+    var impressumTemplate = { label: 'Impressum', sections: [
+      { key: 'impressum', label: 'Impressum', customer: 'edit', customer_help: 'Gesetzlich vorgeschrieben. Bitte aktuell halten.', fields: [
+        { key: 'firmenname', label: 'Firmenname', type: 'text', max: 160 },
+        { key: 'inhaber', label: 'Inhaber / Vertretungsberechtigter', type: 'text', max: 160 },
+        { key: 'adresse', label: 'Anschrift', type: 'textarea', max: 240 },
+        { key: 'telefon', label: 'Telefon', type: 'tel', max: 60 },
+        { key: 'email', label: 'E-Mail', type: 'email', max: 120 },
+        { key: 'ust_id', label: 'USt-IdNr. (falls vorhanden)', type: 'text', max: 60 }
+      ] }
+    ] };
+    // Von Sartu gepflegte Seiten: nichts zum Bearbeiten (nur ein-/ausblenden über die Seitenliste).
+    var sartuTemplate = function (key, label) { return { label: label, sections: [ { key: key, label: label, fields: [] } ] }; };
+
+    return {
+      palette: palette, media: [],
+      pages: [
+        { slug: 'home', titel: 'Startseite', typ: 'start', aktiv: true },
+        { slug: 'aktuelles', titel: 'Aktuelles', typ: 'inhalt', aktiv: true },
+        { slug: 'impressum', titel: 'Impressum', typ: 'pflicht', aktiv: true },
+        { slug: 'datenschutz', titel: 'Datenschutz', typ: 'pflicht', aktiv: true }
+      ],
+      byPage: {
+        home: { slug: 'home', vorlage: 'standard', typ: 'start', template: homeTemplate,
+          versions: [{ id: 'demo-v1', created_at: '2026-07-05 09:12:00', anlass: 'vor_veroeffentlichung' }],
+          content: {
+            leistungen: { items: [
+              { titel: 'Brot & Brötchen', text: 'Täglich frisch aus dem Ofen.' },
+              { titel: 'Kuchen & Torten', text: 'Hausgemacht, auch auf Bestellung.' },
+              { titel: 'Partyservice', text: 'Belegte Brötchen für Feiern.', _aktiv: false }
+            ] },
+            oeffnungszeiten: { zeiten: { Montag: '7–18 Uhr', Samstag: '7–13 Uhr' }, hinweis: 'An Feiertagen geschlossen' },
+            kontakt: { adresse: 'Hauptstraße 1\n12345 Musterstadt', telefon: '030 123456', email: 'hallo@muster-baeckerei.de' },
+            design: { akzentfarbe: '#b45309' }
+          } },
+        aktuelles: { slug: 'aktuelles', vorlage: 'inhalt', typ: 'inhalt', template: sartuTemplate('inhalt', 'Inhalt'),
+          content: { inhalt: { titel: 'Aktuelles', text: 'Diese Seite pflegt Sartu.' } } },
+        impressum: { slug: 'impressum', vorlage: 'impressum', typ: 'pflicht', template: impressumTemplate,
+          content: { impressum: { firmenname: 'Muster Bäckerei GmbH', inhaber: 'Max Mustermann', adresse: 'Hauptstraße 1\n12345 Musterstadt', telefon: '030 123456', email: 'hallo@muster-baeckerei.de' } } },
+        datenschutz: { slug: 'datenschutz', vorlage: 'datenschutz', typ: 'pflicht', template: sartuTemplate('datenschutz', 'Datenschutzerklärung'),
+          content: { datenschutz: { titel: 'Datenschutzerklärung', text: 'Von Sartu gepflegt.' } } }
+      }
     };
   }
 
@@ -538,8 +619,8 @@
     var isPreview = new URLSearchParams(window.location.search).get('preview') === '1';
     if (isPreview) {
       state.preview = true;
-      var pv = document.getElementById('edPreview'); if (pv) pv.setAttribute('href', 'vorschau.php?preview=1');
-      boot(demoData());
+      state.demo = demoBundle();
+      bootDemoPage('home');
       status('Vorschau-Modus mit Beispiel-Inhalten — Änderungen werden nicht gespeichert.');
       return;
     }

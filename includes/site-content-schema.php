@@ -133,22 +133,6 @@ function sartu_site_schema(): array
                     ],
                 ],
                 [
-                    'key' => 'impressum',
-                    'label' => 'Impressum',
-                    'customer' => 'edit',
-                    'customer_help' => 'Gesetzlich vorgeschrieben. Bitte halten Sie diese Angaben aktuell.',
-                    'fields' => [
-                        ['key' => 'firmenname', 'label' => 'Firmenname', 'type' => 'text', 'max' => 160],
-                        ['key' => 'inhaber', 'label' => 'Inhaber / Vertretungsberechtigter', 'type' => 'text', 'max' => 160],
-                        ['key' => 'adresse', 'label' => 'Anschrift', 'type' => 'textarea', 'max' => 240],
-                        ['key' => 'telefon', 'label' => 'Telefon', 'type' => 'tel', 'max' => 60],
-                        ['key' => 'email', 'label' => 'E-Mail', 'type' => 'email', 'max' => 120],
-                        ['key' => 'ust_id', 'label' => 'USt-IdNr. (falls vorhanden)', 'type' => 'text', 'max' => 60],
-                        ['key' => 'register', 'label' => 'Handelsregister / Nr. (falls vorhanden)', 'type' => 'text', 'max' => 120],
-                        ['key' => 'verantwortlich', 'label' => 'Verantwortlich für den Inhalt', 'type' => 'text', 'max' => 160],
-                    ],
-                ],
-                [
                     'key' => 'design',
                     'label' => 'Design',
                     'customer' => 'edit',
@@ -182,6 +166,71 @@ function sartu_site_schema(): array
                 ],
             ],
         ],
+
+        // ---- Pflichtseite: Impressum (Kunde pflegt seine Firmendaten) ----
+        'impressum' => [
+            'label' => 'Impressum',
+            'sections' => [
+                [
+                    'key' => 'impressum',
+                    'label' => 'Impressum',
+                    'customer' => 'edit',
+                    'customer_help' => 'Gesetzlich vorgeschrieben. Bitte halten Sie diese Angaben aktuell.',
+                    'fields' => [
+                        ['key' => 'firmenname', 'label' => 'Firmenname', 'type' => 'text', 'max' => 160],
+                        ['key' => 'inhaber', 'label' => 'Inhaber / Vertretungsberechtigter', 'type' => 'text', 'max' => 160],
+                        ['key' => 'adresse', 'label' => 'Anschrift', 'type' => 'textarea', 'max' => 240],
+                        ['key' => 'telefon', 'label' => 'Telefon', 'type' => 'tel', 'max' => 60],
+                        ['key' => 'email', 'label' => 'E-Mail', 'type' => 'email', 'max' => 120],
+                        ['key' => 'ust_id', 'label' => 'USt-IdNr. (falls vorhanden)', 'type' => 'text', 'max' => 60],
+                        ['key' => 'register', 'label' => 'Handelsregister / Nr. (falls vorhanden)', 'type' => 'text', 'max' => 120],
+                        ['key' => 'verantwortlich', 'label' => 'Verantwortlich für den Inhalt', 'type' => 'text', 'max' => 160],
+                    ],
+                ],
+            ],
+        ],
+
+        // ---- Generische Inhaltsseite (von Sartu erstellt; Kunde kann sie ein-/ausblenden) ----
+        'inhalt' => [
+            'label' => 'Inhaltsseite',
+            'sections' => [
+                [
+                    'key' => 'inhalt',
+                    'label' => 'Inhalt',
+                    // kein 'customer' => Texte macht Sartu; der Kunde blendet nur die ganze Seite ein/aus
+                    'fields' => [
+                        ['key' => 'titel', 'label' => 'Titel', 'type' => 'text', 'max' => 120],
+                        ['key' => 'text', 'label' => 'Text', 'type' => 'textarea', 'max' => 8000],
+                    ],
+                ],
+            ],
+        ],
+
+        // ---- Pflichtseite: Datenschutz (von Sartu gepflegt, nicht kundenseitig) ----
+        'datenschutz' => [
+            'label' => 'Datenschutz',
+            'sections' => [
+                [
+                    'key' => 'datenschutz',
+                    'label' => 'Datenschutzerklärung',
+                    // kein 'customer' => von Sartu gepflegt (rechtssicherer Text)
+                    'fields' => [
+                        ['key' => 'titel', 'label' => 'Titel', 'type' => 'text', 'max' => 120],
+                        ['key' => 'text', 'label' => 'Text', 'type' => 'textarea', 'max' => 20000],
+                    ],
+                ],
+            ],
+        ],
+    ];
+}
+
+/** Alle Vorlagen, die als eigene Seite dienen können (Slug-Kandidaten). */
+function sartu_site_page_types(): array
+{
+    return [
+        'home'        => ['vorlage' => 'standard', 'titel' => 'Startseite', 'nav_label' => 'Start', 'typ' => 'start', 'position' => 0],
+        'impressum'   => ['vorlage' => 'impressum', 'titel' => 'Impressum', 'nav_label' => 'Impressum', 'typ' => 'pflicht', 'position' => 90],
+        'datenschutz' => ['vorlage' => 'datenschutz', 'titel' => 'Datenschutz', 'nav_label' => 'Datenschutz', 'typ' => 'pflicht', 'position' => 91],
     ];
 }
 
