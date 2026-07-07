@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../../includes/auth.php';
 require_once __DIR__ . '/../../includes/site-content.php';
+require_once __DIR__ . '/../../includes/billing.php';
 
 const SARTU_AGB_VERSION = 'AGB-2026-07';
 
@@ -94,5 +95,15 @@ try {
 
 // Pflichtseiten anlegen + Rechtsseiten vorbelegen (schaltet Briefing/Editor frei).
 sc_ensure_pages($pdo, $projectId);
+
+// Rechnung zum Auftrag erzeugen und festschreiben (im Portal bezahlbar).
+try {
+    $offerForInvoice = $offer;
+    $offerForInvoice['project_id'] = $projectId;
+    $invoiceId = billing_create_invoice_for_offer($pdo, $offerForInvoice, $profile);
+    billing_issue_invoice($pdo, $invoiceId);
+} catch (Throwable $e) {
+    // Auftrag bleibt gültig, auch wenn die Rechnungserstellung scheitert.
+}
 
 json_response(['ok' => true, 'accepted' => true, 'project_id' => $projectId, 'csrf' => csrf_token()]);

@@ -40,7 +40,11 @@
     if (offer.status === 'angenommen') { showAccepted(); return; }
 
     var card = el('div', 'card');
-    card.appendChild(el('h2', null, offer.titel || 'Ihr Website-Projekt'));
+    var head = el('div', 'spread');
+    head.appendChild(el('h2', null, offer.titel || 'Ihr Website-Projekt'));
+    var pdf = el('a', 'btn btn-ghost btn-sm', 'Als PDF'); pdf.setAttribute('href', 'api/portal/offer-pdf.php'); pdf.setAttribute('target', '_blank'); pdf.setAttribute('rel', 'noopener');
+    head.appendChild(pdf);
+    card.appendChild(head);
     card.appendChild(kv('Paket', PAKET[String(offer.paket || '').toLowerCase()] || offer.paket || '—'));
     card.appendChild(kv('Einmalpreis', euro(offer.preis_einmalig)));
     if (offer.care_stufe) card.appendChild(kv('Laufender Schutz', (CARE[offer.care_stufe] || offer.care_stufe) + (offer.care_preis != null ? ' · ' + euro(offer.care_preis) + '/Monat' : '')));

@@ -68,6 +68,41 @@
 
   function show() { $('gate').classList.add('hidden'); $('app').classList.remove('hidden'); }
 
+  // ---- Rechnungen ----
+  var INV_STATUS = { offen: 'offen', bezahlt: 'bezahlt', storniert: 'storniert' };
+  function renderInvoices(list, paymentsEnabled) {
+    var box = $('invoiceList');
+    if (!box) return;
+    if (!list.length) { box.innerHTML = '<p class="muted">Ihre Rechnungen erscheinen hier zum Download, sobald sie erstellt sind.</p>'; return; }
+    box.innerHTML = '';
+    list.forEach(function (inv) {
+      var row = document.createElement('div'); row.className = 'pt-kv pt-invrow';
+      var left = document.createElement('span');
+      left.innerHTML = '<strong>' + (inv.nummer || '—') + '</strong> · ' + inv.betrag + ' · <span class="badge">' + (INV_STATUS[inv.status] || inv.status) + '</span>';
+      var right = document.createElement('span'); right.className = 'pt-invactions';
+      var pdf = document.createElement('a'); pdf.className = 'btn btn-ghost btn-sm'; pdf.href = 'api/portal/invoice-file.php?id=' + encodeURIComponent(inv.id) + '&typ=pdf'; pdf.target = '_blank'; pdf.rel = 'noopener'; pdf.textContent = 'PDF';
+      var xml = document.createElement('a'); xml.className = 'btn btn-ghost btn-sm'; xml.href = 'api/portal/invoice-file.php?id=' + encodeURIComponent(inv.id) + '&typ=xml'; xml.textContent = 'E-Rechnung';
+      right.appendChild(pdf); right.appendChild(xml);
+      if (inv.bezahlbar && paymentsEnabled) {
+        var pay = document.createElement('button'); pay.className = 'btn btn-primary btn-sm'; pay.textContent = 'Bezahlen';
+        pay.addEventListener('click', function () { payInvoice(inv.id, pay); });
+        right.appendChild(pay);
+      }
+      row.appendChild(left); row.appendChild(right);
+      box.appendChild(row);
+    });
+  }
+  function payInvoice(id, btn) {
+    if (new URLSearchParams(window.location.search).get('preview') === '1') return;
+    btn.disabled = true;
+    post('api/portal/pay.php', { invoice_id: id }).then(function (d) {
+      if (d.checkout_url) { window.location.href = d.checkout_url; }
+    }).catch(function (e) { btn.disabled = false; alert(e.message); });
+  }
+  function loadInvoices() {
+    api('api/portal/invoices.php').then(function (d) { renderInvoices(d.invoices || [], !!d.payments_enabled); }).catch(function () {});
+  }
+
   function init() {
     initTabs();
     var logout = $('logoutBtn');
@@ -78,6 +113,10 @@
       show();
       fill({ name: 'Max Mustermann', firma: 'Muster Bäckerei GmbH', email: 'max@muster.de' },
            { titel: 'muster-baeckerei.de', paket: 'wachstum', care_stufe: 'care-m', phase: 'live', besucher_30d: 412 });
+      renderInvoices([
+        { id: 'i1', nummer: '2026-0001', betrag: '3.290,00 €', status: 'offen', bezahlbar: true },
+        { id: 'i2', nummer: '2025-0044', betrag: '490,00 €', status: 'bezahlt', bezahlbar: false }
+      ], true);
       return;
     }
 
@@ -86,6 +125,7 @@
       show();
       fill(data.profile || {}, projects[0] || {});
       updateBriefingCard();
+      loadInvoices();
     }).catch(function () { window.location.href = 'login.php'; });
   }
 

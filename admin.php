@@ -38,6 +38,7 @@
       <nav class="tabs pt-tabs">
         <button class="tab is-on" data-tab="anfragen">Anfragen</button>
         <button class="tab" data-tab="angebote">Angebote</button>
+        <button class="tab" data-tab="rechnungen">Rechnungen</button>
         <button class="tab" data-tab="projekte">Projekte</button>
         <button class="tab" data-tab="kunden">Kunden</button>
       </nav>
@@ -56,6 +57,15 @@
           <table class="tbl">
             <thead><tr><th>Datum</th><th>Kunde</th><th>Paket</th><th>Preis</th><th>Status</th></tr></thead>
             <tbody id="angebotBody"><tr><td colspan="5"><span class="spinner"></span> Lädt …</td></tr></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="tab-rechnungen" class="hidden">
+        <div class="tbl-wrap">
+          <table class="tbl">
+            <thead><tr><th>Nummer</th><th>Kunde</th><th>Datum</th><th>Betrag</th><th>Status</th></tr></thead>
+            <tbody id="rechnungBody"><tr><td colspan="5"><span class="spinner"></span> Lädt …</td></tr></tbody>
           </table>
         </div>
       </section>
@@ -86,6 +96,6 @@
 
   <script id="briefing2Schema" type="application/json"><?= json_encode(sartu_briefing2_schema(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?></script>
   <script src="briefing-schema.js?v=5"></script>
-  <script src="admin-local.js?v=6"></script>
+  <script src="admin-local.js?v=7"></script>
 </body>
 </html>

@@ -114,7 +114,7 @@
         </div>
         <div class="card">
           <h2>Rechnungen</h2>
-          <p class="muted" id="invEmpty">Ihre Rechnungen erscheinen hier zum Download, sobald sie erstellt sind.</p>
+          <div id="invoiceList"><p class="muted">Ihre Rechnungen erscheinen hier zum Download, sobald sie erstellt sind.</p></div>
         </div>
       </section>
 
@@ -140,7 +140,7 @@
     <p class="notice notice-err hidden" id="err"></p>
   </div>
 
-  <script src="portal-local.js?v=7"></script>
+  <script src="portal-local.js?v=8"></script>
   <script src="portal-editor.js?v=6"></script>
 </body>
 </html>

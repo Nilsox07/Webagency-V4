@@ -15,7 +15,8 @@
   };
   var STATUS = ['neu', 'in_bearbeitung', 'umgewandelt', 'abgelehnt'];
   var OFFER_STATUS = { entwurf: 'Entwurf', gesendet: 'gesendet', angenommen: 'angenommen', abgelehnt: 'abgelehnt' };
-  var state = { briefings: [], projects: [], profiles: [], offers: [], _demoBriefing: null };
+  var state = { briefings: [], projects: [], profiles: [], offers: [], invoices: [], _demoBriefing: null };
+  var INV_STATUS = { entwurf: 'Entwurf', offen: 'offen', bezahlt: 'bezahlt', storniert: 'storniert' };
   var BRIEFING2 = (function () { try { return JSON.parse(document.getElementById('briefing2Schema').textContent) || { steps: [] }; } catch (e) { return { steps: [] }; } })();
   function euro(n) { return (n == null || n === '') ? '—' : Number(n).toLocaleString('de-DE') + ' €'; }
   function optLabel(f, val) { var o = (f.options || []).filter(function (x) { return x.value === val; })[0]; return o ? o.label : val; }
@@ -125,15 +126,18 @@
       api('api/admin/briefings.php'),
       api('api/admin/projects.php'),
       api('api/admin/customers.php'),
-      api('api/admin/offers.php')
+      api('api/admin/offers.php'),
+      api('api/admin/invoices.php')
     ]).then(function (out) {
       state.briefings = out[0].briefings || [];
       state.projects = out[1].projects || [];
       state.profiles = out[2].profiles || out[1].profiles || [];
       state.offers = out[3].offers || [];
+      state.invoices = out[4].invoices || [];
       renderOverview();
       renderBriefings();
       renderOffers();
+      renderInvoicesAdmin();
       renderProjects();
       renderCustomers(out[2].projects || []);
     }).catch(function (e) {
@@ -145,6 +149,7 @@
     renderOverview();
     renderBriefings();
     renderOffers();
+    renderInvoicesAdmin();
     renderProjects();
     renderCustomers();
   }
@@ -296,6 +301,47 @@
     document.getElementById('ofClose').addEventListener('click', closeModal);
   }
 
+  function renderInvoicesAdmin() {
+    var body = document.getElementById('rechnungBody');
+    if (!body) return;
+    if (!state.invoices.length) {
+      body.innerHTML = '<tr><td colspan="5" class="muted">Noch keine Rechnungen.</td></tr>';
+      return;
+    }
+    body.innerHTML = '';
+    state.invoices.forEach(function (r) {
+      var tr = document.createElement('tr');
+      tr.className = 'clickable';
+      tr.innerHTML = '<td>' + esc(r.nummer || '—') + '</td><td>' + esc(r.kunde || '-') + '</td><td>' + esc(fmtDate(r.ausgestellt_am)) + '</td><td>' + esc(r.betrag) + '</td><td><span class="badge">' + esc(INV_STATUS[r.status] || r.status) + '</span></td>';
+      tr.addEventListener('click', function () { openInvoiceAdmin(r); });
+      body.appendChild(tr);
+    });
+  }
+
+  function openInvoiceAdmin(r) {
+    openModal(
+      '<div class="spread"><h2 style="color:#fff">Rechnung ' + esc(r.nummer || '') + '</h2><button class="btn btn-ghost btn-sm" id="riClose">Schließen</button></div>' +
+      '<p class="muted">' + esc(r.kunde || '-') + ' · ' + esc(fmtDate(r.ausgestellt_am)) + ' · <span class="badge">' + esc(INV_STATUS[r.status] || r.status) + '</span></p>' +
+      '<div class="pt-kv"><span>Betrag</span><strong>' + esc(r.betrag) + '</strong></div>' +
+      '<div class="pt-kv"><span>Fällig</span><strong>' + esc(fmtDate(r.faellig_am)) + '</strong></div>' +
+      '<div class="row" style="gap:8px;margin-top:14px;flex-wrap:wrap;">' +
+        '<a class="btn btn-ghost btn-sm" href="api/portal/invoice-file.php?id=' + encodeURIComponent(r.id) + '&typ=pdf" target="_blank" rel="noopener">PDF</a>' +
+        '<a class="btn btn-ghost btn-sm" href="api/portal/invoice-file.php?id=' + encodeURIComponent(r.id) + '&typ=xml">E-Rechnung (XML)</a>' +
+        (r.status === 'offen' ? '<button class="btn btn-primary btn-sm" id="riPaid">Als bezahlt markieren</button>' : '') +
+        (r.status !== 'storniert' ? '<button class="btn btn-ghost btn-sm" id="riCancel">Stornieren</button>' : '') +
+      '</div>'
+    );
+    document.getElementById('riClose').addEventListener('click', closeModal);
+    var paid = document.getElementById('riPaid');
+    if (paid) paid.addEventListener('click', function () {
+      send('api/admin/invoices.php', { id: r.id, action: 'mark_paid' }, 'PATCH').then(function () { closeModal(); return loadAll(); }).catch(function (e) { showErr(e.message); });
+    });
+    var cancel = document.getElementById('riCancel');
+    if (cancel) cancel.addEventListener('click', function () {
+      send('api/admin/invoices.php', { id: r.id, action: 'storniert' }, 'PATCH').then(function () { closeModal(); return loadAll(); }).catch(function (e) { showErr(e.message); });
+    });
+  }
+
   function renderProjects() {
     var body = document.getElementById('projekteBody');
     if (!body) return;
@@ -409,7 +455,7 @@
   Array.prototype.forEach.call(document.querySelectorAll('.tab'), function (btn) {
     btn.addEventListener('click', function () {
       Array.prototype.forEach.call(document.querySelectorAll('.tab'), function (b) { b.classList.toggle('is-on', b === btn); });
-      ['anfragen', 'angebote', 'projekte', 'kunden'].forEach(function (name) {
+      ['anfragen', 'angebote', 'rechnungen', 'projekte', 'kunden'].forEach(function (name) {
         var section = document.getElementById('tab-' + name);
         if (section) section.classList.toggle('hidden', btn.getAttribute('data-tab') !== name);
       });
@@ -445,6 +491,10 @@
       { id: 'o2', created_at: '2026-07-04T14:00:00', name: 'Sabine Beispiel', email: 'sabine@beispiel-hotel.de', paket: 'platzhirsch', preis_einmalig: 6490, care_stufe: 'care-l', care_preis: 249, korrekturrunden: 3, liefertext: 'in 7–14 Werktagen', status: 'angenommen', angenommen_am: '2026-07-05T09:30:00', angenommen_ip: '84.12.x.x', agb_version: 'AGB-2026-07' }
     ];
     state._demoBriefing = { firmenname: 'Muster Bäckerei', branche: 'Bäckerei & Café', gegruendet: '1985', hauptziele: ['anfragen', 'termine'], hat_logo: 'ja', stimmung: ['modern', 'warm'], leistungen_inhalt: 'Brot & Brötchen\nKuchen & Torten', adresse: 'Hauptstraße 1\n12345 Musterstadt', telefon: '030 123456', kleinunternehmer: 'nein', suchbegriffe: 'Bäckerei Musterstadt, Sauerteigbrot' };
+    state.invoices = [
+      { id: 'r1', nummer: '2026-0001', kunde: 'Muster Bäckerei GmbH', ausgestellt_am: '2026-07-05', faellig_am: '2026-07-19', betrag: '3.290,00 €', status: 'offen' },
+      { id: 'r2', nummer: '2026-0002', kunde: 'Hotel Beispiel', ausgestellt_am: '2026-07-02', faellig_am: '2026-07-16', betrag: '6.490,00 €', status: 'bezahlt' }
+    ];
     renderAll();
   } else {
     requireAdmin().then(function (ok) {

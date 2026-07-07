@@ -341,3 +341,5 @@ pre.json { background: #060d18; border: 1px solid var(--border); border-radius: 
 .ob-chapter.is-done { color: var(--text-light); }
 .ob-chapter-nr { display: inline-grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; background: rgba(255,255,255,0.10); font-size: 11px; font-weight: 800; }
 .ob-chapter.is-done .ob-chapter-nr { background: var(--lime); color: var(--ink); }
+.pt-invrow { flex-wrap: wrap; gap: 8px; }
+.pt-invactions { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
