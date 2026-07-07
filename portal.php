@@ -4,74 +4,131 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex,nofollow" />
-  <title>Mein Projekt · Sartu Kundenportal</title>
+  <title>Mein Website-Konto · Sartu</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="portal.css?v=2" />
+  <link rel="stylesheet" href="portal.css?v=3" />
 </head>
 <body>
-  <div class="pt-wrap">
+  <div class="pt-wrap pt-wrap-app">
     <div class="pt-top">
       <a class="pt-brand" href="./"><span class="dot"></span>Sartu</a>
       <div class="pt-top-actions">
-        <select id="projSwitch" class="hidden" style="min-width:160px; padding:9px 12px; border-radius:999px; background:rgba(255,255,255,.05); border:1.5px solid var(--border); color:#fff;"></select>
+        <span class="pt-user" id="ptUser"></span>
         <button class="btn btn-ghost btn-sm" id="logoutBtn">Abmelden</button>
       </div>
     </div>
 
-    <div id="loading" class="card"><span class="spinner"></span> Lädt Ihr Projekt …</div>
-    <div id="empty" class="card hidden">
-      <h2>Noch kein Projekt hinterlegt</h2>
-      <p class="muted">Sobald Ihr Angebot bestätigt ist, erscheint Ihr Projekt hier. Fragen? <a href="kontakt.php">Schreiben Sie uns</a>.</p>
-    </div>
+    <div id="gate" class="card"><span class="spinner"></span> Lädt Ihr Konto …</div>
 
     <main id="app" class="hidden">
-      <div class="pt-hello card">
-        <p class="eyebrow">Ihr Projekt</p>
-        <h1 id="hello">Hallo</h1>
-        <p id="projTitle"></p>
-        <div class="row" style="margin-top:10px;">
+      <div class="pt-hello">
+        <div>
+          <p class="eyebrow">Mein Website-Konto</p>
+          <h1 id="hello">Hallo</h1>
+          <p id="projTitle" class="muted"></p>
+        </div>
+        <div class="pt-hello-badges">
           <span class="badge" id="paketBadge"></span>
-          <span class="badge" id="careBadge"></span>
-          <span class="badge" id="terminBadge"></span>
+          <span class="badge badge-ok" id="statusBadge"></span>
         </div>
       </div>
 
-      <div class="card">
-        <h2>Status Ihres Projekts</h2>
-        <div class="timeline" id="timeline"></div>
-      </div>
+      <nav class="tabs pt-tabs" id="ptTabs" aria-label="Portal-Bereiche">
+        <button class="tab is-on" data-tab="cockpit">Cockpit</button>
+        <button class="tab" data-tab="bearbeiten">Website bearbeiten</button>
+        <button class="tab" data-tab="statistik">Statistik</button>
+        <button class="tab" data-tab="wachsen">Wachsen</button>
+        <button class="tab" data-tab="paket">Paket &amp; Rechnungen</button>
+        <button class="tab" data-tab="hilfe">Hilfe</button>
+      </nav>
 
-      <div class="card now-card" id="nowCard">
-        <p class="eyebrow">Jetzt dran</p>
-        <p id="nowText"></p>
-      </div>
+      <!-- ===== COCKPIT ===== -->
+      <section id="pane-cockpit" class="pt-pane">
+        <div class="pt-tiles">
+          <div class="pt-tile pt-tile-ok"><span class="pt-tile-k">Website</span><strong id="tOnline">Online</strong><span class="pt-tile-s">rund um die Uhr erreichbar</span></div>
+          <div class="pt-tile pt-tile-ok"><span class="pt-tile-k">Ladezeit</span><strong id="tSpeed">Schnell</strong><span class="pt-tile-s">läuft im Cockpit mit</span></div>
+          <div class="pt-tile pt-tile-ok"><span class="pt-tile-k">Sicherheit</span><strong id="tSec">Aktuell</strong><span class="pt-tile-s">Updates automatisch</span></div>
+          <div class="pt-tile"><span class="pt-tile-k">Letztes Backup</span><strong id="tBackup">gestern</strong><span class="pt-tile-s">täglich, extern gesichert</span></div>
+          <div class="pt-tile"><span class="pt-tile-k">Besucher (30 Tage)</span><strong id="tVisits">—</strong><span class="pt-tile-s">datenschutzkonform</span></div>
+          <div class="pt-tile"><span class="pt-tile-k">Rundum-Schutz</span><strong id="tCare">aktiv</strong><span class="pt-tile-s" id="tCareSub">gehört zu Ihrem Paket</span></div>
+        </div>
 
-      <div class="card hidden" id="noteCard">
-        <h2>Notiz von Sartu</h2>
-        <p id="noteText" style="color:var(--text-light);"></p>
-      </div>
+        <div class="card now-card" id="nowCard">
+          <p class="eyebrow">Status Ihres Projekts</p>
+          <p id="nowText">Ihre Website läuft. Ab jetzt kümmert sich Sartu um Betrieb, Updates und Sicherheit.</p>
+        </div>
+      </section>
 
-      <!-- Platzhalter-Karten: zeigen, was kommt, ohne klickbare kaputte Funktionen -->
-      <div class="spread" style="gap:16px; align-items:stretch;">
-        <div class="card is-soon" style="flex:1; min-width:220px;">
-          <div class="spread"><h3>Inhalte hochladen</h3><span class="badge badge-soon">Bald</span></div>
-          <p class="muted" style="margin-top:8px;">Texte, Bilder &amp; Logo bequem hochladen.</p>
+      <!-- ===== WEBSITE BEARBEITEN ===== -->
+      <section id="pane-bearbeiten" class="pt-pane hidden">
+        <div class="card">
+          <h2>Inhalte selbst ändern</h2>
+          <p class="muted">Texte, Bilder, Öffnungszeiten, Team und Beiträge ändern Sie hier selbst — Ihr Design bleibt geschützt. Neue Seite gewünscht? 199&nbsp;€ inkl. Text über „Wachsen".</p>
+          <div class="pt-edit-list" id="editList">
+            <button class="pt-edit-row"><strong>Texte &amp; Überschriften</strong><span>bearbeiten →</span></button>
+            <button class="pt-edit-row"><strong>Bilder tauschen</strong><span>bearbeiten →</span></button>
+            <button class="pt-edit-row"><strong>Öffnungszeiten &amp; Kontakt</strong><span>bearbeiten →</span></button>
+            <button class="pt-edit-row"><strong>Team &amp; Beiträge</strong><span>bearbeiten →</span></button>
+            <button class="pt-edit-row"><strong>Akzentfarbe (aus Palette)</strong><span>ändern →</span></button>
+          </div>
+          <p class="pt-soon-note">Der Editor wird gerade fertiggestellt. Bis dahin: kleine Änderungen einfach per Nachricht an uns.</p>
         </div>
-        <div class="card is-soon" style="flex:1; min-width:220px;">
-          <div class="spread"><h3>Care-Minuten</h3><span class="badge badge-soon">Bald</span></div>
-          <p class="muted" style="margin-top:8px;">Verbrauchte &amp; offene Wartungsminuten im Blick.</p>
+      </section>
+
+      <!-- ===== STATISTIK ===== -->
+      <section id="pane-statistik" class="pt-pane hidden">
+        <div class="card">
+          <h2>Besucher &amp; Anfragen</h2>
+          <p class="muted">Datenschutzkonform gemessen — ohne Cookies-Zwang, ohne Weitergabe.</p>
+          <div class="pt-tiles pt-tiles-3">
+            <div class="pt-tile"><span class="pt-tile-k">Besucher (30 Tage)</span><strong>412</strong><span class="pt-tile-s">Demo-Wert</span></div>
+            <div class="pt-tile"><span class="pt-tile-k">über Google</span><strong>61 %</strong><span class="pt-tile-s">Demo-Wert</span></div>
+            <div class="pt-tile"><span class="pt-tile-k">Anfragen</span><strong>9</strong><span class="pt-tile-s">Demo-Wert</span></div>
+          </div>
         </div>
-        <div class="card is-soon" style="flex:1; min-width:220px;">
-          <div class="spread"><h3>Dokumente</h3><span class="badge badge-soon">Bald</span></div>
-          <p class="muted" style="margin-top:8px;">Angebote, Rechnungen &amp; Verträge zum Download.</p>
+      </section>
+
+      <!-- ===== WACHSEN ===== -->
+      <section id="pane-wachsen" class="pt-pane hidden">
+        <div class="pt-grow">
+          <div class="card pt-grow-card"><h3>Weitere Seite</h3><p class="pt-grow-price">199 € <span>inkl. Text</span></p><p class="muted">Eine neue Leistungs- oder Themenseite, damit Sie auch dafür gefunden werden.</p><a class="btn btn-primary btn-sm" href="kontakt.php">Seite anfragen</a></div>
+          <div class="card pt-grow-card"><h3>Größeres Paket</h3><p class="pt-grow-price">nur die Differenz</p><p class="muted">Reingewachsen? Wechseln Sie hoch und zahlen nur den Unterschied.</p><a class="btn btn-dark btn-sm" href="kontakt.php">Upgrade anfragen</a></div>
+          <div class="card pt-grow-card"><h3>SEO-Betreuung</h3><p class="pt-grow-price">490 €<span>/Monat</span></p><p class="muted">Damit Ihre Website bei Google und in der KI-Suche weiter nach oben kommt. Begrenzte Plätze.</p><a class="btn btn-dark btn-sm" href="leistung-seo.php">Ansehen</a></div>
+          <div class="card pt-grow-card"><h3>KI-Chat-Assistent</h3><p class="pt-grow-price">990 € <span>+ 79 €/Mon.</span></p><p class="muted">Beantwortet Besucherfragen rund um die Uhr — trainiert auf Ihre Inhalte.</p><a class="btn btn-dark btn-sm" href="kontakt.php">Anfragen</a></div>
         </div>
-      </div>
+      </section>
+
+      <!-- ===== PAKET & RECHNUNGEN ===== -->
+      <section id="pane-paket" class="pt-pane hidden">
+        <div class="card">
+          <h2>Ihr Paket</h2>
+          <div class="pt-kv"><span>Website-Paket</span><strong id="kvPaket">—</strong></div>
+          <div class="pt-kv"><span>Rundum-Schutz</span><strong id="kvCare">—</strong></div>
+          <div class="pt-kv"><span>Läuft auf</span><strong>Sartu-Servern in Deutschland</strong></div>
+        </div>
+        <div class="card">
+          <h2>Rechnungen</h2>
+          <p class="muted" id="invEmpty">Ihre Rechnungen erscheinen hier zum Download, sobald sie erstellt sind.</p>
+        </div>
+      </section>
+
+      <!-- ===== HILFE ===== -->
+      <section id="pane-hilfe" class="pt-pane hidden">
+        <div class="card">
+          <h2>Hilfe &amp; Anfragen</h2>
+          <p class="muted">Kurze Anleitungen und ein direkter Draht zu uns — schriftlich, ohne Termin.</p>
+          <div class="pt-edit-list">
+            <a class="pt-edit-row" href="kontakt.php"><strong>Nachricht an Sartu</strong><span>schreiben →</span></a>
+            <a class="pt-edit-row" href="preise.php"><strong>Alle Pakete &amp; Preise</strong><span>ansehen →</span></a>
+            <a class="pt-edit-row" href="datenschutz.php"><strong>Datenschutz &amp; AVV</strong><span>lesen →</span></a>
+          </div>
+        </div>
+      </section>
 
       <div class="pt-footer">
         <a href="datenschutz.php">Datenschutz</a>
-        <a id="kuendigung" href="mailto:?subject=Kündigung%20Sartu%20Care">Kündigung / Care beenden</a>
         <a href="kontakt.php">Kontakt</a>
       </div>
     </main>
@@ -79,6 +136,6 @@
     <p class="notice notice-err hidden" id="err"></p>
   </div>
 
-  <script src="portal-local.js?v=4"></script>
+  <script src="portal-local.js?v=5"></script>
 </body>
 </html>

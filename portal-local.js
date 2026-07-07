@@ -1,37 +1,22 @@
 (function () {
   'use strict';
 
-  var BASE_BEFORE = ['angebot_bestaetigt', 'inhalte_liefern', 'design_laeuft'];
-  var BASE_AFTER = ['finalisierung', 'live'];
-  var LABELS = {
-    angebot_bestaetigt: 'Angebot bestätigt',
-    inhalte_liefern: 'Inhalte liefern',
-    design_laeuft: 'Design läuft',
-    korrektur_1: 'Korrektur 1',
-    korrektur_2: 'Korrektur 2',
-    korrektur_3: 'Korrektur 3',
-    korrektur_4: 'Korrektur 4',
-    finalisierung: 'Finalisierung',
-    live: 'Live'
-  };
-  var ROUNDS = { basis: 2, pro: 3, platin: 4, start: 2, wachstum: 3, platzhirsch: 4 };
   var csrfToken = '';
-  var NOW = {
-    angebot_bestaetigt: 'Willkommen! Ihr Angebot ist bestätigt. Wir melden uns mit den nächsten Schritten. Im Moment müssen Sie nichts tun.',
-    inhalte_liefern: 'Bitte senden Sie uns Ihre Texte, Bilder und Ihr Logo. Der Upload-Bereich folgt in Kürze. Bis dahin reicht eine E-Mail an uns.',
+  var CARE_LABEL = { 'care-s': 'Schutz S · 49 €/Mon.', 'care-m': 'Schutz M · 99 €/Mon.', 'care-l': 'Schutz L · 249 €/Mon.' };
+  var PAKET_LABEL = { basis: 'Start', start: 'Start', pro: 'Wachstum', wachstum: 'Wachstum', platin: 'Platzhirsch', platzhirsch: 'Platzhirsch' };
+  var STATUS_TEXT = {
+    angebot_bestaetigt: 'Ihr Angebot ist bestätigt — wir legen los. Im Moment müssen Sie nichts tun.',
+    inhalte_liefern: 'Bitte liefern Sie Ihre Stichpunkte, Bilder und Ihr Logo im Bereich „Website bearbeiten".',
     design_laeuft: 'Wir gestalten gerade Ihr Design. Der erste Entwurf kommt bald zur Abstimmung.',
-    korrektur: 'Ihr Entwurf liegt zur Durchsicht bereit. Bitte sammeln Sie Ihr Feedback und schicken Sie es uns gebündelt in einer Nachricht.',
-    finalisierung: 'Letzter Feinschliff: Wir bereiten alles für den Onlinegang vor. Bitte halten Sie finale Freigaben bereit.',
-    live: 'Geschafft, Ihre Website ist online. Ab jetzt kümmert sich Sartu um Betrieb, Updates und Sicherheit.'
+    finalisierung: 'Letzter Feinschliff vor dem Onlinegang. Bitte halten Sie finale Freigaben bereit.',
+    live: 'Ihre Website ist online. Ab jetzt kümmert sich Sartu um Betrieb, Updates und Sicherheit.'
   };
 
+  function $(id) { return document.getElementById(id); }
   function api(url, options) {
-    options = options || {};
-    options.credentials = 'same-origin';
+    options = options || {}; options.credentials = 'same-origin';
     options.headers = Object.assign({ Accept: 'application/json' }, options.headers || {});
-    if (csrfToken && String(options.method || 'GET').toUpperCase() !== 'GET') {
-      options.headers['X-CSRF-Token'] = csrfToken;
-    }
+    if (csrfToken && String(options.method || 'GET').toUpperCase() !== 'GET') options.headers['X-CSRF-Token'] = csrfToken;
     return fetch(url, options).then(function (r) {
       return r.json().catch(function () { return {}; }).then(function (data) {
         if (data.csrf) csrfToken = data.csrf;
@@ -41,109 +26,66 @@
     });
   }
   function post(url, data) {
-    return api(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data || {})
+    return api(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data || {}) });
+  }
+  function cap(s) { s = String(s || ''); return s ? s.charAt(0).toUpperCase() + s.slice(1) : ''; }
+  function setText(id, t) { var el = $(id); if (el) el.textContent = t; }
+  function setBadge(id, t) { var el = $(id); if (!el) return; if (t) { el.textContent = t; el.classList.remove('hidden'); } else { el.classList.add('hidden'); } }
+
+  // ---- Tab-Wechsel ----
+  function initTabs() {
+    var tabs = document.querySelectorAll('#ptTabs .tab');
+    tabs.forEach(function (t) {
+      t.addEventListener('click', function () {
+        tabs.forEach(function (x) { x.classList.remove('is-on'); });
+        t.classList.add('is-on');
+        var name = t.getAttribute('data-tab');
+        document.querySelectorAll('.pt-pane').forEach(function (p) { p.classList.add('hidden'); });
+        var pane = $('pane-' + name); if (pane) pane.classList.remove('hidden');
+      });
     });
   }
-  function showErr(msg) {
-    var err = document.getElementById('err');
-    if (!err) return;
-    err.textContent = msg;
-    err.classList.remove('hidden');
-  }
-  function cap(s) {
-    s = String(s || '');
-    return s ? s.charAt(0).toUpperCase() + s.slice(1) : '';
-  }
-  function fmtDate(d) {
-    try {
-      return new Date(d).toLocaleDateString('de-DE', { day: '2-digit', month: 'long', year: 'numeric' });
-    } catch (e) { return d || ''; }
-  }
-  function setBadge(id, text) {
-    var el = document.getElementById(id);
-    if (!el) return;
-    if (text) {
-      el.textContent = text;
-      el.classList.remove('hidden');
-    } else {
-      el.classList.add('hidden');
-    }
-  }
-  function phaseSequence(paket) {
-    var key = String(paket || '').toLowerCase();
-    var n = ROUNDS[key] || 4;
-    var seq = BASE_BEFORE.slice();
-    for (var i = 1; i <= n; i++) seq.push('korrektur_' + i);
-    return seq.concat(BASE_AFTER);
+
+  function fill(profile, project) {
+    profile = profile || {}; project = project || {};
+    var firstName = (profile.name || profile.email || '').split(' ')[0] || '';
+    setText('hello', firstName ? 'Hallo ' + firstName : 'Hallo');
+    setText('ptUser', profile.firma || profile.email || '');
+    setText('projTitle', project.titel || 'Ihr Website-Projekt');
+    var paket = PAKET_LABEL[String(project.paket || '').toLowerCase()] || (project.paket ? cap(project.paket) : '');
+    setBadge('paketBadge', paket ? 'Paket: ' + paket : '');
+    var live = project.phase === 'live';
+    setBadge('statusBadge', live ? 'online' : (project.phase ? 'in Arbeit' : ''));
+    setText('kvPaket', paket || '—');
+    var care = CARE_LABEL[project.care_stufe] || (project.care_stufe || '—');
+    setText('kvCare', care);
+    setText('tCare', 'aktiv');
+    setText('tCareSub', care !== '—' ? care : 'gehört zu Ihrem Paket');
+    if (project.besucher_30d != null) setText('tVisits', String(project.besucher_30d));
+    var st = STATUS_TEXT[/^korrektur/.test(project.phase || '') ? 'design_laeuft' : project.phase];
+    if (st) setText('nowText', st);
   }
 
-  function render(project) {
-    document.getElementById('projTitle').textContent = project.titel || 'Ihr Website-Projekt';
-    setBadge('paketBadge', project.paket ? 'Paket: ' + cap(project.paket) : '');
-    setBadge('careBadge', project.care_stufe || '');
-    setBadge('terminBadge', project.liefertermin ? 'Liefertermin: ' + fmtDate(project.liefertermin) : '');
-
-    var seq = phaseSequence(project.paket);
-    var curr = seq.indexOf(project.phase);
-    if (curr < 0) curr = 0;
-    var tl = document.getElementById('timeline');
-    tl.innerHTML = '';
-    seq.forEach(function (phase, i) {
-      var step = document.createElement('div');
-      step.className = 'tl-step ' + (i < curr ? 'is-done' : (i === curr ? 'is-active' : ''));
-      step.innerHTML = '<div class="tl-dot">' + (i < curr ? '✓' : String(i + 1)) + '</div><div class="tl-label">' + (LABELS[phase] || phase) + '</div>';
-      tl.appendChild(step);
-    });
-
-    var nowKey = /^korrektur_/.test(project.phase) ? 'korrektur' : project.phase;
-    document.getElementById('nowText').textContent = NOW[nowKey] || 'Wir halten Sie auf dem Laufenden.';
-    var note = document.getElementById('noteCard');
-    if (project.notiz_kunde) {
-      document.getElementById('noteText').textContent = project.notiz_kunde;
-      note.classList.remove('hidden');
-    } else {
-      note.classList.add('hidden');
-    }
-  }
+  function show() { $('gate').classList.add('hidden'); $('app').classList.remove('hidden'); }
 
   function init() {
+    initTabs();
+    var logout = $('logoutBtn');
+    if (logout) logout.addEventListener('click', function () { post('api/auth/logout.php', {}).finally(function () { window.location.href = 'login.php'; }); });
+
+    // Sicherer Vorschau-Modus: nur Demo-Daten, keine echten — für Design-Review ohne Login.
+    if (new URLSearchParams(window.location.search).get('preview') === '1') {
+      show();
+      fill({ name: 'Max Mustermann', firma: 'Muster Bäckerei GmbH', email: 'max@muster.de' },
+           { titel: 'muster-baeckerei.de', paket: 'wachstum', care_stufe: 'care-m', phase: 'live', besucher_30d: 412 });
+      return;
+    }
+
     api('api/portal/projects.php').then(function (data) {
-      document.getElementById('loading').classList.add('hidden');
-      var profile = data.profile || {};
       var projects = data.projects || [];
-      var firstName = (profile.name || profile.email || '').split(' ')[0] || '';
-      document.getElementById('hello').textContent = firstName ? 'Hallo ' + firstName : 'Hallo';
-
-      if (!projects.length) {
-        document.getElementById('empty').classList.remove('hidden');
-        return;
-      }
-      document.getElementById('app').classList.remove('hidden');
-      var select = document.getElementById('projSwitch');
-      if (projects.length > 1 && select) {
-        select.classList.remove('hidden');
-        projects.forEach(function (project, i) {
-          var option = document.createElement('option');
-          option.value = String(i);
-          option.textContent = project.titel || ('Projekt ' + (i + 1));
-          select.appendChild(option);
-        });
-        select.addEventListener('change', function () { render(projects[Number(select.value)]); });
-      }
-      render(projects[0]);
-    }).catch(function () {
-      window.location.href = 'login.php';
-    });
-  }
-
-  var logout = document.getElementById('logoutBtn');
-  if (logout) {
-    logout.addEventListener('click', function () {
-      post('api/auth/logout.php', {}).finally(function () { window.location.href = 'login.php'; });
-    });
+      show();
+      fill(data.profile || {}, projects[0] || {});
+    }).catch(function () { window.location.href = 'login.php'; });
   }
 
   init();
