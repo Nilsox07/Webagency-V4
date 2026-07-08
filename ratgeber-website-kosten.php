@@ -212,12 +212,12 @@
 
           <h2 id="onepager">Was kostet ein Onepager?</h2>
           <p>Ein Onepager ist eine einzelne, länger scrollbare Seite mit allen Kerninfos: Angebot, Über-mich, Referenzen, Kontakt. Für Selbstständige, Handwerker und lokale Dienstleister mit <strong>einem</strong> klaren Angebot ist das oft die beste Wahl.</p>
-          <p>Bei Sartu kostet der Onepager <strong>1.290&nbsp;€ als Festpreis</strong> — enthalten sind bis zu 6 Inhaltssektionen, Mobil-Optimierung, ein Kontaktformular, Bildoptimierung, Basis-SEO und das komplette DSGVO-Setup, fertig in 7–14 Werktagen nach Inhaltslieferung. Ob ein Onepager für Sie reicht, klärt der Ratgeber <a href="ratgeber-onepager.php">One-Pager oder mehrseitige Website</a>.</p>
+          <p>Bei Sartu kostet der Onepager <strong>1.290&nbsp;€ als Festpreis</strong> — enthalten sind bis zu 6 Inhaltssektionen, Mobil-Optimierung, ein Kontaktformular, Bildoptimierung, Basis-SEO und das komplette DSGVO-Setup, fertig in 7 Werktagen nach Inhaltslieferung. Ob ein Onepager für Sie reicht, klärt der Ratgeber <a href="ratgeber-onepager.php">One-Pager oder mehrseitige Website</a>.</p>
 
           <h2 id="mehrseitig">Was kostet eine mehrseitige Firmenwebsite?</h2>
           <p>Sobald Sie mehrere Leistungen haben, die <strong>einzeln bei Google gefunden</strong> werden sollen, brauchen Sie eigene Unterseiten — pro Suchbegriff in der Regel eine Seite. Damit steigt der Aufwand für Struktur, Texte und SEO.</p>
           <ul>
-            <li><strong>Bis 8 Seiten (Sartu Wachstum): 3.290&nbsp;€</strong> — inklusive OnPage-SEO für jede Seite (Title, Meta, Überschriftenstruktur, je 1 Fokus-Keyword) und 3 Korrekturrunden.</li>
+            <li><strong>Bis 8 Seiten (Sartu Wachstum): 3.290&nbsp;€</strong> — inklusive OnPage-SEO für jede Seite (Title, Meta, Überschriftenstruktur, je 1 Fokus-Keyword) und 2 Korrekturrunden.</li>
             <li><strong>Bis 20 Seiten (Sartu Platzhirsch): 6.490&nbsp;€</strong> — zusätzlich einmaliges Local-SEO-Setup mit Google-Unternehmensprofil und messbaren Ladezeit-Zielwerten.</li>
             <li><strong>Größere Vorhaben (Portale, mehrere Standorte, Schnittstellen): individueller Festpreis</strong> nach kurzer Abstimmung.</li>
           </ul>

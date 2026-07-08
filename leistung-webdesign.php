@@ -66,7 +66,7 @@
               "itemOffered": {
                 "@type": "Service",
                 "name": "Start",
-                "description": "Onepager mit bis zu 6 Sektionen, Kontaktformular, Basis-SEO, DSGVO-Setup, 2 Korrekturrunden."
+                "description": "Onepager mit bis zu 6 Sektionen, Kontaktformular, Basis-SEO, DSGVO-Setup, 1 Korrekturrunde."
               }
             },
             {
@@ -77,7 +77,7 @@
               "itemOffered": {
                 "@type": "Service",
                 "name": "Wachstum",
-                "description": "Bis zu 8 Unterseiten, OnPage-SEO für alle Seiten, bis 30 Bilder, 3 Korrekturrunden."
+                "description": "Bis zu 8 Unterseiten, OnPage-SEO für alle Seiten, bis 30 Bilder, 2 Korrekturrunden."
               }
             },
             {
@@ -88,7 +88,7 @@
               "itemOffered": {
                 "@type": "Service",
                 "name": "Platzhirsch",
-                "description": "Bis zu 20 Unterseiten, einmaliges Local-SEO-Setup, Google-Ladezeitwerte (LCP < 2,5 s), 4 Korrekturrunden."
+                "description": "Bis zu 20 Unterseiten, einmaliges Local-SEO-Setup, Google-Ladezeitwerte (LCP < 2,5 s), 3 Korrekturrunden."
               }
             }
           ]

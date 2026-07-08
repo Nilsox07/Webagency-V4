@@ -200,7 +200,7 @@
 
           <h2 id="was-ist">Was ist ein One-Pager?</h2>
           <p>Ein One-Pager (auch Onepager oder One-Page-Website) ist eine Website, die aus <strong>einer einzigen, länger scrollbaren Seite</strong> besteht. Alle Kerninhalte — Angebot, Über-mich, Referenzen, Kontakt — folgen als Sektionen untereinander. Die Navigation springt zu den Abschnitten, statt auf Unterseiten zu wechseln.</p>
-          <p>Beim Sartu-Onepager (Start-Paket, 1.290&nbsp;€) sind bis zu 6 solcher Inhaltssektionen enthalten, dazu Mobil-Optimierung, ein Kontaktformular, Basis-SEO und das DSGVO-Setup — fertig in 7–14 Werktagen nach Inhaltslieferung.</p>
+          <p>Beim Sartu-Onepager (Start-Paket, 1.290&nbsp;€) sind bis zu 6 solcher Inhaltssektionen enthalten, dazu Mobil-Optimierung, ein Kontaktformular, Basis-SEO und das DSGVO-Setup — fertig in 7 Werktagen nach Inhaltslieferung.</p>
 
           <h2 id="vorteile">Vorteile &amp; Grenzen des One-Pagers</h2>
           <p><strong>Die Vorteile:</strong></p>
@@ -237,7 +237,7 @@
           <h2 id="kosten">Was kostet der Unterschied?</h2>
           <p>Bei Sartu sind die Schwellen klar definiert — alles Festpreise:</p>
           <ul>
-            <li><strong>One-Pager (Start): 1.290&nbsp;€</strong> — 1 Seite mit bis zu 6 Sektionen, 2 Korrekturrunden.</li>
+            <li><strong>One-Pager (Start): 1.290&nbsp;€</strong> — 1 Seite mit bis zu 6 Sektionen, 1 Korrekturrunde.</li>
             <li><strong>Bis 8 Seiten (Wachstum): 3.290&nbsp;€</strong> — inkl. OnPage-SEO für jede Seite, 2 Korrekturrunden.</li>
             <li><strong>Bis 20 Seiten (Platzhirsch): 6.490&nbsp;€</strong> — inkl. Local-SEO-Setup, 3 Korrekturrunden.</li>
             <li><strong>Zusätzliche Seite</strong> über dem Paket-Kontingent: <strong>199&nbsp;€</strong>.</li>
