@@ -1220,7 +1220,7 @@
           qty: a.qty ? st.qty : 1,
           unitPrice: a.price, pct: a.pct || null,
           lineTotal: addonAmount(a, st),
-          monthly: typeof a.monthly === 'number' ? a.monthly : null, // Kombi-Add-on (z. B. KI-Chatbot)
+          monthly: typeof a.monthly === 'number' ? a.monthly : null, // Kombi-Add-on (z. B. KI-Chat-Assistent)
         });
       }
     });

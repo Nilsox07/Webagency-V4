@@ -83,7 +83,7 @@ Pflicht-Wartung widersprachen).
 | `corporate` | Corporate Design · Gruppe `branding` | 1.890 € | – |
 | `terminbuchung` | Online-Terminbuchung | ab 290 € | – |
 | `google-profil` | Google-Profil-Setup | 290 € | – |
-| `chatbot` | KI-Chatbot (Kombi: Einrichtung + Betrieb) | 490 € + 49 €/Mon. | – |
+| `ki-assistent` | KI-Chat-Assistent (Kombi: Einrichtung + Betrieb) | 990 € + 79 €/Mon. | – |
 | `newsletter` | Newsletter-Anbindung | 290 € | – |
 | `analytics` | Analytics-/Tracking-Setup | 190 € | – |
 | `social-feed` | Bewertungs-/Social-Feed | ab 90 € | – |
@@ -107,7 +107,7 @@ Pflicht-Wartung widersprachen).
   werden im Website-Plan als Karten NEBENEINANDER gerendert (wie Pakete & Wartung) und schließen
   sich gegenseitig aus — erneutes Klicken wählt ab (`briefing.js → buildTierGroup`).
 - `monthly`: Kombi-Add-on — Einmalpreis + feste monatliche Kosten in EINER Option
-  (KI-Chatbot: 490 € einmalig + 49 €/Monat; `pricing-calc.js` bucht beides).
+  (KI-Chat-Assistent: 990 € einmalig + 79 €/Monat; `pricing-calc.js` bucht beides).
 - Enterprise-Karte zeigt `priceFrom` („ab 9.990 €") als reine Anzeige; die Live-Berechnung bleibt
   beim Enterprise-Abzweig („Individuelles Festpreis-Angebot").
 - „Weitere Arbeitszeit 99 €/Std." (`preise.php`, 5-Min-Takt) ist bewusst KEIN Add-on — Stundensatz, kein Paket.

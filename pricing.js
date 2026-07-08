@@ -111,12 +111,9 @@
         desc: 'Einrichtung 1 Buchungstool, 1 Kalender/Mitarbeiter, Bestätigungs- & Erinnerungsmail.' },
       { id: 'google-profil',name: 'Google-Profil-Setup', price: 290, type: 'once', hidden: true,
         desc: 'Einrichtung + Verifizierung, Hauptkategorie + bis 9 Zusatzkategorien, Beschreibung (bis 750 Z.), bis 10 Fotos, NAP-Konsistenz-Check.' },
-      /* Kombi-Add-on: Einrichtung einmalig + Betrieb monatlich in EINER Option */
-      { id: 'chatbot',      name: 'KI-Chatbot', price: 490, type: 'once', monthly: 49,
-        desc: 'FAQ-Bot (EU/DSGVO) auf bis 20 Dokumente trainiert. 490 € Einrichtung + 49 €/Monat Betrieb (ca. 500 Gespräche/Mon. inkl.).' },
-      // KI-Chat-Assistent (produktisiert aus dem früheren „Wunsch ohne Festpreis"):
-      // Einrichtung einmalig + fester Monatsbetrieb (eigene Monatszeile, getrennt von Care/SEO),
-      // Mindestlaufzeit 12 Monate analog Rundum-Schutz.
+      // KI-Chat-Assistent — ein Produkt (kein billigerer FAQ-Bot daneben, bewusste Entscheidung).
+      // Kombi-Add-on: Einrichtung einmalig + fester Monatsbetrieb (eigene Monatszeile, getrennt
+      // von Care/SEO), Mindestlaufzeit 12 Monate analog Rundum-Schutz.
       { id: 'ki-assistent', name: 'KI-Chat-Assistent', price: 990, type: 'once', monthly: 79, common: true,
         desc: 'Beantwortet Besucherfragen rund um die Uhr — trainiert auf Ihre eigenen Inhalte. Bis 500 Unterhaltungen/Monat. 990 € Einrichtung + 79 €/Monat Betrieb, Mindestlaufzeit 12 Monate.' },
       { id: 'newsletter',   name: 'Newsletter-Anbindung', price: 290, type: 'once',

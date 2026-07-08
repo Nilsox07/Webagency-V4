@@ -38,10 +38,10 @@ var r2 = t({ paket: 'pro', wartung: 'care-m', addons: addons({ 'logo-lite': true
 eq('Pro+Logo Lite+Texte×3 einmalig', r2.once, 3290 + 490 + 360);
 eq('Pro+Schutz M monatlich', r2.monthly, 99);
 
-// 3) Platin + Schutz L (249) + KI-Chatbot (Kombi: 490 einmalig + 49/Mon) + Terminbuchung (290 einmalig)
-var r3 = t({ paket: 'platin', wartung: 'care-l', addons: addons({ chatbot: true, terminbuchung: true }) });
-eq('Platin einmalig (Chatbot 490 + Termin 290)', r3.once, 6490 + 490 + 290);
-eq('Platin monatlich (Schutz L 249 + Chatbot-Betrieb 49)', r3.monthly, 249 + 49);
+// 3) Platin + Schutz L (249) + KI-Chat-Assistent (Kombi: 990 einmalig + 79/Mon) + Terminbuchung (290 einmalig)
+var r3 = t({ paket: 'platin', wartung: 'care-l', addons: addons({ 'ki-assistent': true, terminbuchung: true }) });
+eq('Platin einmalig (KI-Assistent 990 + Termin 290)', r3.once, 6490 + 990 + 290);
+eq('Platin monatlich (Schutz L 249 + KI-Betrieb 79)', r3.monthly, 249 + 79);
 
 // 4) Enterprise = price null → Paket zählt NICHT in die Einmalsumme
 var r4 = t({ paket: 'enterprise', wartung: 'care-l', addons: addons({ analytics: true }) });
