@@ -77,7 +77,7 @@
               "itemOffered": {
                 "@type": "Service",
                 "name": "Wachstum",
-                "description": "Bis zu 8 Unterseiten, OnPage-SEO für alle Seiten, bis 30 Bilder, 2 Korrekturrunden."
+                "description": "Bis zu 8 Unterseiten, OnPage-SEO für alle Seiten, bis 30 Bilder, 1 Korrekturrunde."
               }
             },
             {
@@ -88,7 +88,7 @@
               "itemOffered": {
                 "@type": "Service",
                 "name": "Platzhirsch",
-                "description": "Bis zu 20 Unterseiten, einmaliges Local-SEO-Setup, Google-Ladezeitwerte (LCP < 2,5 s), 3 Korrekturrunden."
+                "description": "Bis zu 20 Unterseiten, einmaliges Local-SEO-Setup, Google-Ladezeitwerte (LCP < 2,5 s), 2 Korrekturrunden."
               }
             }
           ]

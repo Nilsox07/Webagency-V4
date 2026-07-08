@@ -37,11 +37,11 @@
       { id: 'pro', name: 'Wachstum', price: 3290, scope: 'bis 8 Seiten', includedPages: 8,
         configurable: true, maintenanceFloor: 'care-m', popular: false,
         situation: 'Ihre Website aktiv neue Anfragen bringen soll — jede Leistung wird einzeln bei Google gefunden.',
-        perks: ['Bis 8 Unterseiten, individuell', 'Jede Leistung wird bei Google gefunden', '2 Korrekturrunden'] },
+        perks: ['Bis 8 Unterseiten, individuell', 'Jede Leistung wird bei Google gefunden', '1 Korrekturrunde'] },
       { id: 'platin', name: 'Platzhirsch', price: 6490, scope: 'bis 20 Seiten', includedPages: 20,
         configurable: true, maintenanceFloor: 'care-l', popular: true,
         situation: 'Sie in Ihrer Region die Nummer 1 sein möchten — und auch Mitarbeiter über die Website finden möchten.',
-        perks: ['Bis 20 Seiten inkl. Team & Jobs', 'Kunden aus Ihrer Region finden Sie', '3 Korrekturrunden'] },
+        perks: ['Bis 20 Seiten inkl. Team & Jobs', 'Kunden aus Ihrer Region finden Sie', '2 Korrekturrunden'] },
       // Sonderprojekte = Abzweig, KEIN durchkonfigurierbarer Fixpreis (price: null).
       // priceFrom ist NUR Anzeige ("ab 9.990 €") und fließt bewusst NICHT in die Live-Berechnung ein.
       { id: 'enterprise', name: 'Sonderprojekte', price: null, priceFrom: 9990, scope: 'individuell', includedPages: null,

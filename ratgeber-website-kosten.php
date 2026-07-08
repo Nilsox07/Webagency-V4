@@ -217,7 +217,7 @@
           <h2 id="mehrseitig">Was kostet eine mehrseitige Firmenwebsite?</h2>
           <p>Sobald Sie mehrere Leistungen haben, die <strong>einzeln bei Google gefunden</strong> werden sollen, brauchen Sie eigene Unterseiten — pro Suchbegriff in der Regel eine Seite. Damit steigt der Aufwand für Struktur, Texte und SEO.</p>
           <ul>
-            <li><strong>Bis 8 Seiten (Sartu Wachstum): 3.290&nbsp;€</strong> — inklusive OnPage-SEO für jede Seite (Title, Meta, Überschriftenstruktur, je 1 Fokus-Keyword) und 2 Korrekturrunden.</li>
+            <li><strong>Bis 8 Seiten (Sartu Wachstum): 3.290&nbsp;€</strong> — inklusive OnPage-SEO für jede Seite (Title, Meta, Überschriftenstruktur, je 1 Fokus-Keyword) und 1 Korrekturrunde.</li>
             <li><strong>Bis 20 Seiten (Sartu Platzhirsch): 6.490&nbsp;€</strong> — zusätzlich einmaliges Local-SEO-Setup mit Google-Unternehmensprofil und messbaren Ladezeit-Zielwerten.</li>
             <li><strong>Größere Vorhaben (Portale, mehrere Standorte, Schnittstellen): individueller Festpreis</strong> nach kurzer Abstimmung.</li>
           </ul>
@@ -244,7 +244,7 @@
             <li><strong>Stundensatz-Takte:</strong> Manche Anbieter runden jede Kleinigkeit pauschal auf Viertelstunden auf. Fairer ist Klarheit vorab: Bei Sartu zahlen Sie nie nach Stunden — kleine Änderungen sind im Rundum-Schutz enthalten, alles Größere bekommt vorher einen Festpreis.</li>
             <li><strong>Pflicht-Abos ohne Leistung:</strong> Wartungspauschalen sind sinnvoll — aber nur, wenn drinsteht, was Sie dafür erhalten (Backups? Updates? Änderungsminuten? Reaktionszeit?).</li>
             <li><strong>Extra-Kosten für Selbstverständliches:</strong> SSL, Mobil-Optimierung oder Cookie-Banner gehören 2026 in den Grundpreis, nicht auf die Zusatzrechnung.</li>
-            <li><strong>Korrekturrunden:</strong> Klären Sie vorher, wie viele Feedback-Runden enthalten sind (bei Sartu: 1–3 je Paket) und dass Größeres vorab einen Festpreis bekommt — nicht nach Stunden.</li>
+            <li><strong>Korrekturrunden:</strong> Klären Sie vorher, wie viele Feedback-Runden enthalten sind (bei Sartu: 1–2 je Paket) und dass Größeres vorab einen Festpreis bekommt — nicht nach Stunden.</li>
           </ul>
 
           <h2 id="budget">Wann lohnt sich welches Budget?</h2>

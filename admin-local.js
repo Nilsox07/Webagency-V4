@@ -211,7 +211,7 @@
   }
 
   var PAKET_PREIS = { start: 1290, wachstum: 3290, platzhirsch: 6490 };
-  var PAKET_KORR = { start: 1, wachstum: 2, platzhirsch: 3 };
+  var PAKET_KORR = { start: 1, wachstum: 1, platzhirsch: 2 };
   var CARE_PREIS = { 'care-s': 49, 'care-m': 99, 'care-l': 249 };
   var PAKET_ALIAS = { basis: 'start', pro: 'wachstum', platin: 'platzhirsch', start: 'start', wachstum: 'wachstum', platzhirsch: 'platzhirsch' };
 

@@ -241,7 +241,7 @@
               <li>Google-Unternehmensprofil eingerichtet (lokal &amp; in Maps)</li>
               <li>Anfragen messen — Sie sehen, was funktioniert</li>
               <li>Alle Texte inklusive · Inhalte selbst änderbar</li>
-              <li>2 Korrekturrunden · in 7–14 Werktagen online</li>
+              <li>1 Korrekturrunde · in 7–14 Werktagen online</li>
             </ul>
             <details class="price-more">
               <summary>Alle Leistungen anzeigen</summary>
@@ -271,7 +271,7 @@
               <li><strong>Online-Terminbuchung</strong> inklusive</li>
               <li>Kunden aus Ihrer Region finden Sie (Google-Profil eingerichtet)</li>
               <li>Newsletter &amp; News-/Blog-Bereich</li>
-              <li>3 Korrekturrunden · in 7–14 Werktagen online</li>
+              <li>2 Korrekturrunden · in 7–14 Werktagen online</li>
             </ul>
             <details class="price-more">
               <summary>Alle Leistungen anzeigen</summary>

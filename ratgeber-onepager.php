@@ -238,8 +238,8 @@
           <p>Bei Sartu sind die Schwellen klar definiert — alles Festpreise:</p>
           <ul>
             <li><strong>One-Pager (Start): 1.290&nbsp;€</strong> — 1 Seite mit bis zu 6 Sektionen, 1 Korrekturrunde.</li>
-            <li><strong>Bis 8 Seiten (Wachstum): 3.290&nbsp;€</strong> — inkl. OnPage-SEO für jede Seite, 2 Korrekturrunden.</li>
-            <li><strong>Bis 20 Seiten (Platzhirsch): 6.490&nbsp;€</strong> — inkl. Local-SEO-Setup, 3 Korrekturrunden.</li>
+            <li><strong>Bis 8 Seiten (Wachstum): 3.290&nbsp;€</strong> — inkl. OnPage-SEO für jede Seite, 1 Korrekturrunde.</li>
+            <li><strong>Bis 20 Seiten (Platzhirsch): 6.490&nbsp;€</strong> — inkl. Local-SEO-Setup, 2 Korrekturrunden.</li>
             <li><strong>Zusätzliche Seite</strong> über dem Paket-Kontingent: <strong>199&nbsp;€</strong>.</li>
           </ul>
           <p>Dazu kommt bei jeder Variante die laufende Wartung (Rundum-Schutz) ab 49&nbsp;€/Monat. Den kompletten Überblick gibt es unter <a href="preise.php">alle Festpreis-Pakete im Detail</a>; was Websites generell kosten, schlüsselt der Ratgeber <a href="ratgeber-website-kosten.php">Was kostet eine Website 2026?</a> auf.</p>

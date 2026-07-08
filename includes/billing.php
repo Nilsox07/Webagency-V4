@@ -270,7 +270,7 @@ function billing_render_offer_pdf(array $offer, array $customer): string
     if (!empty($offer['care_stufe'])) {
         $texte[] = 'Laufender Rundum-Schutz: ' . $offer['care_stufe'] . (isset($offer['care_preis']) ? ' · ' . money_de(((int) $offer['care_preis']) * 100) . ' pro Monat' : '') . ' (separat).';
     }
-    if (!empty($offer['korrekturrunden'])) { $texte[] = 'Enthaltene Korrekturrunden: ' . $offer['korrekturrunden'] . '.'; }
+    if (!empty($offer['korrekturrunden'])) { $texte[] = 'Enthaltene Korrekturrunden: ' . $offer['korrekturrunden'] . ' (je ein gesammeltes Feedback).'; }
     $texte[] = 'Dieses Angebot ist unverbindlich' . (!empty($offer['gueltig_bis']) ? ' und gültig bis ' . $offer['gueltig_bis'] : '') . '. Die verbindliche Beauftragung erfolgt im Kundenportal.';
 
     return billing_pdf_document([
