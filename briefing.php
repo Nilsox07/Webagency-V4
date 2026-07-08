@@ -206,13 +206,13 @@
   <script src="script.js"></script>
   <script src="cookies.js?v=2"></script>
   <script src="fab.js?v=3"></script>
-  <script src="pricing.js?v=14"></script>
+  <script src="pricing.js?v=15"></script>
   <script src="payment-terms.js?v=1"></script>
   <script src="pricing-calc.js?v=5"></script>
   <script src="briefing-schema.js?v=5"></script>
   <!-- Farb-Vorschau-Mockup (optional, entfernbar): nur diese Zeile löschen, um es auszubauen -->
   <script src="color-mockup.js?v=1"></script>
-  <script src="briefing.js?v=28"></script>
+  <script src="briefing.js?v=29"></script>
 </body>
 </html>
 

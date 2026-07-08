@@ -96,9 +96,7 @@ Pflicht-Wartung widersprachen).
 
 | ID | Name | Preis / Monat |
 |---|---|---|
-| `seo-lite` | SEO-Betreuung Lite · Gruppe `seo-betreuung` | 149 € |
-| `seo-pro` | SEO-Betreuung Pro · Gruppe `seo-betreuung` | 390 € |
-| `seo-premium` | SEO-Betreuung Premium · Gruppe `seo-betreuung` | 790 € |
+| `seo-betreuung` | SEO-Betreuung (ein Preis, keine Stufen) | 490 € |
 | `profil-basic` | Google-Profil-Pflege Basic · Gruppe `profil-pflege` | 79 € |
 | `profil-pro` | Google-Profil-Pflege Pro · Gruppe `profil-pflege` | 149 € |
 

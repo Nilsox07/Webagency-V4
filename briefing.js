@@ -69,7 +69,7 @@
     branche: null, branche_sonstiges: '',
     ziele: [], umfang: null, seiten: [], seiten_sonstige: '',
     features: [], stil: null, hauptfarbe: null, nebenfarbe: null, markenfarben_hex: '',
-    seo_stufe: null,                  // E2: gewählte SEO-Betreuung-Stufe (additiv) | null|'lite'|'pro'|'premium'
+    seo_stufe: null,                  // E2: SEO-Betreuung gewählt (additiv) | null|'betreuung' (ein Preis, keine Stufen)
     material: [], uploads: { logo: [], fotos: [], texte: [], texte_notiz: '', website_link: '' },
     zeitrahmen: null,
     // Was suchen Sie? 'website' = komplette Website (Standard), 'design' = nur Design
@@ -701,11 +701,9 @@
   }
 
   // SEO-Schritt: 4 Zeilen-Karten (Erstmal ohne = Default, dann Lite/Pro/Premium aus pricing.js).
-  // KEINE Vorauswahl (A.seo_stufe bleibt null). Empfehlungs-Badge auf Lite bei lokaler Branche + Ziel Neukunden.
+  // KEINE Vorauswahl (A.seo_stufe bleibt null). Empfehlungs-Badge bei lokaler Branche + Ziel Neukunden.
   var SEO_DESC = {
-    lite: 'Google-Profil-Pflege, Title & Meta aller Seiten, Keyword-Tracking, Klartext-Monatsreport.',
-    pro: 'Alles aus Lite + KI-Suche-Optimierung, je Monat eine neue Seite inkl. Text, Quartals-Strategie.',
-    premium: 'Alles aus Pro + Sichtbarkeits-Monitoring, bis 2 neue Seiten pro Monat, monatlicher Maßnahmenplan.',
+    betreuung: 'Google-Profil-Pflege, Title & Meta aller Seiten, KI-Suche-Optimierung, monatliche Auffrischung, Keyword-Tracking, Klartext-Monatsreport.',
   };
   function buildSeoCards(host) {
     var SEO_LOCAL = ['gastro', 'handwerk', 'gesundheit', 'dienstleistung', 'immobilien', 'kreativ'];
@@ -737,7 +735,7 @@
     card('none', 'Erstmal ohne', null, 'Kein laufender Beitrag — Sie können die SEO-Betreuung jederzeit später starten.', false);
     (PRICING.addons || []).filter(function (a) { return a.group === 'seo-betreuung'; }).forEach(function (a) {
       var stufe = a.id.replace('seo-', '');
-      card(stufe, 'SEO ' + (a.short || a.name), a.price, SEO_DESC[stufe] || a.desc, empfohlen && stufe === 'lite');
+      card(stufe, 'SEO ' + (a.short || a.name), a.price, SEO_DESC[stufe] || a.desc, empfohlen);
     });
     host.appendChild(grid);
     return grid;
@@ -1230,7 +1228,7 @@
       schemaVersion: SCHEMA.version,
       pfad: A.pfad,
       produkt_typ: A.produkt_typ, // 'website' | 'redesign' (additiv, bestehende Keys unverändert)
-      seo_stufe: A.seo_stufe, // E2: null|'lite'|'pro'|'premium' (additiv)
+      seo_stufe: A.seo_stufe, // E2: null|'betreuung' (additiv, ein Preis)
       createdAt: new Date().toISOString(),
       anfrage: A.pfad === 'B' ? {
         branche: A.branche, branche_sonstiges: A.branche_sonstiges,

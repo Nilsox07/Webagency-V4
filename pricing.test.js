@@ -70,15 +70,13 @@ var r9 = t({ paket: 'pro', wartung: 'care-m', extraPages: 5, addons: addons({}) 
 eq('Pro + 5 Extraseiten einmalig (3290 + 995)', r9.once, 3290 + 995);
 eq('Pro + 5 Extraseiten monatlich (Schutz M 99)', r9.monthly, 99);
 
-// 10) Monatliche Retainer: SEO Lite (149) + Profil Basic (79) + Schutz M (99)
-var r10 = t({ paket: 'pro', wartung: 'care-m', addons: addons({ 'seo-lite': true, 'profil-basic': true }) });
-eq('SEO Lite + Profil Basic + Schutz M monatlich', r10.monthly, 99 + 149 + 79);
+// 10) Monatliche Retainer: SEO-Betreuung (490, ein Preis) + Profil Basic (79) + Schutz M (99)
+var r10 = t({ paket: 'pro', wartung: 'care-m', addons: addons({ 'seo-betreuung': true, 'profil-basic': true }) });
+eq('SEO-Betreuung + Profil Basic + Schutz M monatlich', r10.monthly, 99 + 490 + 79);
 
-// 11) Höhere Retainer-Stufen (von den Leistungsseiten übernommen)
-var r11 = t({ paket: 'pro', wartung: 'care-m', addons: addons({ 'seo-pro': true }) });
-eq('SEO-Betreuung Pro + Schutz M monatlich', r11.monthly, 99 + 390);
-var r12 = t({ paket: 'platin', wartung: 'care-l', addons: addons({ 'seo-premium': true, 'profil-pro': true }) });
-eq('SEO Premium + Profil Pro + Schutz L monatlich', r12.monthly, 249 + 790 + 149);
+// 11) SEO-Betreuung + Profil Pro + Schutz L
+var r12 = t({ paket: 'platin', wartung: 'care-l', addons: addons({ 'seo-betreuung': true, 'profil-pro': true }) });
+eq('SEO-Betreuung + Profil Pro + Schutz L monatlich', r12.monthly, 249 + 490 + 149);
 
 // 12) SEO-Option für Texte: +30 €/Seite (×5 = 150)
 var r13 = t({ paket: 'basis', wartung: 'care-s', addons: addons({ texte: 5, 'texte-seo': 5 }) });
