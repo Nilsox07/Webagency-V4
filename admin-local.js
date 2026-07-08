@@ -15,8 +15,28 @@
   };
   var STATUS = ['neu', 'in_bearbeitung', 'umgewandelt', 'abgelehnt'];
   var OFFER_STATUS = { entwurf: 'Entwurf', gesendet: 'gesendet', angenommen: 'angenommen', abgelehnt: 'abgelehnt' };
-  var state = { briefings: [], projects: [], profiles: [], offers: [], invoices: [], _demoBriefing: null };
+  var state = { briefings: [], projects: [], profiles: [], offers: [], invoices: [], aktionen: [], _demoBriefing: null };
   var INV_STATUS = { entwurf: 'Entwurf', offen: 'offen', bezahlt: 'bezahlt', storniert: 'storniert' };
+  var AKTION_ZIELE = {
+    'alle': 'Alle Pakete', 'paket:start': 'Paket Start', 'paket:wachstum': 'Paket Wachstum',
+    'paket:platzhirsch': 'Paket Platzhirsch', 'addon:ki-assistent': 'KI-Chat-Assistent',
+    'addon:seo-betreuung': 'SEO-Betreuung', 'addon:logo': 'Logo & Branding'
+  };
+  var AKTION_TYPEN = { 'prozent': 'Prozent-Rabatt (%)', 'fest': 'Fester Betrag (€)', 'gratis_monate': 'Gratis-Monate' };
+  function aktionWertText(a) {
+    var w = Number(a.wert || 0);
+    if (a.typ === 'fest') return '-' + w.toLocaleString('de-DE') + ' €';
+    if (a.typ === 'gratis_monate') return w + ' ' + (w === 1 ? 'Monat' : 'Monate') + ' gratis';
+    return '-' + w + ' %';
+  }
+  function aktionZeitraum(a) {
+    var s = a.start_am ? fmtDay(a.start_am) : '', e = a.end_am ? fmtDay(a.end_am) : '';
+    if (s && e) return s + ' – ' + e;
+    if (e) return 'bis ' + e;
+    if (s) return 'ab ' + s;
+    return 'unbegrenzt';
+  }
+  function fmtDay(d) { try { return new Date(d).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' }); } catch (e) { return d || ''; } }
   var BRIEFING2 = (function () { try { return JSON.parse(document.getElementById('briefing2Schema').textContent) || { steps: [] }; } catch (e) { return { steps: [] }; } })();
   function euro(n) { return (n == null || n === '') ? '—' : Number(n).toLocaleString('de-DE') + ' €'; }
   function optLabel(f, val) { var o = (f.options || []).filter(function (x) { return x.value === val; })[0]; return o ? o.label : val; }
@@ -127,19 +147,22 @@
       api('api/admin/projects.php'),
       api('api/admin/customers.php'),
       api('api/admin/offers.php'),
-      api('api/admin/invoices.php')
+      api('api/admin/invoices.php'),
+      api('api/admin/aktionen.php')
     ]).then(function (out) {
       state.briefings = out[0].briefings || [];
       state.projects = out[1].projects || [];
       state.profiles = out[2].profiles || out[1].profiles || [];
       state.offers = out[3].offers || [];
       state.invoices = out[4].invoices || [];
+      state.aktionen = out[5].aktionen || [];
       renderOverview();
       renderBriefings();
       renderOffers();
       renderInvoicesAdmin();
       renderProjects();
       renderCustomers(out[2].projects || []);
+      renderAktionen();
     }).catch(function (e) {
       showErr(e.message);
     });
@@ -152,6 +175,7 @@
     renderInvoicesAdmin();
     renderProjects();
     renderCustomers();
+    renderAktionen();
   }
 
   function setOv(id, n) {
@@ -452,10 +476,98 @@
     });
   }
 
+  function renderAktionen() {
+    var body = document.getElementById('aktionenBody');
+    if (!body) return;
+    if (!state.aktionen.length) {
+      body.innerHTML = '<tr><td colspan="5" class="muted">Noch keine Aktionen. Legen Sie mit „+ Neue Aktion" eine an.</td></tr>';
+      return;
+    }
+    var heute = new Date().toISOString().slice(0, 10);
+    body.innerHTML = '';
+    state.aktionen.forEach(function (a) {
+      var laeuft = Number(a.aktiv) === 1 &&
+        (!a.start_am || String(a.start_am).slice(0, 10) <= heute) &&
+        (!a.end_am || String(a.end_am).slice(0, 10) >= heute);
+      var badge = Number(a.aktiv) !== 1
+        ? '<span class="badge">aus</span>'
+        : (laeuft ? '<span class="badge badge-ok">läuft</span>' : '<span class="badge">geplant/vorbei</span>');
+      var tr = document.createElement('tr');
+      tr.className = 'clickable';
+      tr.innerHTML = '<td>' + esc(a.name || '-') + '</td><td>' + esc(aktionWertText(a)) + '</td><td>' +
+        esc(AKTION_ZIELE[a.ziel] || a.ziel) + '</td><td>' + esc(aktionZeitraum(a)) + '</td><td>' + badge + '</td>';
+      tr.addEventListener('click', function () { openAktion(a); });
+      body.appendChild(tr);
+    });
+  }
+
+  function openAktion(a) {
+    a = a || {};
+    var isEdit = !!a.id;
+    function opt(map, sel) {
+      return Object.keys(map).map(function (k) {
+        return '<option value="' + k + '"' + (k === sel ? ' selected' : '') + '>' + esc(map[k]) + '</option>';
+      }).join('');
+    }
+    openModal(
+      '<div class="spread"><h2 style="color:#fff">' + (isEdit ? 'Aktion bearbeiten' : 'Neue Aktion') + '</h2><button class="btn btn-ghost btn-sm" id="akClose">Schließen</button></div>' +
+      '<div class="field"><label>Name der Aktion</label><input id="akName" type="text" placeholder="z. B. Sommer-Aktion" value="' + esc(a.name || '') + '"></div>' +
+      '<div class="grid-2" style="gap:12px;">' +
+        '<div class="field"><label>Typ</label><select id="akTyp">' + opt(AKTION_TYPEN, a.typ || 'prozent') + '</select></div>' +
+        '<div class="field"><label>Wert</label><input id="akWert" type="number" min="0" value="' + esc(a.wert != null ? a.wert : 10) + '"><span class="muted" id="akWertHint" style="font-size:12px;"></span></div>' +
+        '<div class="field"><label>Gilt für</label><select id="akZiel">' + opt(AKTION_ZIELE, a.ziel || 'alle') + '</select></div>' +
+        '<div class="field"><label>Status</label><select id="akAktiv"><option value="1"' + (Number(a.aktiv) !== 0 ? ' selected' : '') + '>aktiv</option><option value="0"' + (Number(a.aktiv) === 0 ? ' selected' : '') + '>aus</option></select></div>' +
+        '<div class="field"><label>Start (optional)</label><input id="akStart" type="date" value="' + esc((a.start_am || '').slice(0, 10)) + '"></div>' +
+        '<div class="field"><label>Ende (optional)</label><input id="akEnd" type="date" value="' + esc((a.end_am || '').slice(0, 10)) + '"></div>' +
+      '</div>' +
+      '<div class="field"><label>Aufkleber (optional)</label><input id="akBadge" type="text" placeholder="leer = automatisch, z. B. -30 %" value="' + esc(a.badge || '') + '"></div>' +
+      '<div class="field"><label>Banner-Text (optional)</label><input id="akHinweis" type="text" placeholder="z. B. Zum Sommer: 30 % auf alle Pakete" value="' + esc(a.hinweis || '') + '"></div>' +
+      '<div class="row row-end" style="gap:8px;">' +
+        (isEdit ? '<button class="btn btn-ghost" id="akDelete">Löschen</button>' : '') +
+        '<button class="btn btn-primary" id="akSave">Speichern</button>' +
+      '</div>'
+    );
+    function updateHint() {
+      var t = document.getElementById('akTyp').value;
+      document.getElementById('akWertHint').textContent =
+        t === 'prozent' ? '% Rabatt (0–100)' : (t === 'fest' ? '€ Abzug' : 'Anzahl Monate');
+    }
+    document.getElementById('akTyp').addEventListener('change', updateHint);
+    updateHint();
+    document.getElementById('akClose').addEventListener('click', closeModal);
+    document.getElementById('akSave').addEventListener('click', function () {
+      var payload = {
+        id: a.id || '',
+        name: document.getElementById('akName').value || '',
+        typ: document.getElementById('akTyp').value,
+        ziel: document.getElementById('akZiel').value,
+        wert: document.getElementById('akWert').value || 0,
+        badge: document.getElementById('akBadge').value || '',
+        hinweis: document.getElementById('akHinweis').value || '',
+        start_am: document.getElementById('akStart').value || '',
+        end_am: document.getElementById('akEnd').value || '',
+        aktiv: document.getElementById('akAktiv').value === '1' ? 1 : 0
+      };
+      if (!payload.name.trim()) { showErr('Bitte einen Namen angeben.'); return; }
+      send('api/admin/aktionen.php', payload, 'POST')
+        .then(function () { closeModal(); return loadAll(); })
+        .catch(function (e) { showErr(e.message); });
+    });
+    var del = document.getElementById('akDelete');
+    if (del) del.addEventListener('click', function () {
+      send('api/admin/aktionen.php', { id: a.id }, 'DELETE')
+        .then(function () { closeModal(); return loadAll(); })
+        .catch(function (e) { showErr(e.message); });
+    });
+  }
+
+  var aktNewBtn = document.getElementById('aktNew');
+  if (aktNewBtn) aktNewBtn.addEventListener('click', function () { openAktion(null); });
+
   Array.prototype.forEach.call(document.querySelectorAll('.tab'), function (btn) {
     btn.addEventListener('click', function () {
       Array.prototype.forEach.call(document.querySelectorAll('.tab'), function (b) { b.classList.toggle('is-on', b === btn); });
-      ['anfragen', 'angebote', 'rechnungen', 'projekte', 'kunden'].forEach(function (name) {
+      ['anfragen', 'angebote', 'rechnungen', 'projekte', 'kunden', 'aktionen'].forEach(function (name) {
         var section = document.getElementById('tab-' + name);
         if (section) section.classList.toggle('hidden', btn.getAttribute('data-tab') !== name);
       });
@@ -494,6 +606,11 @@
     state.invoices = [
       { id: 'r1', nummer: '2026-0001', kunde: 'Muster Bäckerei GmbH', ausgestellt_am: '2026-07-05', faellig_am: '2026-07-19', betrag: '3.290,00 €', status: 'offen' },
       { id: 'r2', nummer: '2026-0002', kunde: 'Hotel Beispiel', ausgestellt_am: '2026-07-02', faellig_am: '2026-07-16', betrag: '6.490,00 €', status: 'bezahlt' }
+    ];
+    state.aktionen = [
+      { id: 'a1', name: 'Sommer-Aktion', typ: 'prozent', ziel: 'alle', wert: 15, badge: '', hinweis: 'Zum Sommer: 15 % auf alle Website-Pakete.', start_am: '2026-07-01', end_am: '2026-08-31', aktiv: 1 },
+      { id: 'a2', name: 'KI-Assistent Setup-Aktion', typ: 'fest', ziel: 'addon:ki-assistent', wert: 300, badge: '990 → 690 €', hinweis: 'KI-Chat-Assistent: 300 € Rabatt auf die Einrichtung.', start_am: '', end_am: '2026-09-30', aktiv: 1 },
+      { id: 'a3', name: 'Neujahrs-Aktion (Entwurf)', typ: 'gratis_monate', ziel: 'addon:seo-betreuung', wert: 2, badge: '', hinweis: '', start_am: '2027-01-01', end_am: '2027-01-31', aktiv: 0 }
     ];
     renderAll();
   } else {

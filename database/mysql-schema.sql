@@ -277,6 +277,26 @@ create table if not exists subscriptions (
   constraint fk_subscriptions_customer foreign key (customer_id) references profiles(id) on delete cascade
 ) engine=InnoDB default charset=utf8mb4 collate=utf8mb4_unicode_ci;
 
+-- ===== Aktionen / Rabatte (im Admin verwaltbar) =====
+-- Zeitlich begrenzte Aktionen. typ: prozent (%-Rabatt) | fest (€ Abzug) | gratis_monate.
+-- ziel: 'alle' oder 'paket:<key>' / 'addon:<key>' (siehe includes/aktionen.php).
+-- Beträge/Prozente als Ganzzahl; gratis_monate zählt Monate.
+create table if not exists aktionen (
+  id         char(36) primary key,
+  created_at datetime not null default current_timestamp,
+  updated_at datetime not null default current_timestamp on update current_timestamp,
+  name       varchar(120) not null,
+  typ        enum('prozent','fest','gratis_monate') not null default 'prozent',
+  ziel       varchar(60) not null default 'alle',
+  wert       int not null default 0,
+  badge      varchar(60) null,
+  hinweis    varchar(255) null,
+  start_am   date null,
+  end_am     date null,
+  aktiv      tinyint(1) not null default 1,
+  index idx_aktionen_aktiv (aktiv)
+) engine=InnoDB default charset=utf8mb4 collate=utf8mb4_unicode_ci;
+
 -- Ersten Admin anlegen: E-Mail anpassen, danach über /login einloggen.
 -- insert into profiles (id, email, name, role)
 -- values (uuid(), 'admin@deine-domain.de', 'Sartu Admin', 'admin');

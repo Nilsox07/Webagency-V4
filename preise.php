@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=43" />
+  <link rel="stylesheet" href="styles.css?v=44" />
   <link rel="canonical" href="https://[DOMAIN]/preise" />
   <meta name="robots" content="noindex,nofollow" />
   <meta property="og:type" content="website" />
@@ -136,7 +136,7 @@
   </script>
 </head>
 <body>
-  <?php require_once __DIR__ . '/includes/site-partials.php'; render_site_header('./'); ?>
+  <?php require_once __DIR__ . '/includes/site-partials.php'; require_once __DIR__ . '/includes/aktionen.php'; render_site_header('./'); ?>
 
   <main>
     <!-- ============ 2.1 HERO (Block 6 Template + Block 7 Visual) ============ -->
@@ -177,6 +177,7 @@
           <h2 class="section-title">Wie groß soll Ihre Website werden?</h2>
           <p class="answer-first">Eine Website von Sartu kostet als <strong>Festpreis zwischen 1.290 € (Start) und 6.490 € (Platzhirsch)</strong> — ohne versteckte Kosten. Dazu gehört ein fester Rundum-Schutz ab 49 €/Monat. Sie wählen nur die Größe, um alles andere kümmern wir uns.</p>
         </div>
+        <?= render_aktion_banner('alle') ?>
         <div class="decision-grid" style="margin-bottom:34px;">
             <article class="decision-card">
               <span class="label">Einmalig</span>

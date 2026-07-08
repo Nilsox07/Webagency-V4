@@ -41,6 +41,7 @@
         <button class="tab" data-tab="rechnungen">Rechnungen</button>
         <button class="tab" data-tab="projekte">Projekte</button>
         <button class="tab" data-tab="kunden">Kunden</button>
+        <button class="tab" data-tab="aktionen">Aktionen</button>
       </nav>
 
       <section id="tab-anfragen">
@@ -87,6 +88,19 @@
           </table>
         </div>
       </section>
+
+      <section id="tab-aktionen" class="hidden">
+        <div class="spread" style="margin-bottom:12px;">
+          <p class="muted" style="max-width:640px;">Zeitlich begrenzte Rabatte. Aktive Aktionen erscheinen als Banner auf der passenden Seite. Sie können mehrere gleichzeitig anlegen — die exakt zum Produkt passende schlägt eine „Alle Pakete"-Aktion.</p>
+          <button class="btn btn-primary btn-sm" id="aktNew">+ Neue Aktion</button>
+        </div>
+        <div class="tbl-wrap">
+          <table class="tbl">
+            <thead><tr><th>Name</th><th>Rabatt</th><th>Gilt für</th><th>Zeitraum</th><th>Status</th></tr></thead>
+            <tbody id="aktionenBody"><tr><td colspan="5"><span class="spinner"></span> Lädt …</td></tr></tbody>
+          </table>
+        </div>
+      </section>
     </main>
 
     <p class="notice notice-err hidden" id="err"></p>
@@ -96,6 +110,6 @@
 
   <script id="briefing2Schema" type="application/json"><?= json_encode(sartu_briefing2_schema(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?></script>
   <script src="briefing-schema.js?v=5"></script>
-  <script src="admin-local.js?v=7"></script>
+  <script src="admin-local.js?v=8"></script>
 </body>
 </html>

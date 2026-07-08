@@ -11,14 +11,15 @@ Diese Punkte sind bewusst bis zum Go-live offen. **Reihenfolge bei Domain-Wechse
 - [x] Impressum- + Datenschutz-Generator (füttert sich aus den Kundenangaben)
 - [x] Auftragsmechanismus: Anfrage → Angebot (Admin) → verbindliche Zusage (§312j BGB) + Protokoll
 - [x] Stufe-2-Briefing (12 Kapitel, kapitelbasiert) + Anzeige im Admin-Projekt
-- [x] Admin-Portal: Anfragen, Angebote (+ Annahme-Protokoll), Rechnungen, Projekte, Kunden
+- [x] Admin-Portal: Anfragen, Angebote (+ Annahme-Protokoll), Rechnungen, Projekte, Kunden, Aktionen
+- [x] Aktionen/Rabatte im Admin verwaltbar (Prozent/Fest/Gratis-Monate, Ziel, Zeitfenster) → Banner auf `preise.php`
 - [x] Rechnungen + Angebot-/Rechnungs-PDF + E-Rechnung-XML + Mollie-Anbindung (hinter Schalter)
 - [x] Sicherheits-Review: keine ausnutzbaren Lücken; `.htaccess`-Härtung ergänzt
 
 **Vor dem ersten echten Kunden erledigen (braucht dein Hosting/MySQL):**
 - [ ] **DB-Schema einspielen:** `database/mysql-schema.sql` importieren (alle Tabellen:
       profiles, login_tokens, briefings, projects, uploads, site_pages/site_blocks/site_page_versions,
-      angebote, project_briefings, invoices/invoice_items/payments/subscriptions/rechnung_counter).
+      angebote, project_briefings, invoices/invoice_items/payments/subscriptions/rechnung_counter, aktionen).
 - [ ] **Ersten Admin anlegen** (INSERT am Ende der Schema-Datei, deine E-Mail) → über `/login` einloggen.
 - [ ] **`includes/config.local.php`** aus `config.local.example.php` anlegen: DB-Zugang,
       `SARTU_BASE_URL`, Mailabsender.

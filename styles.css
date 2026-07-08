@@ -3597,3 +3597,35 @@ main > .svc-hero + .svc-section .svc-prose .answer-first strong {
     padding-bottom: 68px;
   }
 }
+
+/* ============ Aktions-Banner (Rabatte, im Admin verwaltbar) ============ */
+.aktion-banner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin: 0 0 30px;
+  padding: 14px 20px;
+  border-radius: 14px;
+  background: linear-gradient(90deg, rgba(190, 242, 100, .16), rgba(190, 242, 100, .06));
+  border: 1px solid rgba(190, 242, 100, .45);
+}
+.aktion-banner .aktion-badge {
+  flex: none;
+  font-weight: 800;
+  font-size: .95rem;
+  letter-spacing: .01em;
+  color: #0b1f1a;
+  background: #bef264;
+  padding: 6px 12px;
+  border-radius: 999px;
+}
+.aktion-banner .aktion-text {
+  font-weight: 600;
+  color: #1c2530;
+}
+.aktion-banner .aktion-bis {
+  font-weight: 700;
+  color: #0f766e;
+  white-space: nowrap;
+}
