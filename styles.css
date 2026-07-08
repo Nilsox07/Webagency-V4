@@ -3629,3 +3629,51 @@ main > .svc-hero + .svc-section .svc-prose .answer-first strong {
   color: #0f766e;
   white-space: nowrap;
 }
+
+/* ============ Ankündigungs-Leiste (site-weit, schließbar) ============ */
+.promo-bar {
+  background: #0b1f1a;
+  color: #eaf7f0;
+  font-size: .95rem;
+  border-bottom: 1px solid rgba(190, 242, 100, .35);
+}
+.promo-bar-inner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 9px 0;
+  flex-wrap: wrap;
+}
+.promo-bar-badge {
+  flex: none;
+  font-weight: 800;
+  color: #0b1f1a;
+  background: #bef264;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: .82rem;
+}
+.promo-bar-text { font-weight: 500; }
+.promo-bar-bis { font-weight: 700; color: #bef264; white-space: nowrap; }
+.promo-bar-cta {
+  margin-left: auto;
+  color: #bef264;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.promo-bar-cta:hover { text-decoration: underline; }
+.promo-bar-x {
+  flex: none;
+  background: none;
+  border: none;
+  color: #9fb2ab;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 4px;
+}
+.promo-bar-x:hover { color: #eaf7f0; }
+@media (max-width: 640px) {
+  .promo-bar-cta { margin-left: 0; }
+}

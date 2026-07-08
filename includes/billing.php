@@ -219,11 +219,20 @@ function billing_pdf_document(array $doc): string
     // Summen
     $sx = 340;
     $ty += 2; $pdf->line($sx, $ty, $colBetrag, $ty, 0.5, [180, 180, 180]); $ty += 17;
+    // Aktion: regulärer Preis (durchgestrichen) + Rabattzeile vor der Endsumme
+    if (!empty($doc['regulaer_cent']) && (int) $doc['regulaer_cent'] > (int) $doc['brutto']) {
+        $rabatt = (int) $doc['regulaer_cent'] - (int) $doc['brutto'];
+        $pdf->text($sx, $ty, 'Regulärer Festpreis', 10, false, 'L', [120, 120, 120]);
+        $pdf->strikeText($colBetrag, $ty, money_de((int) $doc['regulaer_cent']), 10, [120, 120, 120]); $ty += 15;
+        $pdf->text($sx, $ty, (string) ($doc['aktion_label'] ?? 'Aktion'), 10, false, 'L', [15, 118, 110]);
+        $pdf->text($colBetrag, $ty, '- ' . money_de($rabatt), 10, false, 'R', [15, 118, 110]); $ty += 15;
+    }
     if (empty($doc['klein'])) {
         $pdf->text($sx, $ty, 'Nettobetrag', 10); $pdf->text($colBetrag, $ty, money_de((int) $doc['netto']), 10, false, 'R'); $ty += 15;
         $pdf->text($sx, $ty, 'zzgl. USt ' . $doc['satz'] . ' %', 10); $pdf->text($colBetrag, $ty, money_de((int) $doc['ust']), 10, false, 'R'); $ty += 15;
     }
-    $pdf->text($sx, $ty, 'Gesamtbetrag', 11, true); $pdf->text($colBetrag, $ty, money_de((int) $doc['brutto']), 11, true, 'R');
+    $gesamtLabel = !empty($doc['regulaer_cent']) && (int) $doc['regulaer_cent'] > (int) $doc['brutto'] ? 'Aktionspreis' : 'Gesamtbetrag';
+    $pdf->text($sx, $ty, $gesamtLabel, 11, true); $pdf->text($colBetrag, $ty, money_de((int) $doc['brutto']), 11, true, 'R');
     $ty += 6; $pdf->line($sx, $ty, $colBetrag, $ty, 0.8); $ty += 26;
 
     if (!empty($doc['klein'])) {
@@ -253,6 +262,7 @@ function billing_render_offer_pdf(array $offer, array $customer): string
     $satz = billing_ust_satz();
     $brutto = (int) round(((int) ($offer['preis_einmalig'] ?? 0)) * 100);
     $a = billing_amounts($brutto, $klein, $satz);
+    $regulaerCent = !empty($offer['preis_regulaer']) ? (int) round(((int) $offer['preis_regulaer']) * 100) : 0;
 
     $items = [[($offer['titel'] ?? 'Website-Projekt') . ' — Paket ' . ucfirst((string) ($offer['paket'] ?? '')), $brutto, $brutto]];
     $texte = [];
@@ -269,6 +279,7 @@ function billing_render_offer_pdf(array $offer, array $customer): string
         'empfaenger' => billing_recipient_lines($customer), 'items' => $items,
         'netto' => $a['netto'], 'ust' => $a['ust'], 'brutto' => $a['brutto'], 'satz' => $a['satz'], 'klein' => $klein,
         'texte' => $texte, 'seller' => $seller,
+        'regulaer_cent' => $regulaerCent, 'aktion_label' => (string) ($offer['aktion_label'] ?? 'Aktion'),
     ]);
 }
 

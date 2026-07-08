@@ -1,8 +1,11 @@
 <?php
 declare(strict_types=1);
 
+require_once __DIR__ . '/aktionen.php';
+
 function render_site_header(string $logoHref = './'): void
 {
+    echo render_promo_bar();
     ?>
   <!-- ============ HEADER ============ -->
   <header class="site-header" id="top">

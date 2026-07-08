@@ -247,6 +247,7 @@
         '<div class="field"><label>Fertigstellung</label><input id="oLiefer" type="text" value="in 7–14 Werktagen"></div>' +
         '<div class="field"><label>Angebot gültig bis</label><input id="oGueltig" type="date"></div>' +
       '</div>' +
+      '<div class="field"><label>Aktion anwenden (optional)</label><select id="oAktion"><option value="">keine Aktion</option></select><span class="muted" id="oAktionNote" style="display:block;font-size:12px;margin-top:6px;"></span></div>' +
       '<div class="field"><label>Leistungsumfang (eine Zeile je Punkt)</label><textarea id="oUmfang" rows="4"></textarea></div>' +
       '<div class="row row-end"><button class="btn btn-ghost" id="aSave">Status speichern</button><button class="btn btn-primary" id="oSend">Angebot senden</button></div>' +
       '<details style="margin-top:18px;"><summary>Alle Angaben anzeigen</summary><pre style="white-space:pre-wrap; color:#d6f6e6; font-size:12px;">' + esc(JSON.stringify({ anfrage: anfrage, konfiguration: cfg }, null, 2)) + '</pre></details>'
@@ -257,23 +258,77 @@
         .then(function () { closeModal(); return loadAll(); })
         .catch(function (e) { showErr(e.message); });
     });
+
+    // Aktions-Rabatt: nur laufende Prozent-/Fest-Aktionen, die aufs gewählte Paket passen.
+    function aktionApplyPrice(preis, a) {
+      var w = Number(a.wert || 0);
+      if (a.typ === 'prozent') return Math.round(preis * (100 - Math.min(100, Math.max(0, w))) / 100);
+      if (a.typ === 'fest') return Math.max(0, preis - w);
+      return preis;
+    }
+    function applicableAktionen(paket) {
+      var heute = new Date().toISOString().slice(0, 10);
+      return state.aktionen.filter(function (a) {
+        if (Number(a.aktiv) !== 1) return false;
+        if (a.typ !== 'prozent' && a.typ !== 'fest') return false;
+        if (a.start_am && String(a.start_am).slice(0, 10) > heute) return false;
+        if (a.end_am && String(a.end_am).slice(0, 10) < heute) return false;
+        return a.ziel === 'alle' || a.ziel === 'paket:' + paket;
+      });
+    }
+    function rebuildAktionen() {
+      var sel = document.getElementById('oAktion');
+      if (!sel) return;
+      var cur = sel.value;
+      var list = applicableAktionen(document.getElementById('oPaket').value);
+      sel.innerHTML = '<option value="">keine Aktion</option>' + list.map(function (a) {
+        return '<option value="' + a.id + '">' + esc(a.name + ' (' + aktionWertText(a) + ')') + '</option>';
+      }).join('');
+      if (cur && list.some(function (a) { return a.id === cur; })) sel.value = cur;
+      updateAktionNote();
+    }
+    function selectedAktion() {
+      var id = document.getElementById('oAktion').value;
+      return state.aktionen.filter(function (a) { return a.id === id; })[0] || null;
+    }
+    function updateAktionNote() {
+      var note = document.getElementById('oAktionNote');
+      var a = selectedAktion();
+      var preis = Number(document.getElementById('oPreis').value || 0);
+      if (!a || !preis) { note.textContent = ''; return; }
+      var fin = aktionApplyPrice(preis, a);
+      note.textContent = fin < preis
+        ? '→ Aktionspreis: ' + fin.toLocaleString('de-DE') + ' € (regulär ' + preis.toLocaleString('de-DE') + ' €, −' + (preis - fin).toLocaleString('de-DE') + ' €)'
+        : 'Diese Aktion senkt den Preis nicht.';
+    }
+    document.getElementById('oAktion').addEventListener('change', updateAktionNote);
+    document.getElementById('oPreis').addEventListener('input', updateAktionNote);
+    rebuildAktionen();
+
     document.getElementById('oPaket').addEventListener('change', function () {
       var v = this.value;
       document.getElementById('oPreis').value = PAKET_PREIS[v] || '';
       document.getElementById('oKorr').value = PAKET_KORR[v] || '';
+      rebuildAktionen();
     });
     document.getElementById('oCare').addEventListener('change', function () {
       document.getElementById('oCarePreis').value = CARE_PREIS[this.value] || '';
     });
     document.getElementById('oSend').addEventListener('click', function () {
       var btn = this; btn.disabled = true;
+      var regulaer = Number(document.getElementById('oPreis').value || 0);
+      var akt = selectedAktion();
+      var finalPreis = akt ? aktionApplyPrice(regulaer, akt) : regulaer;
+      var hatRabatt = akt && finalPreis < regulaer;
       send('api/admin/offers.php', {
         briefing_id: b.id,
         email: k.email || b.kontakt_email || '',
         name: k.name || b.kontakt_name || '',
         titel: document.getElementById('oTitel').value || 'Website-Projekt',
         paket: document.getElementById('oPaket').value,
-        preis_einmalig: document.getElementById('oPreis').value,
+        preis_einmalig: hatRabatt ? finalPreis : regulaer,
+        preis_regulaer: hatRabatt ? regulaer : '',
+        aktion_label: hatRabatt ? (akt.name + ' ' + aktionWertText(akt)) : '',
         care_stufe: document.getElementById('oCare').value,
         care_preis: document.getElementById('oCarePreis').value,
         korrekturrunden: document.getElementById('oKorr').value,
@@ -314,7 +369,10 @@
       '<div class="spread"><h2 style="color:#fff">' + esc(o.titel || 'Angebot') + '</h2><button class="btn btn-ghost btn-sm" id="ofClose">Schließen</button></div>' +
       '<p class="muted">' + esc(fmtDate(o.created_at)) + ' · ' + esc(o.name || o.email || '-') + ' · <span class="badge">' + esc(OFFER_STATUS[o.status] || o.status) + '</span></p>' +
       '<div class="pt-kv"><span>Paket</span><strong>' + esc(cap(o.paket)) + '</strong></div>' +
-      '<div class="pt-kv"><span>Einmalpreis</span><strong>' + esc(euro(o.preis_einmalig)) + '</strong></div>' +
+      (o.preis_regulaer && Number(o.preis_regulaer) > Number(o.preis_einmalig)
+        ? '<div class="pt-kv"><span>Regulär</span><strong style="text-decoration:line-through;opacity:.7;">' + esc(euro(o.preis_regulaer)) + '</strong></div>' +
+          '<div class="pt-kv"><span>' + esc(o.aktion_label || 'Aktion') + '</span><strong style="color:#0f766e;">Aktionspreis ' + esc(euro(o.preis_einmalig)) + '</strong></div>'
+        : '<div class="pt-kv"><span>Einmalpreis</span><strong>' + esc(euro(o.preis_einmalig)) + '</strong></div>') +
       (o.care_stufe ? '<div class="pt-kv"><span>Rundum-Schutz</span><strong>' + esc(o.care_stufe) + (o.care_preis != null ? ' · ' + esc(euro(o.care_preis)) + '/Mon.' : '') + '</strong></div>' : '') +
       (o.korrekturrunden != null ? '<div class="pt-kv"><span>Korrekturrunden</span><strong>' + esc(String(o.korrekturrunden)) + '</strong></div>' : '') +
       (o.liefertext ? '<div class="pt-kv"><span>Fertigstellung</span><strong>' + esc(o.liefertext) + '</strong></div>' : '') +
@@ -599,7 +657,7 @@
       { id: 102, created_at: '2026-07-05T16:40:00', status: 'in_bearbeitung', kontakt_name: 'Sabine Beispiel', kontakt_email: 'sabine@beispiel-hotel.de', payload: { kontakt: { name: 'Sabine Beispiel', email: 'sabine@beispiel-hotel.de' }, konfiguration: { paket: 'platzhirsch', paket_name: 'Platzhirsch', summe_einmalig: 6490, summe_monatlich: 249 } } }
     ];
     state.offers = [
-      { id: 'o1', created_at: '2026-07-06T10:00:00', name: 'Peter Klein', email: 'peter@klein-elektro.de', paket: 'start', preis_einmalig: 1290, care_stufe: 'care-s', care_preis: 49, korrekturrunden: 1, liefertext: 'in 7 Werktagen', gueltig_bis: '2026-07-31', umfang: 'One-Pager\nTexte inklusive', status: 'gesendet' },
+      { id: 'o1', created_at: '2026-07-06T10:00:00', name: 'Peter Klein', email: 'peter@klein-elektro.de', paket: 'start', preis_einmalig: 1097, preis_regulaer: 1290, aktion_label: 'Sommer-Aktion −15 %', care_stufe: 'care-s', care_preis: 49, korrekturrunden: 1, liefertext: 'in 7 Werktagen', gueltig_bis: '2026-07-31', umfang: 'One-Pager\nTexte inklusive', status: 'gesendet' },
       { id: 'o2', created_at: '2026-07-04T14:00:00', name: 'Sabine Beispiel', email: 'sabine@beispiel-hotel.de', paket: 'platzhirsch', preis_einmalig: 6490, care_stufe: 'care-l', care_preis: 249, korrekturrunden: 3, liefertext: 'in 7–14 Werktagen', status: 'angenommen', angenommen_am: '2026-07-05T09:30:00', angenommen_ip: '84.12.x.x', agb_version: 'AGB-2026-07' }
     ];
     state._demoBriefing = { firmenname: 'Muster Bäckerei', branche: 'Bäckerei & Café', gegruendet: '1985', hauptziele: ['anfragen', 'termine'], hat_logo: 'ja', stimmung: ['modern', 'warm'], leistungen_inhalt: 'Brot & Brötchen\nKuchen & Torten', adresse: 'Hauptstraße 1\n12345 Musterstadt', telefon: '030 123456', kleinunternehmer: 'nein', suchbegriffe: 'Bäckerei Musterstadt, Sauerteigbrot' };

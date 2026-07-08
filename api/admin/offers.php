@@ -30,6 +30,13 @@ $name = trim((string) ($in['name'] ?? ''));
 $titel = trim((string) ($in['titel'] ?? ''));
 $paket = trim((string) ($in['paket'] ?? ''));
 $preis = isset($in['preis_einmalig']) && $in['preis_einmalig'] !== '' ? (int) $in['preis_einmalig'] : null;
+$preisRegulaer = isset($in['preis_regulaer']) && $in['preis_regulaer'] !== '' ? (int) $in['preis_regulaer'] : null;
+$aktionLabel = trim((string) ($in['aktion_label'] ?? ''));
+// Rabatt nur gültig, wenn regulär > Aktionspreis.
+if ($preisRegulaer === null || $preis === null || $preisRegulaer <= $preis) {
+    $preisRegulaer = null;
+    $aktionLabel = '';
+}
 $care = trim((string) ($in['care_stufe'] ?? ''));
 $carePreis = isset($in['care_preis']) && $in['care_preis'] !== '' ? (int) $in['care_preis'] : null;
 $korr = isset($in['korrekturrunden']) && $in['korrekturrunden'] !== '' ? (int) $in['korrekturrunden'] : null;
@@ -59,9 +66,9 @@ try {
 
     $offerId = uuidv4();
     $pdo->prepare(
-        'insert into angebote (id, briefing_id, customer_id, titel, paket, preis_einmalig, care_stufe, care_preis, korrekturrunden, umfang, liefertext, hinweis, gueltig_bis, status)
-         values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
-    )->execute([$offerId, $briefingId, $profile['id'], $titel, $paket, $preis, $care ?: null, $carePreis, $korr, $umfang ?: null, $liefertext ?: null, $hinweis ?: null, $gueltig, 'gesendet']);
+        'insert into angebote (id, briefing_id, customer_id, titel, paket, preis_einmalig, preis_regulaer, aktion_label, care_stufe, care_preis, korrekturrunden, umfang, liefertext, hinweis, gueltig_bis, status)
+         values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+    )->execute([$offerId, $briefingId, $profile['id'], $titel, $paket, $preis, $preisRegulaer, $aktionLabel ?: null, $care ?: null, $carePreis, $korr, $umfang ?: null, $liefertext ?: null, $hinweis ?: null, $gueltig, 'gesendet']);
 
     if ($briefingId) {
         $pdo->prepare('update briefings set status = ? where id = ? and status = ?')->execute(['in_bearbeitung', $briefingId, 'neu']);

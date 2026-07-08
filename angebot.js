@@ -46,7 +46,17 @@
     head.appendChild(pdf);
     card.appendChild(head);
     card.appendChild(kv('Paket', PAKET[String(offer.paket || '').toLowerCase()] || offer.paket || '—'));
-    card.appendChild(kv('Einmalpreis', euro(offer.preis_einmalig)));
+    if (offer.preis_regulaer && Number(offer.preis_regulaer) > Number(offer.preis_einmalig)) {
+      var reg = kv('Regulärer Festpreis', euro(offer.preis_regulaer));
+      reg.querySelector('strong').style.textDecoration = 'line-through';
+      reg.querySelector('strong').style.opacity = '.7';
+      card.appendChild(reg);
+      var akt = kv(offer.aktion_label || 'Aktion', euro(offer.preis_einmalig));
+      akt.querySelector('strong').style.color = '#0f766e';
+      card.appendChild(akt);
+    } else {
+      card.appendChild(kv('Einmalpreis', euro(offer.preis_einmalig)));
+    }
     if (offer.care_stufe) card.appendChild(kv('Laufender Schutz', (CARE[offer.care_stufe] || offer.care_stufe) + (offer.care_preis != null ? ' · ' + euro(offer.care_preis) + '/Monat' : '')));
     if (offer.korrekturrunden != null) card.appendChild(kv('Korrekturrunden', String(offer.korrekturrunden)));
     if (offer.liefertext) card.appendChild(kv('Fertigstellung', offer.liefertext));
@@ -78,7 +88,7 @@
         .catch(function (e) { showErr('Fehler: ' + e.message); btn.disabled = false; });
     });
     accept.appendChild(btn);
-    accept.appendChild(el('p', 'ob-help', 'Es entstehen jetzt keine Kosten — die Rechnung (inkl. Anzahlung) erhalten Sie separat.'));
+    accept.appendChild(el('p', 'ob-help', 'Es entstehen jetzt keine Kosten — die Rechnung erhalten Sie separat.'));
     box.appendChild(accept);
   }
 
@@ -92,7 +102,7 @@
     if (new URLSearchParams(window.location.search).get('preview') === '1') {
       state.preview = true;
       showApp();
-      renderOffer({ titel: 'Website muster-baeckerei.de', paket: 'wachstum', preis_einmalig: 3290, care_stufe: 'care-m', care_preis: 99, korrekturrunden: 2, liefertext: 'in 7–14 Werktagen', gueltig_bis: '31.07.2026', umfang: 'Mehrseitige Website (bis 8 Seiten)\nTexte & Bildauswahl inklusive\nSuchmaschinen-Grundoptimierung\nBarrierefreiheit nach BFSG', status: 'gesendet' });
+      renderOffer({ titel: 'Website muster-baeckerei.de', paket: 'wachstum', preis_einmalig: 2797, preis_regulaer: 3290, aktion_label: 'Sommer-Aktion −15 %', care_stufe: 'care-m', care_preis: 99, korrekturrunden: 2, liefertext: 'in 7–14 Werktagen', gueltig_bis: '31.07.2026', umfang: 'Mehrseitige Website (bis 8 Seiten)\nTexte & Bildauswahl inklusive\nSuchmaschinen-Grundoptimierung\nBarrierefreiheit nach BFSG', status: 'gesendet' });
       return;
     }
 

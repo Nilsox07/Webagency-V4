@@ -122,3 +122,36 @@ function render_aktion_banner(string $ziel = 'alle'): string
     }
     return $a ? aktion_banner_html($a) : '';
 }
+
+/**
+ * Dezente, schließbare Ankündigungs-Leiste (site-weit im Header).
+ * Zeigt nur eine gültige „Alle Pakete"-Aktion, ein CTA, mit Deadline; per localStorage
+ * ausblendbar. Leiser No-op ohne DB oder ohne aktive Aktion.
+ */
+function render_promo_bar(): string
+{
+    try {
+        $a = aktion_fuer(db(), 'alle');
+    } catch (Throwable $e) {
+        return '';
+    }
+    if (!$a) { return ''; }
+    $e = static function ($v): string { return htmlspecialchars((string) $v, ENT_QUOTES, 'UTF-8'); };
+    $badge = !empty($a['badge']) ? (string) $a['badge'] : aktion_wert_text($a);
+    $text  = !empty($a['hinweis']) ? (string) $a['hinweis'] : ((string) ($a['name'] ?? 'Aktion') . ' — jetzt sichern');
+    $bis = '';
+    if (!empty($a['end_am'])) {
+        $ts = strtotime((string) $a['end_am']);
+        if ($ts) { $bis = ' <span class="promo-bar-bis">nur bis ' . $e(date('d.m.Y', $ts)) . '</span>'; }
+    }
+    $id = $e((string) $a['id']);
+    return '<div class="promo-bar" id="promoBar" data-akt="' . $id . '" hidden>'
+        . '<div class="container promo-bar-inner">'
+        . '<span class="promo-bar-badge">' . $e($badge) . '</span>'
+        . '<span class="promo-bar-text">' . $e($text) . $bis . '</span>'
+        . '<a class="promo-bar-cta" href="preise.php">Zu den Preisen &rarr;</a>'
+        . '<button type="button" class="promo-bar-x" aria-label="Aktion ausblenden">&times;</button>'
+        . '</div>'
+        . '<script>(function(){var b=document.getElementById("promoBar");if(!b)return;try{if(localStorage.getItem("promoDismiss")===b.dataset.akt){b.remove();return;}}catch(e){}b.hidden=false;var x=b.querySelector(".promo-bar-x");if(x)x.addEventListener("click",function(){try{localStorage.setItem("promoDismiss",b.dataset.akt);}catch(e){}b.remove();});})();</script>'
+        . '</div>';
+}

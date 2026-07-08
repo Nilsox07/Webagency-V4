@@ -59,6 +59,14 @@ final class SartuPdf
         $this->buf .= $color . sprintf("BT /%s %.2F Tf %.2F %.2F Td (%s) Tj ET", $font, $size, $x, $y, $this->enc($s)) . $reset . "\n";
     }
 
+    /** Rechtsbündiger Text mit Durchstreichung (für regulären Preis bei Aktion). */
+    public function strikeText(float $x, float $yTop, string $s, float $size = 10, ?array $rgb = null): void
+    {
+        $this->text($x, $yTop, $s, $size, false, 'R', $rgb);
+        $w = $this->textWidth($s, $size);
+        $this->line($x - $w, $yTop - $size * 0.3, $x, $yTop - $size * 0.3, 0.6, $rgb ?? [120, 120, 120]);
+    }
+
     /** Zeilenumbruch-Text: gibt neue yTop zurück. */
     public function paragraph(float $x, float $yTop, string $s, float $size = 10, float $leading = 14): float
     {

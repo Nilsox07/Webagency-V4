@@ -12,7 +12,9 @@ Diese Punkte sind bewusst bis zum Go-live offen. **Reihenfolge bei Domain-Wechse
 - [x] Auftragsmechanismus: Anfrage → Angebot (Admin) → verbindliche Zusage (§312j BGB) + Protokoll
 - [x] Stufe-2-Briefing (12 Kapitel, kapitelbasiert) + Anzeige im Admin-Projekt
 - [x] Admin-Portal: Anfragen, Angebote (+ Annahme-Protokoll), Rechnungen, Projekte, Kunden, Aktionen
-- [x] Aktionen/Rabatte im Admin verwaltbar (Prozent/Fest/Gratis-Monate, Ziel, Zeitfenster) → Banner auf `preise.php`
+- [x] Aktionen/Rabatte im Admin verwaltbar (Prozent/Fest/Gratis-Monate, Ziel, Zeitfenster). Sichtbar an
+      3 Stellen (nach Best-Practice-Recherche): Angebot/PDF (Regulärpreis durchgestrichen + Aktionspreis),
+      Preisseiten-Banner, dezente schließbare Ankündigungs-Leiste site-weit
 - [x] Rechnungen + Angebot-/Rechnungs-PDF + E-Rechnung-XML + Mollie-Anbindung (hinter Schalter)
 - [x] Sicherheits-Review: keine ausnutzbaren Lücken; `.htaccess`-Härtung ergänzt
 

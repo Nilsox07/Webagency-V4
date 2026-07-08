@@ -35,6 +35,6 @@
     <p class="notice notice-err hidden" id="err"></p>
   </div>
 
-  <script src="angebot.js?v=2"></script>
+  <script src="angebot.js?v=3"></script>
 </body>
 </html>

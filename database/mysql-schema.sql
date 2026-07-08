@@ -178,6 +178,8 @@ create table if not exists angebote (
   agb_version    varchar(40) null,
   snapshot       json null,
   project_id     char(36) null,
+  preis_regulaer int null,           -- regulärer Festpreis (durchgestrichen), wenn eine Aktion greift
+  aktion_label   varchar(120) null,  -- z. B. „Sommer-Aktion −15 %" fürs Angebot/PDF
   index idx_angebote_customer (customer_id),
   index idx_angebote_status (status),
   constraint fk_angebote_customer foreign key (customer_id) references profiles(id) on delete cascade,
