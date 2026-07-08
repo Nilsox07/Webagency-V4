@@ -19,6 +19,9 @@ Diese Punkte sind bewusst bis zum Go-live offen. **Reihenfolge bei Domain-Wechse
 - [x] Sicherheits-Review: keine ausnutzbaren Lücken; `.htaccess`-Härtung ergänzt
 
 **Vor dem ersten echten Kunden erledigen (braucht dein Hosting/MySQL):**
+- [ ] **Hosting buchen:** deutsches Webhosting mit PHP 8.1+, MySQL/MariaDB, SSL — genaue
+      Anforderungen in `HOSTING.md`. Nach dem Hochladen `check-umgebung.php` aufrufen
+      (prüft PHP-Version, Erweiterungen, DB, Speicher, Mail) — **danach die Datei löschen.**
 - [ ] **DB-Schema einspielen:** `database/mysql-schema.sql` importieren (alle Tabellen:
       profiles, login_tokens, briefings, projects, uploads, site_pages/site_blocks/site_page_versions,
       angebote, project_briefings, invoices/invoice_items/payments/subscriptions/rechnung_counter, aktionen).
