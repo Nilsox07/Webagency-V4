@@ -22,12 +22,11 @@ Diese Punkte sind bewusst bis zum Go-live offen. **Reihenfolge bei Domain-Wechse
 - [ ] **Hosting buchen:** deutsches Webhosting mit PHP 8.1+, MySQL/MariaDB, SSL — genaue
       Anforderungen in `HOSTING.md`. Nach dem Hochladen `check-umgebung.php` aufrufen
       (prüft PHP-Version, Erweiterungen, DB, Speicher, Mail) — **danach die Datei löschen.**
-- [ ] **DB-Schema einspielen:** `database/mysql-schema.sql` importieren (alle Tabellen:
-      profiles, login_tokens, briefings, projects, uploads, site_pages/site_blocks/site_page_versions,
-      angebote, project_briefings, invoices/invoice_items/payments/subscriptions/rechnung_counter, aktionen).
-- [ ] **Ersten Admin anlegen** (INSERT am Ende der Schema-Datei, deine E-Mail) → über `/login` einloggen.
 - [ ] **`includes/config.local.php`** aus `config.local.example.php` anlegen: DB-Zugang,
-      `SARTU_BASE_URL`, Mailabsender.
+      `SARTU_BASE_URL`, Mailabsender. (DB im Panel des Hosters anlegen — nur das kann FTP nicht.)
+- [ ] **`install.php` aufrufen** → „Datenbank einrichten" (legt alle Tabellen an) + **ersten
+      Admin anlegen** (deine E-Mail). Ersetzt phpMyAdmin/Kommandozeile.
+- [ ] **`install.php` und `check-umgebung.php` nach dem Setup löschen** (dürfen nicht online bleiben).
 - [ ] **Mailversand** prüfen (Login-/Angebots-Mails kommen an; sonst SMTP statt `mail()`).
 - [ ] **Kompletten Durchlauf testen:** Anfrage → Angebot senden → als Kunde einloggen →
       verbindlich beauftragen → Briefing ausfüllen → Editor/Vorschau/Veröffentlichen → Rechnung/PDF.

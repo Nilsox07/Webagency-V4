@@ -43,12 +43,17 @@ Ein **deutsches Webhosting der Mittelklasse** (mehrere Domains, PHP 8.2, MariaDB
 Let's Encrypt, E-Mail-Postfächer/SMTP, tägliches Backup). Wenn du später viele Kundenseiten
 hostest: **gemanagter vServer** in Deutschland.
 
-## Ablauf nach dem Buchen (Kurz)
-1. Dateien in den Document-Root hochladen.
-2. `https://deine-domain.de/check-umgebung.php` aufrufen → alles grün? **Danach die Datei löschen.**
-3. Leere DB anlegen, `database/mysql-schema.sql` importieren.
-4. `includes/config.local.php` aus `…example.php` anlegen (DB-Zugang, Absender, Basis-URL).
-5. Ersten Admin anlegen (INSERT am Ende der Schema-Datei) → `/login`.
-6. Mail testen, kompletten Durchlauf testen (siehe `GO-LIVE-TODO.md`).
+## Ablauf nach dem Buchen — nur mit FTP, ohne phpMyAdmin
+1. **Alle Dateien per FTP** in den Document-Root hochladen (oft `public_html`/`httpdocs`).
+2. Im **Panel deines Hosters eine MySQL-Datenbank anlegen** (das eine, was FTP nicht kann) —
+   du bekommst dabei Host, DB-Name, Benutzer, Passwort.
+3. `includes/config.local.example.php` lokal kopieren nach `includes/config.local.php`,
+   die DB-Daten + Basis-URL eintragen, per FTP hochladen.
+4. `https://deine-domain.de/check-umgebung.php` aufrufen → alles grün?
+5. `https://deine-domain.de/install.php` aufrufen → **Knopf „Datenbank einrichten"**
+   (legt alle Tabellen an) → **ersten Admin anlegen** (deine E-Mail).
+6. **`install.php` und `check-umgebung.php` per FTP löschen.**
+7. Über `/login` einloggen, Mail testen, kompletten Durchlauf testen (siehe `GO-LIVE-TODO.md`).
 
-Details Schritt für Schritt: `SETUP.md` und `GO-LIVE-TODO.md`.
+Nur Schritt 2 (Datenbank anlegen) läuft übers Panel deines Hosters — den Rest macht der
+Installer. Details: `SETUP.md` und `GO-LIVE-TODO.md`.
