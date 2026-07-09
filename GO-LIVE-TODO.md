@@ -22,10 +22,9 @@ Diese Punkte sind bewusst bis zum Go-live offen. **Reihenfolge bei Domain-Wechse
 - [ ] **Hosting buchen:** deutsches Webhosting mit PHP 8.1+, MySQL/MariaDB, SSL — genaue
       Anforderungen in `HOSTING.md`. Nach dem Hochladen `check-umgebung.php` aufrufen
       (prüft PHP-Version, Erweiterungen, DB, Speicher, Mail) — **danach die Datei löschen.**
-- [ ] **`includes/config.local.php`** aus `config.local.example.php` anlegen: DB-Zugang,
-      `SARTU_BASE_URL`, Mailabsender. (DB im Panel des Hosters anlegen — nur das kann FTP nicht.)
-- [ ] **`install.php` aufrufen** → „Datenbank einrichten" (legt alle Tabellen an) + **ersten
-      Admin anlegen** (deine E-Mail). Ersetzt phpMyAdmin/Kommandozeile.
+- [ ] **`install.php` aufrufen** → DB-Zugang ins Formular (schreibt `config.local.php` selbst)
+      → „Datenbank einrichten" (legt alle Tabellen an) → **ersten Admin anlegen** (deine E-Mail).
+      Ersetzt phpMyAdmin/Kommandozeile und das Bearbeiten von Config-Dateien.
 - [ ] **`install.php` und `check-umgebung.php` nach dem Setup löschen** (dürfen nicht online bleiben).
 - [ ] **Mailversand** prüfen (Login-/Angebots-Mails kommen an; sonst SMTP statt `mail()`).
 - [ ] **Kompletten Durchlauf testen:** Anfrage → Angebot senden → als Kunde einloggen →

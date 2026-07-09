@@ -45,15 +45,13 @@ hostest: **gemanagter vServer** in Deutschland.
 
 ## Ablauf nach dem Buchen — nur mit FTP, ohne phpMyAdmin
 1. **Alle Dateien per FTP** in den Document-Root hochladen (oft `public_html`/`httpdocs`).
-2. Im **Panel deines Hosters eine MySQL-Datenbank anlegen** (das eine, was FTP nicht kann) —
-   du bekommst dabei Host, DB-Name, Benutzer, Passwort.
-3. `includes/config.local.example.php` lokal kopieren nach `includes/config.local.php`,
-   die DB-Daten + Basis-URL eintragen, per FTP hochladen.
-4. `https://deine-domain.de/check-umgebung.php` aufrufen → alles grün?
-5. `https://deine-domain.de/install.php` aufrufen → **Knopf „Datenbank einrichten"**
-   (legt alle Tabellen an) → **ersten Admin anlegen** (deine E-Mail).
-6. **`install.php` und `check-umgebung.php` per FTP löschen.**
-7. Über `/login` einloggen, Mail testen, kompletten Durchlauf testen (siehe `GO-LIVE-TODO.md`).
+2. **MySQL-Zugangsdaten bereitlegen** (Host, DB-Name, Benutzer, Passwort). Falls noch keine
+   DB existiert: einmal im Panel des Hosters anlegen — das eine, was FTP nicht kann.
+3. `https://deine-domain.de/check-umgebung.php` aufrufen → alles grün?
+4. `https://deine-domain.de/install.php` aufrufen → **DB-Zugang ins Formular eintragen**
+   (schreibt `config.local.php` selbst) → **„Datenbank einrichten"** (legt alle Tabellen an)
+   → **ersten Admin anlegen** (deine E-Mail). Kein Datei-Bearbeiten, kein phpMyAdmin nötig.
+5. **`install.php` und `check-umgebung.php` per FTP löschen.**
+6. Über `/login` einloggen, Mail testen, kompletten Durchlauf testen (siehe `GO-LIVE-TODO.md`).
 
-Nur Schritt 2 (Datenbank anlegen) läuft übers Panel deines Hosters — den Rest macht der
-Installer. Details: `SETUP.md` und `GO-LIVE-TODO.md`.
+Details: `SETUP.md` und `GO-LIVE-TODO.md`.

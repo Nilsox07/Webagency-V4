@@ -1,0 +1,11 @@
+# Lokale Konfiguration mit Zugangsdaten (DB-Passwort, Keys) — NIE ins Git.
+includes/config.local.php
+
+# Hochgeladene Dateien & generierte Rechnungen/PDFs (liegen zur Laufzeit auf dem Server).
+storage/
+/uploads/
+
+# Betriebssystem-/Editor-Kram
+.DS_Store
+Thumbs.db
+*.log
