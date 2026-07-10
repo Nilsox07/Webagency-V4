@@ -76,7 +76,7 @@ eq('SEO-Betreuung + Profil Basic + Schutz M monatlich', r10.monthly, 99 + 490 + 
 
 // 11) SEO-Betreuung + Profil Pro + Schutz L
 var r12 = t({ paket: 'platin', wartung: 'care-l', addons: addons({ 'seo-betreuung': true, 'profil-pro': true }) });
-eq('SEO-Betreuung + Profil Pro + Schutz L monatlich', r12.monthly, 249 + 490 + 149);
+eq('SEO-Betreuung (Platin=990) + Profil Pro + Schutz L monatlich', r12.monthly, 249 + 990 + 149);
 
 // 12) SEO-Option für Texte: +30 €/Seite (×5 = 150)
 var r13 = t({ paket: 'basis', wartung: 'care-s', addons: addons({ texte: 5, 'texte-seo': 5 }) });

@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=45" />
+  <link rel="stylesheet" href="styles.css?v=46" />
   <link rel="canonical" href="https://[DOMAIN]/ratgeber-website-kosten" />
   <meta name="robots" content="noindex,nofollow" />
   <meta property="og:type" content="article" />
@@ -228,7 +228,7 @@
           <ul>
             <li><strong>Hosting &amp; Wartung:</strong> Server, SSL-Zertifikat, Sicherheits-Updates, Backups. Bei Sartu ist das gebündelt in <a href="leistung-wartung.php">Rundum-Schutz ab 49&nbsp;€/Monat</a> (Pflicht bei jeder Sartu-Website) — mit täglichen externen Backups und Uptime-Monitoring im 5-Minuten-Takt.</li>
             <li><strong>Domain:</strong> Ihre Internetadresse kostet typischerweise nur <strong>wenige Euro pro Jahr</strong> — preislich fast vernachlässigbar.</li>
-            <li><strong>Optionale laufende Leistungen:</strong> z.&nbsp;B. die SEO-Betreuung 490&nbsp;€/Monat (inkl. Google-Profil-Pflege, begrenzte Plätze) — sinnvoll, wenn Sichtbarkeit aktiv wachsen soll, aber kein Muss zum Start.</li>
+            <li><strong>Optionale laufende Leistungen:</strong> z.&nbsp;B. die SEO-Betreuung ab 290&nbsp;€/Monat (nach Website-Größe, inkl. Google-Profil-Pflege, begrenzte Plätze) — sinnvoll, wenn Sichtbarkeit aktiv wachsen soll, aber kein Muss zum Start.</li>
           </ul>
 
           <h2 id="vergleich">Baukasten, Freelancer oder Agentur — der ehrliche Vergleich</h2>

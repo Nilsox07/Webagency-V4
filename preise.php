@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=45" />
+  <link rel="stylesheet" href="styles.css?v=46" />
   <link rel="canonical" href="https://[DOMAIN]/preise" />
   <meta name="robots" content="noindex,nofollow" />
   <meta property="og:type" content="website" />
@@ -288,12 +288,19 @@
             </div>
           </article>
 
-          <!-- Catch-Zeile (bewusst leise, kein bepreistes Paket) -->
+          <!-- Sonderprojekte (Enterprise-Anker — bepreist, damit die Staffel oben klein wirkt) -->
           <article class="anchor-card">
-            <h3 class="price-name">Größeres Vorhaben?</h3>
-            <p>Mehr als 20 Seiten, mehrere Standorte oder eine Sonderfunktion?</p>
-            <p>Schreiben Sie uns — Sie bekommen einen individuellen Festpreis, schriftlich, bevor Sie zusagen.</p>
-            <a href="anfrage.php" class="anchor-link">Anfrage stellen →</a>
+            <h3 class="price-name">Sonderprojekte</h3>
+            <p class="anchor-amount">ab 9.990&nbsp;<span>€</span></p>
+            <p>Mehr als 20 Seiten, mehrere Standorte, Schnittstellen oder eine Sonderfunktion? Wir bauen Ihr Vorhaben individuell.</p>
+            <ul class="price-features">
+              <li>Individueller Seitenumfang — ohne Obergrenze</li>
+              <li>Sonderprogrammierung &amp; Schnittstellen (Warenwirtschaft, CRM, Buchung)</li>
+              <li>Mehrere Standorte oder Sprachen</li>
+              <li>Persönlicher Projektplan &amp; fester Ansprechpartner</li>
+            </ul>
+            <p>Sie bekommen einen individuellen Festpreis, schriftlich, bevor Sie zusagen.</p>
+            <a href="anfrage.php?paket=sonderprojekt" class="anchor-link">Anfrage stellen →</a>
           </article>
         </div>
 
@@ -380,7 +387,7 @@
       <div class="container">
         <div class="upsell-band">
           <div class="upsell-copy">
-            <h2>Nach dem Start: SEO-Betreuung 490 €/Monat</h2>
+            <h2>Nach dem Start: SEO-Betreuung ab 290 €/Monat</h2>
             <p>Wenn Ihre Website nicht nur stehen, sondern bei Google und in der KI-Suche immer weiter nach oben soll: Wir betreuen Inhalte, Technik und Sichtbarkeit laufend. Das braucht Monate, nicht Tage — dafür bleibt es. <strong>Wir betreuen bewusst nur eine begrenzte Zahl an Websites.</strong></p>
           </div>
           <a href="leistung-seo.php" class="btn btn-dark">SEO-Betreuung ansehen →</a>

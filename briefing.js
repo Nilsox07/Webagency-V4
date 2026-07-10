@@ -368,6 +368,13 @@
     return CALC.computeTotals({ paket: A.paket_gewaehlt, wartung: A.wartung, addons: A.addons, extraPages: A.extraPages }, PRICING);
   }
   function seoProductFor(stufe) { return (PRICING.addons || []).filter(function (a) { return a.id === 'seo-' + stufe; })[0] || null; }
+  // SEO-Betreuung: Monatspreis nach gewähltem Paket (290/490/990), Fallback = Addon-Preis.
+  function seoPreis() {
+    var m = PRICING.seoBetreuung || {};
+    if (typeof m[A.paket] === 'number') return m[A.paket];
+    var sp = seoProductFor('betreuung');
+    return sp ? sp.price : 490;
+  }
   function renderPriceBar() {
     ensurePriceBar();
     var sums = priceBar.querySelector('.lb-pricebar-sums');
@@ -388,7 +395,7 @@
     var seoLine = '';
     if (A.seo_stufe) {
       var sp = seoProductFor(A.seo_stufe);
-      if (sp) seoLine = '<div class="lb-sum lb-sum-mo"><span>SEO-Betreuung (mtl. nach 3 Mon. kündbar)</span><strong>+' + sp.price.toLocaleString('de-DE') + ' €/Mon.</strong></div>';
+      if (sp) seoLine = '<div class="lb-sum lb-sum-mo"><span>SEO-Betreuung (mtl. nach 3 Mon. kündbar)</span><strong>+' + seoPreis().toLocaleString('de-DE') + ' €/Mon.</strong></div>';
     }
     sums.innerHTML =
       '<div class="lb-sum"><span>Einmalig</span><strong></strong></div>' +
@@ -735,7 +742,7 @@
     card('none', 'Erstmal ohne', null, 'Kein laufender Beitrag — Sie können die SEO-Betreuung jederzeit später starten.', false);
     (PRICING.addons || []).filter(function (a) { return a.group === 'seo-betreuung'; }).forEach(function (a) {
       var stufe = a.id.replace('seo-', '');
-      card(stufe, 'SEO ' + (a.short || a.name), a.price, SEO_DESC[stufe] || a.desc, empfohlen);
+      card(stufe, 'SEO ' + (a.short || a.name), seoPreis(), SEO_DESC[stufe] || a.desc, empfohlen);
     });
     host.appendChild(grid);
     return grid;
@@ -991,7 +998,7 @@
         var lines =
           '<div class="lb-reccard-sums">Einmalig <strong>' + fmtEUR(t.once) + '</strong> · Monatlich <strong>' + fmtEUR(care.price) + '/Mon.</strong> <span class="lb-reccard-note">(Rundum-Schutz ' + care.name + ', gehört dazu)</span></div>';
         if (ki) lines += '<div class="lb-reccard-sums lb-reccard-extra">Website-Assistent <strong>+' + ki.monthly + ' €/Mon.</strong> <span class="lb-reccard-note">(Betrieb, Mindestlaufzeit 12 Mon.)</span></div>';
-        if (A.seo_stufe) { var sp = seoProductFor(A.seo_stufe); if (sp) lines += '<div class="lb-reccard-sums lb-reccard-extra">SEO-Betreuung <strong>+' + sp.price.toLocaleString('de-DE') + ' €/Mon.</strong> <span class="lb-reccard-note">(mtl. nach 3 Mon. kündbar)</span></div>'; }
+        if (A.seo_stufe) { var sp = seoProductFor(A.seo_stufe); if (sp) lines += '<div class="lb-reccard-sums lb-reccard-extra">SEO-Betreuung <strong>+' + seoPreis().toLocaleString('de-DE') + ' €/Mon.</strong> <span class="lb-reccard-note">(mtl. nach 3 Mon. kündbar)</span></div>'; }
         card.innerHTML =
           '<div class="lb-reccard-head"><span class="lb-reccard-name">' + p.name + '</span>' +
             '<span class="lb-reccard-price">' + priceLabel(p.price, { from: p.from }) + '</span></div>' +
@@ -1053,7 +1060,7 @@
       rows.push({ k: 'Termin', v: rowVal(optLabel('zeitrahmen', A.zeitrahmen)), screen: 'material' });
       // Sichtbarkeit (SEO) — null = bewusster Default „Erstmal ohne" (Pfad B); Deep-Link: noch offen
       var seoV;
-      if (A.seo_stufe) { var sps = seoProductFor(A.seo_stufe); seoV = sps ? sps.name + ' · ' + sps.price.toLocaleString('de-DE') + ' €/Mon.' : ''; }
+      if (A.seo_stufe) { var sps = seoProductFor(A.seo_stufe); seoV = sps ? sps.name + ' · ' + seoPreis().toLocaleString('de-DE') + ' €/Mon.' : ''; }
       else { seoV = A.pfad === 'A' ? '' : 'Erstmal ohne'; }
       rows.push({ k: 'Sichtbarkeit', v: rowVal(seoV), screen: 'seo' });
 
@@ -1261,7 +1268,7 @@
         summe_einmalig: t.once,
         summe_monatlich: t.monthly,
         seo_stufe: A.seo_stufe,
-        seo_monatlich: A.seo_stufe ? seoProductFor(A.seo_stufe).price : 0,
+        seo_monatlich: A.seo_stufe ? seoPreis() : 0,
         stil: A.stil, hauptfarbe: A.hauptfarbe, nebenfarbe: A.nebenfarbe, markenfarben_hex: A.markenfarben_hex,
         zahlungsstaffelung: PAY.forPackage(A.paket_gewaehlt),
       },

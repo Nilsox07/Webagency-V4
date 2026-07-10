@@ -2577,6 +2577,8 @@ body:has(.cookie-banner.is-visible) .fab-helper { bottom: 110px; }
 .anchor-card .anchor-amount { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; margin: 4px 0 16px; }
 .anchor-card .anchor-amount span { font-size: 14px; font-weight: 600; color: var(--text-muted); }
 .anchor-card p { font-size: 14px; color: var(--text-muted); line-height: 1.55; margin-bottom: 8px; }
+.anchor-card .price-features { margin: 4px 0 12px; }
+.anchor-card .price-features li { font-size: 13.5px; color: var(--text-muted); }
 .anchor-card .anchor-link { margin-top: auto; font-weight: 700; color: var(--text-dark); }
 .anchor-card .anchor-link:hover { color: var(--green-strong); }
 .extra-pages-note { text-align: center; font-size: 14.5px; color: var(--text-muted); margin-top: 26px; }

@@ -101,7 +101,7 @@
         <div class="pt-grow">
           <div class="card pt-grow-card"><h3>Weitere Seite</h3><p class="pt-grow-price">199 € <span>inkl. Text</span></p><p class="muted">Eine neue Leistungs- oder Themenseite, damit Sie auch dafür gefunden werden.</p><a class="btn btn-primary btn-sm" href="kontakt.php">Seite anfragen</a></div>
           <div class="card pt-grow-card"><h3>Größeres Paket</h3><p class="pt-grow-price">nur die Differenz</p><p class="muted">Reingewachsen? Wechseln Sie hoch und zahlen nur den Unterschied.</p><a class="btn btn-dark btn-sm" href="kontakt.php">Upgrade anfragen</a></div>
-          <div class="card pt-grow-card"><h3>SEO-Betreuung</h3><p class="pt-grow-price">490 €<span>/Monat</span></p><p class="muted">Damit Ihre Website bei Google und in der KI-Suche weiter nach oben kommt. Begrenzte Plätze.</p><a class="btn btn-dark btn-sm" href="leistung-seo.php">Ansehen</a></div>
+          <div class="card pt-grow-card"><h3>SEO-Betreuung</h3><p class="pt-grow-price">ab 290 €<span>/Monat</span></p><p class="muted">Damit Ihre Website bei Google und in der KI-Suche weiter nach oben kommt. Begrenzte Plätze.</p><a class="btn btn-dark btn-sm" href="leistung-seo.php">Ansehen</a></div>
           <div class="card pt-grow-card"><h3>KI-Chat-Assistent</h3><p class="pt-grow-price">990 € <span>+ 79 €/Mon.</span></p><p class="muted">Beantwortet Besucherfragen rund um die Uhr — trainiert auf Ihre Inhalte.</p><a class="btn btn-dark btn-sm" href="kontakt.php">Anfragen</a></div>
         </div>
       </section>

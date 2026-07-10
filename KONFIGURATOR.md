@@ -96,7 +96,7 @@ Pflicht-Wartung widersprachen).
 
 | ID | Name | Preis / Monat |
 |---|---|---|
-| `seo-betreuung` | SEO-Betreuung (ein Preis, keine Stufen) | 490 € |
+| `seo-betreuung` | SEO-Betreuung — **Preis nach Website-Größe** (`pricing.seoBetreuung`) | Start 290 · Wachstum 490 · Platzhirsch 990 € |
 | `profil-basic` | Google-Profil-Pflege Basic · Gruppe `profil-pflege` | 79 € |
 | `profil-pro` | Google-Profil-Pflege Pro · Gruppe `profil-pflege` | 149 € |
 
@@ -108,6 +108,11 @@ Pflicht-Wartung widersprachen).
   sich gegenseitig aus — erneutes Klicken wählt ab (`briefing.js → buildTierGroup`).
 - `monthly`: Kombi-Add-on — Einmalpreis + feste monatliche Kosten in EINER Option
   (KI-Chat-Assistent: 990 € einmalig + 79 €/Monat; `pricing-calc.js` bucht beides).
+- **SEO-Betreuung** ist der einzige größenabhängige Retainer: `pricing.seoBetreuung`
+  (`{ basis: 290, pro: 490, platin: 990 }`) liefert den Monatspreis passend zum gewählten
+  Paket. `pricing-calc.js` fängt `id === 'seo-betreuung'` gesondert ab; `briefing.js` nutzt
+  `seoPreis()`. Grund: Ein One-Pager braucht nicht dieselbe laufende Optimierung wie eine
+  20-Seiten-Site — mehr Seiten = mehr Arbeit = höherer Retainer.
 - Enterprise-Karte zeigt `priceFrom` („ab 9.990 €") als reine Anzeige; die Live-Berechnung bleibt
   beim Enterprise-Abzweig („Individuelles Festpreis-Angebot").
 - „Weitere Arbeitszeit 99 €/Std." (`preise.php`, 5-Min-Takt) ist bewusst KEIN Add-on — Stundensatz, kein Paket.

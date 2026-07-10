@@ -55,6 +55,10 @@
        Im Verkauf heißt das Bündel "Rundum-Schutz"; die Stufennamen Schutz S/M/L bleiben. */
     careFixed: true,
 
+    /* SEO-Betreuung: Monatspreis nach Website-Größe (Paket) — mehr Seiten = mehr laufende
+       Optimierung. Enterprise/Sonderprojekte = individuell. Marktgeprüft 2026. */
+    seoBetreuung: { basis: 290, pro: 490, platin: 990 },
+
     /* ---- Rundum-Schutz — Hosting, Sicherheit & Wartung (monatlich, PFLICHT) ----
        Preise gelten bei Jahreszahlung. Pro Paket gilt ein Mindest-Care, Upgrade nach oben möglich. */
     maintenance: [
@@ -133,10 +137,11 @@
         desc: 'Vorrang: Onepager in 5, Einzelseite/Text in 2 Werktagen ab vollständiger Inhaltslieferung (+50 %, mind. 390 €).' },
 
       /* — Wiederkehrend (monatlich) — */
-      /* SEO-Betreuung als Retainer (Leistungsseite SEO): ein Preis, keine Stufen.
-         id bleibt 'seo-betreuung' → seoProductFor()/seo_stufe = 'betreuung'. */
+      /* SEO-Betreuung als Retainer (Leistungsseite SEO): Preis richtet sich nach Paketgröße,
+         siehe seoBetreuung-Map. price:490 ist nur Fallback; pricing-calc.js + briefing.js
+         nutzen den paketabhängigen Preis. */
       { id: 'seo-betreuung', name: 'SEO-Betreuung', short: 'Betreuung', price: 490, type: 'month', group: 'seo-betreuung', common: true,
-        desc: 'Google-Profil-Pflege komplett, Title/Meta aller Seiten, KI-Suche-Optimierung, monatliche Auffrischung oder neue Kundenfrage, Keyword-Tracking, Klartext-Monatsreport. Nur für Sartu-Websites, begrenzte Plätze.' },
+        desc: 'Google-Profil-Pflege komplett, Title/Meta aller Seiten, KI-Suche-Optimierung, monatliche Auffrischung oder neue Kundenfrage, Keyword-Tracking, Klartext-Monatsreport. Preis nach Website-Größe (290–990 €/Monat). Nur für Sartu-Websites, begrenzte Plätze.' },
       /* Google-Profil-Pflege (Leistungsseite Lokales SEO): eine Stufe wählen */
       { id: 'profil-basic', name: 'Google-Profil-Pflege Basic', short: 'Basic', price: 79, type: 'month', hidden: true, group: 'profil-pflege',
         desc: 'Alle Rezensionen (Erstreaktion ≤ 2 Werktage), Öffnungszeiten/Infos aktuell, Profil-Monitoring.' },

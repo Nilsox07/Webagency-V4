@@ -74,6 +74,14 @@
         return;
       }
 
+      // SEO-Betreuung: Monatspreis nach Paketgröße (seoBetreuung-Map).
+      if (a.id === 'seo-betreuung' && pricing.seoBetreuung && typeof pricing.seoBetreuung[state.paket] === 'number') {
+        var seoP = pricing.seoBetreuung[state.paket];
+        monthly += seoP;
+        lines.push({ group: 'monthly', label: a.name, amount: seoP });
+        return;
+      }
+
       if (typeof a.price !== 'number') return; // ohne Festpreis → nicht summieren
       var qty = clampQty(a, st.qty);
       var amount = a.price * qty;

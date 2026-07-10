@@ -11,14 +11,24 @@ Zweck: nicht neu ausdiskutieren. Bei neuen Entscheidungen ergänzen (kurz halten
   Briefing macht den ersten Wurf schon zu ~90 % richtig. Der Deckel ist **stiller
   Vertragsschutz** gegen den einen Endlos-Kunden, kein Verkaufsargument. „Eine Runde =
   ein gesammeltes Feedback", damit „1" souverän statt geizig wirkt.
-- **SEO-Betreuung: ein flacher Preis 490 €/Monat** (keine 3 Stufen). Alle Kundenseiten
-  sagten längst 490; die 3 Stufen (149/390/790) in `pricing.js` waren Altbestand vor dem
-  Umbau. Ein Preis = einfacher zu verkaufen.
+- **SEO-Betreuung: Preis nach Website-Größe — 290 / 490 / 990 €/Monat** (Start/Wachstum/
+  Platzhirsch, `pricing.seoBetreuung`). Der flache 490er wurde verworfen: ein One-Pager
+  braucht nicht dieselbe laufende Optimierung wie eine 20-Seiten-Site — mehr Seiten =
+  mehr Arbeit. Marktabgleich: 290 € liegt für kleine Sites mittig, 490 € (Standard-KMU)
+  ist marktüblich, 990 € für große Sites ist ggü. Agentur-Retainern (oft 800–1.500 €)
+  eher konservativ. Nur der oberste Wert wurde von 790 auf 990 angehoben (war unterpreisig).
+  Öffentlich kommuniziert als „ab 290 €/Monat (nach Größe)".
 - **KI-Chat-Assistent: EIN Produkt (990 € + 79 €/Mon.), den 490er-Chatbot entfernt.**
   Marktrecherche: 79 €/Mon. ist ggü. deutschen Full-Service-Anbietern (moinAI 475–790,
   Userlike 200+) wettbewerbsfähig. Problem war nicht der Preis, sondern die 490/990-
   **Doppelstruktur** (Kannibalisierung; der billige FAQ-Bot konkurriert mit Gratis-Tools
   und entwertet das Hauptprodukt).
+- **Sonderprojekte-Anker „ab 9.990 €" sichtbar in der Preistabelle.** Die frühere leise
+  „Größeres Vorhaben?"-Karte (ohne Preis) ist jetzt eine bepreiste Anker-Karte. Zweck:
+  Preis-Anchoring — mit einem sichtbaren 9.990-€-Einstieg wirkt Platzhirsch (6.490 €)
+  als Obergrenze der Standard-Staffel deutlich moderater. Enterprise bleibt der Upseller
+  (individueller Umfang, Sonderprogrammierung, mehrere Standorte); die Live-Berechnung im
+  Konfigurator bleibt der „Individuelles Angebot"-Abzweig (`price: null`, `priceFrom: 9990`).
 - **Kein Raten-/Finanzierungsmodell.** Rechnung zeigte: „0 € + 129 €/Mon." wäre *billiger*
   als Vorkasse (als Finanzierung sinnlos); fair kalkuliert ~160 €/Mon., das sprengt das
   Zahlungsfenster der Zielgruppe (Handwerker/KMU: 35–150 €/Mon.).
