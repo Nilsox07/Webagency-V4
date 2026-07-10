@@ -63,11 +63,43 @@
       .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40) || 'kunde';
   }
 
-  // Baut aus den Briefing-Antworten einen fertigen, kopierbaren KI-Bau-Auftrag.
-  function buildKiPrompt(answers, project) {
+  // --- Baustein-Bibliothek für den KI-Prompt: pro Seite/Funktion ein technischer Block ---
+  var SEITEN_MODULE = {
+    start: { label: 'Startseite', text: 'Hero mit klarer Aussage + Haupt-CTA, Kurzvorstellung, Überblick der Leistungen, Vertrauenselemente, Abschluss-CTA. Kerninfos (was, für wen, Kontakt) sofort sichtbar.' },
+    ueber: { label: 'Über uns', text: 'Geschichte/Werte/USP aus dem Briefing, ggf. Team-Anriss. Authentisch, keine Floskeln, nichts erfinden.' },
+    leistungen: { label: 'Leistungen', text: 'Je Leistung aus dem Briefing ein Abschnitt/Karte (Name, kurze Beschreibung, ggf. Preis). Struktur so, dass jede Leistung auch einzeln auffindbar ist.' },
+    team: { label: 'Team', text: 'Personen aus dem Briefing (Name, Rolle, Foto via sc_bild). Nur echte Personen.' },
+    referenzen: { label: 'Referenzen', text: 'NUR echte, vom Kunden gelieferte Referenzen/Projekte. Keine geliefert → Abschnitt weglassen, nichts erfinden.' },
+    galerie: { label: 'Galerie', text: 'Responsive Bildergalerie aus den hochgeladenen Fotos, lazy-load, je Bild sc_bild + Alt-Text.' },
+    faq: { label: 'FAQ', text: 'Fragen/Antworten aus dem Briefing als FAQ-Abschnitt + FAQPage-JSON-LD.' },
+    blog: { label: 'Blog / News', text: 'Übersicht + Detailseiten. Beitragstexte als sc_richtext editierbar. Nur anlegen, wenn Inhalte/Absicht vorhanden.' },
+    kontakt: { label: 'Kontakt', text: 'Adresse, Öffnungszeiten (sc_text) und Kontaktwege. Klar und vollständig. (Formular nur, wenn Funktion „Kontaktformular" gewählt.)' },
+    karriere: { label: 'Karriere / Jobs', text: 'Offene Stellen aus dem Briefing; einfache Bewerbungs-Möglichkeit (Mail/Formular).' }
+  };
+  var FUNKTION_MODULE = {
+    kontaktformular: { label: 'Kontaktformular', text: 'Formular (Name, E-Mail, Nachricht, Pflicht-Checkbox Datenschutz). Serverseitige Verarbeitung in kontakt-senden.php: Eingaben validieren, CSRF-Token, versteckter Honeypot gegen Spam, Versand per mail() an die Kontaktadresse aus dem Briefing, klare Erfolgs-/Fehlermeldung. Keine unnötige Speicherung personenbezogener Daten.' },
+    termine: { label: 'Terminbuchung', text: 'Das im Briefing genannte Buchungstool einbinden (Consent-konform, lädt erst nach Einwilligung). Kein Tool genannt → „Termin anfragen"-Button, der auf das Kontaktformular führt. Keine erfundene Buchungslogik.' },
+    newsletter: { label: 'Newsletter', text: 'Anmeldeformular mit Double-Opt-In, Anbindung an das im Briefing genannte Tool. Kein Tool genannt → weglassen.' },
+    karte: { label: 'Karte / Anfahrt', text: 'Karten-Einbindung mit Zwei-Klick-/Consent-Lösung (§25 TDDDG: Karte lädt erst nach aktiver Einwilligung), Adresse aus dem Briefing. Alternativ statische Karte ohne Tracking.' },
+    bewertungen: { label: 'Google-Bewertungen', text: 'NUR echte, vom Kunden freigegebene Bewertungen einbinden. Nichts erfinden. Nicht freigegeben → weglassen.' },
+    downloads: { label: 'Downloads', text: 'Download-Bereich für vom Kunden bereitgestellte Dateien (PDF etc.).' },
+    chat: { label: 'KI-Chat-Assistent', text: 'Einbindungs-Snippet des Sartu-KI-Assistenten (Platzhalter-ID, DSGVO-Hinweis). Keine eigene Chat-Logik bauen.' },
+    mehrsprachig: { label: 'Mehrsprachigkeit', text: 'Sprachumschalter + korrekte hreflang-Angaben. Rechtstexte bleiben deutsch. Nur die tatsächlich bestellten Sprachen.' }
+  };
+  var PAKET_SCOPE = {
+    start: 'Paket „Start": EINE Seite (One-Pager) — alle Inhalte als Abschnitte auf einer scrollbaren Seite (plus Pflichtseiten Impressum/Datenschutz).',
+    wachstum: 'Paket „Wachstum": mehrseitig, bis zu 8 Seiten.',
+    platzhirsch: 'Paket „Platzhirsch": mehrseitig, bis zu 20 Seiten (inkl. Team/Jobs möglich).'
+  };
+
+  // Baut aus Briefing + Auswahl einen fertigen, kopierbaren KI-Bau-Auftrag.
+  // sel = { seiten: [values], funktionen: [values] } — nur diese werden gebaut.
+  function buildKiPrompt(answers, project, sel) {
     answers = answers || {};
+    sel = sel || { seiten: [], funktionen: [] };
     var firma = answers.firmenname || (project && project.titel) || 'Kunde';
     var siteId = slugify(project && project.titel ? project.titel : firma);
+    var paket = PAKET_ALIAS[String((project && project.paket) || 'start').toLowerCase()] || 'start';
 
     var briefing = '';
     (BRIEFING2.steps || []).forEach(function (step) {
@@ -83,25 +115,45 @@
     });
     if (!briefing) briefing = '\n(Noch keine Briefing-Antworten vorhanden.)\n';
 
+    var seitenBlock = (sel.seiten || []).map(function (v) {
+      var m = SEITEN_MODULE[v]; return m ? '### ' + m.label + '\n' + m.text : '';
+    }).filter(Boolean).join('\n\n') || '(keine ausgewählt)';
+    var funktBlock = (sel.funktionen || []).map(function (v) {
+      var m = FUNKTION_MODULE[v]; return m ? '### ' + m.label + '\n' + m.text : '';
+    }).filter(Boolean).join('\n\n') || '(keine ausgewählt)';
+
     return [
 'Baue eine vollständige, individuelle Website in klassischem PHP (keine Frameworks, kein Baukasten).',
 'WICHTIG: einzigartiges, maßgeschneidertes Design passend zu Branche und Stimmung — KEIN Vorlagen-/Template-Look.',
 'Kunde: ' + firma + '  ·  Sartu-Site-ID: ' + siteId,
+'Umfang: ' + (PAKET_SCOPE[paket] || PAKET_SCOPE.start),
 '',
-'## Briefing des Kunden',
+'## Briefing des Kunden (Inhalte)',
 briefing,
-'## Feste Sartu-Vorgaben (immer einhalten)',
-'- Responsiv, schnell, DSGVO-konform, barrierearm (BFSG). Saubere, semantische Struktur.',
+'## NUR DIESE SEITEN BAUEN',
+seitenBlock,
+'',
+'## NUR DIESE FUNKTIONEN BAUEN',
+funktBlock,
+'',
+'## Was NICHT gebaut wird',
+'Baue ausschließlich die oben aufgeführten Seiten und Funktionen. Alles andere wurde NICHT bestellt und gehört NICHT auf die Seite —',
+'insbesondere KEIN Shop, kein Login-/Mitgliederbereich, keine laufende SEO-Betreuung/Keyword-Optimierung über die Basis hinaus,',
+'keine zusätzlichen Funktionen oder Unterseiten. Im Zweifel weglassen.',
+'',
+'## Feste Sartu-Vorgaben (immer)',
+'- Individuelles, sauberes, semantisches HTML/CSS. Responsiv und schnell.',
+'- Basis-SEO (in jedem Paket enthalten): sinnvoller <title>, meta description, saubere Überschriften-Hierarchie, Alt-Texte.',
+'- DSGVO-konform und barrierearm (BFSG): Kontraste, Fokus-Sichtbarkeit, Alt-Texte, Tastaturbedienung.',
 '- Pflichtseiten Impressum & Datenschutz anlegen (Platzhalter, wo Daten fehlen — nichts erfinden).',
 '- KEINE erfundenen Referenzen, Bewertungen, Kundenlogos oder Fake-Fotos. Nur echte/gelieferte Inhalte oder neutrale Platzhalter.',
-'- Nur die gewünschten Seiten und Funktionen aus dem Briefing umsetzen.',
 '',
-'## Editierbare Stellen mit Sartu-Feldern markieren (damit der Kunde später selbst ändern kann)',
-'Die Datei sartu-edit.php liegt im Projekt. Verwende diese Platzhalter:',
+'## Editierbare Stellen mit Sartu-Feldern markieren (Kunde ändert sie später selbst im Portal)',
+'Die Datei sartu-edit.php liegt neben der Seite. Verwende diese Platzhalter:',
 '  - Oben auf JEDER Seite:   <?php require __DIR__."/sartu-edit.php"; sc_site("' + siteId + '"); ?>',
 '  - Editierbarer Text:      <?= sc_text("schluessel", "Standardtext", "Label fürs Portal") ?>',
 '  - Mehrzeiliger Text:      <?= sc_richtext("schluessel", "Standardtext", "Label") ?>',
-'  - Editierbares Bild:      <?= sc_bild("schluessel", "assets/standard.jpg", "Label") ?>',
+'  - Editierbares Bild:      <img src="<?= sc_bild("schluessel", "assets/standard.jpg", "Label") ?>" alt="...">',
 '  - Editierbare Farbe:      sc_farbe("akzent", "#0f766e", "Akzentfarbe")   (als CSS-Variable einsetzen)',
 '  - Unten auf JEDER Seite (Statistik):  <?= sc_track() ?>',
 'Editierbar machen: Öffnungszeiten, Kontaktdaten (Telefon, E-Mail, Adresse), die Haupt-Textbausteine jeder Seite,',
@@ -531,9 +583,38 @@ briefing,
     });
     document.getElementById('pPrompt').addEventListener('click', function () {
       var ans = state.preview ? (state._demoBriefing || {}) : (state._briefingAnswers || {});
-      showPrompt(buildKiPrompt(ans, p));
+      showPromptBuilder(ans, p);
     });
     fillBriefing(p);
+  }
+
+  // Auswahl der Bausteine (vorausgewählt aus dem Briefing) → Prompt zusammensetzen.
+  function showPromptBuilder(answers, project) {
+    var wantSeiten = Array.isArray(answers.seiten) ? answers.seiten : [];
+    var wantFunk = Array.isArray(answers.funktionen) ? answers.funktionen : [];
+    function checks(map, want) {
+      return Object.keys(map).map(function (k) {
+        var on = want.indexOf(k) > -1;
+        return '<label class="pb-chk"><input type="checkbox" data-k="' + k + '"' + (on ? ' checked' : '') + '> ' + esc(map[k].label) + '</label>';
+      }).join('');
+    }
+    openModal(
+      '<div class="spread"><h2 style="color:#fff">Prompt zusammenstellen</h2><button class="btn btn-ghost btn-sm" id="pbClose">Schließen</button></div>' +
+      '<p class="muted">Vorausgewählt aus dem Briefing. Nur Angehaktes kommt in den Prompt — so bekommt der Kunde genau das Bestellte.</p>' +
+      '<style>.pb-chk{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.05);padding:7px 11px;border-radius:8px;margin:0 8px 8px 0;cursor:pointer;font-size:.92rem;}</style>' +
+      '<h3 style="color:#fff;margin:14px 0 8px;">Seiten</h3><div id="pbSeiten">' + checks(SEITEN_MODULE, wantSeiten) + '</div>' +
+      '<h3 style="color:#fff;margin:14px 0 8px;">Funktionen</h3><div id="pbFunk">' + checks(FUNKTION_MODULE, wantFunk) + '</div>' +
+      '<div class="row row-end" style="margin-top:16px;"><button class="btn btn-primary" id="pbGo">Prompt erzeugen</button></div>'
+    );
+    document.getElementById('pbClose').addEventListener('click', closeModal);
+    document.getElementById('pbGo').addEventListener('click', function () {
+      function picked(id) {
+        return Array.prototype.filter.call(document.querySelectorAll('#' + id + ' input:checked'), function () { return true; })
+          .map(function (el) { return el.getAttribute('data-k'); });
+      }
+      var sel = { seiten: picked('pbSeiten'), funktionen: picked('pbFunk') };
+      showPrompt(buildKiPrompt(answers, project, sel));
+    });
   }
 
   function showPrompt(text) {
