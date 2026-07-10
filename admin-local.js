@@ -48,6 +48,71 @@
     if (f.type === 'files') return (Array.isArray(v) ? v : []).map(fileLink).join(' · ');
     return esc(String(v)).replace(/\n/g, '<br>');
   }
+  // Antwort als Klartext (für den KI-Prompt, ohne HTML).
+  function plainAns(f, v) {
+    if (v == null) return '';
+    if (f.type === 'multi') return (Array.isArray(v) ? v : []).map(function (x) { return optLabel(f, x); }).join(', ');
+    if (f.type === 'choice') return optLabel(f, v);
+    if (f.type === 'file') return v ? '[Datei vom Kunden hochgeladen]' : '';
+    if (f.type === 'files') return (Array.isArray(v) && v.length) ? ('[' + v.length + ' Datei(en) vom Kunden hochgeladen]') : '';
+    return String(v);
+  }
+  function slugify(s) {
+    return String(s || 'kunde').toLowerCase()
+      .replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss')
+      .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40) || 'kunde';
+  }
+
+  // Baut aus den Briefing-Antworten einen fertigen, kopierbaren KI-Bau-Auftrag.
+  function buildKiPrompt(answers, project) {
+    answers = answers || {};
+    var firma = answers.firmenname || (project && project.titel) || 'Kunde';
+    var siteId = slugify(project && project.titel ? project.titel : firma);
+
+    var briefing = '';
+    (BRIEFING2.steps || []).forEach(function (step) {
+      var lines = '';
+      (step.fields || []).forEach(function (f) {
+        var v = answers[f.key];
+        if (v == null || (Array.isArray(v) && !v.length) || String(v).trim() === '') return;
+        var txt = plainAns(f, v);
+        if (txt.trim() === '') return;
+        lines += '- ' + f.label + ': ' + txt.replace(/\n+/g, ' / ') + '\n';
+      });
+      if (lines) briefing += '\n### ' + step.title + '\n' + lines;
+    });
+    if (!briefing) briefing = '\n(Noch keine Briefing-Antworten vorhanden.)\n';
+
+    return [
+'Baue eine vollständige, individuelle Website in klassischem PHP (keine Frameworks, kein Baukasten).',
+'WICHTIG: einzigartiges, maßgeschneidertes Design passend zu Branche und Stimmung — KEIN Vorlagen-/Template-Look.',
+'Kunde: ' + firma + '  ·  Sartu-Site-ID: ' + siteId,
+'',
+'## Briefing des Kunden',
+briefing,
+'## Feste Sartu-Vorgaben (immer einhalten)',
+'- Responsiv, schnell, DSGVO-konform, barrierearm (BFSG). Saubere, semantische Struktur.',
+'- Pflichtseiten Impressum & Datenschutz anlegen (Platzhalter, wo Daten fehlen — nichts erfinden).',
+'- KEINE erfundenen Referenzen, Bewertungen, Kundenlogos oder Fake-Fotos. Nur echte/gelieferte Inhalte oder neutrale Platzhalter.',
+'- Nur die gewünschten Seiten und Funktionen aus dem Briefing umsetzen.',
+'',
+'## Editierbare Stellen mit Sartu-Feldern markieren (damit der Kunde später selbst ändern kann)',
+'Die Datei sartu-edit.php liegt im Projekt. Verwende diese Platzhalter:',
+'  - Oben auf JEDER Seite:   <?php require __DIR__."/sartu-edit.php"; sc_site("' + siteId + '"); ?>',
+'  - Editierbarer Text:      <?= sc_text("schluessel", "Standardtext", "Label fürs Portal") ?>',
+'  - Mehrzeiliger Text:      <?= sc_richtext("schluessel", "Standardtext", "Label") ?>',
+'  - Editierbares Bild:      <?= sc_bild("schluessel", "assets/standard.jpg", "Label") ?>',
+'  - Editierbare Farbe:      sc_farbe("akzent", "#0f766e", "Akzentfarbe")   (als CSS-Variable einsetzen)',
+'  - Unten auf JEDER Seite (Statistik):  <?= sc_track() ?>',
+'Editierbar machen: Öffnungszeiten, Kontaktdaten (Telefon, E-Mail, Adresse), die Haupt-Textbausteine jeder Seite,',
+'die Hauptbilder und die zentralen Farben. Jeder Schlüssel eindeutig, sprechendes Label.',
+'NICHT editierbar (fest im Code): Layout, Seitenstruktur, Navigation, rechtliche Texte.',
+'',
+'## Liefere',
+'Alle PHP-Seiten, eine gemeinsame CSS-Datei und am Ende eine Liste aller vergebenen sc_-Schlüssel mit Label und Typ.'
+    ].join('\n');
+  }
+
   var csrfToken = '';
 
   var err = document.getElementById('err');
@@ -451,7 +516,7 @@
       '<div class="field"><label>Liefertermin</label><input id="pTermin" type="date" value="' + esc((p.liefertermin || '').slice(0, 10)) + '"></div>' +
       '<div class="field"><label>Notiz für Kunde</label><textarea id="pNotizK" rows="4">' + esc(p.notiz_kunde || '') + '</textarea></div>' +
       '<div class="field"><label>Interne Notiz</label><textarea id="pNotizI" rows="4">' + esc(p.notiz_intern || '') + '</textarea></div>' +
-      '<div class="row row-end"><button class="btn btn-primary" id="pSave">Projekt speichern</button></div>' +
+      '<div class="row row-end" style="gap:8px;"><button class="btn btn-ghost" id="pPrompt">🤖 Prompt für KI kopieren</button><button class="btn btn-primary" id="pSave">Projekt speichern</button></div>' +
       '<div id="pBriefing" style="margin-top:20px;"></div>'
     );
     document.getElementById('pClose').addEventListener('click', closeModal);
@@ -464,13 +529,38 @@
         notiz_intern: document.getElementById('pNotizI').value || ''
       }, 'PATCH').then(function () { closeModal(); return loadAll(); }).catch(function (e) { showErr(e.message); });
     });
+    document.getElementById('pPrompt').addEventListener('click', function () {
+      var ans = state.preview ? (state._demoBriefing || {}) : (state._briefingAnswers || {});
+      showPrompt(buildKiPrompt(ans, p));
+    });
     fillBriefing(p);
+  }
+
+  function showPrompt(text) {
+    openModal(
+      '<div class="spread"><h2 style="color:#fff">KI-Bau-Prompt</h2><button class="btn btn-ghost btn-sm" id="prClose">Schließen</button></div>' +
+      '<p class="muted">Aus dem Briefing dieses Kunden erzeugt. In Claude Code / Codex einfügen — die Seite entsteht individuell und mit editierbaren Feldern fürs Portal.</p>' +
+      '<textarea id="prText" rows="16" style="width:100%;box-sizing:border-box;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;line-height:1.45;" readonly></textarea>' +
+      '<div class="row row-end" style="margin-top:10px;"><button class="btn btn-primary" id="prCopy">In Zwischenablage kopieren</button></div>'
+    );
+    var ta = document.getElementById('prText');
+    ta.value = text; // via value setzen: kein HTML-Escaping, <?php bleibt erhalten
+    document.getElementById('prClose').addEventListener('click', closeModal);
+    document.getElementById('prCopy').addEventListener('click', function () {
+      var btn = this;
+      function done() { btn.textContent = '✓ Kopiert'; setTimeout(function () { btn.textContent = 'In Zwischenablage kopieren'; }, 2000); }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(ta.value).then(done, function () { ta.select(); document.execCommand('copy'); done(); });
+      } else { ta.select(); document.execCommand('copy'); done(); }
+    });
   }
 
   function fillBriefing(p) {
     var box = document.getElementById('pBriefing');
     if (!box) return;
+    state._briefingAnswers = {};
     function render(answers, status) {
+      state._briefingAnswers = answers || {};
       if (!answers || !Object.keys(answers).length) {
         box.innerHTML = '<p class="eyebrow">Briefing</p><p class="muted">Noch kein Briefing ausgefüllt.</p>';
         return;
@@ -660,7 +750,19 @@
       { id: 'o1', created_at: '2026-07-06T10:00:00', name: 'Peter Klein', email: 'peter@klein-elektro.de', paket: 'start', preis_einmalig: 1097, preis_regulaer: 1290, aktion_label: 'Sommer-Aktion −15 %', care_stufe: 'care-s', care_preis: 49, korrekturrunden: 1, liefertext: 'in 7 Werktagen', gueltig_bis: '2026-07-31', umfang: 'One-Pager\nTexte inklusive', status: 'gesendet' },
       { id: 'o2', created_at: '2026-07-04T14:00:00', name: 'Sabine Beispiel', email: 'sabine@beispiel-hotel.de', paket: 'platzhirsch', preis_einmalig: 6490, care_stufe: 'care-l', care_preis: 249, korrekturrunden: 3, liefertext: 'in 7–14 Werktagen', status: 'angenommen', angenommen_am: '2026-07-05T09:30:00', angenommen_ip: '84.12.x.x', agb_version: 'AGB-2026-07' }
     ];
-    state._demoBriefing = { firmenname: 'Muster Bäckerei', branche: 'Bäckerei & Café', gegruendet: '1985', hauptziele: ['anfragen', 'termine'], hat_logo: 'ja', stimmung: ['modern', 'warm'], leistungen_inhalt: 'Brot & Brötchen\nKuchen & Torten', adresse: 'Hauptstraße 1\n12345 Musterstadt', telefon: '030 123456', kleinunternehmer: 'nein', suchbegriffe: 'Bäckerei Musterstadt, Sauerteigbrot' };
+    state._demoBriefing = {
+      firmenname: 'Muster Bäckerei', branche: 'Bäckerei & Café', gegruendet: '1985',
+      steckbrief: 'Handwerksbäckerei mit eigenem Café. Besonders: Sauerteigbrot, alles ohne Zusatzstoffe.',
+      zielgruppe: 'Familien & Berufstätige aus der Umgebung, die Wert auf Qualität legen',
+      usp: 'Echtes Handwerk, tägliche frische Backwaren, gemütliches Café',
+      hauptziele: ['anfragen', 'termine'], hat_logo: 'ja',
+      ci_farben: 'Warmes Braun/Beige, #7a4b2b', stimmung: ['modern', 'warm'],
+      seiten: ['start', 'leistungen', 'ueber', 'kontakt'],
+      leistungen_inhalt: 'Brot & Brötchen – täglich frisch\nKuchen & Torten – auch auf Bestellung\nCafé – Frühstück & Kaffee',
+      funktionen: ['kontaktformular', 'karte', 'bewertungen'],
+      muss_rein: 'Öffnungszeiten gut sichtbar, Bestell-Telefonnummer',
+      telefon: '030 123456', kleinunternehmer: 'nein'
+    };
     state.invoices = [
       { id: 'r1', nummer: '2026-0001', kunde: 'Muster Bäckerei GmbH', ausgestellt_am: '2026-07-05', faellig_am: '2026-07-19', betrag: '3.290,00 €', status: 'offen' },
       { id: 'r2', nummer: '2026-0002', kunde: 'Hotel Beispiel', ausgestellt_am: '2026-07-02', faellig_am: '2026-07-16', betrag: '6.490,00 €', status: 'bezahlt' }
