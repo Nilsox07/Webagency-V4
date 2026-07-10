@@ -3607,35 +3607,35 @@ main > .svc-hero + .svc-section .svc-prose .answer-first strong {
   margin: 0 0 30px;
   padding: 14px 20px;
   border-radius: 14px;
-  background: linear-gradient(90deg, rgba(190, 242, 100, .16), rgba(190, 242, 100, .06));
-  border: 1px solid rgba(190, 242, 100, .45);
+  background: linear-gradient(90deg, rgba(18, 165, 148, .14), rgba(18, 165, 148, .05));
+  border: 1px solid rgba(18, 165, 148, .42);
 }
 .aktion-banner .aktion-badge {
   flex: none;
   font-weight: 800;
   font-size: .95rem;
   letter-spacing: .01em;
-  color: #0b1f1a;
-  background: #bef264;
+  color: #ffffff;
+  background: var(--green);
   padding: 6px 12px;
   border-radius: 999px;
 }
 .aktion-banner .aktion-text {
   font-weight: 600;
-  color: #1c2530;
+  color: var(--text-dark);
 }
 .aktion-banner .aktion-bis {
   font-weight: 700;
-  color: #0f766e;
+  color: var(--green-strong);
   white-space: nowrap;
 }
 
 /* ============ Ankündigungs-Leiste (site-weit, schließbar) ============ */
 .promo-bar {
-  background: #0b1f1a;
-  color: #eaf7f0;
+  background: var(--bg-dark);
+  color: #eaf1ef;
   font-size: .95rem;
-  border-bottom: 1px solid rgba(190, 242, 100, .35);
+  border-bottom: 1px solid rgba(18, 165, 148, .35);
 }
 .promo-bar-inner {
   display: flex;
@@ -3647,17 +3647,17 @@ main > .svc-hero + .svc-section .svc-prose .answer-first strong {
 .promo-bar-badge {
   flex: none;
   font-weight: 800;
-  color: #0b1f1a;
-  background: #bef264;
+  color: #05140f;
+  background: var(--green);
   padding: 3px 10px;
   border-radius: 999px;
   font-size: .82rem;
 }
 .promo-bar-text { font-weight: 500; }
-.promo-bar-bis { font-weight: 700; color: #bef264; white-space: nowrap; }
+.promo-bar-bis { font-weight: 700; color: #3fd0bc; white-space: nowrap; }
 .promo-bar-cta {
   margin-left: auto;
-  color: #bef264;
+  color: #3fd0bc;
   font-weight: 700;
   text-decoration: none;
   white-space: nowrap;
@@ -3673,7 +3673,7 @@ main > .svc-hero + .svc-section .svc-prose .answer-first strong {
   cursor: pointer;
   padding: 0 4px;
 }
-.promo-bar-x:hover { color: #eaf7f0; }
+.promo-bar-x:hover { color: #eaf1ef; }
 @media (max-width: 640px) {
   .promo-bar-cta { margin-left: 0; }
 }
