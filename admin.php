@@ -110,6 +110,6 @@
 
   <script id="briefing2Schema" type="application/json"><?= json_encode(sartu_briefing2_schema(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?></script>
   <script src="briefing-schema.js?v=5"></script>
-  <script src="admin-local.js?v=11"></script>
+  <script src="admin-local.js?v=12"></script>
 </body>
 </html>
