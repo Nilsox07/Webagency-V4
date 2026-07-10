@@ -114,6 +114,7 @@
 
           <h2>§ 9 Nutzungsrechte</h2>
           <p>Mit vollständiger Bezahlung erhält der Kunde die Nutzungsrechte an der für ihn erstellten Website. Eingesetzte Drittsoftware, Schriftarten oder Bilddatenbanken unterliegen den Lizenzbedingungen der jeweiligen Anbieter.</p>
+          <p>Sartu ist berechtigt, im Fußbereich der erstellten Website einen dezenten Hersteller-Vermerk („Webdesign von Sartu") mit Verlinkung auf die Sartu-Website zu setzen und dauerhaft zu belassen. Auf Wunsch des Kunden kann der Vermerk gegen gesondertes Entgelt entfernt werden.</p>
 
           <h2>§ 10 Widerrufsrecht für Verbraucher</h2>
           <p>Verbrauchern steht bei online geschlossenen Verträgen grundsätzlich ein 14-tägiges Widerrufsrecht zu (§§ 312g, 355 BGB). Auf ausdrücklichen Wunsch kann mit der Leistung vor Ablauf der Widerrufsfrist begonnen werden; in diesem Fall erlischt das Widerrufsrecht nach Maßgabe von § 356 Abs. 4 BGB. [Widerrufsbelehrung gesondert beifügen.]</p>
