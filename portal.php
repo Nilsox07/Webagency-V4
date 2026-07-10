@@ -8,7 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="portal.css?v=9" />
+  <link rel="stylesheet" href="portal.css?v=11" />
+  <script>(function(){try{var t=localStorage.getItem('sartu-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 </head>
 <body>
   <div class="pt-wrap pt-wrap-app">
@@ -16,6 +17,7 @@
       <a class="pt-brand" href="./"><span class="dot"></span>Sartu</a>
       <div class="pt-top-actions">
         <span class="pt-user" id="ptUser"></span>
+        <button class="pt-theme" id="themeToggle" type="button">◐</button>
         <button class="btn btn-ghost btn-sm" id="logoutBtn">Abmelden</button>
       </div>
     </div>
@@ -140,6 +142,7 @@
     <p class="notice notice-err hidden" id="err"></p>
   </div>
 
+  <script src="theme.js?v=1"></script>
   <script src="portal-local.js?v=8"></script>
   <script src="portal-editor.js?v=6"></script>
 </body>

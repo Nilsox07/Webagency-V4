@@ -8,13 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="portal.css?v=3" />
+  <link rel="stylesheet" href="portal.css?v=11" />
+  <script>(function(){try{var t=localStorage.getItem('sartu-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
 </head>
 <body>
   <div class="pt-wrap pt-wrap-app pt-wrap-wide">
     <div class="pt-top">
       <a class="pt-brand" href="./"><span class="dot"></span>Sartu · Admin</a>
-      <div class="pt-top-actions"><button class="btn btn-ghost btn-sm" id="logoutBtn">Abmelden</button></div>
+      <div class="pt-top-actions"><button class="pt-theme" id="themeToggle" type="button">◐</button><button class="btn btn-ghost btn-sm" id="logoutBtn">Abmelden</button></div>
     </div>
 
     <div id="gate" class="card"><span class="spinner"></span> Prüfe Zugang …</div>
@@ -110,6 +111,7 @@
 
   <script id="briefing2Schema" type="application/json"><?= json_encode(sartu_briefing2_schema(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?></script>
   <script src="briefing-schema.js?v=5"></script>
+  <script src="theme.js?v=1"></script>
   <script src="admin-local.js?v=12"></script>
 </body>
 </html>
