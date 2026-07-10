@@ -52,6 +52,9 @@ Diese Punkte sind bewusst bis zum Go-live offen. **Reihenfolge bei Domain-Wechse
       (Portal-Seiten login/portal/admin/auth-callback bleiben `noindex,nofollow`.)
 
 ## Domain & Platzhalter
+- [ ] **Sartu-URL im KI-Prompt-Herstellervermerk umstellen:** in `admin-local.js` die Konstante
+      `SARTU_URL` von `https://nils.nelten.de/SARTU` auf `https://sartu.de` ändern (Footer-Backlink
+      „Webdesign von Sartu" auf allen künftig gebauten Kundenseiten). Bereits gebaute Seiten ggf. nachziehen.
 - [ ] `[DOMAIN]` überall ersetzen (Canonical, og:url, JSON-LD, robots.txt Sitemap, sitemap.xml).
 - [ ] `[OG-IMAGE]` Social-Sharing-Bild hinterlegen und Pfad eintragen.
 - [ ] NAP füllen: `[FIRMENNAME / INHABER]`, `[STRASSE UND HAUSNUMMER]`, `[PLZ] [ORT]`, `[TELEFON]`, `[E-MAIL]`, `[NACHNAME]`, `[JAHR]`.

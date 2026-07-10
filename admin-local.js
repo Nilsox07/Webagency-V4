@@ -63,6 +63,10 @@
       .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40) || 'kunde';
   }
 
+  // Sartu-Website für den Herstellervermerk im Footer der Kundenseiten.
+  // >>> BEI GO-LIVE auf 'https://sartu.de' ändern (siehe GO-LIVE-TODO.md). <<<
+  var SARTU_URL = 'https://nils.nelten.de/SARTU';
+
   // --- Baustein-Bibliothek für den KI-Prompt: pro Seite/Funktion ein technischer Block ---
   var SEITEN_MODULE = {
     start: { label: 'Startseite', text: 'Hero mit klarer Aussage + Haupt-CTA, Kurzvorstellung, Überblick der Leistungen, Vertrauenselemente, Abschluss-CTA. Kerninfos (was, für wen, Kontakt) sofort sichtbar.' },
@@ -147,7 +151,7 @@ funktBlock,
 '- DSGVO-konform und barrierearm (BFSG): Kontraste, Fokus-Sichtbarkeit, Alt-Texte, Tastaturbedienung.',
 '- Pflichtseiten Impressum & Datenschutz anlegen (Platzhalter, wo Daten fehlen — nichts erfinden).',
 '- KEINE erfundenen Referenzen, Bewertungen, Kundenlogos oder Fake-Fotos. Nur echte/gelieferte Inhalte oder neutrale Platzhalter.',
-'- Hersteller-Vermerk im Footer JEDER Seite (wie bei Agenturen): dezent „Webdesign von <a href=\"https://sartu.de\" rel=\"noopener\">Sartu</a>" — normaler Link (dofollow), unaufdringlich gestylt. Fest im Code, NICHT editierbar (kein sc_-Feld), der Kunde soll ihn nicht entfernen können.',
+'- Hersteller-Vermerk im Footer JEDER Seite (wie bei Agenturen): dezent „Webdesign von <a href=\"' + SARTU_URL + '\" rel=\"noopener\">Sartu</a>" — normaler Link (dofollow), unaufdringlich gestylt. Fest im Code, NICHT editierbar (kein sc_-Feld), der Kunde soll ihn nicht entfernen können.',
 '',
 '## Editierbare Stellen mit Sartu-Feldern markieren (Kunde ändert sie später selbst im Portal)',
 'Die Datei sartu-edit.php liegt neben der Seite. Verwende diese Platzhalter:',
