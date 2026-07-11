@@ -20,6 +20,18 @@ Selbst gebaute, **fiktive** Referenz-Websites für Sartus Wunschbranchen. Zweck:
 | _(geplant)_ | Kanzlei/Steuerberater | Platzhirsch | offen |
 | _(geplant)_ | Handwerk | Start/Wachstum | offen |
 
+## Bilder & Rechte (wichtig)
+- Fotos stammen von **Unsplash** (Unsplash-Lizenz: kostenlos, auch kommerziell, ohne
+  Namensnennung). Lokal eingebettet in `assets/`.
+- **Achtung Persönlichkeitsrecht:** Die Unsplash-Lizenz deckt nur das Foto, **kein
+  Model-Release**. Ein fremdes Gesicht als „unsere Zahnärztin" auszugeben ist bei echter,
+  öffentlicher Nutzung riskant. Deshalb:
+  - **Hero-/Marketingbilder** möglichst **ohne erkennbare Gesichter** wählen (hier: helle
+    Wartelounge).
+  - Das Porträt „Dr. Meike Ahrens" ist reiner **Platzhalter** fürs Layout — für eine echte
+    Seite kommt immer das **eigene Foto des Kunden** rein.
+- Für Sartus eigene Website später ggf. KI-generierte Bilder mit klaren Rechten.
+
 ## Technik
 - Self-contained: eigenes CSS inline, Schriften self-hosted (`assets/fonts/`, Bricolage
   Grotesque + Hanken Grotesk, OFL), Fotos lokal in `assets/` (Unsplash-Lizenz, frei nutzbar).
