@@ -38,9 +38,10 @@
   .topbar .g{color:var(--gold-soft)}
   header{border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(242,239,231,.92);backdrop-filter:blur(8px);z-index:40}
   .nav{display:flex;align-items:center;justify-content:space-between;height:78px}
-  /* Logo: getrackte Versalien mit Haarlinien (Linien direkt am Text = immer volle Wortbreite) */
-  .brand,.fbrand{display:inline-flex;align-items:center;text-decoration:none}
-  .brand .n,.fbrand .n{display:inline-block;font-family:var(--fd);font-weight:600;font-size:20px;letter-spacing:.4em;text-transform:uppercase;line-height:1;padding:9px 0 9px .4em;border-top:1.6px solid var(--gold);border-bottom:1.6px solid var(--gold);white-space:nowrap}
+  /* Logo: getrackte Versalien, kurze Gold-Haarlinien über/unter dem Wortanfang */
+  .brand,.fbrand{display:inline-flex;flex-direction:column;align-items:flex-start;gap:9px;text-decoration:none}
+  .brand .rule,.fbrand .rule{width:72px;height:1.6px;background:var(--gold)}
+  .brand .n,.fbrand .n{font-family:var(--fd);font-weight:600;font-size:20px;letter-spacing:.4em;text-transform:uppercase;line-height:1;white-space:nowrap}
   .brand .n{color:var(--text)}
   .fbrand .n{color:#fff}
   .nav-r{display:flex;align-items:center;gap:34px}
@@ -173,7 +174,7 @@
 
 <header>
   <div class="wrap nav">
-    <a class="brand" href="#"><span class="n">Steinweg</span></a>
+    <a class="brand" href="#"><span class="rule"></span><span class="n">Steinweg</span><span class="rule"></span></a>
     <div class="nav-r">
       <nav>
         <a href="#rechtsgebiete">Rechtsgebiete</a>
@@ -330,7 +331,7 @@
   <div class="wrap">
     <div class="fgrid">
       <div>
-        <div class="fbrand"><span class="n">Steinweg</span></div>
+        <div class="fbrand"><span class="rule"></span><span class="n">Steinweg</span><span class="rule"></span></div>
         <p>Rechtsanwälte und Steuerberater. Beispielprojekt zur Veranschaulichung, keine echte Kanzlei.</p>
       </div>
       <div class="fcol">
