@@ -38,10 +38,10 @@
   .topbar .g{color:var(--gold-soft)}
   header{border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(242,239,231,.92);backdrop-filter:blur(8px);z-index:40}
   .nav{display:flex;align-items:center;justify-content:space-between;height:78px}
-  /* Logo: getrackte Versalien, kurze Gold-Haarlinien über/unter dem Wortanfang */
-  .brand,.fbrand{display:inline-flex;flex-direction:column;align-items:center;gap:9px;text-decoration:none}
-  .brand .rule,.fbrand .rule{width:64px;height:1.6px;background:var(--gold)}
-  .brand .n,.fbrand .n{font-family:var(--fd);font-weight:600;font-size:20px;letter-spacing:.4em;text-transform:uppercase;line-height:1;white-space:nowrap}
+  /* Logo: Tempel-/Portikus-Zeichen + Schriftzug */
+  .brand,.fbrand{display:inline-flex;align-items:center;gap:14px;text-decoration:none}
+  .brand .mk,.fbrand .mk{width:42px;height:41px;flex:none}
+  .brand .n,.fbrand .n{font-family:var(--fd);font-weight:600;font-size:25px;letter-spacing:.015em;line-height:1;white-space:nowrap}
   .brand .n{color:var(--text)}
   .fbrand .n{color:#fff}
   .nav-r{display:flex;align-items:center;gap:34px}
@@ -174,7 +174,7 @@
 
 <header>
   <div class="wrap nav">
-    <a class="brand" href="#"><span class="rule"></span><span class="n">Steinweg</span><span class="rule"></span></a>
+    <a class="brand" href="#"><svg class="mk" viewBox="0 0 48 47" fill="none" stroke="#9c7d45" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 18.5 L24 5 L43 18.5"/><path d="M7.5 22 H40.5"/><path d="M10 22.5 V37.5 M18.5 22.5 V37.5 M29.5 22.5 V37.5 M38 22.5 V37.5"/><path d="M5 40.5 H43"/></svg><span class="n">Steinweg</span></a>
     <div class="nav-r">
       <nav>
         <a href="#rechtsgebiete">Rechtsgebiete</a>
@@ -331,7 +331,7 @@
   <div class="wrap">
     <div class="fgrid">
       <div>
-        <div class="fbrand"><span class="rule"></span><span class="n">Steinweg</span><span class="rule"></span></div>
+        <div class="fbrand"><svg class="mk" viewBox="0 0 48 47" fill="none" stroke="#9c7d45" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 18.5 L24 5 L43 18.5"/><path d="M7.5 22 H40.5"/><path d="M10 22.5 V37.5 M18.5 22.5 V37.5 M29.5 22.5 V37.5 M38 22.5 V37.5"/><path d="M5 40.5 H43"/></svg><span class="n">Steinweg</span></div>
         <p>Rechtsanwälte und Steuerberater. Beispielprojekt zur Veranschaulichung, keine echte Kanzlei.</p>
       </div>
       <div class="fcol">
