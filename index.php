@@ -61,6 +61,7 @@ $pageDesc  = $brief['description'];
 
     <!-- ===================== HERO ===================== -->
     <section class="hero">
+      <div class="hero-fx" aria-hidden="true"><div class="fx-parallax"><span class="fx-beam"></span><span class="fx-dots"></span></div></div>
       <div class="container">
         <span class="label">Webdesign-Agentur · Festpreis</span>
         <h1>Webdesign zum <em>Festpreis</em> für kleine Unternehmen.</h1>
@@ -350,6 +351,21 @@ $pageDesc  = $brief['description'];
       els.forEach(function (e) { io.observe(e); });
       var burger = document.querySelector('.hdr-burger'), nav = document.querySelector('.hdr-nav');
       if (burger && nav) burger.addEventListener('click', function () { nav.style.display = nav.style.display === 'flex' ? '' : 'flex'; });
+
+      // Hero-Muster: leichte Scroll-Parallax (nur wenn Bewegung erlaubt)
+      var fx = document.querySelector('.hero .fx-parallax');
+      var allowMotion = !window.matchMedia || !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (fx && allowMotion) {
+        var ticking = false;
+        window.addEventListener('scroll', function () {
+          if (ticking) return; ticking = true;
+          requestAnimationFrame(function () {
+            var y = window.pageYOffset || 0;
+            fx.style.transform = 'translateY(' + (y * 0.14) + 'px)';
+            ticking = false;
+          });
+        }, { passive: true });
+      }
     })();
   </script>
 </body>
