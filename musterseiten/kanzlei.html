@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex,nofollow" />
+<title>Kanzlei Muster · Rechtsanwälte und Steuerberater (Beispielprojekt)</title>
+<!-- Beispielprojekt (Sartu-Portfolio). Schriften self-hosted (Spectral + Libre Franklin, OFL). -->
+<link rel="stylesheet" href="kanzlei-assets/gf.css" />
+<style>
+  :root{
+    --navy:#16233c; --navy-d:#0e1727; --ivory:#f2efe7; --surface:#fbfaf5;
+    --text:#1b2436; --muted:#5b6475; --line:#d9d4c7; --line-2:#c8c2b2;
+    --gold:#9c7d45; --gold-soft:#efe6d4;
+    --fd:'Spectral',Georgia,serif; --fu:'Libre Franklin',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--fu);color:var(--text);background:var(--ivory);line-height:1.65;-webkit-font-smoothing:antialiased}
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  h1,h2,h3{font-family:var(--fd);font-weight:600;line-height:1.1;letter-spacing:-.01em;hyphens:none;text-wrap:balance}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 34px}
+  .kicker{font-family:var(--fu);font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+  .lede{font-size:19px;color:var(--muted)}
+  .btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--fu);font-weight:600;font-size:15px;letter-spacing:.01em;background:var(--navy);color:#fff;padding:15px 28px;border:1px solid var(--navy);transition:background .2s,transform .13s cubic-bezier(.23,1,.32,1)}
+  .btn:hover{background:var(--navy-d);transform:translateY(-2px)}
+  .btn:active{transform:scale(.98)}
+  .btn-o{background:transparent;color:var(--navy);border-color:var(--line-2)}
+  .btn-o:hover{background:transparent;border-color:var(--navy)}
+  .btn-gold{background:var(--gold);border-color:var(--gold);color:#fff}
+  .btn-gold:hover{background:#87692f}
+
+  /* Zweistufiger Header signalisiert etablierte Kanzlei */
+  .topbar{background:var(--navy);color:rgba(255,255,255,.82);font-size:13px}
+  .topbar .wrap{display:flex;justify-content:space-between;align-items:center;height:42px}
+  .topbar a{color:#fff}
+  .topbar .g{color:var(--gold-soft)}
+  header{border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(242,239,231,.92);backdrop-filter:blur(8px);z-index:40}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:78px}
+  .brand{font-family:var(--fd);font-weight:600;font-size:25px;letter-spacing:.01em}
+  .brand b{color:var(--gold);font-weight:600}
+  .nav-r{display:flex;align-items:center;gap:34px}
+  .nav-r nav{display:flex;gap:30px}
+  .nav-r nav a{font-size:15px;color:var(--text);font-weight:500;transition:color .18s}
+  .nav-r nav a:hover{color:var(--gold)}
+
+  /* Hero */
+  .hero{padding:76px 0 84px}
+  .hero-grid{display:grid;grid-template-columns:1.06fr .94fr;gap:64px;align-items:center}
+  .hero .kicker{margin-bottom:22px}
+  .hero h1{font-size:60px;font-weight:600;letter-spacing:-.02em}
+  .hero .lede{margin:26px 0 34px;max-width:44ch;font-size:20px}
+  .hero-act{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .hero-fig{position:relative;aspect-ratio:1/1.2;overflow:hidden}
+  .hero-fig img{width:100%;height:100%;object-fit:cover}
+  .hero-fig::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
+
+  /* Kennzahlen */
+  .stats{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--surface)}
+  .stats-in{display:grid;grid-template-columns:repeat(4,1fr)}
+  .stats-in > div{padding:34px 30px;border-left:1px solid var(--line)}
+  .stats-in > div:first-child{border-left:none;padding-left:0}
+  .stat-n{font-family:var(--fd);font-size:42px;font-weight:600;color:var(--navy);line-height:1}
+  .stat-l{margin-top:8px;font-size:14.5px;color:var(--muted)}
+
+  section{padding:104px 0}
+  .head{max-width:660px;margin-bottom:52px}
+  .head .kicker{margin-bottom:18px;display:block}
+  .head h2{font-size:42px}
+  .head p{margin-top:16px;color:var(--muted);font-size:18px}
+
+  /* Rechtsgebiete: editorial, Haarlinien statt Icon-Karten */
+  .areas{border-top:1px solid var(--line-2)}
+  .area{display:grid;grid-template-columns:52px 1fr 1.15fr;gap:26px;align-items:baseline;padding:30px 6px;border-bottom:1px solid var(--line);transition:background .2s,padding .2s}
+  .area:hover{background:var(--surface);padding-left:16px;padding-right:16px}
+  .area .n{font-family:var(--fd);color:var(--gold);font-size:18px}
+  .area h3{font-size:25px;font-weight:600}
+  .area p{color:var(--muted);font-size:15.5px}
+
+  /* Statement-Band (Architektur) */
+  .band{position:relative;min-height:440px;display:flex;align-items:center;overflow:hidden;background:var(--navy)}
+  .band img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.32}
+  .band .inner{position:relative;padding:96px 0}
+  .band .kicker{color:var(--gold-soft);margin-bottom:20px;display:block}
+  .band h2{color:#fff;font-size:44px;max-width:20ch;font-weight:500}
+  .band p{color:rgba(255,255,255,.8);margin-top:20px;max-width:52ch;font-size:17px}
+
+  /* Ablauf */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line-2)}
+  .step{padding:34px 30px 30px 0;border-right:1px solid var(--line)}
+  .step:last-child{border-right:none;padding-right:0}
+  .step .n{font-family:var(--fd);font-size:20px;color:var(--gold);margin-bottom:14px}
+  .step h3{font-size:22px;margin-bottom:8px}
+  .step p{color:var(--muted);font-size:15.5px}
+
+  /* Team ohne Fotos: Rollen statt erfundener Personen */
+  .team-wrap{display:grid;grid-template-columns:.85fr 1.15fr;gap:60px;align-items:start}
+  .team-fig{aspect-ratio:4/3.3;overflow:hidden}
+  .team-fig img{width:100%;height:100%;object-fit:cover}
+  .team-grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
+  .member{padding:24px 0;border-top:1px solid var(--line)}
+  .member:nth-child(-n+2){border-top:none}
+  .member:nth-child(odd){padding-right:24px}
+  .member:nth-child(even){padding-left:24px;border-left:1px solid var(--line)}
+  .member h3{font-size:19px;font-weight:600}
+  .member p{color:var(--muted);font-size:14.5px;margin-top:3px}
+  .member .role{color:var(--gold);font-size:13px;font-weight:600;letter-spacing:.04em;margin-top:6px}
+
+  /* Aktuelles */
+  .posts{display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+  .post{border-top:2px solid var(--navy);padding-top:22px}
+  .post time{font-size:13px;color:var(--gold);font-weight:600;letter-spacing:.06em}
+  .post h3{font-size:22px;margin:12px 0 10px;font-weight:600}
+  .post p{color:var(--muted);font-size:15px}
+  .post a{color:var(--navy);font-weight:600;font-size:14.5px;border-bottom:1px solid var(--line-2);padding-bottom:1px}
+
+  /* Zitat */
+  .quote{max-width:940px;text-align:left}
+  .quote p{font-family:var(--fd);font-weight:500;font-size:38px;line-height:1.22;letter-spacing:-.01em}
+  .quote .by{margin-top:26px;font-size:15px;color:var(--muted)}
+  .quote .by b{color:var(--text);font-weight:600}
+
+  /* Kontakt */
+  .contact{background:var(--navy-d);color:#fff}
+  .contact .wrap{padding:96px 34px}
+  .contact-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:64px}
+  .contact h2{color:#fff;font-size:46px;margin-bottom:18px}
+  .contact .lede{color:rgba(255,255,255,.75);max-width:40ch;margin-bottom:30px}
+  .cblocks{display:grid;grid-template-columns:1fr 1fr;gap:30px 40px}
+  .cblock b{font-family:var(--fd);font-size:19px;display:block;margin-bottom:6px;font-weight:600}
+  .cblock span{color:rgba(255,255,255,.72);font-size:15px;display:block;line-height:1.7}
+  .cblock .gold{color:var(--gold-soft)}
+
+  /* Footer, mehrspaltig (Sitemap) = wirkt umfangreich */
+  footer{background:var(--navy);color:rgba(255,255,255,.7);padding:64px 0 34px}
+  .fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.12)}
+  .fbrand{font-family:var(--fd);font-size:24px;color:#fff}
+  .fbrand b{color:var(--gold)}
+  .fcol h4{font-family:var(--fu);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:16px;font-weight:600}
+  .fcol a{display:block;color:rgba(255,255,255,.72);font-size:14.5px;padding:5px 0;transition:color .18s}
+  .fcol a:hover{color:#fff}
+  .fbrand p{color:rgba(255,255,255,.6);font-size:14px;margin-top:14px;max-width:34ch}
+  .fbot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-top:26px;font-size:13px;color:rgba(255,255,255,.55)}
+
+  @media (max-width:900px){
+    .hero-grid,.stats-in,.team-wrap,.team-grid,.steps,.posts,.contact-grid,.cblocks,.fgrid{grid-template-columns:1fr}
+    .hero h1{font-size:40px}
+    .area{grid-template-columns:34px 1fr;gap:12px}
+    .area p{grid-column:2}
+    .stats-in > div{border-left:none;border-top:1px solid var(--line);padding-left:0}
+    .step{border-right:none;border-bottom:1px solid var(--line);padding-right:0}
+    .member:nth-child(even){padding-left:0;border-left:none}
+    .member:nth-child(2){border-top:1px solid var(--line)}
+    .quote p{font-size:27px}
+    .topbar{display:none}
+    .nav-r nav{display:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <span>Rechtsanwälte · Steuerberater · <span class="g">Beispielprojekt</span></span>
+    <span>Mo bis Fr, 8 bis 18 Uhr · Termin: <a href="#kontakt">01234 567890</a></span>
+  </div>
+</div>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#">Kanzlei<b>.</b> Muster</a>
+    <div class="nav-r">
+      <nav>
+        <a href="#rechtsgebiete">Rechtsgebiete</a>
+        <a href="#kanzlei">Kanzlei</a>
+        <a href="#team">Team</a>
+        <a href="#aktuelles">Aktuelles</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <a class="btn" href="#kontakt">Termin vereinbaren</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="kicker">Rechtsanwälte und Steuerberater</span>
+        <h1>Rechtsberatung mit ruhiger Hand und langem Atem.</h1>
+        <p class="lede">Für Unternehmen und Privatpersonen, die eine Kanzlei suchen, die zuhört, klar einschätzt und verlässlich an ihrer Seite bleibt.</p>
+        <div class="hero-act">
+          <a class="btn" href="#kontakt">Termin vereinbaren</a>
+          <a class="btn btn-o" href="#rechtsgebiete">Rechtsgebiete ansehen</a>
+        </div>
+      </div>
+      <figure class="hero-fig">
+        <img src="kanzlei-assets/kanzlei-hero.jpg" alt="Bibliothek der Kanzlei mit historischen Rechtsbänden" />
+      </figure>
+    </div>
+  </section>
+
+  <div class="stats">
+    <div class="wrap stats-in">
+      <div><div class="stat-n">30+</div><div class="stat-l">Jahre Kanzleigeschichte</div></div>
+      <div><div class="stat-n">6</div><div class="stat-l">Rechtsgebiete unter einem Dach</div></div>
+      <div><div class="stat-n">2</div><div class="stat-l">Standorte in der Region</div></div>
+      <div><div class="stat-n">4</div><div class="stat-l">Fachanwaltschaften</div></div>
+    </div>
+  </div>
+
+  <section id="rechtsgebiete">
+    <div class="wrap">
+      <div class="head">
+        <span class="kicker">Rechtsgebiete</span>
+        <h2>Beratung, die ineinandergreift.</h2>
+        <p>Sechs Bereiche unter einem Dach. Wo sich Fragen überschneiden, arbeiten unsere Fachanwältinnen und Fachanwälte zusammen, statt Sie weiterzureichen.</p>
+      </div>
+      <div class="areas">
+        <div class="area"><span class="n">01</span><h3>Arbeitsrecht</h3><p>Kündigungsschutz, Aufhebungsverträge und Beratung von Arbeitgebern wie Arbeitnehmern.</p></div>
+        <div class="area"><span class="n">02</span><h3>Familien- und Erbrecht</h3><p>Trennung, Unterhalt, Testamente und Nachfolge, mit Fingerspitzengefühl geführt.</p></div>
+        <div class="area"><span class="n">03</span><h3>Gesellschaftsrecht</h3><p>Gründung, Verträge und Umstrukturierung für den Mittelstand.</p></div>
+        <div class="area"><span class="n">04</span><h3>Steuerrecht</h3><p>Laufende Beratung, Jahresabschlüsse und Unternehmensnachfolge aus einer Hand.</p></div>
+        <div class="area"><span class="n">05</span><h3>Miet- und Immobilienrecht</h3><p>Kauf, Vermietung und Streitfälle rund um Wohnung und Gewerbe.</p></div>
+        <div class="area"><span class="n">06</span><h3>Vertrags- und Wirtschaftsrecht</h3><p>Prüfung, Gestaltung und Durchsetzung Ihrer Verträge.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="band">
+    <img src="kanzlei-assets/kanzlei-band.jpg" alt="Klassische Säulenarchitektur eines Gerichtsgebäudes" />
+    <div class="wrap inner">
+      <span class="kicker">Unser Anspruch</span>
+      <h2>Wir beraten so, dass Sie am Ende weniger Anwalt brauchen, nicht mehr.</h2>
+      <p>Kein Streit um des Streitens willen. Wir sagen Ihnen ehrlich, wann sich ein Verfahren lohnt und wann eine Einigung der klügere Weg ist.</p>
+    </div>
+  </div>
+
+  <section id="kanzlei">
+    <div class="wrap">
+      <div class="head">
+        <span class="kicker">Wie wir arbeiten</span>
+        <h2>Drei Schritte, kein Fachchinesisch.</h2>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="n">01</div><h3>Erstgespräch</h3><p>Sie schildern Ihren Fall, wir hören zu und schätzen offen ein, wie die Lage ist.</p></div>
+        <div class="step"><div class="n">02</div><h3>Klarer Plan</h3><p>Sie bekommen eine verständliche Strategie samt ehrlicher Einschätzung zu Kosten und Aussichten.</p></div>
+        <div class="step"><div class="n">03</div><h3>Umsetzung</h3><p>Wir vertreten Sie konsequent und halten Sie in jedem Schritt auf dem Laufenden.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="team" style="padding-top:0">
+    <div class="wrap team-wrap">
+      <div>
+        <div class="head" style="margin-bottom:26px">
+          <h2>Ein Team, keine Einzelkämpfer.</h2>
+          <p>Bei uns betreut Sie kein wechselnder Sachbearbeiter, sondern feste Ansprechpartner mit klarer Fachrichtung.</p>
+        </div>
+        <figure class="team-fig">
+          <img src="kanzlei-assets/kanzlei-office.jpg" alt="Räume der Kanzlei" />
+        </figure>
+      </div>
+      <div class="team-grid">
+        <div class="member"><h3>Partnerin</h3><p>Kündigungsschutz und Betriebsübergänge.</p><div class="role">Fachanwältin für Arbeitsrecht</div></div>
+        <div class="member"><h3>Partner</h3><p>Trennung, Unterhalt und Sorgerecht.</p><div class="role">Fachanwalt für Familienrecht</div></div>
+        <div class="member"><h3>Partner</h3><p>Verträge und Nachfolge im Mittelstand.</p><div class="role">Fachanwalt für Handels- und Gesellschaftsrecht</div></div>
+        <div class="member"><h3>Steuerberater</h3><p>Jahresabschlüsse und Unternehmensnachfolge.</p><div class="role">Steuerberatung</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="aktuelles" style="padding-top:0">
+    <div class="wrap">
+      <div class="head">
+        <span class="kicker">Aktuelles</span>
+        <h2>Was sich rechtlich gerade bewegt.</h2>
+      </div>
+      <div class="posts">
+        <article class="post">
+          <time>März 2026</time>
+          <h3>Kündigung im Kleinbetrieb: worauf Arbeitgeber jetzt achten müssen.</h3>
+          <p>Ein aktuelles Urteil verschiebt die Grenzen. Wir ordnen ein, was das praktisch bedeutet.</p>
+          <a href="#">Weiterlesen</a>
+        </article>
+        <article class="post">
+          <time>Februar 2026</time>
+          <h3>Unternehmensnachfolge: drei steuerliche Weichen, die man früh stellt.</h3>
+          <p>Wer rechtzeitig plant, spart nicht nur Steuern, sondern auch Streit in der Familie.</p>
+          <a href="#">Weiterlesen</a>
+        </article>
+        <article class="post">
+          <time>Januar 2026</time>
+          <h3>Der Aufhebungsvertrag: Chancen und Fallstricke für Arbeitnehmer.</h3>
+          <p>Eine Unterschrift zu früh kann teuer werden. Die wichtigsten Punkte im Überblick.</p>
+          <a href="#">Weiterlesen</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap quote">
+      <p>Sachlich, erreichbar und immer einen Schritt voraus. Genau die Beratung, die ein Unternehmen braucht, wenn es einmal ernst wird.</p>
+      <div class="by"><b>Geschäftsführer</b>, mittelständisches Unternehmen (Beispielbewertung)</div>
+    </div>
+  </section>
+</main>
+
+<section class="contact" id="kontakt">
+  <div class="wrap contact-grid">
+    <div>
+      <h2>Schildern Sie uns Ihren Fall.</h2>
+      <p class="lede">Ein erstes Gespräch schafft Klarheit, ob und wie wir helfen können. Rufen Sie an oder schreiben Sie uns.</p>
+      <a class="btn btn-gold" href="#">Termin vereinbaren</a>
+    </div>
+    <div class="cblocks">
+      <div class="cblock"><b>Standort Musterstadt</b><span>Musterstraße 1<br>12345 Musterstadt</span></div>
+      <div class="cblock"><b>Standort Beispielstadt</b><span>Beispielallee 20<br>23456 Beispielstadt</span></div>
+      <div class="cblock"><b>Telefon</b><span class="gold">01234 567890</span><span>Mo bis Fr, 8 bis 18 Uhr</span></div>
+      <div class="cblock"><b>E-Mail</b><span class="gold">kanzlei@musterkanzlei.de</span><span>Antwort meist am selben Werktag</span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <div class="fbrand">Kanzlei<b>.</b> Muster</div>
+        <p>Rechtsanwälte und Steuerberater. Beispielprojekt zur Veranschaulichung, keine echte Kanzlei.</p>
+      </div>
+      <div class="fcol">
+        <h4>Rechtsgebiete</h4>
+        <a href="#rechtsgebiete">Arbeitsrecht</a>
+        <a href="#rechtsgebiete">Familien- und Erbrecht</a>
+        <a href="#rechtsgebiete">Gesellschaftsrecht</a>
+        <a href="#rechtsgebiete">Steuerrecht</a>
+        <a href="#rechtsgebiete">Immobilienrecht</a>
+      </div>
+      <div class="fcol">
+        <h4>Kanzlei</h4>
+        <a href="#kanzlei">Über uns</a>
+        <a href="#team">Team</a>
+        <a href="#aktuelles">Aktuelles</a>
+        <a href="#kontakt">Karriere</a>
+      </div>
+      <div class="fcol">
+        <h4>Kontakt</h4>
+        <a href="#kontakt">Musterstraße 1, Musterstadt</a>
+        <a href="#kontakt">01234 567890</a>
+        <a href="#kontakt">kanzlei@musterkanzlei.de</a>
+      </div>
+    </div>
+    <div class="fbot">
+      <span>© 2026 Kanzlei Muster (Beispielprojekt)</span>
+      <span>Impressum · Datenschutz</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
