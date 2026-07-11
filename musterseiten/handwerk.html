@@ -29,7 +29,7 @@
   .btn-ghost:hover{background:rgba(255,255,255,.12)}
 
   /* Hero: Full-Bleed-Foto, Nav overlay, kondensierte Headline */
-  .hero{position:relative;min-height:90vh;display:flex;flex-direction:column;color:#fff;overflow:hidden}
+  .hero{position:relative;min-height:76vh;display:flex;flex-direction:column;color:#fff;overflow:hidden}
   .hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
   .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,21,25,.62)0%,rgba(20,21,25,.15)38%,rgba(20,21,25,.82)100%);z-index:1}
   .hnav{position:relative;z-index:2}
@@ -46,7 +46,7 @@
   .hnav-r .tel{font-family:var(--fd);font-weight:600;font-size:17px;color:#fff}
   .hero-body{position:relative;z-index:2;margin-top:auto;padding-bottom:72px}
   .hero-body .kicker{margin-bottom:18px;display:block}
-  .hero h1{font-size:82px;max-width:15ch}
+  .hero h1{font-size:52px;max-width:19ch;letter-spacing:.005em}
   .hero h1 em{color:var(--accent);font-style:normal}
   .hero-sub{font-size:19px;color:rgba(255,255,255,.88);max-width:48ch;margin:20px 0 30px}
   .hero-act{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
@@ -98,9 +98,10 @@
   .cta{background:var(--ink-2);color:#fff;position:relative;overflow:hidden}
   .cta .wrap{padding:84px 32px}
   .cta .kicker{display:block;margin-bottom:16px}
-  .cta h2{font-size:56px;max-width:16ch}
-  .cta-row{display:flex;gap:40px;flex-wrap:wrap;align-items:center;margin-top:30px}
-  .cta-tel{font-family:var(--fd);font-weight:700;font-size:42px;color:#fff;text-transform:uppercase;letter-spacing:.01em}
+  .cta h2{font-size:40px;max-width:18ch}
+  .cta-lead{color:rgba(255,255,255,.72);font-size:17px;max-width:44ch;margin-top:16px}
+  .cta-row{display:flex;gap:36px;flex-wrap:wrap;align-items:center;margin-top:34px}
+  .cta-tel{font-family:var(--fd);font-weight:700;font-size:30px;color:var(--accent);text-transform:uppercase;letter-spacing:.01em}
   .cta-tel span{display:block;font-family:var(--fu);font-size:14px;font-weight:500;text-transform:none;letter-spacing:0;color:rgba(255,255,255,.6)}
   .cta-addr{color:rgba(255,255,255,.72);font-size:15px;line-height:1.7}
 
@@ -145,9 +146,9 @@
   </div>
   <div class="hero-body">
     <div class="wrap">
-      <span class="kicker">Meisterbetrieb · Zimmerei &amp; Dachdeckerei</span>
-      <h1>Ein Dach, das <em>hält</em>. Handwerk, das man sieht.</h1>
-      <p class="hero-sub">Dachstühle, Eindeckung und Holzbau aus einer Hand. Festpreis vorab, Termine, die stehen, und eine Baustelle, die sauber bleibt.</p>
+      <span class="kicker">Zimmerei · Dachdeckerei · Meisterbetrieb</span>
+      <h1>Alles fürs <em>Dach</em>, aus einer Hand.</h1>
+      <p class="hero-sub">Dachstuhl, Eindeckung, Fassade und Holzbau vom Meisterbetrieb. Festpreis vorab, Termine, die stehen, und eine Baustelle, die sauber bleibt.</p>
       <div class="hero-act">
         <a class="btn" href="#kontakt">Kostenloses Angebot</a>
         <a class="btn btn-ghost" href="#referenzen">Referenzen ansehen</a>
@@ -189,10 +190,10 @@
         <h2>Arbeit, die man anfassen kann.</h2>
       </div>
       <div class="gal">
-        <figure class="gcell g-a"><img src="handwerk-assets/handwerk-1.jpg" alt="Fertiggestellter Holzbau" /><figcaption class="cap"><b>Neubau Holzhaus</b><span>Musterstadt · Zimmerei &amp; Fassade</span></figcaption></figure>
-        <figure class="gcell g-b"><img src="handwerk-assets/handwerk-2.jpg" alt="Baustelle aus der Vogelperspektive" /><figcaption class="cap"><b>Rohbau-Begleitung</b><span>Beispieldorf · Dach &amp; Konstruktion</span></figcaption></figure>
-        <figure class="gcell g-c"><img src="handwerk-assets/handwerk-3.jpg" alt="Detailarbeit im Innenausbau" /><figcaption class="cap"><b>Innenausbau</b><span>Musterstadt · Ausbau &amp; Detail</span></figcaption></figure>
-        <figure class="gcell g-d"><img src="handwerk-assets/handwerk-4.jpg" alt="Arbeiten auf der Baustelle" /><figcaption class="cap"><b>Dachsanierung</b><span>Musterhausen · Eindeckung &amp; Dämmung</span></figcaption></figure>
+        <figure class="gcell g-a"><img src="handwerk-assets/handwerk-1.jpg" alt="Neu gebautes Holzhaus mit Fassade" /><figcaption class="cap"><b>Neubau Holzhaus</b><span>Musterstadt · Zimmerei &amp; Fassade</span></figcaption></figure>
+        <figure class="gcell g-b"><img src="handwerk-assets/handwerk-2.jpg" alt="Dachdecker bei der Eindeckung" /><figcaption class="cap"><b>Neue Dacheindeckung</b><span>Beispieldorf · Dachdeckerei</span></figcaption></figure>
+        <figure class="gcell g-c"><img src="handwerk-assets/handwerk-3.jpg" alt="Holzhaus mit Satteldach" /><figcaption class="cap"><b>Satteldach &amp; Gauben</b><span>Musterstadt · Zimmerei &amp; Dach</span></figcaption></figure>
+        <figure class="gcell g-d"><img src="handwerk-assets/handwerk-4.jpg" alt="Holzhaus im Grünen" /><figcaption class="cap"><b>Holzbau nach Maß</b><span>Musterhausen · Aufstockung &amp; Anbau</span></figcaption></figure>
       </div>
     </div>
   </section>
@@ -214,15 +215,14 @@
 
 <section class="cta" id="kontakt">
   <div class="wrap">
-    <span class="kicker">Jetzt anfragen</span>
+    <span class="kicker">Kontakt</span>
     <h2>Sagen Sie uns, was ansteht.</h2>
+    <p class="cta-lead">Ob neues Dach, Dachstuhl oder Sturmschaden: Rufen Sie an oder fordern Sie ein kostenloses Angebot an. Für Notfälle sind wir rund um die Uhr erreichbar.</p>
     <div class="cta-row">
       <div class="cta-tel">01234 567890<span>Mo bis Fr, 7 bis 17 Uhr · Notdienst rund um die Uhr</span></div>
       <a class="btn" href="#">Kostenloses Angebot anfordern</a>
     </div>
-    <div class="cta-row" style="margin-top:24px">
-      <div class="cta-addr">Holzwerk Nordkamp (Beispielbetrieb)<br>Musterstraße 1 · 12345 Musterstadt<br>kontakt@nordkamp-holzwerk.de</div>
-    </div>
+    <div class="cta-addr" style="margin-top:30px">Holzwerk Nordkamp (Beispielbetrieb) · Musterstraße 1, 12345 Musterstadt · kontakt@nordkamp-holzwerk.de</div>
   </div>
 </section>
 
