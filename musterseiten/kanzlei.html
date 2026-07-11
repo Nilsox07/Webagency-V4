@@ -38,12 +38,12 @@
   .topbar .g{color:var(--gold-soft)}
   header{border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(242,239,231,.92);backdrop-filter:blur(8px);z-index:40}
   .nav{display:flex;align-items:center;justify-content:space-between;height:78px}
-  /* Logo-Sperre: Monogramm-Siegel + Schriftzug mit Untertitel */
-  .brand,.fbrand{display:inline-flex;align-items:center;gap:13px;text-decoration:none}
-  .seal{width:44px;height:44px;flex:none;border:1.6px solid var(--gold);border-radius:4px;display:grid;place-items:center;font-family:var(--fd);font-weight:600;font-size:24px;color:var(--gold);line-height:1;padding-bottom:2px}
-  .wm{display:flex;flex-direction:column;gap:4px}
-  .wm .n{font-family:var(--fd);font-weight:600;font-size:22px;letter-spacing:.055em;line-height:.9;color:var(--text)}
-  .wm .t{font-family:var(--fu);font-size:8.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);line-height:1;white-space:nowrap}
+  /* Logo: getrackte Versalien mit Haarlinien (ohne Symbol) */
+  .brand,.fbrand{display:inline-flex;flex-direction:column;align-items:stretch;gap:8px;text-decoration:none}
+  .brand .rule,.fbrand .rule{height:1.5px;background:var(--gold)}
+  .brand .n,.fbrand .n{font-family:var(--fd);font-weight:600;font-size:20px;letter-spacing:.4em;text-transform:uppercase;line-height:1;padding-left:.4em;white-space:nowrap}
+  .brand .n{color:var(--text)}
+  .fbrand .n{color:#fff}
   .nav-r{display:flex;align-items:center;gap:34px}
   .nav-r nav{display:flex;gap:30px}
   .nav-r nav a{font-size:15px;color:var(--text);font-weight:500;transition:color .18s}
@@ -142,8 +142,6 @@
   /* Footer, mehrspaltig (Sitemap) = wirkt umfangreich */
   footer{background:var(--navy);color:rgba(255,255,255,.7);padding:64px 0 34px}
   .fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.12)}
-  footer .wm .n{color:#fff}
-  footer .wm .t{color:rgba(255,255,255,.55)}
   .fcol h4{font-family:var(--fu);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:16px;font-weight:600}
   .fcol a{display:block;color:rgba(255,255,255,.72);font-size:14.5px;padding:5px 0;transition:color .18s}
   .fcol a:hover{color:#fff}
@@ -177,8 +175,9 @@
 <header>
   <div class="wrap nav">
     <a class="brand" href="#">
-      <span class="seal">S</span>
-      <span class="wm"><span class="n">Steinweg</span><span class="t">Rechtsanwälte · Steuerberater</span></span>
+      <span class="rule"></span>
+      <span class="n">Steinweg</span>
+      <span class="rule"></span>
     </a>
     <div class="nav-r">
       <nav>
@@ -337,8 +336,9 @@
     <div class="fgrid">
       <div>
         <div class="fbrand">
-          <span class="seal">S</span>
-          <span class="wm"><span class="n">Steinweg</span><span class="t">Rechtsanwälte · Steuerberater</span></span>
+          <span class="rule"></span>
+          <span class="n">Steinweg</span>
+          <span class="rule"></span>
         </div>
         <p>Rechtsanwälte und Steuerberater. Beispielprojekt zur Veranschaulichung, keine echte Kanzlei.</p>
       </div>
