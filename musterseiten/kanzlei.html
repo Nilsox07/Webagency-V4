@@ -46,15 +46,18 @@
   .nav-r nav a:hover{color:var(--gold)}
 
   /* Hero */
-  /* Hero typo-geführt (kein Split, bewusst anders als die Praxis) */
-  .hero{padding:88px 0 62px}
-  .hero-in{max-width:960px}
-  .hero .kicker{margin-bottom:24px;display:block}
-  .hero h1{font-size:68px;font-weight:600;letter-spacing:-.025em;max-width:15ch}
-  .hero .lede{margin:28px 0 36px;max-width:56ch;font-size:21px}
+  /* Hero: Vollbild-Bild mit hellem Text-Overlay */
+  .hero{position:relative;min-height:84vh;display:flex;align-items:center;color:#fff;overflow:hidden;border-bottom:3px solid var(--gold)}
+  .hero > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:right center;z-index:0}
+  .hero::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(11,19,34,.92)0%,rgba(11,19,34,.66)46%,rgba(11,19,34,.2)100%)}
+  .hero .wrap{position:relative;z-index:2}
+  .hero-in{max-width:700px;padding:64px 0}
+  .hero .kicker{color:#dcc79c;margin-bottom:22px;display:block}
+  .hero h1{font-size:62px;font-weight:600;letter-spacing:-.02em;max-width:16ch;color:#fff}
+  .hero .lede{color:rgba(255,255,255,.84);margin:26px 0 34px;max-width:48ch;font-size:20px}
   .hero-act{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
-  .cover{width:100%;height:58vh;min-height:440px;overflow:hidden;border-top:1px solid var(--line)}
-  .cover img{width:100%;height:100%;object-fit:cover}
+  .btn-light{background:transparent;color:#fff;border-color:rgba(255,255,255,.55)}
+  .btn-light:hover{background:rgba(255,255,255,.12);border-color:#fff}
 
   /* Kennzahlen */
   .stats{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--surface)}
@@ -185,19 +188,19 @@
 
 <main>
   <section class="hero">
-    <div class="wrap hero-in">
-      <span class="kicker">Rechtsanwälte und Steuerberater</span>
-      <h1>Rechtsberatung mit ruhiger Hand und langem Atem.</h1>
-      <p class="lede">Für Unternehmen und Privatpersonen, die eine Kanzlei suchen, die zuhört, klar einschätzt und verlässlich an ihrer Seite bleibt.</p>
-      <div class="hero-act">
-        <a class="btn" href="#kontakt">Termin vereinbaren</a>
-        <a class="btn btn-o" href="#rechtsgebiete">Rechtsgebiete ansehen</a>
+    <img src="kanzlei-assets/kanzlei-hero.jpg" alt="Bibliothek der Kanzlei mit historischen Rechtsbänden" />
+    <div class="wrap">
+      <div class="hero-in">
+        <span class="kicker">Rechtsanwälte und Steuerberater</span>
+        <h1>Rechtsberatung mit ruhiger Hand und langem Atem.</h1>
+        <p class="lede">Für Unternehmen und Privatpersonen, die eine Kanzlei suchen, die zuhört, klar einschätzt und verlässlich an ihrer Seite bleibt.</p>
+        <div class="hero-act">
+          <a class="btn btn-gold" href="#kontakt">Termin vereinbaren</a>
+          <a class="btn btn-light" href="#rechtsgebiete">Rechtsgebiete ansehen</a>
+        </div>
       </div>
     </div>
   </section>
-  <div class="cover">
-    <img src="kanzlei-assets/kanzlei-cover.jpg" alt="Bibliothek der Kanzlei mit historischen Rechtsbänden" />
-  </div>
 
   <div class="stats">
     <div class="wrap stats-in">
