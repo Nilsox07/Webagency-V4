@@ -15,7 +15,7 @@ $pageDesc  = $brief['description'];
   <meta name="robots" content="noindex,nofollow" />
   <link rel="canonical" href="https://[DOMAIN]/" />
   <link rel="stylesheet" href="assets/fonts-v2/sartu-fonts.css" />
-  <link rel="stylesheet" href="styles-v2.css?v=1" />
+  <link rel="stylesheet" href="styles-v2.css?v=2" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Sartu" />
   <meta property="og:locale" content="de_DE" />
@@ -42,12 +42,12 @@ $pageDesc  = $brief['description'];
   <!-- ===================== HEADER ===================== -->
   <header class="hdr">
     <div class="container hdr-in">
-      <a href="./" class="brand" aria-label="Sartu Startseite"><span class="bdot" aria-hidden="true"></span>Sartu</a>
+      <a href="./" class="brand" aria-label="Sartu Startseite">Sartu<span class="dot">.</span></a>
       <nav class="hdr-nav" aria-label="Hauptnavigation">
+        <a href="#arbeiten">Arbeiten</a>
         <a href="leistungen.php">Leistungen</a>
         <a href="preise.php">Preise</a>
         <a href="ablauf.php">Ablauf</a>
-        <a href="ratgeber.php">Ratgeber</a>
         <a href="ueber-uns.php">Über uns</a>
       </nav>
       <div class="hdr-right">
@@ -61,42 +61,114 @@ $pageDesc  = $brief['description'];
 
     <!-- ===================== HERO ===================== -->
     <section class="hero">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <p class="eyebrow">Webdesign-Agentur · Festpreis</p>
-          <h1>Eine Website, die neue Kunden bringt. Zum <span class="hi">Festpreis</span>.</h1>
-          <p class="hero-sub">Für Handwerk, Praxen, Kanzleien und Dienstleister: klare Firmenwebsites, fertig in 7 bis 14 Werktagen. Feste Ansprechperson, kein Abo-Zwang, Hosting in Deutschland.</p>
-          <div class="hero-cta">
+      <div class="container">
+        <span class="label">Webdesign-Agentur · Festpreis</span>
+        <h1>Websites, die <em>verkaufen</em>.</h1>
+        <div class="hero-row">
+          <p class="hero-sub">Wir bauen Firmenwebsites für Handwerk, Praxen, Kanzleien und Dienstleister. Zum Festpreis, fertig in 7 bis 14 Werktagen.</p>
+          <div class="hero-act">
             <a href="anfrage.php" class="btn btn-primary btn-lg">Projekt starten <span class="arr" aria-hidden="true">→</span></a>
-            <a href="#beispiele" class="btn btn-ghost btn-lg">Beispiele ansehen</a>
-          </div>
-          <div class="hero-trust">
-            <span>Festpreis ab 1.290 €</span>
-            <span>In 7–14 Werktagen online</span>
-            <span>Alle Texte inklusive</span>
-            <span>Hosting in Deutschland</span>
+            <a href="#arbeiten" class="btn btn-ghost btn-lg">Arbeiten ansehen</a>
           </div>
         </div>
-        <div class="mock" aria-hidden="false">
-          <figure class="mock-frame">
-            <div class="mock-bar"><i></i><i></i><i></i><span class="url">steinweg-rechtsanwaelte.de</span></div>
-            <img src="assets/ref/kanzlei-shot.jpg" alt="Beispielprojekt: Website einer Rechtsanwaltskanzlei, von Sartu gebaut" width="1440" height="900" loading="eager" />
-          </figure>
-          <span class="mock-tag">Beispielprojekt</span>
+        <div class="hero-meta">
+          <span><b>Festpreis</b> ab 1.290 €</span>
+          <span><b>7–14</b> Werktage</span>
+          <span><b>Hosting</b> in Deutschland</span>
+          <span><b>Kein</b> Abo-Zwang</span>
         </div>
       </div>
     </section>
 
-    <!-- ===================== PROBLEM / STATEMENT ===================== -->
-    <section class="statement">
+    <!-- ===================== MARQUEE ===================== -->
+    <div class="marq" aria-hidden="true">
+      <div class="marq-track">
+        <span>Festpreis</span><span>Keine Agentur-Nebel</span><span>Alle Texte inklusive</span><span>Hosting in Deutschland</span><span>In 14 Tagen online</span>
+        <span>Festpreis</span><span>Keine Agentur-Nebel</span><span>Alle Texte inklusive</span><span>Hosting in Deutschland</span><span>In 14 Tagen online</span>
+      </div>
+    </div>
+
+    <!-- ===================== ARBEITEN (der Star) ===================== -->
+    <section id="arbeiten">
       <div class="container">
-        <div class="reveal">
-          <p class="eyebrow">Das Problem</p>
-          <h2>Die meisten Firmenwebsites sehen okay aus. Aber sie sagen in drei Sekunden nicht, warum man genau hier anfragen soll.</h2>
+        <div class="sec-head">
+          <div>
+            <span class="label">Arbeiten</span>
+            <h2>Drei Branchen. Drei eigene Handschriften.</h2>
+          </div>
+          <p class="sub">Kein Vorlagen-Look, kein Baukasten. Jede Seite eine eigene Marke. Sehen Sie live, wie unterschiedlich eine Sartu-Seite wirkt.</p>
         </div>
-        <div class="reveal">
-          <p>Genau da setzen wir an. Erst sortieren wir Ihr Angebot, Ihre Zielgruppe und die Fragen Ihrer Kunden. Dann bauen wir eine Seite, die Besucher ruhig zum Anruf führt und die Google und die KI-Suche klar verstehen.</p>
-          <a href="ablauf.php" class="text-link">So läuft ein Projekt ab <span aria-hidden="true">→</span></a>
+
+        <div class="works">
+          <article class="work reveal">
+            <div class="work-media">
+              <figure class="work-frame">
+                <div class="work-bar"><i></i><i></i><i></i><span class="u">klarfeld-zahnaerzte.de</span></div>
+                <img src="assets/ref/praxis-shot.jpg" alt="Beispielprojekt: Website einer Zahnarztpraxis, von Sartu gebaut" loading="lazy" />
+              </figure>
+            </div>
+            <div class="work-body">
+              <p class="work-idx">Projekt 01</p>
+              <h3>Klarfeld Zahnärzte</h3>
+              <p class="meta">Zahnarztpraxis · Paket Wachstum</p>
+              <p>Ruhige, vertrauensbildende Praxis-Website mit sanfter Bildsprache und Online-Terminen. Nimmt ängstlichen Patienten die Scheu.</p>
+              <a class="work-link" href="musterseiten/praxis.html" target="_blank" rel="noopener">Live ansehen <span class="ext" aria-hidden="true">↗</span></a>
+            </div>
+          </article>
+
+          <article class="work reveal">
+            <div class="work-media">
+              <figure class="work-frame">
+                <div class="work-bar"><i></i><i></i><i></i><span class="u">steinweg-rechtsanwaelte.de</span></div>
+                <img src="assets/ref/kanzlei-shot.jpg" alt="Beispielprojekt: Website einer Rechtsanwaltskanzlei, von Sartu gebaut" loading="lazy" />
+              </figure>
+            </div>
+            <div class="work-body">
+              <p class="work-idx">Projekt 02</p>
+              <h3>Steinweg Rechtsanwälte</h3>
+              <p class="meta">Kanzlei · Paket Platzhirsch</p>
+              <p>Seriöser, umfangreicher Auftritt mit klarer Struktur, Navy und Gold. Wirkt so etabliert, wie die Kanzlei arbeitet.</p>
+              <a class="work-link" href="musterseiten/kanzlei.html" target="_blank" rel="noopener">Live ansehen <span class="ext" aria-hidden="true">↗</span></a>
+            </div>
+          </article>
+
+          <article class="work reveal">
+            <div class="work-media">
+              <figure class="work-frame">
+                <div class="work-bar"><i></i><i></i><i></i><span class="u">holzwerk-nordkamp.de</span></div>
+                <img src="assets/ref/handwerk-shot.jpg" alt="Beispielprojekt: Website eines Handwerksbetriebs, von Sartu gebaut" loading="lazy" />
+              </figure>
+            </div>
+            <div class="work-body">
+              <p class="work-idx">Projekt 03</p>
+              <h3>Holzwerk Nordkamp</h3>
+              <p class="meta">Zimmerei &amp; Dach · Paket Start</p>
+              <p>Handfeste Handwerks-Website mit kräftiger Typo und echten Baustellen-Bildern. Führt direkt zur Anfrage.</p>
+              <a class="work-link" href="musterseiten/handwerk.html" target="_blank" rel="noopener">Live ansehen <span class="ext" aria-hidden="true">↗</span></a>
+            </div>
+          </article>
+        </div>
+        <p class="works-note">Beispielprojekte · fiktive Marken · keine echten Kundendaten</p>
+      </div>
+    </section>
+
+    <!-- ===================== LEISTUNGEN (editoriale Liste) ===================== -->
+    <section class="tint">
+      <div class="container">
+        <div class="sec-head">
+          <div>
+            <span class="label">Leistungen</span>
+            <h2>Alles aus einer Hand.</h2>
+          </div>
+          <p class="sub">Design, Texte, Technik und Betrieb. Ein Ansprechpartner, ein Festpreis, keine Schnittstellen, an denen etwas verloren geht.</p>
+        </div>
+        <div class="svc">
+          <a class="svc-row" href="leistung-webdesign.php"><span class="n">01</span><h3>Webdesign</h3><p>Neue Firmenwebsite, mobil-optimiert und auf Anfragen ausgelegt.</p><span class="go" aria-hidden="true">→</span></a>
+          <a class="svc-row" href="leistung-redesign.php"><span class="n">02</span><h3>Redesign</h3><p>Aus einer veralteten Seite wird eine, die wieder Kunden bringt.</p><span class="go" aria-hidden="true">→</span></a>
+          <a class="svc-row" href="leistung-seo.php"><span class="n">03</span><h3>SEO &amp; KI-Suche</h3><p>Laufend bei Google und in der KI-Suche gefunden werden.</p><span class="go" aria-hidden="true">→</span></a>
+          <a class="svc-row" href="leistung-texte.php"><span class="n">04</span><h3>Texte</h3><p>Texte, die verkaufen statt nur zu beschreiben. Inklusive.</p><span class="go" aria-hidden="true">→</span></a>
+          <a class="svc-row" href="leistung-logo.php"><span class="n">05</span><h3>Logo &amp; Branding</h3><p>Ein Erscheinungsbild, das seriös wirkt und überall passt.</p><span class="go" aria-hidden="true">→</span></a>
+          <a class="svc-row" href="leistung-wartung.php"><span class="n">06</span><h3>Wartung &amp; Hosting</h3><p>Sicherer Betrieb in Deutschland. Backups, Updates, Monitoring.</p><span class="go" aria-hidden="true">→</span></a>
         </div>
       </div>
     </section>
@@ -105,9 +177,11 @@ $pageDesc  = $brief['description'];
     <section id="preise">
       <div class="container">
         <div class="sec-head">
-          <span class="eyebrow">Pakete</span>
-          <h2 class="section-title">Klare Festpreise, ohne Agentur-Nebel.</h2>
-          <p>Sie sagen uns, was Ihre Firma macht. Wir empfehlen das passende Paket und den Festpreis. Texte, Design und Technik sind immer inklusive.</p>
+          <div>
+            <span class="label">Pakete</span>
+            <h2>Klare Festpreise, ohne Agentur-Nebel.</h2>
+          </div>
+          <p class="sub">Sie sagen uns, was Ihre Firma macht. Wir empfehlen das Paket und den Festpreis. Texte, Design und Technik sind immer inklusive.</p>
         </div>
         <div class="plans reveal">
           <article class="pcard">
@@ -136,7 +210,7 @@ $pageDesc  = $brief['description'];
               <li>Inhalte selbst ändern, Anfragen messen</li>
               <li>In 7–14 Werktagen online</li>
             </ul>
-            <a href="anfrage.php?paket=wachstum" class="btn btn-primary">Wachstum anfragen <span class="arr" aria-hidden="true">→</span></a>
+            <a href="anfrage.php?paket=wachstum" class="btn">Wachstum anfragen <span class="arr" aria-hidden="true">→</span></a>
           </article>
 
           <article class="pcard">
@@ -153,78 +227,39 @@ $pageDesc  = $brief['description'];
             <a href="anfrage.php?paket=platzhirsch" class="btn btn-ghost">Platzhirsch anfragen</a>
           </article>
         </div>
-        <p class="plans-note">Größeres Vorhaben, mehr als 20 Seiten oder mehrere Standorte? Individueller Festpreis. <a href="preise.php">Alle Pakete &amp; Details ansehen →</a></p>
-      </div>
-    </section>
-
-    <!-- ===================== BEISPIELPROJEKTE ===================== -->
-    <section id="beispiele" class="tint">
-      <div class="container">
-        <div class="sec-head">
-          <span class="eyebrow">Beispielprojekte</span>
-          <h2 class="section-title">So sehen Sartu-Websites aus.</h2>
-          <p>Drei Branchen, drei eigene Handschriften. Kein Vorlagen-Look, kein Baukasten. Sehen Sie selbst, wie eigenständig eine Sartu-Seite wirkt.</p>
-        </div>
-        <div class="refs reveal">
-          <article class="refcard">
-            <div class="refthumb"><img src="assets/ref/praxis-shot.jpg" alt="Beispielprojekt: Website einer Zahnarztpraxis" loading="lazy" /></div>
-            <div class="refbody">
-              <p class="refbadge">Zahnarztpraxis · Wachstum</p>
-              <h3>Klarfeld Zahnärzte</h3>
-              <p>Ruhige, vertrauensbildende Praxis-Website mit Online-Terminen.</p>
-              <a class="reflink" href="musterseiten/praxis.html" target="_blank" rel="noopener">Live ansehen <span class="ext" aria-hidden="true">↗</span></a>
-            </div>
-          </article>
-          <article class="refcard">
-            <div class="refthumb"><img src="assets/ref/kanzlei-shot.jpg" alt="Beispielprojekt: Website einer Rechtsanwaltskanzlei" loading="lazy" /></div>
-            <div class="refbody">
-              <p class="refbadge">Rechtsanwälte · Platzhirsch</p>
-              <h3>Steinweg Rechtsanwälte</h3>
-              <p>Seriöser, umfangreicher Auftritt für eine etablierte Kanzlei.</p>
-              <a class="reflink" href="musterseiten/kanzlei.html" target="_blank" rel="noopener">Live ansehen <span class="ext" aria-hidden="true">↗</span></a>
-            </div>
-          </article>
-          <article class="refcard">
-            <div class="refthumb"><img src="assets/ref/handwerk-shot.jpg" alt="Beispielprojekt: Website eines Handwerksbetriebs" loading="lazy" /></div>
-            <div class="refbody">
-              <p class="refbadge">Zimmerei &amp; Dach · Start</p>
-              <h3>Holzwerk Nordkamp</h3>
-              <p>Handfeste Handwerks-Website, die Anfragen bringt.</p>
-              <a class="reflink" href="musterseiten/handwerk.html" target="_blank" rel="noopener">Live ansehen <span class="ext" aria-hidden="true">↗</span></a>
-            </div>
-          </article>
-        </div>
-        <p class="refnote">Beispielprojekte mit fiktiven Marken zur Veranschaulichung. Keine echten Kundendaten.</p>
+        <p class="plans-note">Größeres Vorhaben, mehr als 20 Seiten oder mehrere Standorte? Individueller Festpreis. <a href="preise.php">Alle Pakete &amp; Details →</a></p>
       </div>
     </section>
 
     <!-- ===================== ABLAUF + GARANTIE ===================== -->
-    <section>
+    <section class="tint">
       <div class="container">
         <div class="sec-head">
-          <span class="eyebrow">So läuft's</span>
-          <h2 class="section-title">In drei Schritten zur fertigen Website.</h2>
-          <p>Alles digital, ohne Termine, ohne Verkaufsdruck. Sie entscheiden, wann Sie dran sind.</p>
+          <div>
+            <span class="label">So läuft's</span>
+            <h2>In drei Schritten zur Website.</h2>
+          </div>
+          <p class="sub">Alles digital, ohne Termine, ohne Verkaufsdruck. Sie entscheiden, wann Sie dran sind.</p>
         </div>
         <div class="steps reveal">
           <div class="step">
-            <span class="n">Schritt 1</span>
+            <span class="n">01</span>
             <h3>Ein paar Klick-Fragen</h3>
             <p>Sie beschreiben in einer Minute, was Ihre Firma macht und was die Website bringen soll. Ohne Termin, unverbindlich.</p>
           </div>
           <div class="step">
-            <span class="n">Schritt 2</span>
+            <span class="n">02</span>
             <h3>Empfehlung &amp; Festpreis</h3>
             <p>Sie bekommen eine klare Paket-Empfehlung und Ihren Festpreis schwarz auf weiß. Kein Vertrag, kein Abo-Zwang.</p>
           </div>
           <div class="step">
-            <span class="n">Schritt 3</span>
+            <span class="n">03</span>
             <h3>Wir bauen, Sie geben frei</h3>
             <p>Online in 7 bis 14 Werktagen, sicher gehostet in Deutschland. Auf Wunsch per Express in etwa halber Zeit.</p>
           </div>
         </div>
-        <div class="guar reveal" style="margin-top:34px">
-          <span class="guar-ic"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.4 8.5-8 10-4.6-1.5-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg></span>
+        <div class="guar reveal">
+          <span class="guar-ic"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.4 8.5-8 10-4.6-1.5-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg></span>
           <div>
             <h3>Geld-zurück auf den ersten Entwurf</h3>
             <p>Überzeugt Sie der erste Design-Entwurf nicht, bekommen Sie Ihre Anzahlung zurück. Fair und ohne Kleingedrucktes.</p>
@@ -234,14 +269,16 @@ $pageDesc  = $brief['description'];
     </section>
 
     <!-- ===================== FAQ ===================== -->
-    <section class="tint">
+    <section>
       <div class="container">
         <div class="sec-head">
-          <span class="eyebrow">Häufige Fragen</span>
-          <h2 class="section-title">Kurz und ehrlich beantwortet.</h2>
+          <div>
+            <span class="label">Häufige Fragen</span>
+            <h2>Kurz und ehrlich beantwortet.</h2>
+          </div>
         </div>
         <div class="faq-list reveal">
-          <details class="faq-item"><summary>Was kostet eine Firmenwebsite bei Sartu?</summary><div class="faq-a">Wir arbeiten zum Festpreis: Start 1.290 €, Wachstum 3.290 €, Platzhirsch 6.490 €. Dazu kommt der monatliche Rundum-Schutz für den sicheren Betrieb (ab 49 €). Den genauen Festpreis bekommen Sie vorab schriftlich. Mehr dazu auf der <a href="preise.php">Preisseite</a>.</div></details>
+          <details class="faq-item"><summary>Was kostet eine Firmenwebsite bei Sartu?</summary><div class="faq-a">Wir arbeiten zum Festpreis: Start 1.290 €, Wachstum 3.290 €, Platzhirsch 6.490 €. Dazu kommt der monatliche Rundum-Schutz für den sicheren Betrieb (ab 49 €). Den genauen Festpreis bekommen Sie vorab schriftlich. Mehr auf der <a href="preise.php">Preisseite</a>.</div></details>
           <details class="faq-item"><summary>Ich weiß selbst nicht, welche Seiten ich brauche.</summary><div class="faq-a">Das müssen Sie auch nicht. Sie sagen uns, was Ihre Firma macht und was die Website erreichen soll. Wir empfehlen daraus das passende Paket und schlagen die konkrete Seitenstruktur im Angebot vor. Sie entscheiden dann.</div></details>
           <details class="faq-item"><summary>Wie schnell ist meine Website online?</summary><div class="faq-a">Nach vollständigen Inhalten geht eine kleine Website oft in 7 bis 14 Werktagen online. Mit der Express-Option liefern wir in etwa halber Zeit, gegen einen Aufschlag von 50 Prozent.</div></details>
           <details class="faq-item"><summary>Bin ich an einen Vertrag gebunden?</summary><div class="faq-a">Die Anfrage ist kostenlos und unverbindlich. Sie erhalten einen Festpreis schriftlich und entscheiden in Ruhe. Kein Abo-Zwang für die Website selbst.</div></details>
@@ -250,13 +287,13 @@ $pageDesc  = $brief['description'];
       </div>
     </section>
 
-    <!-- ===================== FINALE CTA (dunkel, tiefpetrol) ===================== -->
+    <!-- ===================== KONTAKT (dunkel) ===================== -->
     <section class="final">
       <div class="container reveal">
-        <p class="eyebrow">Nächster Schritt</p>
-        <h2>Bereit für eine Website, die arbeitet?</h2>
+        <span class="label">Nächster Schritt</span>
+        <h2>Bereit anzufangen?</h2>
         <p>Beschreiben Sie in einer Minute Ihr Vorhaben. Sie bekommen eine ehrliche Empfehlung und Ihren Festpreis, unverbindlich.</p>
-        <div class="hero-cta">
+        <div class="hero-act">
           <a href="anfrage.php" class="btn btn-light btn-lg">Projekt starten <span class="arr" aria-hidden="true">→</span></a>
           <a href="preise.php" class="btn btn-outline-l btn-lg">Preise ansehen</a>
         </div>
@@ -270,7 +307,7 @@ $pageDesc  = $brief['description'];
     <div class="container">
       <div class="ft-grid">
         <div class="ft-brand">
-          <span class="brand"><span class="bdot" aria-hidden="true"></span>Sartu</span>
+          <span class="brand">Sartu<span style="color:var(--petrol)">.</span></span>
           <p>Moderne Firmenwebsites zum Festpreis. Transparent, persönlich und DSGVO-konform aus Deutschland.</p>
         </div>
         <div class="ft-col">
@@ -295,7 +332,7 @@ $pageDesc  = $brief['description'];
         </div>
       </div>
       <div class="ft-bot">
-        <span>© <?= date('Y') ?> Sartu. Alle Rechte vorbehalten.</span>
+        <span>© <?= date('Y') ?> Sartu</span>
         <span>Festpreis · 7–14 Werktage · Hosting in Deutschland</span>
       </div>
     </div>
@@ -308,18 +345,11 @@ $pageDesc  = $brief['description'];
         els.forEach(function (e) { e.classList.add('vis'); }); return;
       }
       var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (en) {
-          if (en.isIntersecting) { en.target.classList.add('vis'); io.unobserve(en.target); }
-        });
-      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+        entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('vis'); io.unobserve(en.target); } });
+      }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
       els.forEach(function (e) { io.observe(e); });
-
-      var burger = document.querySelector('.hdr-burger');
-      var nav = document.querySelector('.hdr-nav');
-      if (burger && nav) burger.addEventListener('click', function () {
-        var open = nav.style.display === 'flex';
-        nav.style.display = open ? '' : 'flex';
-      });
+      var burger = document.querySelector('.hdr-burger'), nav = document.querySelector('.hdr-nav');
+      if (burger && nav) burger.addEventListener('click', function () { nav.style.display = nav.style.display === 'flex' ? '' : 'flex'; });
     })();
   </script>
 </body>
