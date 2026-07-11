@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex,nofollow" />
+<title>Holzbau Muster · Zimmerei und Dachdeckerei (Beispielprojekt)</title>
+<!-- Beispielprojekt (Sartu-Portfolio). Schriften self-hosted (Oswald + Work Sans, OFL). -->
+<link rel="stylesheet" href="handwerk-assets/gf.css" />
+<style>
+  :root{
+    --ink:#1b1d21; --ink-2:#141519; --paper:#f0efe9; --surface:#ffffff;
+    --text:#22252b; --muted:#6b717a; --line:#e0ded5;
+    --accent:#d96a26; --accent-d:#bd591c;
+    --fd:'Oswald',Impact,sans-serif; --fu:'Work Sans',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--fu);color:var(--text);background:var(--paper);line-height:1.6;-webkit-font-smoothing:antialiased}
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  h1,h2,h3{font-family:var(--fd);font-weight:600;line-height:1.02;text-transform:uppercase;letter-spacing:.005em;hyphens:none}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+  .kicker{font-family:var(--fd);font-weight:600;font-size:14px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent)}
+  .btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--fd);font-weight:600;font-size:16px;letter-spacing:.06em;text-transform:uppercase;background:var(--accent);color:#fff;padding:16px 30px;transition:background .2s,transform .13s cubic-bezier(.23,1,.32,1)}
+  .btn:hover{background:var(--accent-d);transform:translateY(-2px)}
+  .btn:active{transform:scale(.98)}
+  .btn-ghost{background:transparent;color:#fff;box-shadow:inset 0 0 0 2px rgba(255,255,255,.5)}
+  .btn-ghost:hover{background:rgba(255,255,255,.12)}
+
+  /* Hero: Full-Bleed-Foto, Nav overlay, kondensierte Headline */
+  .hero{position:relative;min-height:90vh;display:flex;flex-direction:column;color:#fff;overflow:hidden}
+  .hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,21,25,.62)0%,rgba(20,21,25,.15)38%,rgba(20,21,25,.82)100%);z-index:1}
+  .hnav{position:relative;z-index:2}
+  .hnav-in{display:flex;align-items:center;justify-content:space-between;padding:24px 0}
+  .brand{font-family:var(--fd);font-weight:700;font-size:24px;text-transform:uppercase;letter-spacing:.02em;color:#fff}
+  .brand b{color:var(--accent);font-weight:700}
+  .hnav-r{display:flex;align-items:center;gap:30px}
+  .hnav-r nav{display:flex;gap:26px}
+  .hnav-r nav a{font-weight:600;font-size:15px;color:rgba(255,255,255,.9);text-transform:uppercase;letter-spacing:.04em;font-family:var(--fd)}
+  .hnav-r nav a:hover{color:var(--accent)}
+  .hnav-r .tel{font-family:var(--fd);font-weight:600;font-size:17px;color:#fff}
+  .hero-body{position:relative;z-index:2;margin-top:auto;padding-bottom:72px}
+  .hero-body .kicker{margin-bottom:18px;display:block}
+  .hero h1{font-size:82px;max-width:15ch}
+  .hero h1 em{color:var(--accent);font-style:normal}
+  .hero-sub{font-size:19px;color:rgba(255,255,255,.88);max-width:48ch;margin:20px 0 30px}
+  .hero-act{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+
+  /* Trust-Leiste */
+  .trust{background:var(--ink);color:#fff}
+  .trust-in{display:grid;grid-template-columns:repeat(4,1fr)}
+  .trust-in > div{padding:26px 24px;border-left:1px solid rgba(255,255,255,.1);display:flex;flex-direction:column;gap:2px}
+  .trust-in > div:first-child{border-left:none;padding-left:0}
+  .trust b{font-family:var(--fd);font-weight:600;font-size:22px;text-transform:uppercase;color:var(--accent)}
+  .trust span{font-size:14px;color:rgba(255,255,255,.72)}
+
+  section{padding:96px 0}
+  .head{max-width:640px;margin-bottom:48px}
+  .head .kicker{display:block;margin-bottom:16px}
+  .head h2{font-size:52px}
+  .head p{margin-top:16px;color:var(--muted);font-size:17px}
+
+  /* Leistungen: kräftige Zeilen mit Akzentbalken */
+  .svc{border-top:2px solid var(--ink)}
+  .svc-row{display:grid;grid-template-columns:70px 1fr 1.1fr;gap:26px;align-items:center;padding:28px 8px;border-bottom:1px solid var(--line);transition:background .18s,padding .18s}
+  .svc-row:hover{background:var(--surface);padding-left:18px}
+  .svc-row .n{font-family:var(--fd);font-size:26px;color:var(--accent);font-weight:600}
+  .svc-row h3{font-size:30px}
+  .svc-row p{color:var(--muted);font-size:16px}
+
+  /* Referenzen-Galerie, bildstark */
+  .gal{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+  .gcell{position:relative;overflow:hidden;background:var(--ink)}
+  .gcell img{width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.23,1,.32,1)}
+  .gcell:hover img{transform:scale(1.04)}
+  .gcell .cap{position:absolute;left:0;right:0;bottom:0;padding:20px;background:linear-gradient(0deg,rgba(20,21,25,.85),transparent);color:#fff}
+  .gcell .cap b{font-family:var(--fd);font-weight:600;font-size:19px;text-transform:uppercase;display:block}
+  .gcell .cap span{font-size:13px;color:rgba(255,255,255,.75)}
+  .g-a{grid-column:span 7;aspect-ratio:16/10}
+  .g-b{grid-column:span 5;aspect-ratio:16/12}
+  .g-c{grid-column:span 5;aspect-ratio:16/12}
+  .g-d{grid-column:span 7;aspect-ratio:16/10}
+
+  /* Ablauf */
+  .flow{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:2px solid var(--ink)}
+  .flow > div{padding:30px 28px 30px 0;border-right:1px solid var(--line)}
+  .flow > div:last-child{border-right:none;padding-right:0}
+  .flow .n{font-family:var(--fd);font-size:44px;color:var(--line);font-weight:700;line-height:1}
+  .flow h3{font-size:24px;margin:12px 0 8px}
+  .flow p{color:var(--muted);font-size:15.5px}
+
+  /* Kontakt-Band, telefonfokussiert */
+  .cta{background:var(--ink-2);color:#fff;position:relative;overflow:hidden}
+  .cta .wrap{padding:84px 32px}
+  .cta .kicker{display:block;margin-bottom:16px}
+  .cta h2{font-size:56px;max-width:16ch}
+  .cta-row{display:flex;gap:40px;flex-wrap:wrap;align-items:center;margin-top:30px}
+  .cta-tel{font-family:var(--fd);font-weight:700;font-size:42px;color:#fff;text-transform:uppercase;letter-spacing:.01em}
+  .cta-tel span{display:block;font-family:var(--fu);font-size:14px;font-weight:500;text-transform:none;letter-spacing:0;color:rgba(255,255,255,.6)}
+  .cta-addr{color:rgba(255,255,255,.72);font-size:15px;line-height:1.7}
+
+  footer{background:var(--ink);color:rgba(255,255,255,.65);padding:48px 0 30px}
+  .fgrid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:36px;padding-bottom:30px;border-bottom:1px solid rgba(255,255,255,.12)}
+  .fbrand{font-family:var(--fd);font-weight:700;font-size:22px;color:#fff;text-transform:uppercase}
+  .fbrand b{color:var(--accent)}
+  .fbrand p{font-size:14px;margin-top:12px;max-width:34ch;color:rgba(255,255,255,.55)}
+  .fcol h4{font-family:var(--fd);font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:#fff;margin-bottom:12px}
+  .fcol a{display:block;font-size:14.5px;padding:4px 0;color:rgba(255,255,255,.65)}
+  .fcol a:hover{color:var(--accent)}
+  .fbot{padding-top:24px;font-size:13px;color:rgba(255,255,255,.5);display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px}
+
+  @media (max-width:900px){
+    .hero h1{font-size:46px}
+    .trust-in,.flow,.gal,.fgrid{grid-template-columns:1fr}
+    .trust-in > div{border-left:none;border-top:1px solid rgba(255,255,255,.1);padding-left:0}
+    .g-a,.g-b,.g-c,.g-d{grid-column:span 1;aspect-ratio:16/10}
+    .svc-row{grid-template-columns:44px 1fr;gap:12px}
+    .svc-row p{grid-column:2}
+    .flow > div{border-right:none;border-bottom:1px solid var(--line);padding-right:0}
+    .head h2{font-size:38px}
+    .cta h2{font-size:38px}
+    .hnav-r nav{display:none}
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <img src="handwerk-assets/handwerk-hero.jpg" alt="Zimmerer beim Aufrichten eines Dachstuhls" />
+  <div class="hnav">
+    <div class="wrap hnav-in">
+      <a class="brand" href="#">Holzbau<b>.</b>Muster</a>
+      <div class="hnav-r">
+        <nav>
+          <a href="#leistungen">Leistungen</a>
+          <a href="#referenzen">Referenzen</a>
+          <a href="#kontakt">Kontakt</a>
+        </nav>
+        <span class="tel">01234 567890</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-body">
+    <div class="wrap">
+      <span class="kicker">Meisterbetrieb · Zimmerei &amp; Dachdeckerei</span>
+      <h1>Ein Dach, das <em>hält</em>. Handwerk, das man sieht.</h1>
+      <p class="hero-sub">Dachstühle, Eindeckung und Holzbau aus einer Hand. Festpreis vorab, Termine, die stehen, und eine Baustelle, die sauber bleibt.</p>
+      <div class="hero-act">
+        <a class="btn" href="#kontakt">Kostenloses Angebot</a>
+        <a class="btn btn-ghost" href="#referenzen">Referenzen ansehen</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="trust">
+  <div class="wrap trust-in">
+    <div><b>Meisterbetrieb</b><span>Ausbildung und Qualität aus einer Hand</span></div>
+    <div><b>Seit über 25 Jahren</b><span>im Familienbetrieb geführt</span></div>
+    <div><b>50 km Umkreis</b><span>schnell bei Ihnen vor Ort</span></div>
+    <div><b>24-Std-Notdienst</b><span>bei Sturm- und Wasserschaden</span></div>
+  </div>
+</div>
+
+<main>
+  <section id="leistungen">
+    <div class="wrap">
+      <div class="head">
+        <span class="kicker">Was wir können</span>
+        <h2>Vom Dachstuhl bis zum letzten Ziegel.</h2>
+        <p>Alles rund ums Dach und den Holzbau. Ein Ansprechpartner, ein Festpreis, keine Schnittstellen, an denen etwas verloren geht.</p>
+      </div>
+      <div class="svc">
+        <div class="svc-row"><span class="n">01</span><h3>Dacheindeckung</h3><p>Neueindeckung, Sanierung und Reparatur, dicht bis zum letzten Ziegel.</p></div>
+        <div class="svc-row"><span class="n">02</span><h3>Zimmerei &amp; Holzbau</h3><p>Dachstühle, Carports und Anbauten aus Konstruktionsvollholz.</p></div>
+        <div class="svc-row"><span class="n">03</span><h3>Fassade &amp; Dämmung</h3><p>Energetisch sinnvoll verkleidet, damit die Wärme bleibt, wo sie hingehört.</p></div>
+        <div class="svc-row"><span class="n">04</span><h3>Notdienst &amp; Reparatur</h3><p>Sturmschaden? Wir sind schnell da und machen erst einmal dicht.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="referenzen" style="padding-top:0">
+    <div class="wrap">
+      <div class="head">
+        <span class="kicker">Referenzen</span>
+        <h2>Arbeit, die man anfassen kann.</h2>
+      </div>
+      <div class="gal">
+        <figure class="gcell g-a"><img src="handwerk-assets/handwerk-1.jpg" alt="Fertiggestellter Holzbau" /><figcaption class="cap"><b>Neubau Holzhaus</b><span>Musterstadt · Zimmerei &amp; Fassade</span></figcaption></figure>
+        <figure class="gcell g-b"><img src="handwerk-assets/handwerk-2.jpg" alt="Baustelle aus der Vogelperspektive" /><figcaption class="cap"><b>Rohbau-Begleitung</b><span>Beispieldorf · Dach &amp; Konstruktion</span></figcaption></figure>
+        <figure class="gcell g-c"><img src="handwerk-assets/handwerk-3.jpg" alt="Detailarbeit im Innenausbau" /><figcaption class="cap"><b>Innenausbau</b><span>Musterstadt · Ausbau &amp; Detail</span></figcaption></figure>
+        <figure class="gcell g-d"><img src="handwerk-assets/handwerk-4.jpg" alt="Arbeiten auf der Baustelle" /><figcaption class="cap"><b>Dachsanierung</b><span>Musterhausen · Eindeckung &amp; Dämmung</span></figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="ablauf" style="padding-top:0">
+    <div class="wrap">
+      <div class="head">
+        <span class="kicker">So läuft's</span>
+        <h2>Kein Papierkram, kein Blabla.</h2>
+      </div>
+      <div class="flow">
+        <div><div class="n">01</div><h3>Anfrage</h3><p>Kurz anrufen oder Formular ausfüllen. Sie schildern, worum es geht.</p></div>
+        <div><div class="n">02</div><h3>Termin &amp; Festpreis</h3><p>Wir schauen es uns vor Ort an. Sie bekommen einen klaren Festpreis, schriftlich.</p></div>
+        <div><div class="n">03</div><h3>Ausführung</h3><p>Termintreu und sauber. Die Baustelle bleibt ordentlich, das Ergebnis hält.</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<section class="cta" id="kontakt">
+  <div class="wrap">
+    <span class="kicker">Jetzt anfragen</span>
+    <h2>Sagen Sie uns, was ansteht.</h2>
+    <div class="cta-row">
+      <div class="cta-tel">01234 567890<span>Mo bis Fr, 7 bis 17 Uhr · Notdienst rund um die Uhr</span></div>
+      <a class="btn" href="#">Kostenloses Angebot anfordern</a>
+    </div>
+    <div class="cta-row" style="margin-top:24px">
+      <div class="cta-addr">Holzbau Muster (Beispielbetrieb)<br>Musterstraße 1 · 12345 Musterstadt<br>kontakt@holzbau-muster.de</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <div class="fbrand">Holzbau<b>.</b>Muster</div>
+        <p>Meisterbetrieb für Zimmerei und Dachdeckerei. Beispielprojekt zur Veranschaulichung, kein echter Betrieb.</p>
+      </div>
+      <div class="fcol">
+        <h4>Leistungen</h4>
+        <a href="#leistungen">Dacheindeckung</a>
+        <a href="#leistungen">Zimmerei &amp; Holzbau</a>
+        <a href="#leistungen">Fassade &amp; Dämmung</a>
+        <a href="#leistungen">Notdienst</a>
+      </div>
+      <div class="fcol">
+        <h4>Kontakt</h4>
+        <a href="#kontakt">01234 567890</a>
+        <a href="#kontakt">Musterstraße 1, Musterstadt</a>
+        <a href="#kontakt">kontakt@holzbau-muster.de</a>
+      </div>
+    </div>
+    <div class="fbot">
+      <span>© 2026 Holzbau Muster (Beispielprojekt)</span>
+      <span>Impressum · Datenschutz</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
