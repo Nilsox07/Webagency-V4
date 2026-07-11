@@ -212,7 +212,7 @@
   <script src="briefing-schema.js?v=5"></script>
   <!-- Farb-Vorschau-Mockup (optional, entfernbar): nur diese Zeile löschen, um es auszubauen -->
   <script src="color-mockup.js?v=1"></script>
-  <script src="briefing.js?v=30"></script>
+  <script src="briefing.js?v=31"></script>
 </body>
 </html>
 

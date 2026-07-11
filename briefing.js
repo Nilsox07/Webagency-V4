@@ -78,6 +78,7 @@
     // Website-Plan
     paket_gewaehlt: null,
     paket_empfohlen: null,
+    paket_fix: null,                  // vom Kunden fest vorgewaehltes Paket (Muster-Deep-Link) — Fragen laufen trotzdem
     wartung: null,                    // fixer Rundum-Schutz = Paket-Floor (keine Auswahl mehr)
     extraPages: 0,                    // Seiten über dem Inklusiv-Kontingent (Variante A)
     addons: {},                       // { addonId: {selected:bool, qty:int} }
@@ -959,7 +960,12 @@
       // Empfehlung aus den Antworten ableiten. Pfad B folgt IMMER der Empfehlung
       // (es gibt keinen Paket-Wähler mehr — ändern = Antworten ändern); Pfad A
       // (Deep-Link von /preise) behält das vorgewählte Paket.
-      if (A.pfad !== 'A') {
+      if (A.paket_fix) {
+        // Muster-Deep-Link: Kunde hat das Paket fest gewählt. Empfehlung nur zur
+        // Info für Sartu berechnen, das gewählte Paket aber beibehalten.
+        A.paket_empfohlen = recommend();
+        A.paket_gewaehlt = A.paket_fix;
+      } else if (A.pfad !== 'A') {
         A.paket_empfohlen = recommend();
         A.paket_gewaehlt = A.paket_empfohlen;
       } else if (!A.paket_gewaehlt) {
@@ -975,7 +981,10 @@
       var intro = ent
         ? { q: 'Für Ihr Vorhaben empfehle ich ein individuelles Festpreis-Angebot.',
             hint: 'Sagen Sie uns, wohin Sartu Ihr unverbindliches Angebot schicken darf — den genauen Festpreis erhalten Sie schriftlich, bevor Sie zusagen.' }
-        : (A.pfad === 'A'
+        : (A.paket_fix
+          ? { q: 'Sie haben „' + p.name + '“ gewählt — hier ist Ihr Festpreis mit Ihren Angaben.',
+              hint: 'Prüf kurz Ihre Übersicht — dann sag mir, wohin Sartu Ihr unverbindliches Angebot schicken darf. Es entsteht KEIN Vertrag.' }
+          : A.pfad === 'A'
           ? { q: 'Sie haben „' + p.name + '“ gewählt — hier ist Ihr Festpreis.',
               hint: 'Prüf kurz Ihre Übersicht — dann sag mir, wohin Sartu Ihr unverbindliches Angebot schicken darf. Es entsteht KEIN Vertrag.' }
           : { q: 'Auf Basis Ihrer Angaben empfehle ich „' + p.name + '“.',
@@ -1009,7 +1018,7 @@
       stage.appendChild(card);
 
       // Begründungs-Halbsatz, falls die Empfehlung durch Funktionen angehoben wurde
-      if (!ent && A.pfad !== 'A') {
+      if (!ent && A.pfad !== 'A' && !A.paket_fix) {
         var ubase = A.umfang === 'onepager' ? 'basis' : (A.umfang === 'umfangreich' ? 'platin' : 'pro');
         var grund = recommendReason();
         if (grund && A.paket_gewaehlt === 'platin' && ubase !== 'platin') {
@@ -1349,7 +1358,7 @@
     A.features = []; A.stil = null; A.hauptfarbe = null; A.nebenfarbe = null; A.markenfarben_hex = '';
     A.material = []; A.uploads = { logo: [], fotos: [], texte: [], texte_notiz: '', website_link: '' };
     A.zeitrahmen = null;
-    A.paket_gewaehlt = null; A.paket_empfohlen = null;
+    A.paket_gewaehlt = null; A.paket_empfohlen = null; A.paket_fix = null;
     A.wartung = null; A.extraPages = 0; A.addons = {}; A.addonEmpfohlen = []; A.addonGrund = {}; A.seo_stufe = null; A._prefilled = false; A._recShown = false;
     A.enterprise = { sonderfunktionen: [], seitenzahl: null, shopGroesse: null, sprachen: '', schnittstellen: '', zeithorizont: null, notiz: '' };
     A.kontakt = { name: '', email: '', telefon: '', dsgvo: false };
@@ -1375,6 +1384,18 @@
       var p = alias[raw] || raw;
       var valid = PRICING.packages.some(function (x) { return x.id === p; });
       if (!valid) return false;
+      // Muster-/Demo-Einstieg (?paket=…&schritte=1): Paket ist gesetzt, der Kunde
+      // durchläuft aber die geführten Fragen — sonst fehlen Sartu die Angaben fürs
+      // Angebot (Seiten, Funktionen, Design, Material). Paket bleibt fix.
+      if ((params.get('schritte') === '1' || params.get('fragen') === '1') && p !== 'enterprise') {
+        A.pfad = 'B';
+        A.produkt_typ = 'website';
+        A.paket_fix = p;
+        A.paket_gewaehlt = p;
+        history = ['intent'];        // „Zurück" führt zur Einstiegs-Weiche
+        renderScreen('branche');
+        return true;
+      }
       A.pfad = 'A';
       A.paket_gewaehlt = p;
       A._recShown = true;          // kein Tipp-Indikator beim Direkteinstieg
