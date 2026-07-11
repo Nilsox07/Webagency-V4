@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="robots" content="noindex,nofollow" />
-<title>Kanzlei Muster · Rechtsanwälte und Steuerberater (Beispielprojekt)</title>
+<title>Steinweg · Rechtsanwälte und Steuerberater (Beispielprojekt)</title>
 <!-- Beispielprojekt (Sartu-Portfolio). Schriften self-hosted (Spectral + Libre Franklin, OFL). -->
 <link rel="stylesheet" href="kanzlei-assets/gf.css" />
 <style>
@@ -38,8 +38,8 @@
   .topbar .g{color:var(--gold-soft)}
   header{border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(242,239,231,.92);backdrop-filter:blur(8px);z-index:40}
   .nav{display:flex;align-items:center;justify-content:space-between;height:78px}
-  .brand{font-family:var(--fd);font-weight:600;font-size:25px;letter-spacing:.01em}
-  .brand b{color:var(--gold);font-weight:600}
+  .brand{display:inline-flex;align-items:center;gap:12px;font-family:var(--fd);font-weight:600;font-size:25px;letter-spacing:.01em}
+  .brand .mk{width:30px;height:27px;flex:none}
   .nav-r{display:flex;align-items:center;gap:34px}
   .nav-r nav{display:flex;gap:30px}
   .nav-r nav a{font-size:15px;color:var(--text);font-weight:500;transition:color .18s}
@@ -138,8 +138,8 @@
   /* Footer, mehrspaltig (Sitemap) = wirkt umfangreich */
   footer{background:var(--navy);color:rgba(255,255,255,.7);padding:64px 0 34px}
   .fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.12)}
-  .fbrand{font-family:var(--fd);font-size:24px;color:#fff}
-  .fbrand b{color:var(--gold)}
+  .fbrand{display:inline-flex;align-items:center;gap:11px;font-family:var(--fd);font-size:24px;color:#fff}
+  .fbrand .mk{width:27px;height:25px;flex:none}
   .fcol h4{font-family:var(--fu);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:16px;font-weight:600}
   .fcol a{display:block;color:rgba(255,255,255,.72);font-size:14.5px;padding:5px 0;transition:color .18s}
   .fcol a:hover{color:#fff}
@@ -172,7 +172,10 @@
 
 <header>
   <div class="wrap nav">
-    <a class="brand" href="#">Kanzlei<b>.</b> Muster</a>
+    <a class="brand" href="#">
+      <svg class="mk" viewBox="0 0 44 40" fill="#9c7d45" aria-hidden="true"><rect x="4" y="6" width="36" height="4.4" rx="1"/><rect x="8.4" y="13" width="3.2" height="19"/><rect x="16.4" y="13" width="3.2" height="19"/><rect x="24.4" y="13" width="3.2" height="19"/><rect x="32.4" y="13" width="3.2" height="19"/><rect x="6" y="33.6" width="32" height="4.4" rx="1"/></svg>
+      <span>Steinweg</span>
+    </a>
     <div class="nav-r">
       <nav>
         <a href="#rechtsgebiete">Rechtsgebiete</a>
@@ -320,7 +323,7 @@
       <div class="cblock"><b>Standort Musterstadt</b><span>Musterstraße 1<br>12345 Musterstadt</span></div>
       <div class="cblock"><b>Standort Beispielstadt</b><span>Beispielallee 20<br>23456 Beispielstadt</span></div>
       <div class="cblock"><b>Telefon</b><span class="gold">01234 567890</span><span>Mo bis Fr, 8 bis 18 Uhr</span></div>
-      <div class="cblock"><b>E-Mail</b><span class="gold">kanzlei@musterkanzlei.de</span><span>Antwort meist am selben Werktag</span></div>
+      <div class="cblock"><b>E-Mail</b><span class="gold">kanzlei@steinweg-recht.de</span><span>Antwort meist am selben Werktag</span></div>
     </div>
   </div>
 </section>
@@ -329,7 +332,10 @@
   <div class="wrap">
     <div class="fgrid">
       <div>
-        <div class="fbrand">Kanzlei<b>.</b> Muster</div>
+        <div class="fbrand">
+          <svg class="mk" viewBox="0 0 44 40" fill="#9c7d45" aria-hidden="true"><rect x="4" y="6" width="36" height="4.4" rx="1"/><rect x="8.4" y="13" width="3.2" height="19"/><rect x="16.4" y="13" width="3.2" height="19"/><rect x="24.4" y="13" width="3.2" height="19"/><rect x="32.4" y="13" width="3.2" height="19"/><rect x="6" y="33.6" width="32" height="4.4" rx="1"/></svg>
+          <span>Steinweg</span>
+        </div>
         <p>Rechtsanwälte und Steuerberater. Beispielprojekt zur Veranschaulichung, keine echte Kanzlei.</p>
       </div>
       <div class="fcol">
@@ -351,11 +357,11 @@
         <h4>Kontakt</h4>
         <a href="#kontakt">Musterstraße 1, Musterstadt</a>
         <a href="#kontakt">01234 567890</a>
-        <a href="#kontakt">kanzlei@musterkanzlei.de</a>
+        <a href="#kontakt">kanzlei@steinweg-recht.de</a>
       </div>
     </div>
     <div class="fbot">
-      <span>© 2026 Kanzlei Muster (Beispielprojekt)</span>
+      <span>© 2026 Steinweg Rechtsanwälte (Beispielprojekt)</span>
       <span>Impressum · Datenschutz</span>
     </div>
   </div>
