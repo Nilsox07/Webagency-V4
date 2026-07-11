@@ -16,7 +16,7 @@ Selbst gebaute, **fiktive** Referenz-Websites für Sartus Wunschbranchen. Zweck:
 ## Bestand
 | Datei | Branche | Paket-Demo | Status |
 |---|---|---|---|
-| `praxis.html` | Zahnarztpraxis (Freiburg) | Wachstum + Terminbuchung | fertig |
+| `praxis.html` | Zahnarztpraxis (Muster, ohne echte Daten) | Wachstum | fertig |
 | _(geplant)_ | Kanzlei/Steuerberater | Platzhirsch | offen |
 | _(geplant)_ | Handwerk | Start/Wachstum | offen |
 
