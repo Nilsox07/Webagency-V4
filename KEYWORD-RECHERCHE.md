@@ -38,13 +38,14 @@ nicht Startpunkt. Kommen mit wachsender Domain-Autorität.
 Nur ~15 von 60 geprüften Agenturen nennen überhaupt Preise → **Festpreis-Transparenz ist unser
 Zitations- und Vertrauensvorsprung.**
 
-### C · USP „Festpreis" — mittleres Volumen, WENIGER Wettbewerb, exakte Passung
-| Keyword | Volumen (gesch.) | Wettbewerb | Passung | Rank-Chance neu |
+### C · USP „Festpreis" — WINNABLE, aber Volumen zu klein für Kundengewinnung
+| Keyword | Volumen | Wettbewerb | Passung | Rank-Chance neu |
 |---|---|---|---|---|
-| website erstellen lassen festpreis | ~150–400 | **niedrig-mittel** | **sehr hoch** | **gut** |
-| homepage / website festpreis | ~150–400 | niedrig-mittel | sehr hoch | **gut** |
-| website für kleine unternehmen | ~200–500 | mittel | **sehr hoch** | **gut** |
-→ Genau Sartus Positionierung. Wenige Wettbewerber besetzen „Festpreis" offensiv. **Winnable.**
+| website erstellen lassen festpreis | **~10–100** (echte Angabe Nils) | niedrig | sehr hoch | gut, aber egal |
+| website für kleine unternehmen | ~200–500 (gesch.) | mittel | sehr hoch | gut |
+→ Gut rankbar, aber **zu wenig Suchvolumen, um Kunden zu bringen.** Taugt als Hygiene/Positionierung
+in Startseiten-H1 und Text, **nicht** als Traffic-Kanal. Bestätigt: die **Startseite ist kein
+Akquise-Kanal** — sie ist Marke + Conversion.
 
 ### D · Branche — mittleres Volumen, mittlerer Wettbewerb, sehr hohe Passung
 | Keyword | Volumen (gesch.) | Wettbewerb | Passung | Rank-Chance neu |
@@ -68,12 +69,25 @@ Anbieter zuerst hochkommt.**
 
 ---
 
-## Empfehlung
+## Empfehlung — Zwei-Schichten-Modell (bestätigt mit Nils)
 
-**1. Startseite (Marke + bester Mid-Tail):** primär **„Webdesign … Festpreis … kleine
-Unternehmen"** — die aktuelle H1 „Webdesign zum Festpreis für kleine Unternehmen" trifft das
-(Bucket C, winnable + hohe Passung). Sekundär im Text: „Firmenwebsite", „Website erstellen lassen".
-Die Startseite allein wird die harten Kopfbegriffe (A) nicht gewinnen — das ist normal und ok.
+**Akquise ≠ Conversion. Zwei getrennte Jobs:**
+- **KUNDENGEWINNUNG (Traffic) = Lokal-Seiten (E) + Branche-Seiten (D) + Kosten-Ratgeber (B).**
+  Hier entsteht rankbarer Such-Traffic. Das ist der Wachstumsmotor.
+- **CONVERSION = Startseite + Leistungen + Preise + Lumi.** Diese Seiten ranken kaum (Kopfbegriffe
+  zu hart), sind aber die **Landefläche, die den lokalen Traffic in Anfragen wandelt.** Ohne gute
+  Kern-Seite verpufft der lokale Traffic.
+
+**Lokal-Targeting realistisch (wichtig gegen Doorway-Falle UND totes Volumen):**
+- **NICHT** jede Gemeinde >5.000 (viele Kleinstädte haben bei „webdesign [Ort]" ~0 Suchen → 0 Nutzen
+  + Thin-/Doorway-Risiko).
+- **Stattdessen:** Städte/Regionen mit **echter lokaler Nachfrage und schlagbarem Wettbewerb** —
+  kleine bis mittlere Städte und Regional-Hubs (nicht Berlin/München, aber auch nicht das 5k-Dorf).
+  Start in der **eigenen Region** (Sachsen/Lausitz), dann datenbasiert erweitern.
+- **Ein Template, echter lokaler Inhalt** je Seite (lokale Bezüge, lokale FAQ), sonst Doorway.
+
+**1. Startseite:** H1 „Webdesign zum Festpreis für kleine Unternehmen" bleibt als Positionierung
+(Bucket C) — bewusst **kein Akquise-Anspruch**. Ihr Job ist Conversion, nicht Ranking.
 
 **2. Ranking-Motor (wo wir hochkommen):**
 - **Branche-Seiten** (D): je eine klar auf „Website für [Handwerker/Zahnärzte/Kanzleien/…]" optimiert.
