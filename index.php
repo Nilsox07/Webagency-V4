@@ -63,9 +63,9 @@ $pageDesc  = $brief['description'];
     <section class="hero">
       <div class="container">
         <span class="label">Webdesign-Agentur · Festpreis</span>
-        <h1>Firmenwebsites, die <em>verkaufen</em>.</h1>
+        <h1>Webdesign zum <em>Festpreis</em> für kleine Unternehmen.</h1>
         <div class="hero-row">
-          <p class="hero-sub">Wir bauen Firmenwebsites für Handwerk, Praxen, Kanzleien und Dienstleister. Zum Festpreis, fertig in 7 bis 14 Werktagen.</p>
+          <p class="hero-sub">Wir bauen Firmenwebsites für Handwerk, Praxen, Kanzleien und Dienstleister. Fertig in 7 bis 14 Werktagen, mit fester Ansprechperson.</p>
           <div class="hero-act">
             <a href="anfrage.php" class="btn btn-primary btn-lg">Projekt starten <span class="arr" aria-hidden="true">→</span></a>
             <a href="#arbeiten" class="btn btn-ghost btn-lg">Arbeiten ansehen</a>
