@@ -16,13 +16,14 @@ Selbst gebaute, **fiktive** Referenz-Websites für Sartus Wunschbranchen. Zweck:
 ## Bestand
 | Datei | Branche | Paket-Demo | Status |
 |---|---|---|---|
-| `praxis.html` | Zahnarztpraxis (Muster) | Wachstum | fertig · Grün, editorial |
-| `kanzlei.html` | Kanzlei/Steuerberater (Muster) | Platzhirsch | fertig · Navy/Gold, Serif, umfangreich |
-| `handwerk.html` | Zimmerei/Dachdeckerei (Muster) | Start/Wachstum | fertig · Anthrazit/Orange, bildstark |
+| `praxis.html` | „Klarfeld" Zahnärzte | Wachstum | fertig · Grün, Zahn-Logo |
+| `kanzlei.html` | „Steinweg" Rechtsanwälte | Platzhirsch | fertig · Navy/Gold, Tempel-Logo |
+| `handwerk.html` | „Holzwerk Nordkamp" | Start/Wachstum | fertig · Anthrazit/Orange, Haus-Logo |
 
-Jede Seite bewusst **eigene Optik** (Schrift, Farbe, Aufbau), damit es nicht nach einer
-Vorlage aussieht. Der Umfang steigt mit der Paketgröße (Handwerk kompakt → Kanzlei
-umfangreich). Assets je Muster in `assets/`, `kanzlei-assets/`, `handwerk-assets/`.
+Jede Seite bewusst **eigene Optik** (Schrift, Farbe, Aufbau, **eigenes Logo**), damit es
+nicht nach einer Vorlage aussieht. Der Umfang steigt mit der Paketgröße (Handwerk kompakt
+→ Kanzlei umfangreich). Namen sind **fiktive Marken** (Beispielprojekte), Logos selbst
+gebaut als Inline-SVG. Assets je Muster in `assets/`, `kanzlei-assets/`, `handwerk-assets/`.
 
 ## Bilder & Rechte (wichtig)
 - Fotos stammen von **Unsplash** (Unsplash-Lizenz: kostenlos, auch kommerziell, ohne

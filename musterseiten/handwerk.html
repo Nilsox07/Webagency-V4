@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="robots" content="noindex,nofollow" />
-<title>Holzbau Muster · Zimmerei und Dachdeckerei (Beispielprojekt)</title>
+<title>Holzwerk Nordkamp · Zimmerei und Dachdeckerei (Beispielprojekt)</title>
 <!-- Beispielprojekt (Sartu-Portfolio). Schriften self-hosted (Oswald + Work Sans, OFL). -->
 <link rel="stylesheet" href="handwerk-assets/gf.css" />
 <style>
@@ -34,8 +34,11 @@
   .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,21,25,.62)0%,rgba(20,21,25,.15)38%,rgba(20,21,25,.82)100%);z-index:1}
   .hnav{position:relative;z-index:2}
   .hnav-in{display:flex;align-items:center;justify-content:space-between;padding:24px 0}
-  .brand{font-family:var(--fd);font-weight:700;font-size:24px;text-transform:uppercase;letter-spacing:.02em;color:#fff}
-  .brand b{color:var(--accent);font-weight:700}
+  .brand,.fbrand{display:inline-flex;align-items:center;gap:12px;text-decoration:none}
+  .brand .mk,.fbrand .mk{width:38px;height:32px;flex:none}
+  .brand .wm,.fbrand .wm{display:flex;flex-direction:column;line-height:.86}
+  .brand .wm .t,.fbrand .wm .t{font-family:var(--fd);font-weight:600;font-size:10px;letter-spacing:.3em;color:var(--accent);text-transform:uppercase}
+  .brand .wm .n,.fbrand .wm .n{font-family:var(--fd);font-weight:700;font-size:25px;letter-spacing:.03em;color:#fff;text-transform:uppercase}
   .hnav-r{display:flex;align-items:center;gap:30px}
   .hnav-r nav{display:flex;gap:26px}
   .hnav-r nav a{font-weight:600;font-size:15px;color:rgba(255,255,255,.9);text-transform:uppercase;letter-spacing:.04em;font-family:var(--fd)}
@@ -103,9 +106,7 @@
 
   footer{background:var(--ink);color:rgba(255,255,255,.65);padding:48px 0 30px}
   .fgrid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:36px;padding-bottom:30px;border-bottom:1px solid rgba(255,255,255,.12)}
-  .fbrand{font-family:var(--fd);font-weight:700;font-size:22px;color:#fff;text-transform:uppercase}
-  .fbrand b{color:var(--accent)}
-  .fbrand p{font-size:14px;margin-top:12px;max-width:34ch;color:rgba(255,255,255,.55)}
+  .fbrand p{font-size:14px;margin-top:14px;max-width:34ch;color:rgba(255,255,255,.55)}
   .fcol h4{font-family:var(--fd);font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:#fff;margin-bottom:12px}
   .fcol a{display:block;font-size:14.5px;padding:4px 0;color:rgba(255,255,255,.65)}
   .fcol a:hover{color:var(--accent)}
@@ -131,7 +132,7 @@
   <img src="handwerk-assets/handwerk-hero.jpg" alt="Zimmerer beim Aufrichten eines Dachstuhls" />
   <div class="hnav">
     <div class="wrap hnav-in">
-      <a class="brand" href="#">Holzbau<b>.</b>Muster</a>
+      <a class="brand" href="#"><svg class="mk" viewBox="0 0 40 34" fill="#d96a26" aria-hidden="true"><path d="M20 2.5 37 17 h-6 v14 h-8 v-9 h-6 v9 H9 V17 H3 Z"/></svg><span class="wm"><span class="t">Holzwerk</span><span class="n">Nordkamp</span></span></a>
       <div class="hnav-r">
         <nav>
           <a href="#leistungen">Leistungen</a>
@@ -220,7 +221,7 @@
       <a class="btn" href="#">Kostenloses Angebot anfordern</a>
     </div>
     <div class="cta-row" style="margin-top:24px">
-      <div class="cta-addr">Holzbau Muster (Beispielbetrieb)<br>Musterstraße 1 · 12345 Musterstadt<br>kontakt@holzbau-muster.de</div>
+      <div class="cta-addr">Holzwerk Nordkamp (Beispielbetrieb)<br>Musterstraße 1 · 12345 Musterstadt<br>kontakt@nordkamp-holzwerk.de</div>
     </div>
   </div>
 </section>
@@ -229,7 +230,7 @@
   <div class="wrap">
     <div class="fgrid">
       <div>
-        <div class="fbrand">Holzbau<b>.</b>Muster</div>
+        <div class="fbrand"><svg class="mk" viewBox="0 0 40 34" fill="#d96a26" aria-hidden="true"><path d="M20 2.5 37 17 h-6 v14 h-8 v-9 h-6 v9 H9 V17 H3 Z"/></svg><span class="wm"><span class="t">Holzwerk</span><span class="n">Nordkamp</span></span></div>
         <p>Meisterbetrieb für Zimmerei und Dachdeckerei. Beispielprojekt zur Veranschaulichung, kein echter Betrieb.</p>
       </div>
       <div class="fcol">
@@ -243,11 +244,11 @@
         <h4>Kontakt</h4>
         <a href="#kontakt">01234 567890</a>
         <a href="#kontakt">Musterstraße 1, Musterstadt</a>
-        <a href="#kontakt">kontakt@holzbau-muster.de</a>
+        <a href="#kontakt">kontakt@nordkamp-holzwerk.de</a>
       </div>
     </div>
     <div class="fbot">
-      <span>© 2026 Holzbau Muster (Beispielprojekt)</span>
+      <span>© 2026 Holzwerk Nordkamp (Beispielprojekt)</span>
       <span>Impressum · Datenschutz</span>
     </div>
   </div>
