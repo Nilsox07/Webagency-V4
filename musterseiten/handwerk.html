@@ -260,9 +260,9 @@
   display:flex;align-items:center;gap:12px;padding:7px 7px 7px 16px;border-radius:999px;
   background:rgba(17,19,23,.92);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
   border:1px solid rgba(255,255,255,.12);box-shadow:0 8px 30px rgba(0,0,0,.28);
-  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;max-width:calc(100vw - 24px)}
-.sartu-bar__dot{width:8px;height:8px;border-radius:50%;background:#12A594;flex:0 0 auto;box-shadow:0 0 0 3px rgba(18,165,148,.22)}
-.sartu-bar__txt{color:#e7eaee;font-size:13px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;width:max-content;max-width:calc(100vw - 24px)}
+.sartu-bar__logo{flex:0 0 auto;font-weight:700;font-size:15px;letter-spacing:.01em;color:#12A594;line-height:1;padding-right:12px;border-right:1px solid rgba(255,255,255,.16)}
+.sartu-bar__txt{color:#e7eaee;font-size:13px;line-height:1.25;white-space:nowrap}
 .sartu-bar__txt b{color:#fff;font-weight:600}
 .sartu-bar__cta{flex:0 0 auto;display:inline-flex;align-items:center;gap:6px;background:#12A594;color:#fff;
   text-decoration:none;font-size:13px;font-weight:600;padding:8px 15px;border-radius:999px;transition:background .18s ease}
@@ -273,12 +273,12 @@
   .sartu-bar__cta:hover{transform:translateY(-1px)}
 }
 @keyframes sartuBarIn{from{opacity:0;transform:translateX(-50%) translateY(12px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
-@media (max-width:520px){.sartu-bar{gap:10px;padding:6px 6px 6px 14px}.sartu-bar__txt{white-space:normal;font-size:12px}}
+@media@media (max-width:520px){.sartu-bar{gap:10px;padding:6px 6px 6px 14px;width:auto}.sartu-bar__txt{white-space:normal;font-size:12px}}
 </style>
 <aside class="sartu-bar" aria-label="Sartu Portfolio">
-  <span class="sartu-bar__dot" aria-hidden="true"></span>
+  <span class="sartu-bar__logo">Sartu</span>
   <span class="sartu-bar__txt">Beispielprojekt · so könnte eine <b>Start</b>-Website aussehen</span>
-  <a class="sartu-bar__cta" href="../briefing.php">Jetzt anfragen →</a>
+  <a class="sartu-bar__cta" href="../anfrage.php?paket=start">Start anfragen →</a>
 </aside>
 </body>
 </html>
