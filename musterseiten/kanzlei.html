@@ -46,15 +46,15 @@
   .nav-r nav a:hover{color:var(--gold)}
 
   /* Hero */
-  .hero{padding:76px 0 84px}
-  .hero-grid{display:grid;grid-template-columns:1.06fr .94fr;gap:64px;align-items:center}
-  .hero .kicker{margin-bottom:22px}
-  .hero h1{font-size:60px;font-weight:600;letter-spacing:-.02em}
-  .hero .lede{margin:26px 0 34px;max-width:44ch;font-size:20px}
+  /* Hero typo-geführt (kein Split, bewusst anders als die Praxis) */
+  .hero{padding:88px 0 62px}
+  .hero-in{max-width:960px}
+  .hero .kicker{margin-bottom:24px;display:block}
+  .hero h1{font-size:68px;font-weight:600;letter-spacing:-.025em;max-width:15ch}
+  .hero .lede{margin:28px 0 36px;max-width:56ch;font-size:21px}
   .hero-act{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
-  .hero-fig{position:relative;aspect-ratio:1/1.2;overflow:hidden}
-  .hero-fig img{width:100%;height:100%;object-fit:cover}
-  .hero-fig::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
+  .cover{width:100%;height:58vh;min-height:440px;overflow:hidden;border-top:1px solid var(--line)}
+  .cover img{width:100%;height:100%;object-fit:cover}
 
   /* Kennzahlen */
   .stats{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--surface)}
@@ -185,21 +185,19 @@
 
 <main>
   <section class="hero">
-    <div class="wrap hero-grid">
-      <div>
-        <span class="kicker">Rechtsanwälte und Steuerberater</span>
-        <h1>Rechtsberatung mit ruhiger Hand und langem Atem.</h1>
-        <p class="lede">Für Unternehmen und Privatpersonen, die eine Kanzlei suchen, die zuhört, klar einschätzt und verlässlich an ihrer Seite bleibt.</p>
-        <div class="hero-act">
-          <a class="btn" href="#kontakt">Termin vereinbaren</a>
-          <a class="btn btn-o" href="#rechtsgebiete">Rechtsgebiete ansehen</a>
-        </div>
+    <div class="wrap hero-in">
+      <span class="kicker">Rechtsanwälte und Steuerberater</span>
+      <h1>Rechtsberatung mit ruhiger Hand und langem Atem.</h1>
+      <p class="lede">Für Unternehmen und Privatpersonen, die eine Kanzlei suchen, die zuhört, klar einschätzt und verlässlich an ihrer Seite bleibt.</p>
+      <div class="hero-act">
+        <a class="btn" href="#kontakt">Termin vereinbaren</a>
+        <a class="btn btn-o" href="#rechtsgebiete">Rechtsgebiete ansehen</a>
       </div>
-      <figure class="hero-fig">
-        <img src="kanzlei-assets/kanzlei-hero.jpg" alt="Bibliothek der Kanzlei mit historischen Rechtsbänden" />
-      </figure>
     </div>
   </section>
+  <div class="cover">
+    <img src="kanzlei-assets/kanzlei-cover.jpg" alt="Bibliothek der Kanzlei mit historischen Rechtsbänden" />
+  </div>
 
   <div class="stats">
     <div class="wrap stats-in">
