@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>document.documentElement.classList.add('js');</script>
   <meta name="description" content="Sartu ist die Webdesign-Agentur für hochwertige Firmenwebsites zum Festpreis: klare Struktur, verständliche Texte, SEO/GEO-Grundlagen und saubere Technik." />
   <title>Webdesign-Agentur für hochwertige Firmenwebsites | Sartu</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=46" />
+  <link rel="stylesheet" href="styles.css?v=47" />
   <link rel="icon" href="assets/logo-teal.png" type="image/png" />
   <link rel="canonical" href="https://[DOMAIN]/" />
   <meta name="robots" content="noindex,nofollow" />
@@ -158,7 +159,7 @@
 
     <!-- ===== ABSCHNITT 2 · Problem & Lösung ===== -->
     <section class="story-split-section" aria-label="Warum viele Websites nicht genug Anfragen bringen">
-      <div class="container story-split">
+      <div class="container story-split reveal">
         <div class="story-copy">
           <p class="eyebrow eyebrow-green">Das eigentliche Problem</p>
           <h2 class="section-title">Viele Websites sehen ordentlich aus, erklären aber nicht schnell genug, warum man anfragen sollte.</h2>
@@ -173,7 +174,7 @@
 
     <!-- ===== ABSCHNITT 4 · Methode & Demo ===== -->
     <section class="method-demo-section" aria-label="Sartu Methode und beispielhafte Seitenstruktur">
-      <div class="container method-demo-grid">
+      <div class="container method-demo-grid reveal">
         <div class="method-copy">
           <p class="eyebrow">Methode</p>
           <h2>Aus Bauchgefühl wird ein klarer Website-Plan.</h2>
@@ -217,13 +218,13 @@
           <p>Sie wählen den passenden Umfang. Texte, Struktur, Design und technische Grundlage sind sauber mitgedacht.</p>
         </div>
 
-        <div class="plan-grid">
+        <div class="plan-grid reveal">
           <!-- Start -->
           <article class="price-card">
             <h3 class="price-name">Start</h3>
             <p class="price-situation">Für Sie, wenn Kunden Sie googeln und einen richtig guten Eindruck bekommen sollen.</p>
             <div class="price-amount">1.290&nbsp;<span class="price-unit">€</span></div>
-            <p class="price-care">+ 49 €/Monat Rundum-Schutz <span>— gehört dazu</span></p>
+            <p class="price-care"><span class="req-tag">Pflicht</span> + 49 €/Monat Rundum-Schutz <span class="req-note">(monatlich, mind. 12 Monate)</span></p>
             <ul class="price-features">
               <li>Alles Wichtige auf einer Seite</li>
               <li>Alle Texte inklusive — Sie liefern nur Stichpunkte</li>
@@ -239,7 +240,7 @@
             <h3 class="price-name">Wachstum</h3>
             <p class="price-situation">Für Sie, wenn Ihre Website aktiv neue Anfragen bringen soll.</p>
             <div class="price-amount">3.290&nbsp;<span class="price-unit">€</span></div>
-            <p class="price-care">+ 99 €/Monat Rundum-Schutz <span>— gehört dazu</span></p>
+            <p class="price-care"><span class="req-tag">Pflicht</span> + 99 €/Monat Rundum-Schutz <span class="req-note">(monatlich, mind. 12 Monate)</span></p>
             <ul class="price-features">
               <li>Bis zu 8 Seiten — jede Leistung einzeln gefunden</li>
               <li>Alle Texte inklusive · Google-Profil &amp; Anfragen messen</li>
@@ -254,7 +255,7 @@
             <h3 class="price-name">Platzhirsch</h3>
             <p class="price-situation">Für Sie, wenn Sie in Ihrer Region die Nummer 1 sein möchten.</p>
             <div class="price-amount">6.490&nbsp;<span class="price-unit">€</span></div>
-            <p class="price-care">+ 249 €/Monat Rundum-Schutz <span>— gehört dazu</span></p>
+            <p class="price-care"><span class="req-tag">Pflicht</span> + 249 €/Monat Rundum-Schutz <span class="req-note">(monatlich, mind. 12 Monate)</span></p>
             <ul class="price-features">
               <li>Bis zu 20 Seiten inkl. Team &amp; Jobs</li>
               <li>Logo &amp; Online-Terminbuchung inklusive</li>
@@ -287,7 +288,7 @@
     <!-- ===== ABSCHNITT 5/6 · Ablauf, Garantie & Team ===== -->
     <section class="home-section" aria-label="Ablauf, Garantie und Team">
     <!-- ============ JOURNEY / ABLAUF ============ -->
-    <div class="journey" id="ablauf">
+    <div class="journey reveal" id="ablauf">
       <div class="container">
         <div class="journey-head">
           <p class="eyebrow eyebrow-green center">So läuft's</p>
@@ -324,7 +325,7 @@
 
     <!-- ============ GUARANTEE BAND ============ -->
     <div class="guarantee">
-      <div class="container guarantee-inner">
+      <div class="container guarantee-inner reveal">
         <span class="guarantee-icon">
           <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.4 8.5-8 10-4.6-1.5-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg>
         </span>
@@ -350,7 +351,7 @@
           <h2 class="section-title">Antworten auf die Fragen, die vor einem Website-Projekt wirklich zählen.</h2>
           <p>Kompakte Ratgeber zu Kosten, Barrierefreiheit und Seitenstruktur. Ausführlicher, wenn es hilfreich ist, aber ohne unnötigen Fachnebel.</p>
         </div>
-        <div class="service-cards guide-cards-compact">
+        <div class="service-cards guide-cards-compact reveal">
           <article class="service-card">
             <span class="svc-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
             <h3>Was kostet eine Website 2026?</h3>
@@ -388,7 +389,7 @@
           <p>Kurze Antworten rund um Ablauf, Preise und Zusammenarbeit mit Sartu. Ist Ihre Frage nicht dabei? Schreiben Sie uns einfach.</p>
         </div>
 
-        <div class="faq-list">
+        <div class="faq-list reveal">
           <details class="faq-item"><summary>Was kostet eine professionelle Website 2026?</summary><div class="faq-a">Eine professionelle Website kostet 2026 je nach Umfang meist zwischen etwa 1.000&nbsp;€ und 10.000&nbsp;€ oder mehr. Entscheidend sind Seitenanzahl, Designanspruch, Texte, SEO, Technik, DSGVO-Setup und laufende Wartung. Ausführlich: <a href="ratgeber-website-kosten.php">Website-Kosten 2026</a>.</div></details>
           <details class="faq-item"><summary>Wie schnell kann eine kleine Firmenwebsite online gehen?</summary><div class="faq-a">Ein kleiner Onepager kann nach vollständigen Inhalten oft innerhalb von 7 bis 14 Werktagen online sein. Größere Firmenwebsites dauern länger, weil Struktur, Texte, Bilder, SEO und Feedback sauber abgestimmt werden müssen. Mehr dazu: <a href="ratgeber-website-erstellen.php">Website erstellen lassen</a>.</div></details>
           <details class="faq-item"><summary>Lohnt sich eine Webdesign-Agentur oder reicht ein Website-Baukasten?</summary><div class="faq-a">Ein Baukasten kann reichen, wenn Sie viel selbst machen möchten und keine starke Google-Sichtbarkeit brauchen. Eine Webdesign-Agentur lohnt sich, wenn die Website professionell wirken, schnell laden, rechtlich sauber sein und planbar Anfragen bringen soll. Die Kostenfrage erklärt der <a href="ratgeber-website-kosten.php">Website-Kosten-Ratgeber</a>.</div></details>
@@ -404,7 +405,7 @@
 
     <section class="home-section" aria-label="Website-Projekt unverbindlich starten">
       <div class="cta home-final-cta">
-        <div class="container cta-visual-grid">
+        <div class="container cta-visual-grid reveal">
           <div class="cta-copy">
             <p class="eyebrow">Nächster Schritt</p>
             <h2 class="section-title light">Lassen Sie Ihre Website klarer, seriöser und anfrage-stärker werden.</h2>
@@ -424,7 +425,7 @@
 
   <?php render_site_footer('#top'); ?>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=2"></script>
   <script src="cookies.js?v=2"></script>
   <script src="fab.js?v=3"></script>
 </body>

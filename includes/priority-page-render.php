@@ -195,7 +195,7 @@ function render_priority_page(string $slug): void
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=46" />
+  <link rel="stylesheet" href="styles.css?v=47" />
   <link rel="canonical" href="<?= priority_page_e($url) ?>" />
   <meta name="robots" content="noindex,nofollow" />
   <meta property="og:type" content="website" />
@@ -309,7 +309,7 @@ function render_priority_page(string $slug): void
 
   <?php render_site_footer('./'); ?>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=2"></script>
   <script src="cookies.js?v=2"></script>
   <script src="fab.js?v=3"></script>
 </body>

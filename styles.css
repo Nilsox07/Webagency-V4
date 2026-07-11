@@ -43,7 +43,15 @@ body {
 
 h1, h2, h3, h4, p, li, summary, a, button, label {
   overflow-wrap: break-word;
-  hyphens: auto;
+  hyphens: manual; /* keine automatische Silbentrennung (DE brach Wörter mittendrin: "ge-hört", "Firmennamen-Su-che") */
+}
+
+/* Überschriften & Eyebrow-Labels: nie mitten im Wort brechen, ausbalancierter Umbruch */
+h1, h2, h3, h4,
+.eyebrow {
+  hyphens: none;
+  overflow-wrap: normal;
+  text-wrap: balance;
 }
 
 img { max-width: 100%; display: block; }
@@ -3678,4 +3686,85 @@ main > .svc-hero + .svc-section .svc-prose .answer-first strong {
 .promo-bar-x:hover { color: #eaf1ef; }
 @media (max-width: 640px) {
   .promo-bar-cta { margin-left: 0; }
+}
+
+/* ============================================================
+   Phase B · Startseiten-Politur (2026-07)
+   Silbentrennung (oben), Banding, Pflichtkosten, Motion
+   ============================================================ */
+
+/* B3 · Rundum-Schutz als Pflicht unmissverständlich kennzeichnen */
+.price-care {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px;
+}
+.price-care .req-tag {
+  display: inline-flex; align-items: center;
+  font-size: 11px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase;
+  color: #fff; background: var(--green-strong);
+  padding: 3px 8px; border-radius: 6px; line-height: 1;
+}
+.price-care .req-note {
+  flex-basis: 100%;
+  font-weight: 500; color: var(--text-muted); font-size: 12.5px;
+}
+
+/* B2 · Banding beruhigen: nur Preis-Sektion + Schluss-CTA bleiben dunkel.
+   Vertrauens-Leiste und Garantie-Band auf hell/neutral (weniger hell↔dunkel-Wechsel). */
+.trust-bar {
+  background: var(--bg-light);
+  border-top: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
+}
+.trust-bar .trust-item { color: var(--text-dark); }
+
+.guarantee {
+  background: var(--bg-light);
+  color: var(--text-dark);
+  border-top: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
+}
+.guarantee .guarantee-text h3 { color: var(--text-dark); }
+.guarantee .guarantee-text p { color: var(--text-muted); }
+.guarantee .guarantee-icon { background: rgba(18, 165, 148, 0.10); color: var(--green-strong); }
+
+/* B4 · Motion — nur zweckmäßig, ausschließlich transform + opacity, gated.
+   Regeln nach Emil Kowalski (animations.dev): ease-out, sub-300ms, kein ease-in. */
+@media (prefers-reduced-motion: no-preference) {
+
+  /* Preiskarten: leichter Hover-Lift — nur für echte Zeigegeräte (kein False-Hover auf Touch) */
+  @media (hover: hover) and (pointer: fine) {
+    .price-card { transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 150ms ease-out; }
+    .price-card:hover { transform: translateY(-4px); }
+  }
+
+  /* Buttons: dezentes Press-Feedback */
+  .btn:active { transform: scale(0.97); }
+
+  /* FAQ-Akkordeon: sanftes Expand (Höhe + Opazität via ::details-content, degradiert auf Sofort-Öffnen) */
+  :root { interpolate-size: allow-keywords; }
+  .faq-item::details-content {
+    block-size: 0;
+    opacity: 0;
+    overflow: clip;
+    transition: block-size 220ms cubic-bezier(0.23, 1, 0.32, 1), opacity 200ms ease-out, content-visibility 220ms allow-discrete;
+    content-visibility: hidden;
+  }
+  .faq-item[open]::details-content {
+    block-size: auto;
+    opacity: 1;
+    content-visibility: visible;
+  }
+
+  /* Sektionen: Fade + Rise beim Scrollen. Verborgen-Zustand nur bei aktivem JS (html.js),
+     damit ohne JS nichts unsichtbar bleibt. .is-visible setzt der IntersectionObserver. */
+  html.js .reveal {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 480ms ease-out, transform 480ms cubic-bezier(0.23, 1, 0.32, 1);
+    will-change: opacity, transform;
+  }
+  html.js .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
 }
