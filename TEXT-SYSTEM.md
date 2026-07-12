@@ -56,7 +56,7 @@ genannt werden.
 5. **Ehrlich statt Superlativ.** Kein „führend", „innovativ", „beste Lösung".
 6. **Aktiv, Verben statt Nominalisierung.**
 7. **Kein Füllstoff.** Streichbarer Satz wird gestrichen.
-8. **Einwände direkt ansprechen.** „Festpreis vorab", „kein Abo-Zwang", „erst sehen, dann zahlen".
+8. **Einwände direkt ansprechen.** „Festpreis vorab", „keine Miet-Website", „erst sehen, dann zahlen".
 9. **Keine Em-/En-Dashes (—/–)** als Satzzeichen. (Zahlen-Bereich wie 7–14 ist ok.)
 10. **Deutsche Marketing-Tonalität:** Vertrauen, Klarheit, Verlässlichkeit. Kein Tech-Sprech, kein Emoji-Feuerwerk.
 
@@ -80,8 +80,9 @@ Vorher → Nachher:
 - **Express:** **+50 %** (mind. 390 €), Ergebnis in **etwa halber Zeit** (One-Pager ~3, Wachstum ~7 Werktage).
 - **Korrekturrunden:** 1 / 1 / 2. · **SEO-Betreuung:** monatlich, nach Paket gestaffelt (Werte aus `pricing.js`), nach 3 Mon. kündbar.
 - **KI-Chat-Assistent:** 990 € + 79 €/Mon. (nicht mit dem Anfrage-Konfigurator verwechseln).
-- **Haltung:** kein Abo-Zwang bei der Anfrage, Festpreis vorab, Hosting in Deutschland, DSGVO,
-  feste Ansprechperson. Beweis = **Beispielprojekte** + Garantie + transparenter Ablauf (keine erfundenen Referenzen).
+- **Haltung:** Anfrage kostenlos & unverbindlich; Website = Einmal-Festpreis (gehört dem Kunden,
+  **keine Miet-Website**); Rundum-Schutz monatlich **verpflichtend** (mind. 12 Mon.) und transparent
+  so benannt — **niemals „kein Abo"** behaupten; Hosting in Deutschland, DSGVO, feste Ansprechperson. Beweis = **Beispielprojekte** + Garantie + transparenter Ablauf (keine erfundenen Referenzen).
 
 ## 5. Seitentyp-Checklisten
 - **Startseite:** H1 = Kern-Keyword (Webdesign/Festpreis) · ein CTA + ein Trust above the fold ·

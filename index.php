@@ -31,7 +31,7 @@ $pageDesc  = $brief['description'];
         { "@type": "Question", "name": "Was kostet eine Firmenwebsite bei Sartu?", "acceptedAnswer": { "@type": "Answer", "text": "Sartu baut Firmenwebsites zum Festpreis: Start 1.290 €, Wachstum 3.290 €, Platzhirsch 6.490 €. Dazu kommt der monatliche Rundum-Schutz für den sicheren Betrieb ab 49 €. Den genauen Festpreis erhalten Sie vorab schriftlich." } },
         { "@type": "Question", "name": "Wie schnell ist meine Website online?", "acceptedAnswer": { "@type": "Answer", "text": "Nach vollständigen Inhalten geht eine kleine Website oft in 7 bis 14 Werktagen online. Mit der Express-Option liefern wir in etwa halber Zeit, gegen einen Aufschlag von 50 Prozent." } },
         { "@type": "Question", "name": "Welche Seiten brauche ich? Ich weiß es selbst nicht genau.", "acceptedAnswer": { "@type": "Answer", "text": "Das müssen Sie nicht wissen. Sie sagen uns, was Ihre Firma macht und was die Website erreichen soll. Sartu empfiehlt daraus das passende Paket und schlägt die konkrete Seitenstruktur im Angebot vor." } },
-        { "@type": "Question", "name": "Bin ich an einen Vertrag gebunden?", "acceptedAnswer": { "@type": "Answer", "text": "Die Anfrage ist unverbindlich und kostenlos. Sie erhalten einen Festpreis schriftlich und entscheiden dann in Ruhe. Es entsteht kein Abo-Zwang für die Website selbst." } }
+        { "@type": "Question", "name": "Bin ich an einen Vertrag gebunden?", "acceptedAnswer": { "@type": "Answer", "text": "Die Anfrage ist kostenlos und unverbindlich. Die Website zahlen Sie einmalig zum Festpreis und sie gehört Ihnen, keine Miet-Website. Für den sicheren Betrieb kommt der monatliche Rundum-Schutz dazu (Pflicht, mindestens 12 Monate). Hosting, Backups und Updates braucht jede Website ohnehin." } }
       ] }
     ]
   }
@@ -76,7 +76,7 @@ $pageDesc  = $brief['description'];
           <span><b>Festpreis</b> ab 1.290 €</span>
           <span><b>7–14</b> Werktage</span>
           <span><b>Hosting</b> in Deutschland</span>
-          <span><b>Kein</b> Abo-Zwang</span>
+          <span><b>Keine</b> Miet-Website</span>
         </div>
       </div>
     </section>
@@ -251,7 +251,7 @@ $pageDesc  = $brief['description'];
           <div class="step">
             <span class="n">02</span>
             <h3>Empfehlung &amp; Festpreis</h3>
-            <p>Sie bekommen eine klare Paket-Empfehlung und Ihren Festpreis schwarz auf weiß. Kein Vertrag, kein Abo-Zwang.</p>
+            <p>Sie bekommen eine klare Paket-Empfehlung und Ihren Festpreis schwarz auf weiß. Alles unverbindlich, bis Sie zusagen.</p>
           </div>
           <div class="step">
             <span class="n">03</span>
@@ -282,7 +282,7 @@ $pageDesc  = $brief['description'];
           <details class="faq-item"><summary>Was kostet eine Firmenwebsite bei Sartu?</summary><div class="faq-a">Wir arbeiten zum Festpreis: Start 1.290 €, Wachstum 3.290 €, Platzhirsch 6.490 €. Dazu kommt der monatliche Rundum-Schutz für den sicheren Betrieb (ab 49 €). Den genauen Festpreis bekommen Sie vorab schriftlich. Mehr auf der <a href="preise.php">Preisseite</a>.</div></details>
           <details class="faq-item"><summary>Ich weiß selbst nicht, welche Seiten ich brauche.</summary><div class="faq-a">Das müssen Sie auch nicht. Sie sagen uns, was Ihre Firma macht und was die Website erreichen soll. Wir empfehlen daraus das passende Paket und schlagen die konkrete Seitenstruktur im Angebot vor. Sie entscheiden dann.</div></details>
           <details class="faq-item"><summary>Wie schnell ist meine Website online?</summary><div class="faq-a">Nach vollständigen Inhalten geht eine kleine Website oft in 7 bis 14 Werktagen online. Mit der Express-Option liefern wir in etwa halber Zeit, gegen einen Aufschlag von 50 Prozent.</div></details>
-          <details class="faq-item"><summary>Bin ich an einen Vertrag gebunden?</summary><div class="faq-a">Die Anfrage ist kostenlos und unverbindlich. Sie erhalten einen Festpreis schriftlich und entscheiden in Ruhe. Kein Abo-Zwang für die Website selbst.</div></details>
+          <details class="faq-item"><summary>Bin ich an einen Vertrag gebunden?</summary><div class="faq-a">Die Anfrage ist kostenlos und unverbindlich. Die Website zahlen Sie einmalig zum Festpreis, sie gehört Ihnen (keine Miet-Website). Für den sicheren Betrieb kommt der monatliche Rundum-Schutz dazu (Pflicht, mind. 12 Monate). Hosting, Backups und Updates braucht jede Website ohnehin.</div></details>
           <details class="faq-item"><summary>Werde ich bei Google gefunden?</summary><div class="faq-a">Jede Website bekommt eine saubere Struktur, gute Texte und die technischen Grundlagen für Google und die KI-Suche. Für laufende Sichtbarkeit gibt es die <a href="leistung-seo.php">SEO-Betreuung</a>, monatlich und nach 3 Monaten kündbar.</div></details>
         </div>
       </div>

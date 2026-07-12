@@ -22,7 +22,7 @@ function sartu_copy_briefs(): array
             'intent'       => 'kommerziell — Firma sucht eine Website, die Kunden bringt',
             'audience'     => 'Inhaber kleiner/mittlerer Betriebe ohne Web-Vorwissen',
             'kernbotschaft'=> 'Website zum Festpreis, die Anfragen bringt — fertig in 7–14 Werktagen, ohne Agentur-Nebel.',
-            'beweise'      => ['3 Beispielprojekte live ansehen', 'Festpreis vorab, kein Abo-Zwang', 'feste Ansprechperson', 'Hosting in Deutschland, DSGVO', 'Zufriedenheits-Garantie'],
+            'beweise'      => ['3 Beispielprojekte live ansehen', 'Festpreis vorab, keine Miet-Website', 'feste Ansprechperson', 'Hosting in Deutschland, DSGVO', 'Zufriedenheits-Garantie'],
             'cta'          => 'Projekt starten',
             'title'        => 'Sartu — Webdesign zum Festpreis, das Kunden bringt',
             'description'  => 'Firmenwebsite zum Festpreis ab 1.290 €, fertig in 7–14 Werktagen. Klarer Ablauf, feste Ansprechperson, Hosting in Deutschland. Jetzt Projekt starten.',
@@ -130,10 +130,10 @@ function sartu_copy_briefs(): array
             'intent'       => 'kommerziell/vergleichend — was kostet eine Website',
             'audience'     => 'Interessent im Preisvergleich',
             'kernbotschaft'=> 'Klare Festpreise ohne Agentur-Nebel: Sie wissen vorab genau, was Ihre Website kostet.',
-            'beweise'      => ['3 Pakete: 1.290 / 3.290 / 6.490 €', 'Rundum-Schutz ab 49 €/Mon.', 'kein Abo-Zwang, Festpreis vorab'],
+            'beweise'      => ['3 Pakete: 1.290 / 3.290 / 6.490 €', 'Rundum-Schutz ab 49 €/Mon. (Pflicht)', 'keine Miet-Website, Festpreis vorab'],
             'cta'          => 'Passendes Paket anfragen',
             'title'        => 'Preise — Website zum Festpreis ab 1.290 € | Sartu',
-            'description'  => 'Klare Festpreise: Start 1.290 €, Wachstum 3.290 €, Platzhirsch 6.490 €. Betrieb ab 49 €/Monat. Ohne Abo-Zwang, Festpreis vorab.',
+            'description'  => 'Klare Festpreise: Start 1.290 €, Wachstum 3.290 €, Platzhirsch 6.490 €. Plus Rundum-Schutz ab 49 €/Monat. Festpreis vorab, keine Miet-Website.',
         ],
 
         'ablauf' => [
