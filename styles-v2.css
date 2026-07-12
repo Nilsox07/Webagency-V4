@@ -114,7 +114,7 @@ strong{font-weight:600}
 /* Prozess-Karte (ehrliches Ablauf-Diagramm statt fake Produkt-UI) */
 .hero-card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:26px 26px 22px;box-shadow:var(--shadow);position:relative;z-index:1}
 .hc-label{font-family:var(--fl);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--petrol-deep);margin-bottom:14px}
-.hc-chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:20px}
+.hc-chips{display:flex;flex-wrap:wrap;gap:7px;margin:9px 0 2px}
 .hc-chips span{font-family:var(--fu);font-size:12.5px;font-weight:500;color:var(--ink-2);background:var(--bone-2);border:1px solid var(--line);border-radius:999px;padding:5px 11px}
 .hc-steps{list-style:none;display:flex;flex-direction:column;gap:14px}
 .hc-steps li{display:flex;gap:14px;align-items:flex-start}

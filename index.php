@@ -51,7 +51,7 @@ $pageDesc  = $brief['description'];
         <a href="ueber-uns.php">Über uns</a>
       </nav>
       <div class="hdr-right">
-        <a href="anfrage.php" class="btn btn-primary hdr-cta">Projekt starten</a>
+        <a href="anfrage.php" class="btn btn-primary hdr-cta">Kostenlos starten</a>
         <button class="hdr-burger" aria-label="Menü"><span></span><span></span><span></span></button>
       </div>
     </div>
@@ -67,19 +67,28 @@ $pageDesc  = $brief['description'];
           <div class="hero-copy">
             <span class="label">Webdesign-Agentur · Festpreis</span>
             <h1>Webdesign zum <em>Festpreis</em> für kleine Unternehmen.</h1>
-            <p class="hero-sub">Laden Sie hoch, was Sie schon haben: Logo, Fotos, Texte, Speisekarte oder alte Website. Wir sortieren daraus Ihre professionelle Firmenwebsite.</p>
+            <p class="hero-sub">Sie müssen nicht wissen, welche Seiten Sie brauchen. Laden Sie hoch, was Sie haben, wir machen daraus Ihre professionelle Firmenwebsite.</p>
             <div class="hero-act">
               <a href="anfrage.php" class="btn btn-primary btn-lg">Kostenlos starten <span class="arr" aria-hidden="true">→</span></a>
               <a href="#arbeiten" class="btn btn-ghost btn-lg">Beispiele ansehen</a>
             </div>
           </div>
-          <aside class="hero-card" aria-label="So einfach geht's">
-            <p class="hc-label">So einfach geht's</p>
-            <div class="hc-chips"><span>Logo</span><span>Fotos</span><span>Texte</span><span>Speisekarte</span><span>alte Website</span></div>
+          <aside class="hero-card" aria-label="So läuft es ab">
+            <p class="hc-label">So läuft's · digital, ohne Termine</p>
             <ol class="hc-steps">
-              <li><span class="hc-n">1</span><div><b>Material hochladen</b><p>Was Sie schon haben, reicht. Fehlt etwas, machen wir es.</p></div></li>
-              <li><span class="hc-n">2</span><div><b>Wir sortieren &amp; planen</b><p>Struktur, Seiten und Inhalte, passend zu Ihrem Paket.</p></div></li>
-              <li><span class="hc-n">3</span><div><b>Wir bauen &amp; gehen online</b><p>Design, Texte, Technik. Fertig in 7 bis 14 Werktagen.</p></div></li>
+              <li><span class="hc-n">1</span><div>
+                <b>Anfrage mit Lumi</b>
+                <p>In wenigen Klicks sagen Sie, was Ihre Firma macht, und laden hoch, was Sie haben.</p>
+                <div class="hc-chips"><span>Logo</span><span>Fotos</span><span>Texte</span><span>Speisekarte</span><span>alte Website</span></div>
+              </div></li>
+              <li><span class="hc-n">2</span><div>
+                <b>Festpreis-Angebot</b>
+                <p>Sie bekommen Paket-Empfehlung und Ihren Festpreis schriftlich. Unverbindlich.</p>
+              </div></li>
+              <li><span class="hc-n">3</span><div>
+                <b>Alles im Portal, kontaktlos</b>
+                <p>Nach Ihrem OK: Feedback per Klick, Freigabe, Onlinegang. Ohne Meetings.</p>
+              </div></li>
             </ol>
           </aside>
         </div>
