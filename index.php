@@ -63,20 +63,31 @@ $pageDesc  = $brief['description'];
     <section class="hero">
       <div class="hero-fx" aria-hidden="true"><div class="fx-parallax"><span class="fx-blobs"><span class="fx-blob fx-b1"></span><span class="fx-blob fx-b2"></span><span class="fx-blob fx-b3"></span></span><span class="fx-dots"></span></div></div>
       <div class="container">
-        <span class="label">Webdesign-Agentur · Festpreis</span>
-        <h1>Webdesign zum <em>Festpreis</em> für kleine Unternehmen.</h1>
-        <div class="hero-row">
-          <p class="hero-sub">Wir bauen Firmenwebsites für Handwerk, Praxen, Kanzleien und Dienstleister. Fertig in 7 bis 14 Werktagen, mit fester Ansprechperson.</p>
-          <div class="hero-act">
-            <a href="anfrage.php" class="btn btn-primary btn-lg">Projekt starten <span class="arr" aria-hidden="true">→</span></a>
-            <a href="#arbeiten" class="btn btn-ghost btn-lg">Arbeiten ansehen</a>
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <span class="label">Webdesign-Agentur · Festpreis</span>
+            <h1>Webdesign zum <em>Festpreis</em> für kleine Unternehmen.</h1>
+            <p class="hero-sub">Laden Sie hoch, was Sie schon haben: Logo, Fotos, Texte, Speisekarte oder alte Website. Wir sortieren daraus Ihre professionelle Firmenwebsite.</p>
+            <div class="hero-act">
+              <a href="anfrage.php" class="btn btn-primary btn-lg">Kostenlos starten <span class="arr" aria-hidden="true">→</span></a>
+              <a href="#arbeiten" class="btn btn-ghost btn-lg">Beispiele ansehen</a>
+            </div>
           </div>
+          <aside class="hero-card" aria-label="So einfach geht's">
+            <p class="hc-label">So einfach geht's</p>
+            <div class="hc-chips"><span>Logo</span><span>Fotos</span><span>Texte</span><span>Speisekarte</span><span>alte Website</span></div>
+            <ol class="hc-steps">
+              <li><span class="hc-n">1</span><div><b>Material hochladen</b><p>Was Sie schon haben, reicht. Fehlt etwas, machen wir es.</p></div></li>
+              <li><span class="hc-n">2</span><div><b>Wir sortieren &amp; planen</b><p>Struktur, Seiten und Inhalte, passend zu Ihrem Paket.</p></div></li>
+              <li><span class="hc-n">3</span><div><b>Wir bauen &amp; gehen online</b><p>Design, Texte, Technik. Fertig in 7 bis 14 Werktagen.</p></div></li>
+            </ol>
+          </aside>
         </div>
         <div class="hero-meta">
           <span><b>Festpreis</b> ab 1.290 €</span>
           <span><b>7–14</b> Werktage</span>
+          <span><b>Texte</b> inklusive</span>
           <span><b>Hosting</b> in Deutschland</span>
-          <span><b>Keine</b> Miet-Website</span>
         </div>
       </div>
     </section>
@@ -84,8 +95,8 @@ $pageDesc  = $brief['description'];
     <!-- ===================== MARQUEE ===================== -->
     <div class="marq" aria-hidden="true">
       <div class="marq-track">
-        <span>Festpreis</span><span>Keine Agentur-Nebel</span><span>Alle Texte inklusive</span><span>Hosting in Deutschland</span><span>In 14 Tagen online</span>
-        <span>Festpreis</span><span>Keine Agentur-Nebel</span><span>Alle Texte inklusive</span><span>Hosting in Deutschland</span><span>In 14 Tagen online</span>
+        <span>Festpreis</span><span>Kein Fachchinesisch</span><span>Alle Texte inklusive</span><span>Hosting in Deutschland</span><span>In 14 Tagen online</span>
+        <span>Festpreis</span><span>Kein Fachchinesisch</span><span>Alle Texte inklusive</span><span>Hosting in Deutschland</span><span>In 14 Tagen online</span>
       </div>
     </div>
 

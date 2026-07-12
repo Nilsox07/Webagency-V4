@@ -23,7 +23,7 @@ function sartu_copy_briefs(): array
             'audience'     => 'Inhaber kleiner/mittlerer Betriebe ohne Web-Vorwissen',
             'kernbotschaft'=> 'Website zum Festpreis, die Anfragen bringt — fertig in 7–14 Werktagen, ohne Agentur-Nebel.',
             'beweise'      => ['3 Beispielprojekte live ansehen', 'Festpreis vorab, keine Miet-Website', 'feste Ansprechperson', 'Hosting in Deutschland, DSGVO', 'Zufriedenheits-Garantie'],
-            'cta'          => 'Projekt starten',
+            'cta'          => 'Kostenlos starten',
             'title'        => 'Sartu — Webdesign zum Festpreis, das Kunden bringt',
             'description'  => 'Firmenwebsite zum Festpreis ab 1.290 €, fertig in 7–14 Werktagen. Klarer Ablauf, feste Ansprechperson, Hosting in Deutschland. Jetzt Projekt starten.',
         ],

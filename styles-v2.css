@@ -85,16 +85,17 @@ strong{font-weight:600}
 .hero-fx{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;opacity:1}
 .fx-parallax{position:absolute;inset:-14% 0 -24% 0;will-change:transform}
 /* Fließender Petrol-Verlauf: mehrere weiche Blobs driften per transform (GPU) */
-.fx-blobs{position:absolute;inset:0;-webkit-mask:linear-gradient(to top,#000 42%,transparent 86%);mask:linear-gradient(to top,#000 42%,transparent 86%)}
+/* Sehr dezenter Petrol-Ambient rechts, als weicher Schatten hinter der Karte */
+.fx-blobs{position:absolute;inset:0;-webkit-mask:radial-gradient(66% 78% at 76% 42%,#000,transparent 74%);mask:radial-gradient(66% 78% at 76% 42%,#000,transparent 74%)}
 .fx-blob{position:absolute;border-radius:50%;will-change:transform}
-.fx-b1{left:16%;bottom:-24%;width:60%;height:72%;background:radial-gradient(circle,rgba(18,165,148,.50),transparent 66%)}
-.fx-b2{left:44%;bottom:-28%;width:56%;height:66%;background:radial-gradient(circle,rgba(10,95,86,.46),transparent 64%)}
-.fx-b3{left:2%;bottom:-18%;width:46%;height:56%;background:radial-gradient(circle,rgba(96,214,196,.36),transparent 62%)}
+.fx-b1{right:0;top:2%;width:56%;height:82%;background:radial-gradient(circle,rgba(15,111,104,.22),transparent 66%)}
+.fx-b2{right:10%;top:16%;width:46%;height:66%;background:radial-gradient(circle,rgba(18,165,148,.18),transparent 64%)}
+.fx-b3{right:-6%;top:-6%;width:42%;height:58%;background:radial-gradient(circle,rgba(96,214,196,.15),transparent 62%)}
 .fx-dots{position:absolute;inset:0;
-  background-image:radial-gradient(circle, rgba(9,63,57,.6) 1.1px, transparent 1.6px);
-  background-size:22px 22px;
-  -webkit-mask:radial-gradient(58% 58% at 50% 100%, #000 6%, transparent 68%);
-  mask:radial-gradient(58% 58% at 50% 100%, #000 6%, transparent 68%)}
+  background-image:radial-gradient(circle, rgba(9,63,57,.26) 1px, transparent 1.6px);
+  background-size:24px 24px;
+  -webkit-mask:radial-gradient(44% 60% at 78% 40%, #000 4%, transparent 62%);
+  mask:radial-gradient(44% 60% at 78% 40%, #000 4%, transparent 62%)}
 @media (prefers-reduced-motion:no-preference){
   .hero-fx{opacity:0;transform:translateY(16px);animation:fxIn 1.1s cubic-bezier(.2,.7,.2,1) .15s forwards}
   .fx-b1{animation:drift1 19s ease-in-out infinite alternate}
@@ -105,10 +106,21 @@ strong{font-weight:600}
 @keyframes drift1{to{transform:translate(12%,-8%) scale(1.14)}}
 @keyframes drift2{to{transform:translate(-13%,-6%) scale(1.09)}}
 @keyframes drift3{to{transform:translate(10%,-11%) scale(1.16)}}
-.hero h1{font-size:clamp(42px,6.6vw,92px);line-height:.98;letter-spacing:-.03em;font-weight:600;max-width:17ch}
+.hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:52px;align-items:center}
+.hero h1{font-size:clamp(38px,4.7vw,64px);line-height:1;letter-spacing:-.025em;font-weight:600}
 .hero h1 em{color:var(--petrol-deep)}
-.hero-row{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-top:40px;flex-wrap:wrap}
-.hero-sub{font-size:21px;color:var(--ink-2);max-width:40ch;line-height:1.45}
+.hero-sub{font-size:19px;color:var(--ink-2);max-width:42ch;line-height:1.5;margin:22px 0 28px}
+
+/* Prozess-Karte (ehrliches Ablauf-Diagramm statt fake Produkt-UI) */
+.hero-card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:26px 26px 22px;box-shadow:var(--shadow);position:relative;z-index:1}
+.hc-label{font-family:var(--fl);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--petrol-deep);margin-bottom:14px}
+.hc-chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:20px}
+.hc-chips span{font-family:var(--fu);font-size:12.5px;font-weight:500;color:var(--ink-2);background:var(--bone-2);border:1px solid var(--line);border-radius:999px;padding:5px 11px}
+.hc-steps{list-style:none;display:flex;flex-direction:column;gap:14px}
+.hc-steps li{display:flex;gap:14px;align-items:flex-start}
+.hc-n{flex:none;width:30px;height:30px;border-radius:50%;background:var(--petrol);color:#fff;font-family:var(--fd);font-weight:600;font-size:15px;display:grid;place-items:center}
+.hc-steps b{font-family:var(--fd);font-size:17px;font-weight:600;display:block;margin-bottom:1px}
+.hc-steps p{font-size:14px;color:var(--muted);line-height:1.4}
 .hero-act{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
 .hero-meta{display:flex;gap:8px 26px;flex-wrap:wrap;margin-top:34px;padding-top:22px;border-top:1px solid var(--line)}
 .hero-meta span{font-family:var(--fl);font-size:13px;letter-spacing:.03em;color:var(--muted);text-transform:uppercase}
@@ -236,6 +248,7 @@ html.js .reveal.vis{opacity:1}
 @media (max-width:940px){
   .hdr-nav{display:none}
   .hdr-burger{display:flex}
+  .hero-grid{grid-template-columns:1fr;gap:34px}
   .work,.plans,.steps{grid-template-columns:1fr}
   .work:nth-child(even) .work-media{order:0}
   .work{gap:26px}
