@@ -61,7 +61,7 @@ $pageDesc  = $brief['description'];
 
     <!-- ===================== HERO ===================== -->
     <section class="hero">
-      <div class="hero-fx" aria-hidden="true"><div class="fx-parallax"><span class="fx-beam"></span><span class="fx-dots"></span></div></div>
+      <div class="hero-fx" aria-hidden="true"><div class="fx-parallax"><span class="fx-blobs"><span class="fx-blob fx-b1"></span><span class="fx-blob fx-b2"></span><span class="fx-blob fx-b3"></span></span><span class="fx-dots"></span></div></div>
       <div class="container">
         <span class="label">Webdesign-Agentur · Festpreis</span>
         <h1>Webdesign zum <em>Festpreis</em> für kleine Unternehmen.</h1>
